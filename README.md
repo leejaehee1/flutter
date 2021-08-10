@@ -9,7 +9,15 @@
 ### Get Start
 
 ```dart
-$ flutter create
+$ flutter create 프로젝트명
+```
+
+#### VSCode
+
+```
+$ flutter create 프로젝트명
+$ cd 프로젝트명
+$ code .
 ```
 
 
