@@ -30,17 +30,17 @@ class _SliverPageState extends State<SliverPage> with TickerProviderStateMixin {
             backgroundColor: Colors.blue,
             title: CatalogAppBar(),
           ),
-          SliverAppBar(
-            // expandedHeight: 0,
-            elevation: 0,
-            pinned: true,
-            // titleSpacing: 0,
-            backgroundColor: Colors.red,
-            title: CatalogTabBar(
-              tabController: _tabController,
-              // onTap: ,
-            ),
-          ),
+          // SliverAppBar(
+          //   // expandedHeight: 0,
+          //   elevation: 0,
+          //   pinned: true,
+          //   // titleSpacing: 0,
+          //   backgroundColor: Colors.red,
+          //   title: CatalogTabBar(
+          //     tabController: _tabController,
+          //     // onTap: ,
+          //   ),
+          // ),
           // SliverToBoxAdapter(
           //   child: Container(
           //     width: double.infinity,

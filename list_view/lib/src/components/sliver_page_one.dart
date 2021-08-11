@@ -13,33 +13,36 @@ class PageOne extends StatefulWidget {
 class _PageOneState extends State<PageOne> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            TitleText(
-              title: 'General Infomation',
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Column(
-          children: [
-            DropboxText(text: 'Catagory'),
-            DropboxText(text: 'System'),
-            DropboxText(text: 'Sub-System'),
-            TextFieldText(text: 'Unit', hint: 'Create or Add'),
-            TextFieldText(text: 'Area', hint: 'Create or Add'),
-            TextFieldText(text: 'Punch ID', hint: 'Add'),
-            TextFieldText(text: 'Tag Number', hint: 'Create or Add'),
-            _bulk(),
-            _description(),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TitleText(
+                title: 'General Infomation',
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Column(
+            children: [
+              DropboxText(text: 'Catagory'),
+              DropboxText(text: 'System'),
+              DropboxText(text: 'Sub-System'),
+              TextFieldText(text: 'Unit', hint: 'Create or Add'),
+              TextFieldText(text: 'Area', hint: 'Create or Add'),
+              TextFieldText(text: 'Punch ID', hint: 'Add'),
+              TextFieldText(text: 'Tag Number', hint: 'Create or Add'),
+              _bulk(),
+              _description(),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

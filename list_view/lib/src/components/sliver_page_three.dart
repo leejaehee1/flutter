@@ -33,29 +33,8 @@ class _PageThreeState extends State<PageThree> {
             DropboxText(text: 'Raised On'),
             DropboxText(text: 'Target Date'),
             TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
-            _switch('Design Change Required'),
-            _switch('Material Required'),
           ],
         ),
-      ],
-    );
-  }
-
-  Widget _switch(String text) {
-    bool _isChecked = false;
-    return Row(
-      children: [
-        SizedBox(
-          child: Text(text),
-        ),
-        Switch(
-          value: _isChecked,
-          onChanged: (value) {
-            setState(() {
-              _isChecked = value;
-            });
-          },
-        )
       ],
     );
   }

@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 
 class CatalogTabBar extends StatelessWidget {
   final TabController tabController;
-  // final Function onTap;
+  final onTap;
+  // final VoidCallback? onTap;
 
   const CatalogTabBar({
     Key? key,
     required this.tabController,
-    // required this.onTap,
+    required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      // onTap: onTap(),
       controller: tabController,
+      onTap: onTap,
       labelColor: Colors.black,
       indicatorColor: Colors.black,
       indicatorWeight: 2.0,
