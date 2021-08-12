@@ -13,7 +13,7 @@ class TextFieldText extends StatelessWidget {
       children: [
         SizedBox(width: 100, child: Text(text)),
         SizedBox(
-          width: 230,
+          width: 200,
           height: 30,
           child: TextField(
               decoration: InputDecoration(

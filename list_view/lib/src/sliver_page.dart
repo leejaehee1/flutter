@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import 'components/sliver_appbar.dart';
-import 'components/sliver_page_one.dart';
-import 'components/sliver_page_three.dart';
-import 'components/sliver_page_two.dart';
-import 'components/sliver_tabbar.dart';
+import 'pages/sliver_appbar.dart';
+import 'pages/sliver_page_one.dart';
+import 'pages/sliver_page_three.dart';
+import 'pages/sliver_page_two.dart';
+import 'pages/sliver_tabbar.dart';
 
 class SliverPage extends StatefulWidget {
   const SliverPage({Key? key}) : super(key: key);

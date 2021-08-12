@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:list_view/src/components/sliver_appbar.dart';
-import 'package:list_view/src/components/sliver_tabbar.dart';
+import 'package:list_view/src/pages/sliver_appbar.dart';
 
 class SliverPage extends StatefulWidget {
   const SliverPage({Key? key}) : super(key: key);

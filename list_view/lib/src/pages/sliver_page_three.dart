@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:list_view/src/pages/components/image_picker.dart';
 import 'package:list_view/src/utils/dropbox_text.dart';
 import 'package:list_view/src/utils/textfield_text.dart';
 import 'package:list_view/src/utils/title_text.dart';
@@ -16,11 +17,13 @@ class _PageThreeState extends State<PageThree> {
     return Column(
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             TitleText(
               title: 'Attachment',
             ),
+            _switch('Upload Images now'),
           ],
         ),
         SizedBox(
@@ -28,13 +31,33 @@ class _PageThreeState extends State<PageThree> {
         ),
         Column(
           children: [
-            DropboxText(text: 'Action On'),
-            DropboxText(text: 'Discipline'),
-            DropboxText(text: 'Raised On'),
-            DropboxText(text: 'Target Date'),
-            TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
+            Row(
+              children: [
+                Text('Photo'),
+              ],
+            ),
+            ImagePickers(),
           ],
         ),
+      ],
+    );
+  }
+
+  Widget _switch(String text) {
+    bool _isChecked = false;
+    return Row(
+      children: [
+        SizedBox(
+          child: Text(text),
+        ),
+        Switch(
+          value: _isChecked,
+          onChanged: (value) {
+            setState(() {
+              _isChecked = value;
+            });
+          },
+        )
       ],
     );
   }
