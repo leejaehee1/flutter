@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plms_start/screens/utils/checkbox_punch.dart';
 import 'package:plms_start/screens/utils/title_text.dart';
 
 import 'utils/dropbox_text.dart';
@@ -54,7 +55,7 @@ class _PageOneState extends State<PageOne> {
                     TextFieldText(text: 'Area', hint: 'Create or Add'),
                     TextFieldText(text: 'Punch ID', hint: 'Add'),
                     TextFieldText(text: 'Tag Number', hint: 'Create or Add'),
-                    _bulk(),
+                    CheckButton(name: 'Bulk Item'),
                     _description(),
                   ],
                 ),
@@ -63,27 +64,6 @@ class _PageOneState extends State<PageOne> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _bulk() {
-    bool _isChecked = false;
-    return Row(
-      children: [
-        SizedBox(
-          child: Text("Bulk Item"),
-        ),
-        Checkbox(
-          checkColor: Colors.black,
-          value: _isChecked,
-          onChanged: (bool? value) {
-            setState(() {
-              _isChecked = value!;
-              TextField();
-            });
-          },
-        ),
-      ],
     );
   }
 
@@ -96,7 +76,7 @@ class _PageOneState extends State<PageOne> {
           ],
         ),
         Container(
-          height: 190,
+          height: 100,
           child: TextField(
               keyboardType: TextInputType.multiline,
               maxLength: null,

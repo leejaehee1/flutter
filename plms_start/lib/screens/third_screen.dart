@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/screens/utils/swich_punch.dart';
 import 'utils/draft_screen.dart';
 import 'utils/image_picker.dart';
 import 'utils/title_text.dart';
@@ -34,15 +35,13 @@ class _PageThreeState extends State<PageThree> {
             child: Column(
               children: [
                 Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     TitleText(
                       title: 'Attachment',
                     ),
-                    _switch('Upload Images now'),
                   ],
                 ),
+                SwitchButton(name: 'Upload Images now'),
                 SizedBox(
                   height: 20,
                 ),
@@ -80,25 +79,6 @@ class _PageThreeState extends State<PageThree> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _switch(String text) {
-    bool _isChecked = false;
-    return Row(
-      children: [
-        SizedBox(
-          child: Text(text),
-        ),
-        Switch(
-          value: _isChecked,
-          onChanged: (value) {
-            setState(() {
-              _isChecked = value;
-            });
-          },
-        )
-      ],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plms_start/screens/utils/swich_punch.dart';
 import 'utils/dropbox_text.dart';
 import 'utils/textfield_text.dart';
 import 'utils/title_text.dart';
@@ -50,8 +51,12 @@ class _PageTwoState extends State<PageTwo> {
                     DropboxText(text: 'Raised On'),
                     DropboxText(text: 'Target Date'),
                     TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
-                    _switch('Design Change Required'),
-                    _switch('Material Required'),
+                    SwitchButton(
+                      name: 'Design Change Required',
+                    ),
+                    SwitchButton(
+                      name: 'Material Required',
+                    ),
                   ],
                 ),
               ],

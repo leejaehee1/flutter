@@ -5,6 +5,7 @@ import 'package:plms_start/pages/home.dart';
 import 'pages/confirm_page.dart';
 import 'pages/login_pages.dart';
 import 'pages/punch_screen.dart';
+import 'screens/controller/dropdown_button_controller.dart';
 import 'screens/utils/draft_screen.dart';
 
 void main() {
@@ -23,9 +24,9 @@ class MyApp extends StatelessWidget {
       ),
       // home: Home(),
       initialRoute: '/',
-      // initialBinding: BindingsBuilder(() {
-      //   Get.put(DropdownButtonController());
-      // }),
+      initialBinding: BindingsBuilder(() {
+        Get.put(DropdownButtonController());
+      }),
 
       getPages: [
         GetPage(

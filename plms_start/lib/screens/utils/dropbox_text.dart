@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'dropdown_button.dart';
+
 class DropboxText extends StatelessWidget {
   String text;
 
@@ -13,7 +15,11 @@ class DropboxText extends StatelessWidget {
           width: 100,
           child: Text(text),
         ),
-        TextButton(onPressed: () {}, child: Text('Dropdown Position')),
+        Container(
+          width: MediaQuery.of(context).size.width * 4 / 7,
+          height: 50,
+          child: DropdownButtonWidget(),
+        ),
       ],
     );
   }
