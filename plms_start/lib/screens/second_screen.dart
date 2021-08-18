@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:plms_start/screens/utils/swich_punch.dart';
 import 'utils/dropbox_text.dart';
+import 'utils/dropbox_text4.dart';
+import 'utils/dropbox_text5.dart';
+import 'utils/dropbox_text6.dart';
+import 'utils/dropbox_text7.dart';
+import 'utils/tagging_text.dart';
 import 'utils/textfield_text.dart';
 import 'utils/title_text.dart';
 
@@ -46,11 +51,12 @@ class _PageTwoState extends State<PageTwo> {
                 ),
                 Column(
                   children: [
-                    DropboxText(text: 'Action On'),
-                    DropboxText(text: 'Discipline'),
-                    DropboxText(text: 'Raised On'),
-                    DropboxText(text: 'Target Date'),
-                    TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
+                    DropboxText4(text: 'Action On'),
+                    DropboxText5(text: 'Discipline'),
+                    DropboxText6(text: 'Raised On'),
+                    DropboxText7(text: 'Target Date'),
+                    // TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
+                    TaggingButton(name: 'Keyword'),
                     SwitchButton(
                       name: 'Design Change Required',
                     ),

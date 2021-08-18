@@ -41,26 +41,16 @@ class _PageThreeState extends State<PageThree> {
                     ),
                   ],
                 ),
-                SwitchButton(name: 'Upload Images now'),
                 SizedBox(
                   height: 20,
                 ),
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        Text('Photo'),
-                      ],
-                    ),
-                    ImagePickers(),
-                  ],
-                ),
+                ImagePickers(),
                 Container(
                   height: MediaQuery.of(context).size.width,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: Colors.white),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text('Location'),

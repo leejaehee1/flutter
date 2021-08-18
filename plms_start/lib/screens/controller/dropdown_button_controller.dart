@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
+import 'package:plms_start/screens/utils/dropbox_text.dart';
 
 enum DropDownMenu { DEFAULT, MENU1, MENU2 }
+enum DropDownMenu2 { DEFAULT0, MENU1, MENU2 }
 
 extension DropDownMenuExtention on DropDownMenu {
   String get name {
     switch (this) {
       case DropDownMenu.DEFAULT:
-        return '기본매뉴';
+        return 'catagory1';
       case DropDownMenu.MENU1:
-        return '메뉴1';
+        return 'catagory2';
       case DropDownMenu.MENU2:
-        return '메뉴2';
+        return 'catagory3';
     }
   }
 }
