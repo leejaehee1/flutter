@@ -3,46 +3,51 @@ import 'package:get/get.dart';
 
 import '../punch_screen.dart';
 
-class IssueButton extends StatelessWidget {
-  IssueButton(
+class SuccessButton extends StatefulWidget {
+  SuccessButton(
       {Key? key,
-      required this.name,
-      required this.name2,
+      // required this.name,
       required this.buttonname1,
       required this.buttonname2})
       : super(key: key);
-  String name;
-  String name2;
+  // String name;
   String buttonname1;
   String buttonname2;
 
   @override
+  _SuccessButtonState createState() => _SuccessButtonState();
+}
+
+class _SuccessButtonState extends State<SuccessButton> {
+  @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFFE6E6E6),
+      color: Color(0xFFffffff),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff2F4C5A), // background
-              // onPrimary: Colors.white, // foreground
+              primary: Color(0xff71838D),
             ),
             onPressed: () {
-              Get.toNamed(name);
+              Get.offAllNamed('/home');
             },
-            child: Text(buttonname1),
+            child: Text(widget.buttonname1),
           ),
           SizedBox(
             width: 30,
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Color(0xff71838D)),
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff2F4C5A), // background
+              // onPrimary: Colors.white, // foreground
+            ),
             onPressed: () {
-              Get.toNamed(name2);
+              Get.offAllNamed('/punchList');
             },
-            child: Text(buttonname2),
+            child: Text(widget.buttonname2),
           ),
         ],
       ),

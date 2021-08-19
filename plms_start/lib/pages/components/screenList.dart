@@ -113,6 +113,7 @@ class _ScreenListState extends State<ScreenList>
         ),
         bottomNavigationBar: IssueButton(
             name: '/punchList',
+            name2: '/photoList',
             buttonname1: 'Add Punch Issue',
             buttonname2: 'Upload Photos')
         // TabBar(
