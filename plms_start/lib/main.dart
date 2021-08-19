@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/pages/components/photoList.dart';
 import 'package:plms_start/pages/home.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller4.dart';
@@ -7,9 +8,11 @@ import 'package:plms_start/screens/controller/dropdown_button_controller5.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller6.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller7.dart';
 
+import 'pages/components/punch_complete.dart';
 import 'pages/confirm_page.dart';
 import 'pages/login_pages.dart';
 import 'pages/punch_screen.dart';
+import 'pages/success_page.dart';
 import 'screens/controller/dropdown_button_controller.dart';
 import 'screens/controller/dropdown_button_controller2.dart';
 import 'screens/utils/draft_screen.dart';
@@ -56,11 +59,18 @@ class MyApp extends StatelessWidget {
             name: '/confirm',
             page: () => ConfirmPage(),
             transition: Transition.zoom),
-        // GetPage(
-        //   name: '/binding',
-        //   page: () => BindingPage(),
-        //   binding: BindingPageBinding(),
-        // ),
+        GetPage(
+            name: '/success',
+            page: () => SuccessPage(),
+            transition: Transition.zoom),
+        GetPage(
+            name: '/photoList',
+            page: () => PhotoList(),
+            transition: Transition.zoom),
+        GetPage(
+            name: '/complete',
+            page: () => PunchComplete(),
+            transition: Transition.zoom),
       ],
     );
   }
