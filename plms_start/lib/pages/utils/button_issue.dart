@@ -16,24 +16,32 @@ class IssueButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        ElevatedButton(
-          onPressed: () {
-            Get.toNamed(name);
-          },
-          child: Text(buttonname1),
-        ),
-        SizedBox(
-          width: 30,
-        ),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text(buttonname2),
-        ),
-      ],
+    return Container(
+      color: Color(0xFFE6E6E6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: Color(0xff2F4C5A), // background
+              // onPrimary: Colors.white, // foreground
+            ),
+            onPressed: () {
+              Get.toNamed(name);
+            },
+            child: Text(buttonname1),
+          ),
+          SizedBox(
+            width: 30,
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Color(0xff71838D)),
+            onPressed: () {},
+            child: Text(buttonname2),
+          ),
+        ],
+      ),
     );
   }
 }
