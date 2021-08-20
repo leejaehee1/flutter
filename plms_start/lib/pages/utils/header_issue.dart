@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -16,9 +17,14 @@ class Header extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.arrow_back_ios,
-                  color: Colors.white,
+                IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ),
                 ),
                 Text(
                   'Punch Issue',
