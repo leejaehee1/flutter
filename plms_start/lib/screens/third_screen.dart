@@ -49,18 +49,36 @@ class _PageThreeState extends State<PageThree> {
                   height: MediaQuery.of(context).size.width,
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(color: Colors.white),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
                     children: [
-                      Text('Location'),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed("/draft");
-                        },
-                        child: Text("View Drawing"),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Location'),
+                          ElevatedButton(
+                            onPressed: () {
+                              // FileImage();
+                            },
+                            child: Text("View Drawing"),
+                          ),
+                          // Text(pixelList),
+                        ],
                       ),
-                      // Text(pixelList),
+                      InkWell(
+                        onDoubleTap: () {
+                          setState(() {
+                            Get.toNamed("/draft");
+                          });
+                        },
+                        child: Container(
+                          height: MediaQuery.of(context).size.width - 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(),
+                          ),
+                          child: Image.asset("assets/punch_draft_sample.jpg"),
+                        ),
+                      )
                     ],
                   ),
                 ),
