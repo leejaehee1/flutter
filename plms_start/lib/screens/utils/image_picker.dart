@@ -91,7 +91,7 @@ class _ImagePickersState extends State<ImagePickers> {
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4),
+                  crossAxisCount: 3),
               itemCount: _imageList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
