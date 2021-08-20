@@ -7,7 +7,7 @@ class ThirdRegister extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      // height: MediaQuery.of(context).size.height,
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
