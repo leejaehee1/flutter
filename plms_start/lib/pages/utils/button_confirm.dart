@@ -31,7 +31,9 @@ class _ConfirmButtonState extends State<ConfirmButton> {
             style: ElevatedButton.styleFrom(
               primary: Color(0xff71838D),
             ),
-            onPressed: () {},
+            onPressed: () {
+              _showDialog('/home');
+            },
             child: Text(widget.buttonname1),
           ),
           SizedBox(
@@ -43,7 +45,7 @@ class _ConfirmButtonState extends State<ConfirmButton> {
               // onPrimary: Colors.white, // foreground
             ),
             onPressed: () {
-              _showDialog('/success');
+              Get.offAllNamed("/home");
             },
             child: Text(widget.buttonname2),
           ),
@@ -85,7 +87,7 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                   },
                 ),
               ],
-            )
+            ),
           ],
         );
       },
