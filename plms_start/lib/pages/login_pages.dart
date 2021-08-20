@@ -73,25 +73,28 @@ class _LoginPageState extends State<LoginPage> {
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xff304D5B),
                           ),
-                          onPressed: () async {
-                            // 서버에서 username and password 비교를 해서 로그인 되어야 한다.
-                            // response.OK => Get.toNamed('/home'); and 세션(이 사용자와 관련한 정보를 가지고 있습니다.)
-                            var url =
-                            Uri.http('localhost:5000', '/api/login', {'userId': 'admin1', 'password' : 'admin1'});
-
-                            // Await the http get response, then decode the json-formatted response.
-                            var response = await http.get(url);
-                            if (response.statusCode == 200) {
-                              var jsonResponse =
-                              convert.jsonDecode(response.body) as Map<String, dynamic>;
-                              var itemCount = jsonResponse['totalItems'];
-                              print('Number of books about http: $itemCount.');
-                              Get.toNamed('/home');
-                            } else {
-                              print('Request failed with status: ${response.statusCode}.');
-                              // 에러 메시지를 사용자가 알 수 있게
-                            }
+                          onPressed: () {
+                            Get.toNamed("/home");
                           },
+                          // onPressed: () async {
+                          //   // 서버에서 username and password 비교를 해서 로그인 되어야 한다.
+                          //   // response.OK => Get.toNamed('/home'); and 세션(이 사용자와 관련한 정보를 가지고 있습니다.)
+                          //   var url =
+                          //   Uri.http('localhost:5000', '/api/login', {'userId': 'admin1', 'password' : 'admin1'});
+
+                          //   // Await the http get response, then decode the json-formatted response.
+                          //   var response = await http.get(url);
+                          //   if (response.statusCode == 200) {
+                          //     var jsonResponse =
+                          //     convert.jsonDecode(response.body) as Map<String, dynamic>;
+                          //     var itemCount = jsonResponse['totalItems'];
+                          //     print('Number of books about http: $itemCount.');
+                          //     Get.toNamed('/home');
+                          //   } else {
+                          //     print('Request failed with status: ${response.statusCode}.');
+                          //     // 에러 메시지를 사용자가 알 수 있게
+                          //   }
+                          // },
                           child: Text(
                             "Sign In",
                             style: TextStyle(
@@ -108,7 +111,9 @@ class _LoginPageState extends State<LoginPage> {
                           Text("Forgot Your Username or Password?"),
                           Icon(Icons.arrow_downward_sharp),
                           TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Get.toNamed("/signup");
+                              },
                               child: Text(
                                 "Sign up",
                                 style: TextStyle(
