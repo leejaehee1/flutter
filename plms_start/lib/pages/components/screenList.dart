@@ -52,7 +52,7 @@ class _ScreenListState extends State<ScreenList>
                     },
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorWeight: 1,
-                    isScrollable: true,
+                    // isScrollable: true,
                     labelColor:
                         _currentIndex == idx ? Colors.white : Colors.black,
                     tabs: [
