@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/components/photoList.dart';
 import 'package:plms_start/pages/home.dart';
+import 'package:plms_start/pages/sign_up_page.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller4.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller5.dart';
@@ -47,6 +48,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/', page: () => LoginPage(), transition: Transition.zoom),
         GetPage(name: '/home', page: () => Home(), transition: Transition.zoom),
+        GetPage(
+            name: '/signup',
+            page: () => SignUpPage(),
+            transition: Transition.zoom),
         GetPage(
             name: '/punchList',
             page: () => PunchScreen(),
