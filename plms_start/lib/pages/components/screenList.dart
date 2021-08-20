@@ -30,7 +30,9 @@ class _ScreenListState extends State<ScreenList>
     int idx = _currentIndex;
     return Scaffold(
         appBar: AppBar(
-          title: Text('Title'),
+          backgroundColor: Color(0xff2B3745),
+          automaticallyImplyLeading: false,
+          title: Header(),
         ),
         body: DefaultTabController(
           // initialIndex: 0,
