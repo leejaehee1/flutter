@@ -26,7 +26,7 @@ class ListFile extends StatelessWidget {
                     // onPrimary: Colors.white, // foreground
                   ),
                   onPressed: () {
-                    Get.offAllNamed('/complete');
+                    Get.toNamed('/complete');
                   },
                   child: Text('Complete'),
                 ),
