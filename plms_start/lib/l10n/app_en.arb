@@ -3,6 +3,40 @@
   "@helloWorld": {
     "description": "The conventional newborn programmer greeting"
   },
+  "loginID": "ID",
+  "@loginID": {
+    "description": "Login ID."
+  },
+  "loginPW": "Password",
+  "@loginPW": {
+    "description": "Login Password."
+  },
+  "loginDialogText": "Check your ID or Password",
+  "@loginDialogText": {
+    "description": "Login Fail Text."
+  },
+  "loginDialogButton": "Ok",
+  "@loginDialogButton": {
+    "description": "Login Fail Button."
+  },
+
+
+  "signIn": "Sign In",
+  "@signIn": {
+    "description": "Login Button."
+  },
+  "signUp": "Sign Up",
+  "@signUp": {
+    "description": "Sign up Button."
+  },
+  "signUpText": "Forgot Your Username or Password?",
+  "@signUpText": {
+    "description": "Explain Sign up Button."
+  },
+
+
+  
+
   "appTile": "This is app title!",
   "@appTile": {
     "description": "This is app title and some texts."
