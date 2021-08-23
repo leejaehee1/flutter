@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 
 import 'home.dart';
 // import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -65,7 +65,8 @@ class _LoginPageState extends State<LoginPage> {
                       TextFormField(
                         controller: _idTextEditController,
                         decoration: InputDecoration(
-                            hintText: 'Enter UserName', labelText: 'UserName'),
+                            hintText: AppLocalizations.of(context)!.loginID,
+                            labelText: AppLocalizations.of(context)!.loginID),
                         onChanged: (text) {
                           setState(() {});
                         },
@@ -74,7 +75,8 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _pwTextEditController,
                         obscureText: true,
                         decoration: InputDecoration(
-                            hintText: 'Enter Password', labelText: 'Password'),
+                            hintText: AppLocalizations.of(context)!.loginPW,
+                            labelText: AppLocalizations.of(context)!.loginPW),
                         onChanged: (text) {
                           setState(() {});
                         },
@@ -132,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                           //   }
                           // },
                           child: Text(
-                            "Sign In",
+                            AppLocalizations.of(context)!.signIn,
                             style: TextStyle(
                               fontSize: 20,
                             ),
@@ -144,14 +146,14 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       Column(
                         children: [
-                          Text("Forgot Your Username or Password?"),
+                          Text(AppLocalizations.of(context)!.signUpText),
                           Icon(Icons.arrow_downward_sharp),
                           TextButton(
                               onPressed: () {
                                 Get.toNamed("/signup");
                               },
                               child: Text(
-                                "Sign up",
+                                AppLocalizations.of(context)!.signUp,
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
@@ -175,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: new Text("Check your ID or Password"),
+          content: new Text(AppLocalizations.of(context)!.loginDialogText),
           actions: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -185,7 +187,8 @@ class _LoginPageState extends State<LoginPage> {
                   style: ElevatedButton.styleFrom(
                     primary: Color(0xff71838D),
                   ),
-                  child: new Text("Ok"),
+                  child:
+                      new Text(AppLocalizations.of(context)!.loginDialogButton),
                   onPressed: () {
                     Get.back();
                   },
