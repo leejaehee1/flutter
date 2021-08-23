@@ -88,9 +88,9 @@ class _LoginPageState extends State<LoginPage> {
                           style: ElevatedButton.styleFrom(
                             primary: Color(0xff304D5B),
                           ),
-                          // onPressed: () {
-                          //   Get.toNamed("/home");
-                          // },
+                          onPressed: () {
+                            Get.toNamed("/home");
+                          },
                           // onPressed: () async {
                           //   // 서버에서 username and password 비교를 해서 로그인 되어야 한다.
                           //   // response.OK => Get.toNamed('/home'); and 세션(이 사용자와 관련한 정보를 가지고 있습니다.)
@@ -114,23 +114,23 @@ class _LoginPageState extends State<LoginPage> {
                           //     // 에러 메시지를 사용자가 알 수 있게
                           //   }
                           // },
-                          onPressed: () async {
-                            var url =
-                                Uri.parse('http://10.0.2.2:5000/api/login');
-                            var response = await http.post(url, body: {
-                              'userID': _idTextEditController.text,
-                              'password': _pwTextEditController.text,
-                            });
-                            print('Response status: ${response.statusCode}');
-                            print('Response body: ${response.body}');
-                            if (response.body == "true") {
-                              print('간다간다 쑝간다!');
-                              Get.toNamed('/home');
-                            } else {
-                              print("fail");
-                              _showDialog();
-                            }
-                          },
+                          // onPressed: () async {
+                          //   var url =
+                          //       Uri.parse('http://10.0.2.2:5000/api/login');
+                          //   var response = await http.post(url, body: {
+                          //     'userID': _idTextEditController.text,
+                          //     'password': _pwTextEditController.text,
+                          //   });
+                          //   print('Response status: ${response.statusCode}');
+                          //   print('Response body: ${response.body}');
+                          //   if (response.body == "true") {
+                          //     print('간다간다 쑝간다!');
+                          //     Get.toNamed('/home');
+                          //   } else {
+                          //     print("fail");
+                          //     _showDialog();
+                          //   }
+                          // },
                           child: Text(
                             "Sign In",
                             style: TextStyle(

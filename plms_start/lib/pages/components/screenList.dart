@@ -21,7 +21,7 @@ class _ScreenListState extends State<ScreenList>
 
   @override
   void initState() {
-    _controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: 50, vsync: this);
     super.initState();
   }
 
@@ -57,8 +57,9 @@ class _ScreenListState extends State<ScreenList>
                         _currentIndex == idx ? Colors.white : Colors.black,
                     tabs: [
                       Container(
-                        padding: EdgeInsets.all(2),
-                        width: MediaQuery.of(context).size.width * 1 / 5,
+                        padding: EdgeInsets.all(10),
+                        // width: MediaQuery.of(context).size.width * 1 / 5,
+                        width: 1000,
                         // height: 100,
                         color: _currentIndex == 0 ? Colors.grey : Colors.white,
                         child: Tab(child: _colorChange('All', 0)),
@@ -136,8 +137,8 @@ class _ScreenListState extends State<ScreenList>
     return Text(
       name,
       style: TextStyle(
-        color: _currentIndex == idx ? Colors.white : Colors.black,
-      ),
+          color: _currentIndex == idx ? Colors.white : Colors.black,
+          fontSize: 20),
     );
   }
 }
