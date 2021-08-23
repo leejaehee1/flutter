@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/pages/components/registrations/first_register.dart';
-import 'package:plms_start/pages/components/registrations/second_register.dart';
-import 'package:plms_start/pages/components/registrations/third_register.dart';
 import 'package:http/http.dart' as http;
 
 import 'utils/header_issue.dart';
@@ -19,6 +16,9 @@ enum Duty { Assignee, QC, Manager }
 class _SignUpPageState extends State<SignUpPage> {
   Duty? _duty = Duty.Assignee;
   bool isSwitched = false;
+  bool isSwitched2 = false;
+
+  int count = 0;
 
   final _idTextEditController = TextEditingController();
   final _pwTextEditController = TextEditingController();
@@ -59,7 +59,7 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             _firstPage(),
             _checkPage1('프로그램 서비스 이용약관', 'data'),
-            _checkPage1('개인정보 수집 및 활동 동의', 'data'),
+            _checkPage2('개인정보 수집 및 활동 동의', 'data'),
           ],
         ),
       ),
@@ -79,35 +79,19 @@ class _SignUpPageState extends State<SignUpPage> {
               },
             ),
             new ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xff2F4C5A), // background
-                // onPrimary: Colors.white, // foreground
-              ),
-              child: new Text("Registation"),
-              onPressed: () async {
-                var url = Uri.parse('http://10.0.2.2:5000/api/register');
-                var response = await http.post(url, body: {
-                  "userID": _idTextEditController.text,
-                  "password": _pwTextEditController.text,
-                  // "Retry Pasword": _repwTextEditController.text,
-                  // "E-mail": _emailTextEditController.text,
-                  // "Company": _comTextEditController.text,
-                  // "User Name": _nameTextEditController.text,
-                  // "Personal ID": _personalTextEditController.text,
-                });
-                print('Response status: ${response.statusCode}');
-                print('Response body: ${response.body.hashCode}');
-                if (response.body.hashCode == 972047478) {
-                  print('실패');
-                  // Get.back();
-                } else {
-                  print("성공");
-                  Get.back();
-                  // _showDialog();
-                }
-                ;
-              },
-            ),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff2F4C5A), // background
+                  // onPrimary: Colors.white, // foreground
+                ),
+                child: new Text("Registation"),
+                onPressed: () async {
+                  if (count == 2) {
+                    print("click");
+                  } else {
+                    return null;
+                  }
+                  ;
+                }),
           ],
         ),
       ),
@@ -171,6 +155,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     ElevatedButton(
                         onPressed: () {
                           print(_duty!.index);
+                          print(Duty);
                         },
                         child: Text('test')),
                   ],
@@ -192,6 +177,39 @@ class _SignUpPageState extends State<SignUpPage> {
             setState(() {
               isSwitched = value!;
               print(isSwitched);
+              if (isSwitched = true) {
+                count++;
+              } else {
+                count--;
+              }
+              ;
+            });
+          },
+          // activeTrackColor: Colors.yellow,
+          activeColor: Colors.orangeAccent,
+        ),
+        SizedBox(
+          width: 90,
+          child: Text('Yes, I agree'),
+        ),
+      ],
+    );
+  }
+
+  Widget _swichs2() {
+    return Row(
+      children: [
+        Checkbox(
+          value: isSwitched2,
+          onChanged: (value) {
+            setState(() {
+              isSwitched2 = value!;
+              print(isSwitched2);
+              if (isSwitched = true) {
+                count++;
+              } else {
+                count--;
+              }
             });
           },
           // activeTrackColor: Colors.yellow,
@@ -320,6 +338,50 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                     ),
                     _swichs()
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _checkPage2(String title, String data) {
+    // bool isSwitched1 = false;
+
+    return Container(
+      // height: MediaQuery.of(context).size.height,
+      color: Color(0xFFE6E6E6),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xffB7C5B9),
+                offset: Offset(-7, 0),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    Text(title),
+                    Container(
+                      color: Color(0xffeeeeee),
+                      height: 200,
+                      child: ListView(
+                        children: [Text(data)],
+                      ),
+                    ),
+                    _swichs2()
                   ],
                 ),
               ],
