@@ -80,8 +80,8 @@ class _PunchScreenState extends State<PunchScreen>
                 ),
                 PunchButton(
                     name: '/confirm',
-                    buttonname1: "Save Draft",
-                    buttonname2: "Create Issue"),
+                    buttonName1: "Save Draft",
+                    buttonName2: "Create Issue"),
               ],
             ),
           ),

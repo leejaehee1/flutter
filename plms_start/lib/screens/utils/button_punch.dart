@@ -5,12 +5,12 @@ class PunchButton extends StatelessWidget {
   PunchButton(
       {Key? key,
       required this.name,
-      required this.buttonname1,
-      required this.buttonname2})
+      required this.buttonName1,
+      required this.buttonName2})
       : super(key: key);
   String name;
-  String buttonname1;
-  String buttonname2;
+  String buttonName1;
+  String buttonName2;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class PunchButton extends StatelessWidget {
           ElevatedButton(
             style: ElevatedButton.styleFrom(primary: Color(0xff71838D)),
             onPressed: () {},
-            child: Text(buttonname1),
+            child: Text(buttonName1),
           ),
           SizedBox(
             width: 30,
@@ -36,7 +36,7 @@ class PunchButton extends StatelessWidget {
             onPressed: () {
               Get.toNamed(name);
             },
-            child: Text(buttonname2),
+            child: Text(buttonName2),
           ),
         ],
       ),
