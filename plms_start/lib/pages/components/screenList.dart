@@ -6,6 +6,7 @@ import 'package:plms_start/pages/utils/header_issue.dart';
 import 'List_file.dart';
 
 // import 'screen_punch.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ScreenList extends StatefulWidget {
   const ScreenList({Key? key}) : super(key: key);
@@ -32,7 +33,7 @@ class _ScreenListState extends State<ScreenList>
         appBar: AppBar(
           backgroundColor: Color(0xff2B3745),
           automaticallyImplyLeading: false,
-          title: Header(),
+          title: Text(AppLocalizations.of(context)!.appTile),
         ),
         body: DefaultTabController(
           // initialIndex: 0,
@@ -62,7 +63,7 @@ class _ScreenListState extends State<ScreenList>
                         width: 1000,
                         // height: 100,
                         color: _currentIndex == 0 ? Colors.grey : Colors.white,
-                        child: Tab(child: _colorChange('All', 0)),
+                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile1, 0)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -70,7 +71,7 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 1
                             ? Color(0xff7B3F40)
                             : Colors.white,
-                        child: Tab(child: _colorChange('Draft', 1)),
+                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile2, 1)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -78,7 +79,7 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 2
                             ? Color(0xffB09078)
                             : Colors.white,
-                        child: Tab(child: _colorChange('Open', 2)),
+                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile3, 2)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -86,7 +87,7 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 3
                             ? Color(0xff95809D)
                             : Colors.white,
-                        child: Tab(child: _colorChange('Req for Close', 3)),
+                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile4, 3)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -94,7 +95,7 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 4
                             ? Color(0xff637990)
                             : Colors.white,
-                        child: Tab(child: _colorChange('Close', 4)),
+                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile5, 4)),
                       ),
                     ],
                   ),

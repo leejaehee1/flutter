@@ -1,0 +1,30 @@
+{
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "The conventional newborn programmer greeting"
+  },
+  "appTile": "This is app title!",
+  "@appTile": {
+    "description": "This is app title and some texts."
+  },
+  "tile1": "All",
+  "@tile1": {
+    "description": "one of the state of the punch list."
+  },
+  "tile2": "Draft",
+  "@tile2": {
+    "description": "one of the state of the punch list."
+  },
+  "tile3": "Open",
+  "@tile3": {
+    "description": "one of the state of the punch list."
+  },
+  "tile4": "Req for Close",
+  "@tile4": {
+    "description": "one of the state of the punch list."
+  },
+  "tile5": "Close",
+  "@tile5": {
+    "description": "one of the state of the punch list."
+  }
+}
