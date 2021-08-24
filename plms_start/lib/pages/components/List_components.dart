@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 
 class ListComponent extends StatelessWidget {
-  ListComponent({Key? key, required this.colors}) : super(key: key);
+  ListComponent({
+    Key? key,
+    required this.title,
+    required this.data1,
+    required this.data2,
+    required this.colors,
+  }) : super(key: key);
 
-  int colors;
+  final int colors;
+  final String title;
+  final String data1;
+  final String data2;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +41,13 @@ class ListComponent extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                          "data",
+                          title,
                           style: TextStyle(
                             color: Color(colors),
                           ),
                         ),
-                        Text("data"),
-                        Text("data"),
+                        Text(data1),
+                        Text(data2),
                       ],
                     )
                   ],

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ListComponent extends StatelessWidget {
   ListComponent({Key? key, required this.colors}) : super(key: key);
 
-  int colors;
+  final int colors;
 
   @override
   Widget build(BuildContext context) {

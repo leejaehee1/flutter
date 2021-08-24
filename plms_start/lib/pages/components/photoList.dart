@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/pages/utils/button_issue.dart';
+// import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
 import 'List_file.dart';
@@ -21,7 +21,7 @@ class _PhotoListState extends State<PhotoList> {
       appBar: AppBar(
         backgroundColor: Color(0xff2B3745),
         automaticallyImplyLeading: false,
-        title: Header(),
+        title: Header(title: "title"),
       ),
       body: DefaultTabController(
         // initialIndex: 0,

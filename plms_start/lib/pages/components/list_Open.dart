@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/components/List_components.dart';
 
-class ListFile extends StatelessWidget {
-  const ListFile({Key? key}) : super(key: key);
+class ListOpen extends StatelessWidget {
+  const ListOpen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +38,35 @@ class ListFile extends StatelessWidget {
             ),
           ]),
           ListComponent(
-              title: "", data1: 'data1', data2: "data2", colors: 0xffB88C69),
+              title: "Open",
+              data1: 'data1',
+              data2: "data2",
+              colors: 0xffB09078),
           ListComponent(
-              title: "", data1: 'data1', data2: "data2", colors: 0xffB88C69),
+              title: "Open",
+              data1: 'data1',
+              data2: "data2",
+              colors: 0xffB09078),
           ListComponent(
-              title: "", data1: 'data1', data2: "data2", colors: 0xffB88C69),
+              title: "Open",
+              data1: 'data1',
+              data2: "data2",
+              colors: 0xffB09078),
           ListComponent(
-              title: "", data1: 'data1', data2: "data2", colors: 0xffB88C69),
+              title: "Open",
+              data1: 'data1',
+              data2: "data2",
+              colors: 0xffB09078),
           ListComponent(
-              title: "", data1: 'data1', data2: "data2", colors: 0xffB88C69),
+              title: "Open",
+              data1: 'data1',
+              data2: "data2",
+              colors: 0xffB09078),
           ListComponent(
-              title: "", data1: 'data1', data2: "data2", colors: 0xffB88C69),
+              title: "Open",
+              data1: 'data1',
+              data2: "data2",
+              colors: 0xffB09078),
         ],
       ),
     );

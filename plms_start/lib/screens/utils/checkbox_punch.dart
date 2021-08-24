@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CheckButton extends StatefulWidget {
   CheckButton({Key? key, required this.name}) : super(key: key);
-  String name;
+  final String name;
 
   @override
   _CheckButtonState createState() => _CheckButtonState();

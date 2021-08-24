@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
+import 'package:plms_start/pages/components/list_Close.dart';
+import 'package:plms_start/pages/components/list_Draft.dart';
+import 'package:plms_start/pages/components/list_Open.dart';
+import 'package:plms_start/pages/components/list_Req.dart';
 import 'package:plms_start/pages/utils/button_issue.dart';
-import 'package:plms_start/pages/utils/header_issue.dart';
+// import 'package:plms_start/pages/utils/header_issue.dart';
 
 import 'List_file.dart';
 
@@ -17,12 +21,12 @@ class ScreenList extends StatefulWidget {
 
 class _ScreenListState extends State<ScreenList>
     with SingleTickerProviderStateMixin {
-  late TabController _controller;
+  // late TabController _controller;
   int _currentIndex = 0;
 
   @override
   void initState() {
-    _controller = TabController(length: 50, vsync: this);
+    // _controller = TabController(length: 50, vsync: this);
     super.initState();
   }
 
@@ -63,7 +67,9 @@ class _ScreenListState extends State<ScreenList>
                         width: 1000,
                         // height: 100,
                         color: _currentIndex == 0 ? Colors.grey : Colors.white,
-                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile1, 0)),
+                        child: Tab(
+                            child: _colorChange(
+                                AppLocalizations.of(context)!.tile1, 0)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -71,7 +77,9 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 1
                             ? Color(0xff7B3F40)
                             : Colors.white,
-                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile2, 1)),
+                        child: Tab(
+                            child: _colorChange(
+                                AppLocalizations.of(context)!.tile2, 1)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -79,7 +87,9 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 2
                             ? Color(0xffB09078)
                             : Colors.white,
-                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile3, 2)),
+                        child: Tab(
+                            child: _colorChange(
+                                AppLocalizations.of(context)!.tile3, 2)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -87,7 +97,9 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 3
                             ? Color(0xff95809D)
                             : Colors.white,
-                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile4, 3)),
+                        child: Tab(
+                            child: _colorChange(
+                                AppLocalizations.of(context)!.tile4, 3)),
                       ),
                       Container(
                         padding: EdgeInsets.all(2),
@@ -95,7 +107,9 @@ class _ScreenListState extends State<ScreenList>
                         color: _currentIndex == 4
                             ? Color(0xff637990)
                             : Colors.white,
-                        child: Tab(child: _colorChange(AppLocalizations.of(context)!.tile5, 4)),
+                        child: Tab(
+                            child: _colorChange(
+                                AppLocalizations.of(context)!.tile5, 4)),
                       ),
                     ],
                   ),
@@ -105,10 +119,10 @@ class _ScreenListState extends State<ScreenList>
                 child: TabBarView(
                   children: [
                     ListFile(),
-                    ListFile(),
-                    ListFile(),
-                    ListFile(),
-                    ListFile(),
+                    ListDraft(),
+                    ListOpen(),
+                    ListReq(),
+                    ListClose(),
                   ],
                 ),
               ),

@@ -160,32 +160,32 @@ class _ImagePickersState extends State<ImagePickers> {
     );
   }
 
-  void _imageButton() {
-    Row(
-      children: [
-        InkWell(
-          child: Container(
-            child: Row(
-              children: [Icon(Icons.album), Text("Gallery")],
-            ),
-          ),
-          onTap: () {
-            imageSelect();
-          },
-        ),
-        InkWell(
-          child: Container(
-            child: Row(
-              children: [Icon(Icons.camera), Text("Camera")],
-            ),
-          ),
-          onTap: () {
-            videoSelect();
-          },
-        ),
-      ],
-    );
-  }
+  // void _imageButton() {
+  //   Row(
+  //     children: [
+  //       InkWell(
+  //         child: Container(
+  //           child: Row(
+  //             children: [Icon(Icons.album), Text("Gallery")],
+  //           ),
+  //         ),
+  //         onTap: () {
+  //           imageSelect();
+  //         },
+  //       ),
+  //       InkWell(
+  //         child: Container(
+  //           child: Row(
+  //             children: [Icon(Icons.camera), Text("Camera")],
+  //           ),
+  //         ),
+  //         onTap: () {
+  //           videoSelect();
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
 
   void imageSelect() async {
     final XFile? selectedImage =

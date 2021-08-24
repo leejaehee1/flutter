@@ -8,9 +8,9 @@ class PunchButton extends StatelessWidget {
       required this.buttonName1,
       required this.buttonName2})
       : super(key: key);
-  String name;
-  String buttonName1;
-  String buttonName2;
+  final String name;
+  final String buttonName1;
+  final String buttonName2;
 
   @override
   Widget build(BuildContext context) {

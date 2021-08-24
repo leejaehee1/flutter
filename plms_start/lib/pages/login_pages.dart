@@ -172,32 +172,32 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
-  void _showDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: new Text(AppLocalizations.of(context)!.loginDialogText),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                new ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xff71838D),
-                  ),
-                  child:
-                      new Text(AppLocalizations.of(context)!.loginDialogButton),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _showDialog() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         content: new Text(AppLocalizations.of(context)!.loginDialogText),
+  //         actions: <Widget>[
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //             crossAxisAlignment: CrossAxisAlignment.center,
+  //             children: [
+  //               new ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   primary: Color(0xff71838D),
+  //                 ),
+  //                 child:
+  //                     new Text(AppLocalizations.of(context)!.loginDialogButton),
+  //                 onPressed: () {
+  //                   Get.back();
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }

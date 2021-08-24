@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:plms_start/screens/utils/swich_punch.dart';
-import 'utils/dropbox_text.dart';
+// import 'utils/dropbox_text.dart';
 import 'utils/dropbox_text4.dart';
 import 'utils/dropbox_text5.dart';
 import 'utils/dropbox_text6.dart';
 import 'utils/dropbox_text7.dart';
 import 'utils/tagging_text.dart';
-import 'utils/textfield_text.dart';
+// import 'utils/textfield_text.dart';
 import 'utils/title_text.dart';
 
 class PageTwo extends StatefulWidget {
@@ -73,22 +73,22 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
-  Widget _switch(String text) {
-    bool _isChecked = false;
-    return Row(
-      children: [
-        SizedBox(
-          child: Text(text),
-        ),
-        Switch(
-          value: _isChecked,
-          onChanged: (value) {
-            setState(() {
-              _isChecked = value;
-            });
-          },
-        )
-      ],
-    );
-  }
+  // Widget _switch(String text) {
+  //   bool _isChecked = false;
+  //   return Row(
+  //     children: [
+  //       SizedBox(
+  //         child: Text(text),
+  //       ),
+  //       Switch(
+  //         value: _isChecked,
+  //         onChanged: (value) {
+  //           setState(() {
+  //             _isChecked = value;
+  //           });
+  //         },
+  //       )
+  //     ],
+  //   );
+  // }
 }

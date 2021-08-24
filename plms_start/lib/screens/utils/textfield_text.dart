@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TextFieldText extends StatelessWidget {
-  String text;
-  String hint;
+  final String text;
+  final String hint;
 
   TextFieldText({Key? key, required this.text, required this.hint})
       : super(key: key);

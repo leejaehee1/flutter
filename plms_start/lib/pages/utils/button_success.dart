@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../punch_screen.dart';
+// import '../punch_screen.dart';
 
 class SuccessButton extends StatefulWidget {
   SuccessButton(
@@ -11,8 +11,8 @@ class SuccessButton extends StatefulWidget {
       required this.buttonname2})
       : super(key: key);
   // String name;
-  String buttonname1;
-  String buttonname2;
+  final String buttonname1;
+  final String buttonname2;
 
   @override
   _SuccessButtonState createState() => _SuccessButtonState();

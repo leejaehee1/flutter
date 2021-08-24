@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../punch_screen.dart';
+// import '../punch_screen.dart';
 
 class IssueButton extends StatelessWidget {
   IssueButton(
@@ -11,10 +11,10 @@ class IssueButton extends StatelessWidget {
       required this.buttonname1,
       required this.buttonname2})
       : super(key: key);
-  String name;
-  String name2;
-  String buttonname1;
-  String buttonname2;
+  final String name;
+  final String name2;
+  final String buttonname1;
+  final String buttonname2;
 
   @override
   Widget build(BuildContext context) {

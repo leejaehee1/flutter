@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/screens/utils/image_picker.dart';
-import 'package:plms_start/screens/utils/swich_punch.dart';
+// import 'package:plms_start/screens/utils/swich_punch.dart';
 import 'package:plms_start/screens/utils/title_text.dart';
 
 class PunchComplete extends StatefulWidget {
@@ -19,7 +19,9 @@ class _PunchCompleteState extends State<PunchComplete> {
       appBar: AppBar(
         backgroundColor: Color(0xff2B3745),
         automaticallyImplyLeading: false,
-        title: Header(),
+        title: Header(
+          title: "title",
+        ),
       ),
       body: DefaultTabController(
         // initialIndex: 0,

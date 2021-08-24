@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextFieldRegister extends StatefulWidget {
-  String title;
+  final String title;
 
   TextFieldRegister({Key? key, required this.title}) : super(key: key);
 

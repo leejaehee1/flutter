@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/button_confirm.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
-import 'components/screenList.dart';
+// import 'components/screenList.dart';
 
 class ConfirmPage extends StatelessWidget {
   @override
@@ -11,7 +11,9 @@ class ConfirmPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Header(),
+          Header(
+            title: "title",
+          ),
           Expanded(
             child: Container(
               width: MediaQuery.of(context).size.width,

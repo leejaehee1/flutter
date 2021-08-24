@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
-  const Header({Key? key}) : super(key: key);
+  Header({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class Header extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Punch Issue',
+                  title,
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ],

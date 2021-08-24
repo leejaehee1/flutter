@@ -53,7 +53,9 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Color(0xff2B3745),
         automaticallyImplyLeading: false,
-        title: Header(),
+        title: Header(
+          title: "title",
+        ),
       ),
       body: Column(
         children: [

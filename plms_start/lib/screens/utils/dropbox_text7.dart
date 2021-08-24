@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plms_start/screens/utils/dropdown_button7.dart';
 
 class DropboxText7 extends StatelessWidget {
-  String text;
+  final String text;
 
   DropboxText7({Key? key, required this.text}) : super(key: key);
 

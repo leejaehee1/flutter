@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class SwitchButton extends StatefulWidget {
   SwitchButton({Key? key, required this.name}) : super(key: key);
-  String name;
+  final String name;
 
   @override
   _SwitchButtonState createState() => _SwitchButtonState();

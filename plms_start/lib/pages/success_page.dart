@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:plms_start/pages/utils/button_confirm.dart';
+// import 'package:get/get.dart';
+// import 'package:plms_start/pages/utils/button_confirm.dart';
 import 'package:plms_start/pages/utils/button_success.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
-import 'components/screenList.dart';
+// import 'components/screenList.dart';
 
 class SuccessPage extends StatelessWidget {
   @override
@@ -12,7 +12,9 @@ class SuccessPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          Header(),
+          Header(
+            title: "title",
+          ),
           Expanded(
             child: Center(
               child: Container(

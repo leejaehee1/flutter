@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:plms_start/pages/utils/checkbox_register.dart';
 import 'package:plms_start/screens/utils/dropbox_text2.dart';
-import 'package:plms_start/pages/utils/textfield_register.dart';
-import 'package:plms_start/screens/utils/textfield_text.dart';
+// import 'package:plms_start/pages/utils/textfield_register.dart';
+// import 'package:plms_start/screens/utils/textfield_text.dart';
 
 class FirstRegister extends StatefulWidget {
   FirstRegister({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _FirstRegisterState extends State<FirstRegister> {
 
   @override
   Widget build(BuildContext context) {
-    bool isSwitched = false;
+    // bool isSwitched = false;
     return Container(
       // height: MediaQuery.of(context).size.height,
       color: Color(0xFFE6E6E6),

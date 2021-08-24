@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/screens/utils/swich_punch.dart';
-import 'utils/draft_screen.dart';
+// import 'package:plms_start/screens/utils/swich_punch.dart';
+// import 'utils/draft_screen.dart';
 import 'utils/image_picker.dart';
 import 'utils/title_text.dart';
 
