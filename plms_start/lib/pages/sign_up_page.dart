@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'utils/header_issue.dart';
 
@@ -46,7 +47,9 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: AppBar(
         backgroundColor: Color(0xff2B3745),
         automaticallyImplyLeading: false,
-        title: Header(),
+        title: Header(
+          title: AppLocalizations.of(context)!.signUpHeader,
+        ),
       ),
       body: DefaultTabController(
         // initialIndex: 0,
@@ -58,8 +61,8 @@ class _SignUpPageState extends State<SignUpPage> {
         child: ListView(
           children: [
             _firstPage(),
-            _checkPage1('프로그램 서비스 이용약관', 'data'),
-            _checkPage2('개인정보 수집 및 활동 동의', 'data'),
+            _checkPage1(AppLocalizations.of(context)!.signUpcheckPage1, 'data'),
+            _checkPage2(AppLocalizations.of(context)!.signUpcheckPage2, 'data'),
           ],
         ),
       ),
@@ -73,25 +76,27 @@ class _SignUpPageState extends State<SignUpPage> {
               style: ElevatedButton.styleFrom(
                 primary: Color(0xff71838D),
               ),
-              child: new Text("Cancel"),
+              child:
+                  new Text(AppLocalizations.of(context)!.signUpbottomButton1),
               onPressed: () {
                 Get.back();
               },
             ),
             new ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff2F4C5A), // background
-                  // onPrimary: Colors.white, // foreground
-                ),
-                child: new Text("Registation"),
-                onPressed: () async {
-                  if (count == 2) {
-                    print("click");
-                  } else {
-                    return null;
-                  }
-                  ;
-                }),
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xff2F4C5A), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              child:
+                  new Text(AppLocalizations.of(context)!.signUpbottomButton2),
+              onPressed: () async {
+                if ((isSwitched & isSwitched2 == true)) {
+                  print(AppLocalizations.of(context)!.signUpbottomButton2);
+                } else {
+                  return null;
+                }
+              },
+            ),
           ],
         ),
       ),
@@ -121,36 +126,47 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               children: [
                 _radioButton(),
+                Container(
+                  width: 300,
+                  decoration: BoxDecoration(border: Border.all(width: 0.3)),
+                ),
                 SizedBox(
                   height: 20,
                 ),
                 Column(
                   children: [
-                    _textField("User ID", _idTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUpID,
+                        _idTextEditController),
                     SizedBox(
                       height: 20,
                     ),
-                    _textField("Password", _pwTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUpPW,
+                        _pwTextEditController),
                     SizedBox(
                       height: 20,
                     ),
-                    _textField("Retry Pasword", _repwTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUprepw,
+                        _repwTextEditController),
                     SizedBox(
                       height: 20,
                     ),
-                    _textField("E-mail", _emailTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUpmail,
+                        _emailTextEditController),
                     SizedBox(
                       height: 20,
                     ),
-                    _textField("Company", _comTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUpcom,
+                        _comTextEditController),
                     SizedBox(
                       height: 20,
                     ),
-                    _textField("User Name", _nameTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUpname,
+                        _nameTextEditController),
                     SizedBox(
                       height: 20,
                     ),
-                    _textField("Personal ID", _personalTextEditController),
+                    _textField(AppLocalizations.of(context)!.signUppersonal,
+                        _personalTextEditController),
                     // DropboxText2(text: "Department"),
                     ElevatedButton(
                         onPressed: () {
@@ -173,16 +189,15 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Checkbox(
           value: isSwitched,
-          onChanged: (value) {
+          onChanged: (valued) {
             setState(() {
-              isSwitched = value!;
+              isSwitched = valued!;
               print(isSwitched);
-              if (isSwitched = true) {
-                count++;
-              } else {
-                count--;
-              }
-              ;
+              // if (isSwitched = true) {
+              //   count++;
+              // } else {
+              //   count--;
+              // }
             });
           },
           // activeTrackColor: Colors.yellow,
@@ -190,7 +205,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         SizedBox(
           width: 90,
-          child: Text('Yes, I agree'),
+          child: Text(AppLocalizations.of(context)!.signUpcheckbox),
         ),
       ],
     );
@@ -205,11 +220,11 @@ class _SignUpPageState extends State<SignUpPage> {
             setState(() {
               isSwitched2 = value!;
               print(isSwitched2);
-              if (isSwitched = true) {
-                count++;
-              } else {
-                count--;
-              }
+              // if (isSwitched2 = true) {
+              //   count++;
+              // } else {
+              //   count--;
+              // }
             });
           },
           // activeTrackColor: Colors.yellow,
@@ -217,7 +232,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         SizedBox(
           width: 90,
-          child: Text('Yes, I agree'),
+          child: Text(AppLocalizations.of(context)!.signUpcheckbox),
         ),
       ],
     );
@@ -246,7 +261,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  @override
   Widget _radioButton() {
     return Column(
       children: <Widget>[
@@ -255,8 +269,8 @@ class _SignUpPageState extends State<SignUpPage> {
           //leading or trailing에 체크박스나 더보기와 같은 아이콘을 넣는다.
           title: SizedBox(
             width: 30,
-            child: const Text(
-              'Assignee',
+            child: Text(
+              AppLocalizations.of(context)!.signUpDuty1,
               style: TextStyle(fontSize: 13),
             ),
           ),
@@ -271,8 +285,8 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         ListTile(
-          title: const Text(
-            'QC',
+          title: Text(
+            AppLocalizations.of(context)!.signUpDuty2,
             style: TextStyle(fontSize: 13),
           ),
           leading: Radio<Duty>(
@@ -286,8 +300,8 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         ListTile(
-          title: const Text(
-            'Manager',
+          title: Text(
+            AppLocalizations.of(context)!.signUpDuty3,
             style: TextStyle(fontSize: 13),
           ),
           leading: Radio<Duty>(
