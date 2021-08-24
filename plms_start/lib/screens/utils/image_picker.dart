@@ -21,7 +21,7 @@ class _ImagePickersState extends State<ImagePickers> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
-      height: 300,
+      height: 250,
       // width: 1000,
       // height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
