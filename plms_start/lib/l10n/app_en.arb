@@ -132,8 +132,38 @@
   "@pListbutton2": {
     "description": "punch list bottom button."
   },
+
+
   "completeButton": "Complete",
   "@completeButton": {
     "description": "Complete button."
+  },
+  "completeTitle": "Punch Complete",
+  "@completeTitle": {
+    "description": "Complete title."
+  },
+  "completeText": "Comment of Not Accepted",
+  "@completeText": {
+    "description": "Complete text."
+  },
+  "completePageTitle": "Attachment",
+  "@completePageTitle": {
+    "description": "Complete page title."
+  },
+  "completePageButton1": "Cancel",
+  "@completePageButton1": {
+    "description": "Complete Page button1."
+  },
+  "completePageButton2": "Complete Punch",
+  "@completePageButton2": {
+    "description": "Complete Page button2."
+  },
+  "completePageDescription": "Description",
+  "@completePageDescription": {
+    "description": "Complete Page Description."
+  },
+  "completePageDescriptionLabel": "Valve changed",
+  "@completePageDescriptionLabel": {
+    "description": "Complete Page Description Label."
   }
 }
