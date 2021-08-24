@@ -100,8 +100,8 @@
 
   
 
-  "appTile": "This is app title!",
-  "@appTile": {
+  "appTitle": "My Punch List",
+  "@appTitle": {
     "description": "This is app title and some texts."
   },
   "tile1": "All",
@@ -123,5 +123,17 @@
   "tile5": "Close",
   "@tile5": {
     "description": "one of the state of the punch list."
+  },
+  "pListbutton1": "Add Punch Issue",
+  "@pListbutton1": {
+    "description": "punch list bottom button."
+  },
+  "pListbutton2": "Upload Photos",
+  "@pListbutton2": {
+    "description": "punch list bottom button."
+  },
+  "completeButton": "Complete",
+  "@completeButton": {
+    "description": "Complete button."
   }
 }
