@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/complete_component.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/screens/utils/image_picker.dart';
-// import 'package:plms_start/screens/utils/swich_punch.dart';
 import 'package:plms_start/screens/utils/title_text.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PunchComplete extends StatefulWidget {
   const PunchComplete({Key? key}) : super(key: key);
@@ -21,7 +21,7 @@ class _PunchCompleteState extends State<PunchComplete> {
         backgroundColor: Color(0xff2B3745),
         automaticallyImplyLeading: false,
         title: Header(
-          title: "title",
+          title: AppLocalizations.of(context)!.completeTitle,
         ),
       ),
       body: DefaultTabController(
@@ -58,7 +58,7 @@ class _PunchCompleteState extends State<PunchComplete> {
                         Row(
                           children: [
                             Text(
-                              "Comment of Not Accepted",
+                              AppLocalizations.of(context)!.completeText,
                               style: TextStyle(color: Color(0xff5D8791)),
                             ),
                           ],
@@ -94,7 +94,8 @@ class _PunchCompleteState extends State<PunchComplete> {
                               Row(
                                 children: [
                                   TitleText(
-                                    title: 'Attachment',
+                                    title: AppLocalizations.of(context)!
+                                        .completePageTitle,
                                   ),
                                 ],
                               ),
@@ -118,15 +119,33 @@ class _PunchCompleteState extends State<PunchComplete> {
           ],
         ),
       ),
-      bottomNavigationBar: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Color(0xff2F4C5A), // background
-          // onPrimary: Colors.white, // foreground
+      bottomNavigationBar: Container(
+        color: Color(0xFFE6E6E6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xff71838D), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                Get.back();
+              },
+              child: Text(AppLocalizations.of(context)!.completePageButton1),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xff2F4C5A), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                Get.offAllNamed('/home');
+              },
+              child: Text(AppLocalizations.of(context)!.completePageButton2),
+            ),
+          ],
         ),
-        onPressed: () {
-          Get.offAllNamed('/home');
-        },
-        child: Text("Upload"),
       ),
     );
   }
@@ -136,20 +155,19 @@ class _PunchCompleteState extends State<PunchComplete> {
       children: [
         Row(
           children: [
-            Text("Description"),
+            Text(AppLocalizations.of(context)!.completePageDescription),
           ],
         ),
-        Container(
-          height: 100,
-          child: TextField(
-              keyboardType: TextInputType.multiline,
-              maxLength: null,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "hint",
-                isDense: true,
-              )),
-        ),
+        TextField(
+            maxLines: 7,
+            keyboardType: TextInputType.multiline,
+            maxLength: null,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText:
+                  AppLocalizations.of(context)!.completePageDescriptionLabel,
+              isDense: true,
+            )),
       ],
     );
   }
