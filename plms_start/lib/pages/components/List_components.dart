@@ -17,18 +17,21 @@ class ListComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 1 / 6,
-      width: MediaQuery.of(context).size.width,
+      // color: Colors.red,
+      height: MediaQuery.of(context).size.height * 1.09 / 8,
+      // width: MediaQuery.of(context).size.width,
       child: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.only(left: 17, top: 3, bottom: 8, right: 10),
         child: Container(
+          // height: MediaQuery.of(context).size.height * 1 / 8,
+          width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             boxShadow: [
               BoxShadow(
                 color: Color(colors),
-                offset: Offset(-7, 0),
+                offset: Offset(-7, 0.3),
               ),
             ],
           ),
