@@ -193,11 +193,6 @@ class _SignUpPageState extends State<SignUpPage> {
             setState(() {
               isSwitched = valued!;
               print(isSwitched);
-              // if (isSwitched = true) {
-              //   count++;
-              // } else {
-              //   count--;
-              // }
             });
           },
           // activeTrackColor: Colors.yellow,
@@ -220,11 +215,6 @@ class _SignUpPageState extends State<SignUpPage> {
             setState(() {
               isSwitched2 = value!;
               print(isSwitched2);
-              // if (isSwitched2 = true) {
-              //   count++;
-              // } else {
-              //   count--;
-              // }
             });
           },
           // activeTrackColor: Colors.yellow,
@@ -251,9 +241,7 @@ class _SignUpPageState extends State<SignUpPage> {
               border: OutlineInputBorder(),
             ),
             onChanged: (text) {
-              setState(() {
-                // dataList.add(controller.text);
-              });
+              setState(() {});
             },
           ),
         ),

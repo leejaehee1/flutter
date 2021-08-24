@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'components/screenList.dart';
+import 'screenList.dart';
 
 class Home extends StatelessWidget {
   @override

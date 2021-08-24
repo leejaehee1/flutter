@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'package:plms_start/pages/components/photoList.dart';
+import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
 import 'package:plms_start/pages/sign_up_page.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';
@@ -12,7 +12,7 @@ import 'package:plms_start/screens/controller/dropdown_button_controller5.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller6.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller7.dart';
 
-import 'pages/components/punch_complete.dart';
+import 'pages/punch_complete.dart';
 import 'pages/confirm_page.dart';
 import 'pages/login_pages.dart';
 import 'pages/punch_screen.dart';
