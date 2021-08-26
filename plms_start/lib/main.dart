@@ -11,6 +11,7 @@ import 'package:plms_start/screens/controller/dropdown_button_controller4.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller5.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller6.dart';
 import 'package:plms_start/screens/controller/dropdown_button_controller7.dart';
+import 'package:plms_start/screens/loading.dart';
 
 import 'pages/punch_complete.dart';
 import 'pages/confirm_page.dart';
@@ -25,8 +26,13 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -63,6 +69,10 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: '/signup',
             page: () => SignUpPage(),
+            transition: Transition.zoom),
+        GetPage(
+            name: '/loading',
+            page: () => Loading(),
             transition: Transition.zoom),
         GetPage(
             name: '/punchList',

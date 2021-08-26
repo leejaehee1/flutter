@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plms_start/screens/utils/checkbox_punch.dart';
 import 'package:plms_start/screens/utils/dropdown_button_new.dart';
+import 'package:plms_start/screens/utils/new.Button.dart';
 import 'package:plms_start/screens/utils/title_text.dart';
 
 import 'data/network.dart';
@@ -57,7 +58,8 @@ class _PageOneState extends State<PageOne> {
                 Column(
                   children: [
                     Newbutton(),
-                    DropboxText(text: 'Catagory'),
+                    ButtonNew(),
+                    // DropboxText(text: 'Catagory'),
                     // DropboxText2(text: 'System'),
                     // DropboxText3(text: 'Sub-System'),
                     TextFieldText(text: 'Unit', hint: 'Create or Add'),

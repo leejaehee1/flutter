@@ -17,21 +17,7 @@ class Newbutton extends StatefulWidget {
 }
 
 class _NewbuttonState extends State<Newbutton> {
-  final String aa = Get.arguments;
-
-  String? firstCategory;
-  void initState() {
-    getJsons();
-    test();
-    super.initState();
-  }
-
-  dynamic getJsons() {
-    Network network = Network("http://10.0.2.2:5000/api/category/");
-
-    var resultData = network.getJsonData();
-    print(resultData);
-  }
+  List<String> data = [];
 
   dynamic test() async {
     var uriResponse = await http.get(
@@ -42,22 +28,35 @@ class _NewbuttonState extends State<Newbutton> {
 
     var json = jsonDecode(uriResponse.body);
     var user = User.fromJson(json);
+    int len = user.result.length;
     String firstCategory = user.result[0]['category'];
     var b = user.result[1]['category'];
-    print(firstCategory);
-    print(firstCategory.runtimeType);
+    for (int i = 0; i < len; i++) {
+      data += [user.result[i]['category']];
+    }
+    print(data);
+  }
+
+  void initState() {
+    test();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return DropdownSearch<String>(
-        mode: Mode.MENU,
-        showSelectedItem: true,
-        items: ["$aa", "Italia (Disabled)", "Tunisia", 'Canada'],
-        label: "Menu mode",
-        hint: "country in menu mode",
-        popupItemDisabled: (String s) => s.startsWith('I'),
-        onChanged: print,
-        selectedItem: "Brazil");
+    return Container(
+      width: 100,
+      child: DropdownSearch<String>(
+          onSaved: print,
+          showSearchBox: true,
+          mode: Mode.MENU,
+          showSelectedItem: true,
+          items: data,
+          label: "Menu mode",
+          hint: "country in menu mode",
+          popupItemDisabled: (String s) => s.startsWith('I'),
+          onChanged: print,
+          selectedItem: data[0]),
+    );
   }
 }

@@ -21,7 +21,7 @@ import 'package:xml/xml.dart';
 Future<void> main() async {
   var uriResponse = await http.get(
     Uri.parse(
-      'http://localhost:5000/api/category/',
+      'http://localhost:5000/api/',
     ),
   );
 
@@ -29,45 +29,16 @@ Future<void> main() async {
   // print(json);
 
   // Map userMap = jsonDecode(json);
-  var user = User.fromJson(json);
+  // var user = User.fromJson(json);
 
   // print('category, ${user.category}!');
   // print('categoryName ${user.categoryName}.');
-  print('result: ${user.result[0]['category']}');
-  print('test ${user.test}.');
-  print('error ${user.error}.');
+  // print(uriResponse);
+  print(json);
+  // print('result: ${user.result[0]['category']}');
+  // print('test ${user.test}.');
+  // print('error ${user.error}.');
 }
-
-// class User {
-//   String? category;
-//   String? categoryName;
-//   String? stage;
-
-//   User(this.category, this.categoryName, this.stage);
-
-//   User.fromJson(Map<String, dynamic> json)
-//       : category = json['category'],
-//         categoryName = json['categoryName'],
-//         stage = json['stage'];
-
-//   Map<String, dynamic> toJson() =>
-//       {'category': category, 'categoryName': categoryName, 'stage': stage};
-// }
-// class User {
-//   List result;
-//   String? test;
-//   String? error;
-
-//   User(this.result, this.test, this.error);
-
-//   User.fromJson(Map<String, dynamic> json)
-//       : result = json['result'],
-//         test = json['test'],
-//         error = json['error'];
-
-//   Map<String, dynamic> toJson() =>
-//       {'result': result, 'test': test, 'error': error};
-// }
 
 class User {
   final List result;

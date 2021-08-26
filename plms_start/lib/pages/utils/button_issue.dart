@@ -23,37 +23,6 @@ class IssueButton extends StatefulWidget {
 }
 
 class _IssueButtonState extends State<IssueButton> {
-  void initState() {
-    // getJsons();
-    test();
-    super.initState();
-  }
-
-  // dynamic getJsons() {
-  //   Network network = Network("http://10.0.2.2:5000/api/category/");
-
-  //   var resultData = network.getJsonData();
-  //   print(resultData);
-  // }
-
-  dynamic test() async {
-    var uriResponse = await http.get(
-      Uri.parse(
-        'http://10.0.2.2:5000/api/category/',
-      ),
-    );
-
-    var json = jsonDecode(uriResponse.body);
-    var user = User.fromJson(json);
-    var a = user.result[0]['category'];
-    var b = user.result[1]['category'];
-    print(a);
-    print(a.runtimeType);
-    Get.toNamed("/punchList", arguments: a);
-
-    print(a);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
