@@ -55,6 +55,8 @@ class _PunchScreenState extends State<PunchScreen>
             title: CatalogAppBar(),
           ),
           SliverAppBar(
+            toolbarHeight: 100,
+            // titleSpacing: 10,
             automaticallyImplyLeading: false,
             // expandedHeight: 0,
             elevation: 0,

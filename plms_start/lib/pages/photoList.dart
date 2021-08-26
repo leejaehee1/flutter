@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
-import 'List_file.dart';
 import 'components/List_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

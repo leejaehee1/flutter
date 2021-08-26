@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:plms_start/screens/utils/checkbox_punch.dart';
+import 'package:plms_start/screens/utils/dropdown_button_new.dart';
 import 'package:plms_start/screens/utils/title_text.dart';
 
+import 'data/network.dart';
+import 'models/model.dart';
 import 'utils/dropbox_text.dart';
 import 'utils/dropbox_text2.dart';
 import 'utils/dropbox_text3.dart';
 import 'utils/textfield_text.dart';
+
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class PageOne extends StatefulWidget {
   const PageOne({Key? key}) : super(key: key);
@@ -50,9 +56,10 @@ class _PageOneState extends State<PageOne> {
                 ),
                 Column(
                   children: [
+                    Newbutton(),
                     DropboxText(text: 'Catagory'),
-                    DropboxText2(text: 'System'),
-                    DropboxText3(text: 'Sub-System'),
+                    // DropboxText2(text: 'System'),
+                    // DropboxText3(text: 'Sub-System'),
                     TextFieldText(text: 'Unit', hint: 'Create or Add'),
                     TextFieldText(text: 'Area', hint: 'Create or Add'),
                     TextFieldText(text: 'Punch ID', hint: 'Add'),
@@ -78,10 +85,11 @@ class _PageOneState extends State<PageOne> {
           ],
         ),
         Container(
-          height: 100,
+          // height: 100,
           child: TextField(
               keyboardType: TextInputType.multiline,
-              maxLength: null,
+              maxLines: 7,
+              maxLength: 100,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: "hint",

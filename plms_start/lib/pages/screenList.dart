@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:get/get.dart';
 
 import 'package:plms_start/pages/utils/button_issue.dart';
@@ -26,19 +27,27 @@ class _ScreenListState extends State<ScreenList>
   int _currentIndex = 0;
 
   @override
-  void initState() {
-    // _controller = TabController(length: 50, vsync: this);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     int idx = _currentIndex;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff2B3745),
           automaticallyImplyLeading: false,
-          title: Text(AppLocalizations.of(context)!.appTitle),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(AppLocalizations.of(context)!.appTitle),
+              ElevatedButton(
+                onPressed: () {
+                  Get.offAllNamed('/');
+                },
+                child: Text('Logout'),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff5C8893),
+                ),
+              ),
+            ],
+          ),
         ),
         body: DefaultTabController(
           // initialIndex: 0,
@@ -51,6 +60,7 @@ class _ScreenListState extends State<ScreenList>
                   // width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   child: TabBar(
+                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
                     onTap: (index) {
                       setState(() {
                         _currentIndex = index;

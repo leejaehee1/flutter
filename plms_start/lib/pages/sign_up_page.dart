@@ -95,6 +95,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 } else {
                   return null;
                 }
+                var url = Uri.parse('http://10.0.2.2:5000/api/register');
+                var response = await http.post(url, body: {
+                  'userID': _idTextEditController.text,
+                  'password': _pwTextEditController.text,
+                });
               },
             ),
           ],
