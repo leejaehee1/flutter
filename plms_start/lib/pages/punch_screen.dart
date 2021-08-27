@@ -1,3 +1,4 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 // import 'package:plms_start/pages/utils/button_issue.dart';
@@ -80,10 +81,10 @@ class _PunchScreenState extends State<PunchScreen>
                 PageThree(
                   key: page3Key,
                 ),
-                PunchButton(
-                    name: '/confirm',
-                    buttonName1: "Save Draft",
-                    buttonName2: "Create Issue"),
+                // PunchButton(
+                //     name: '/confirm',
+                //     buttonName1: "Save Draft",
+                //     buttonName2: "Create Issue"),
               ],
             ),
           ),

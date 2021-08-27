@@ -1,3 +1,4 @@
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:plms_start/screens/utils/swich_punch.dart';
 // import 'utils/dropbox_text.dart';
@@ -19,53 +20,55 @@ class PageTwo extends StatefulWidget {
 class _PageTwoState extends State<PageTwo> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Color(0xFFE6E6E6),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffB7C5B9),
-                offset: Offset(-7, 0),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    TitleText(
-                      title: 'Assign',
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: [
-                    DropboxText4(text: 'Action On'),
-                    DropboxText5(text: 'Discipline'),
-                    DropboxText6(text: 'Raised On'),
-                    DropboxText7(text: 'Target Date'),
-                    // TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
-                    TaggingButton(name: 'Keyword'),
-                    SwitchButton(
-                      name: 'Design Change Required',
-                    ),
-                    SwitchButton(
-                      name: 'Material Required',
-                    ),
-                  ],
+    return DelayedDisplay(
+      child: Container(
+        color: Color(0xFFE6E6E6),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xffB7C5B9),
+                  offset: Offset(-7, 0),
                 ),
               ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TitleText(
+                        title: 'Assign',
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      // DropboxText4(text: 'Action On'),
+                      // DropboxText5(text: 'Discipline'),
+                      // DropboxText6(text: 'Raised On'),
+                      // DropboxText7(text: 'Target Date'),
+                      // TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
+                      TaggingButton(name: 'Keyword'),
+                      SwitchButton(
+                        name: 'Design Change Required',
+                      ),
+                      SwitchButton(
+                        name: 'Material Required',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

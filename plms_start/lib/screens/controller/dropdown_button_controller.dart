@@ -4,16 +4,15 @@ import 'package:plms_start/screens/provider/http_Provider.dart';
 enum DropDownMenu { DEFAULT, MENU1, MENU2 }
 var aa = Get.arguments;
 int len = aa.lenght;
-var bb = server.getReq('category');
+// var bb = server.getReq('category');
 
 extension DropDownMenuExtention on DropDownMenu {
   dynamic get name {
     // for (int idx; idx < len; idx++) {}
-    ;
 
     switch (this) {
       case DropDownMenu.DEFAULT:
-        return bb;
+        return 'bb';
       case DropDownMenu.MENU1:
         return aa.result[1]['category'];
       case DropDownMenu.MENU2:

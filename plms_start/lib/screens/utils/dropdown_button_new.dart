@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import 'package:plms_start/screens/data/network.dart';
 import 'package:plms_start/screens/models/model.dart';
 
 import 'package:http/http.dart' as http;
@@ -29,11 +26,13 @@ class _NewbuttonState extends State<Newbutton> {
     var json = jsonDecode(uriResponse.body);
     var user = User.fromJson(json);
     int len = user.result.length;
-    String firstCategory = user.result[0]['category'];
-    var b = user.result[1]['category'];
-    for (int i = 0; i < len; i++) {
-      data += [user.result[i]['category']];
-    }
+
+    this.setState(() {
+      for (int i = 0; i < len; i++) {
+        data += [user.result[i]['category']];
+      }
+    });
+
     print(data);
   }
 

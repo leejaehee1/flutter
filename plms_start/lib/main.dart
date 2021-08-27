@@ -6,21 +6,21 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
 import 'package:plms_start/pages/sign_up_page.dart';
-import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';
-import 'package:plms_start/screens/controller/dropdown_button_controller4.dart';
-import 'package:plms_start/screens/controller/dropdown_button_controller5.dart';
-import 'package:plms_start/screens/controller/dropdown_button_controller6.dart';
-import 'package:plms_start/screens/controller/dropdown_button_controller7.dart';
+// import 'screens/controller/dropdown_button_controller.dart';
+// import 'screens/controller/dropdown_button_controller2.dart';
+// import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';
+// import 'package:plms_start/screens/controller/dropdown_button_controller4.dart';
+// import 'package:plms_start/screens/controller/dropdown_button_controller5.dart';
+// import 'package:plms_start/screens/controller/dropdown_button_controller6.dart';
+// import 'package:plms_start/screens/controller/dropdown_button_controller7.dart';
 import 'package:plms_start/screens/loading.dart';
-import 'package:plms_start/screens/provider/http_Provider.dart';
 
 import 'pages/punch_complete.dart';
 import 'pages/confirm_page.dart';
 import 'pages/login_pages.dart';
 import 'pages/punch_screen.dart';
 import 'pages/success_page.dart';
-import 'screens/controller/dropdown_button_controller.dart';
-import 'screens/controller/dropdown_button_controller2.dart';
+
 import 'screens/utils/draft_screen.dart';
 
 void main() {
@@ -53,15 +53,15 @@ class _MyAppState extends State<MyApp> {
       ],
       // home: Home(),
       initialRoute: '/',
-      initialBinding: BindingsBuilder(() {
-        Get.put(DropdownButtonController());
-        Get.put(DropdownButtonController2());
-        Get.put(DropdownButtonController3());
-        Get.put(DropdownButtonController4());
-        Get.put(DropdownButtonController5());
-        Get.put(DropdownButtonController6());
-        Get.put(DropdownButtonController7());
-      }),
+      // initialBinding: BindingsBuilder(() {
+      //   Get.put(DropdownButtonController());
+      //   Get.put(DropdownButtonController2());
+      //   Get.put(DropdownButtonController3());
+      //   Get.put(DropdownButtonController4());
+      //   Get.put(DropdownButtonController5());
+      //   Get.put(DropdownButtonController6());
+      //   Get.put(DropdownButtonController7());
+      // }),
 
       getPages: [
         GetPage(

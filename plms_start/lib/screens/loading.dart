@@ -29,7 +29,7 @@ class _LoadingState extends State<Loading> {
     var json = jsonDecode(uriResponse.body);
     var user = User.fromJson(json);
     var a = user.result[0]['category'];
-    var b = user.result[1]['category'];
+    // var b = user.result[1]['category'];
     print(a);
     print(a.runtimeType);
     Get.toNamed("/punchList", arguments: user);

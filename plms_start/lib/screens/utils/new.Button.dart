@@ -31,8 +31,7 @@ class _ButtonNewState extends State<ButtonNew> {
 
     var json = jsonDecode(uriResponse.body);
     var user = User.fromJson(json);
-    var a = user.result[0]['category'];
-    var b = user.result[1]['category'];
+
     this.setState(() {
       _data = [user.result[0]['category'], user.result[1]['category']];
     });
