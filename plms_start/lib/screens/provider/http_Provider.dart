@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -28,6 +29,11 @@ class Server {
     print("시작");
     print(response.data.toString());
   }
+
+  // void initState() {
+  //   // super.initState();
+  //   test();
+  // }
 }
 
 Server server = Server();
@@ -62,3 +68,4 @@ Server server = Server();
 
 //   print(a);
 // }
+

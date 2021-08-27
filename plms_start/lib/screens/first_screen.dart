@@ -57,10 +57,10 @@ class _PageOneState extends State<PageOne> {
                 ),
                 Column(
                   children: [
-                    Newbutton(),
-                    ButtonNew(),
-                    // DropboxText(text: 'Catagory'),
-                    // DropboxText2(text: 'System'),
+                    // Newbutton(),
+                    // ButtonNew(),
+                    DropboxText(text: 'Catagory'),
+                    DropboxText2(text: 'System'),
                     // DropboxText3(text: 'Sub-System'),
                     TextFieldText(text: 'Unit', hint: 'Create or Add'),
                     TextFieldText(text: 'Area', hint: 'Create or Add'),
