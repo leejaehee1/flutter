@@ -121,7 +121,7 @@ class _ScreenListState extends State<ScreenList>
       name,
       style: TextStyle(
           color: _currentIndex == idx ? Colors.white : Colors.black,
-          fontSize: 20),
+          fontSize: 12),
     );
   }
 }

@@ -62,4 +62,8 @@ class ListComponent extends StatelessWidget {
       ),
     );
   }
+
+  Widget _textTile(String datas){
+    return Text(datas, style: TextStyle(fontSize: 20),);
+  }
 }

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DropboxText extends StatefulWidget {
-  // final String text;
+  final String text;
 
-  DropboxText({Key? key}) : super(key: key);
+  DropboxText({Key? key, required this.text}) : super(key: key);
 
   @override
   _DropboxTextState createState() => _DropboxTextState();
@@ -20,7 +20,7 @@ class _DropboxTextState extends State<DropboxText> {
       children: [
         SizedBox(
           width: 100,
-          child: Text("widget.text"),
+          child: Text(widget.text),
         ),
         Container(
           width: MediaQuery.of(context).size.width * 4 / 7,

@@ -54,10 +54,9 @@ class _PageTwoState extends State<PageTwo> {
                   Column(
                     children: [
                       DropboxText4(),
-                      // DropboxText5(text: 'Discipline'),
-                      // DropboxText6(text: 'Raised On'),
-                      // DropboxText7(text: 'Target Date'),
-                      // TextFieldText(text: 'Keyword', hint: 'Input Keyword'),
+                      DropboxText5(text: 'Discipline'),
+                      DropboxText6(text: 'Raised On'),
+                      DropboxText7(text: 'Target Date'),
                       TaggingButton(name: 'Keyword'),
                       SwitchButton(
                         name: 'Design Change Required',
