@@ -1,12 +1,11 @@
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:plms_start/screens/utils/checkbox_punch.dart';
 
 import 'package:plms_start/screens/utils/title_text.dart';
 
 import 'utils/dropbox_text.dart';
-import 'utils/dropbox_text2.dart';
-import 'utils/dropbox_text3.dart';
 import 'utils/textfield_text.dart';
 
 class PageOne extends StatefulWidget {
@@ -17,6 +16,7 @@ class PageOne extends StatefulWidget {
 }
 
 class _PageOneState extends State<PageOne> {
+  List<dynamic> getdata = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return DelayedDisplay(
@@ -54,7 +54,9 @@ class _PageOneState extends State<PageOne> {
                   ),
                   Column(
                     children: [
-                      DropboxText(),
+                      DropboxText(
+                          // text: 'category',
+                          ),
                       // DropboxText2(text: 'System'),
                       // DropboxText3(text: 'Sub-System'),
                       TextFieldText(text: 'Unit', hint: 'Create or Add'),

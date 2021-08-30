@@ -1,4 +1,3 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 // import 'package:plms_start/pages/utils/button_issue.dart';
@@ -7,7 +6,6 @@ import 'package:plms_start/screens/first_screen.dart';
 import 'package:plms_start/screens/second_screen.dart';
 import 'package:plms_start/screens/tabbar_screen.dart';
 import 'package:plms_start/screens/third_screen.dart';
-import 'package:plms_start/screens/utils/button_punch.dart';
 
 class PunchScreen extends StatefulWidget {
   const PunchScreen({Key? key}) : super(key: key);

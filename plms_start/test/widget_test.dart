@@ -17,23 +17,54 @@ import 'package:http/http.dart' as http;
 Future<void> main() async {
   var uriResponse = await http.get(
     Uri.parse(
-      'http://localhost:5000/api/',
+      'http://localhost:5000/api/authority',
     ),
   );
 
   var json = jsonDecode(uriResponse.body);
-  // print(json);
+  print(json.runtimeType);
+  print(json[0]);
 
   // Map userMap = jsonDecode(json);
-  // var user = User.fromJson(json);
-
+  // var user = AuthorityList.fromJson(json);
+  // var users = Authority.fromJson(user);
   // print('category, ${user.category}!');
   // print('categoryName ${user.categoryName}.');
   // print(uriResponse);
-  print(json);
+  // print(user);
   // print('result: ${user.result[0]['category']}');
   // print('test ${user.test}.');
   // print('error ${user.error}.');
+}
+
+class AuthorityList {
+  final List<Authority> authoritys;
+
+  AuthorityList({required this.authoritys});
+
+  factory AuthorityList.fromJson(List<dynamic> parsedJson) {
+    List<Authority> authoritys = <Authority>[];
+    authoritys = parsedJson.map((i) => Authority.fromJson(i)).toList();
+
+    return new AuthorityList(authoritys: authoritys);
+  }
+}
+
+class Authority {
+  final String authority;
+  final String authName;
+  final String remarks;
+
+  Authority(
+      {required this.authority, required this.authName, required this.remarks});
+
+  factory Authority.fromJson(Map<String, dynamic> parsedJson) {
+    return Authority(
+      authority: parsedJson['authority'],
+      authName: parsedJson['authName'],
+      remarks: parsedJson['remarks'],
+    );
+  }
 }
 
 class User {

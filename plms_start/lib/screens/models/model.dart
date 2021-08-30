@@ -1,7 +1,7 @@
 class User {
   final List result;
-  final String? test;
-  final String? error;
+  final String test;
+  final String error;
 
   User({required this.result, required this.test, required this.error});
 

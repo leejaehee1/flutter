@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:plms_start/main.dart';
 import 'package:plms_start/screens/models/model.dart';
 
 const url = 'http://10.0.2.2:5000/api/';
@@ -39,10 +38,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  void initState() {
-    test();
-  }
-
   // List<String> data;
   dynamic test() async {
     List<String> data = [];

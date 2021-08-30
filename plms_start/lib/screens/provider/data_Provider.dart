@@ -1,30 +1,20 @@
-import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
-import 'package:plms_start/screens/models/model.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:plms_start/screens/models/model.dart';
 
-import 'dart:convert';
+// import 'dart:convert';
 
-class PostProvider with ChangeNotifier {
-  List<User> _posts = [];
+// import 'package:plms_start/screens/repository/data_repository.dart';
 
-  List<User> getPostList() {
-    _fetchPosts();
-    return _posts;
-  }
+// class PostProvider with ChangeNotifier {
+//   PostRepository _postRepository = PostRepository();
+//   List<User> _posts = [];
 
-  void _fetchPosts() async {
-    final response = await http.get(
-      Uri.parse(
-        'http://10.0.2.2:5000/api/category/',
-      ),
-    );
-    final List<User> parsedResponse = jsonDecode(response.body)
-        .map<User>((json) => User.fromJson(json))
-        .toList();
+//   List<User> get post => _posts;
 
-    _posts.clear();
-    _posts.addAll(parsedResponse);
-
-    notifyListeners();
-  }
-}
+//   loadData() async {
+//     List<User> listData = await _postRepository.loadData();
+//     _posts = listData;
+//     notifyListeners();
+//   }
+// }

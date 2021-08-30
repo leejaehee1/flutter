@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:plms_start/screens/provider/http_Provider.dart';
 
 enum DropDownMenu { DEFAULT, MENU1, MENU2 }
 var aa = Get.arguments;
