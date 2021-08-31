@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:plms_start/pages/components/registrations/validate.dart';
 
 import 'utils/header_issue.dart';
 
@@ -28,6 +29,11 @@ class _SignUpPageState extends State<SignUpPage> {
   final _comTextEditController = TextEditingController();
   final _nameTextEditController = TextEditingController();
   final _personalTextEditController = TextEditingController();
+
+  FocusNode _emailFocus = new FocusNode();
+  FocusNode _passwordFocus = new FocusNode();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -90,6 +96,8 @@ class _SignUpPageState extends State<SignUpPage> {
               child:
                   new Text(AppLocalizations.of(context)!.signUpbottomButton2),
               onPressed: () async {
+                formKey.currentState!.validate();
+                print(formKey.currentState!.validate());
                 if ((isSwitched & isSwitched2 == true)) {
                   print(AppLocalizations.of(context)!.signUpbottomButton2);
                 } else {
@@ -109,79 +117,91 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _firstPage() {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      color: Color(0xFFE6E6E6),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Color(0xffB7C5B9),
-                offset: Offset(-7, 0),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                _radioButton(),
-                Container(
-                  width: 300,
-                  decoration: BoxDecoration(border: Border.all(width: 0.3)),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Column(
-                  children: [
-                    _textField(AppLocalizations.of(context)!.signUpID,
-                        _idTextEditController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _textField(AppLocalizations.of(context)!.signUpPW,
-                        _pwTextEditController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _textField(AppLocalizations.of(context)!.signUprepw,
-                        _repwTextEditController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _textField(AppLocalizations.of(context)!.signUpmail,
-                        _emailTextEditController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _textField(AppLocalizations.of(context)!.signUpcom,
-                        _comTextEditController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _textField(AppLocalizations.of(context)!.signUpname,
-                        _nameTextEditController),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    _textField(AppLocalizations.of(context)!.signUppersonal,
-                        _personalTextEditController),
-                    // DropboxText2(text: "Department"),
-                    ElevatedButton(
-                        onPressed: () {
-                          print(_duty!.index);
-                          print(Duty);
-                        },
-                        child: Text('test')),
-                  ],
+    return Form(
+      key: formKey,
+      child: Container(
+        // height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        color: Color(0xFFE6E6E6),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0xffB7C5B9),
+                  offset: Offset(-7, 0),
                 ),
               ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  _radioButton(),
+                  Container(
+                    width: 300,
+                    decoration: BoxDecoration(border: Border.all(width: 0.3)),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Column(
+                    children: [
+                      _textField(
+                        AppLocalizations.of(context)!.signUpID,
+                        _idTextEditController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _pwFormField(
+                        AppLocalizations.of(context)!.signUpPW,
+                        _pwTextEditController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _textField(
+                        AppLocalizations.of(context)!.signUprepw,
+                        _repwTextEditController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _emailFormField(
+                        AppLocalizations.of(context)!.signUpmail,
+                        _emailTextEditController,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _textField(AppLocalizations.of(context)!.signUpcom,
+                          _comTextEditController),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _textField(AppLocalizations.of(context)!.signUpname,
+                          _nameTextEditController),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _textField(AppLocalizations.of(context)!.signUppersonal,
+                          _personalTextEditController),
+                      _showOkBtn(),
+                    ],
+                  ),
+                  // DropboxText2(text: "Department"),
+                  ElevatedButton(
+                      onPressed: () {
+                        print(_duty!.index);
+                        print(Duty);
+                      },
+                      child: Text('test')),
+                ],
+              ),
             ),
           ),
         ),
@@ -251,6 +271,75 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _showOkBtn() {
+    return Padding(
+        padding: EdgeInsets.only(top: 20),
+        child: MaterialButton(
+          height: 50,
+          child: Text('확인'),
+          onPressed: () {
+            formKey.currentState!.validate();
+          },
+        ));
+  }
+
+  Widget _pwFormField(String title, var controller) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(title)),
+        SizedBox(
+          width: 200,
+          height: 80,
+          child: TextFormField(
+            keyboardType: TextInputType.visiblePassword,
+            focusNode: _passwordFocus,
+            obscureText: true,
+            validator: (value) =>
+                CheckValidate().validatePassword(_passwordFocus, value!),
+            controller: controller,
+            decoration: _textFormDecoration(
+                '비밀번호', '특수문자, 대소문자, 숫자 포함 8자 이상 15자 이내로 입력하세요.'),
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _emailFormField(String title, var controller) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(title)),
+        SizedBox(
+          width: 200,
+          height: 80,
+          child: TextFormField(
+            validator: (value) =>
+                CheckValidate().validateEmail(_emailFocus, value!),
+            controller: controller,
+            keyboardType: TextInputType.emailAddress,
+            focusNode: _emailFocus,
+            decoration: _textFormDecoration('이메일', '이메일을 입력해주세요'),
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration _textFormDecoration(hintText, helperText) {
+    return new InputDecoration(
+      contentPadding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+      border: OutlineInputBorder(),
+      hintText: hintText,
+      helperText: helperText,
     );
   }
 
