@@ -41,16 +41,22 @@ class ListComponent extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    Column(
+                    Row(
                       children: [
-                        Text(
-                          title,
-                          style: TextStyle(
-                            color: Color(colors),
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: TextStyle(
+                                color: Color(colors),
+                              ),
+                            ),
+                            Text(data1),
+                            Text(data2),
+                          ],
                         ),
-                        Text(data1),
-                        Text(data2),
                       ],
                     )
                   ],
@@ -63,7 +69,10 @@ class ListComponent extends StatelessWidget {
     );
   }
 
-  Widget _textTile(String datas){
-    return Text(datas, style: TextStyle(fontSize: 20),);
+  Widget _textTile(String datas) {
+    return Text(
+      datas,
+      // style: TextStyle(fontSize: 20),
+    );
   }
 }

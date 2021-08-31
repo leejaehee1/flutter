@@ -7,7 +7,13 @@ class ListDraft extends StatelessWidget {
   ListDraft({Key? key}) : super(key: key);
 
   final List<String> data1 = ['data1', 'data2', 'data3', 'asdf', 'asdfas'];
-  final List<String> data2 = ['data1', 'data2', 'data3', 'asdf', 'asdfasdf'];
+  final List<String> data2 = [
+    'data1',
+    'data2',
+    'data3',
+    'asdf',
+    '0123456789012345678901234567890123456789012345'
+  ];
 
   @override
   Widget build(BuildContext context) {
