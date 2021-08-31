@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:plms_start/pages/components/registrations/validate.dart';
@@ -19,6 +20,13 @@ class _SignUpPageState extends State<SignUpPage> {
   Duty? _duty = Duty.Assignee;
   bool isSwitched = false;
   bool isSwitched2 = false;
+
+  int _stackIndex = 0;
+
+  String _singleValue = "Text alignment right";
+  String _horizonGroupValue = "Assignee";
+
+  List<String> _status = ["Assignee", "QC", "Manager"];
 
   int count = 0;
 
@@ -96,18 +104,25 @@ class _SignUpPageState extends State<SignUpPage> {
               child:
                   new Text(AppLocalizations.of(context)!.signUpbottomButton2),
               onPressed: () async {
-                formKey.currentState!.validate();
-                print(formKey.currentState!.validate());
                 if ((isSwitched & isSwitched2 == true)) {
+                  formKey.currentState!.validate();
                   print(AppLocalizations.of(context)!.signUpbottomButton2);
                 } else {
                   return null;
                 }
-                var url = Uri.parse('http://10.0.2.2:5000/api/register');
-                var response = await http.post(url, body: {
-                  'userID': _idTextEditController.text,
-                  'password': _pwTextEditController.text,
-                });
+
+                if (((formKey.currentState!.validate() == true))) {
+                  print(formKey.currentState!.validate());
+                  // var url = Uri.parse('http://10.0.2.2:5000/api/register');
+                  // var response = await http.post(url, body: {
+                  //   'userID': _idTextEditController.text,
+                  //   'password': _pwTextEditController.text,
+                  // });
+                } else {
+                  Get.defaultDialog(
+                      title: 'Error',
+                      middleText: 'Check your Email or Password');
+                }
               },
             ),
           ],
@@ -190,16 +205,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       ),
                       _textField(AppLocalizations.of(context)!.signUppersonal,
                           _personalTextEditController),
-                      _showOkBtn(),
                     ],
                   ),
                   // DropboxText2(text: "Department"),
-                  ElevatedButton(
-                      onPressed: () {
-                        print(_duty!.index);
-                        print(Duty);
-                      },
-                      child: Text('test')),
                 ],
               ),
             ),
@@ -274,18 +282,6 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _showOkBtn() {
-    return Padding(
-        padding: EdgeInsets.only(top: 20),
-        child: MaterialButton(
-          height: 50,
-          child: Text('확인'),
-          onPressed: () {
-            formKey.currentState!.validate();
-          },
-        ));
-  }
-
   Widget _pwFormField(String title, var controller) {
     return Row(
       children: [
@@ -344,59 +340,17 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _radioButton() {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          //ListTile - title에는 내용,
-          //leading or trailing에 체크박스나 더보기와 같은 아이콘을 넣는다.
-          title: SizedBox(
-            width: 30,
-            child: Text(
-              AppLocalizations.of(context)!.signUpDuty1,
-              style: TextStyle(fontSize: 13),
-            ),
-          ),
-          leading: Radio<Duty>(
-            value: Duty.Assignee,
-            groupValue: _duty,
-            onChanged: (Duty? value) {
-              setState(() {
-                _duty = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: Text(
-            AppLocalizations.of(context)!.signUpDuty2,
-            style: TextStyle(fontSize: 13),
-          ),
-          leading: Radio<Duty>(
-            value: Duty.QC,
-            groupValue: _duty,
-            onChanged: (Duty? value) {
-              setState(() {
-                _duty = value;
-              });
-            },
-          ),
-        ),
-        ListTile(
-          title: Text(
-            AppLocalizations.of(context)!.signUpDuty3,
-            style: TextStyle(fontSize: 13),
-          ),
-          leading: Radio<Duty>(
-            value: Duty.Manager,
-            groupValue: _duty,
-            onChanged: (Duty? value) {
-              setState(() {
-                _duty = value;
-              });
-            },
-          ),
-        ),
-      ],
+    return RadioGroup<String>.builder(
+      direction: Axis.horizontal,
+      groupValue: _horizonGroupValue,
+      onChanged: (value) => setState(() {
+        _horizonGroupValue = value!;
+      }),
+      items: _status,
+      itemBuilder: (item) => RadioButtonBuilder(
+        item,
+        textPosition: RadioButtonTextPosition.left,
+      ),
     );
   }
 
