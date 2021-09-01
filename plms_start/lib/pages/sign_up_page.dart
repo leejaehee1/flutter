@@ -5,7 +5,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:plms_start/pages/components/registrations/validate.dart';
 
+import 'package:dropdown_search/dropdown_search.dart';
+
 import 'utils/header_issue.dart';
+
+import 'dart:convert';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -14,20 +18,47 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-enum Duty { Assignee, QC, Manager }
-
 class _SignUpPageState extends State<SignUpPage> {
-  Duty? _duty = Duty.Assignee;
+  @override
+  void initState() {
+    test();
+    super.initState();
+  }
+
+  Future<dynamic> test() async {
+    var uriResponse = await http.get(
+      Uri.parse(
+        'http://10.0.2.2:5000/api/department/',
+      ),
+    );
+
+    var json = jsonDecode(uriResponse.body);
+    print(json.runtimeType);
+    print(json[0]['deptName']);
+    int len = json.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len; i++) {
+          deptName += [json[i]['deptName']];
+          department += [json[i]['department']];
+        }
+      });
+  }
+
   bool isSwitched = false;
   bool isSwitched2 = false;
 
-  int _stackIndex = 0;
-
-  String _singleValue = "Text alignment right";
   String _horizonGroupValue = "Assignee";
 
   List<String> _status = ["Assignee", "QC", "Manager"];
 
+  List<String> deptName = [];
+  List<String> department = [];
+  List<String> depList = [];
+  List<String> authorityList = ['1'];
+  // int authoritylen = (authorityList.length - 1);
+  List<String> deptList = [];
   int count = 0;
 
   final _idTextEditController = TextEditingController();
@@ -113,11 +144,19 @@ class _SignUpPageState extends State<SignUpPage> {
 
                 if (((formKey.currentState!.validate() == true))) {
                   print(formKey.currentState!.validate());
-                  // var url = Uri.parse('http://10.0.2.2:5000/api/register');
-                  // var response = await http.post(url, body: {
-                  //   'userID': _idTextEditController.text,
-                  //   'password': _pwTextEditController.text,
-                  // });
+                  var url = Uri.parse('http://10.0.2.2:5000/api/register');
+                  await http.post(url, body: {
+                    'userID': _idTextEditController.text,
+                    'password': _pwTextEditController.text,
+                    'userName': _nameTextEditController.text,
+                    'email': _emailTextEditController.text,
+                    'company': _comTextEditController.text,
+                    'authority': authorityList[authorityList.length - 1],
+                    'personalID': _personalTextEditController.text,
+                    'department': depList[depList.length - 1],
+                    'active': '1',
+                  });
+                  Get.back();
                 } else {
                   Get.defaultDialog(
                       title: 'Error',
@@ -166,9 +205,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   Column(
                     children: [
                       _textField(
-                        AppLocalizations.of(context)!.signUpID,
-                        _idTextEditController,
-                      ),
+                          AppLocalizations.of(context)!.signUpID,
+                          _idTextEditController,
+                          AppLocalizations.of(context)!.signUpID),
                       SizedBox(
                         height: 20,
                       ),
@@ -179,10 +218,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      _textField(
-                        AppLocalizations.of(context)!.signUprepw,
-                        _repwTextEditController,
-                      ),
+                      _repwtextField(
+                          AppLocalizations.of(context)!.signUprepw,
+                          _repwTextEditController,
+                          AppLocalizations.of(context)!.signUprepw),
                       SizedBox(
                         height: 20,
                       ),
@@ -193,27 +232,74 @@ class _SignUpPageState extends State<SignUpPage> {
                       SizedBox(
                         height: 20,
                       ),
-                      _textField(AppLocalizations.of(context)!.signUpcom,
-                          _comTextEditController),
+                      _textField(
+                          AppLocalizations.of(context)!.signUpcom,
+                          _comTextEditController,
+                          AppLocalizations.of(context)!.signUpcom),
                       SizedBox(
                         height: 20,
                       ),
-                      _textField(AppLocalizations.of(context)!.signUpname,
-                          _nameTextEditController),
+                      _textField(
+                          AppLocalizations.of(context)!.signUpname,
+                          _nameTextEditController,
+                          AppLocalizations.of(context)!.signUpname),
                       SizedBox(
                         height: 20,
                       ),
-                      _textField(AppLocalizations.of(context)!.signUppersonal,
-                          _personalTextEditController),
+                      _textField(
+                          AppLocalizations.of(context)!.signUppersonal,
+                          _personalTextEditController,
+                          AppLocalizations.of(context)!.signUppersonal),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      _newButton(),
+                      SizedBox(
+                        height: 20,
+                      ),
                     ],
                   ),
-                  // DropboxText2(text: "Department"),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _newButton() {
+    return Row(
+      children: [
+        SizedBox(
+          width: 100,
+          child: Text(AppLocalizations.of(context)!.signUpdept),
+        ),
+        Container(
+          width: Get.width * 3 / 5,
+          height: Get.height * 1 / 13,
+          child: DropdownSearch<String>(
+            onSaved: print,
+            showSearchBox: true,
+            mode: Mode.MENU,
+            showSelectedItem: true,
+            items: deptName,
+            label: AppLocalizations.of(context)!.signUpdeptselect,
+            popupItemDisabled: (String s) => s.startsWith('I'),
+            onChanged: (valued) {
+              setState(() {
+                for (var i = 0; i < deptName.length; i++) {
+                  if (valued == deptName[i]) {
+                    depList.add(department[i]);
+                  }
+                }
+
+                print(depList);
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -261,18 +347,50 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _textField(String title, var controller) {
+  Widget _textField(String title, var controller, String hint) {
     return Row(
       children: [
         SizedBox(width: 100, child: Text(title)),
         SizedBox(
-          width: 200,
-          height: 30,
-          child: TextField(
+          width: Get.width * 3 / 5,
+          height: Get.height * 1 / 13,
+          child: TextFormField(
             controller: controller,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-            ),
+            decoration: _textDecoration(hint),
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration _textDecoration(hintText) {
+    return new InputDecoration(
+      contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
+      border: OutlineInputBorder(),
+      hintText: hintText,
+      // helperText: helperText,
+    );
+  }
+
+  Widget _repwtextField(String title, var controller, String hint) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(title)),
+        SizedBox(
+          width: Get.width * 3 / 5,
+          height: Get.height * 1 / 13,
+          child: TextFormField(
+            keyboardType: TextInputType.visiblePassword,
+            obscureText: true,
+            validator: (val) {
+              if (val != _pwTextEditController.text) return 'Not Match';
+              return null;
+            },
+            controller: controller,
+            decoration: _textDecoration(hint),
             onChanged: (text) {
               setState(() {});
             },
@@ -287,8 +405,8 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         SizedBox(width: 100, child: Text(title)),
         SizedBox(
-          width: 200,
-          height: 80,
+          width: Get.width * 3 / 5,
+          height: Get.height * 1.19 / 9,
           child: TextFormField(
             keyboardType: TextInputType.visiblePassword,
             focusNode: _passwordFocus,
@@ -297,7 +415,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 CheckValidate().validatePassword(_passwordFocus, value!),
             controller: controller,
             decoration: _textFormDecoration(
-                '비밀번호', '특수문자, 대소문자, 숫자 포함 8자 이상 15자 이내로 입력하세요.'),
+                AppLocalizations.of(context)!.signUppwForm1,
+                AppLocalizations.of(context)!.signUppwForm2),
             onChanged: (text) {
               setState(() {});
             },
@@ -312,15 +431,17 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         SizedBox(width: 100, child: Text(title)),
         SizedBox(
-          width: 200,
-          height: 80,
+          width: Get.width * 3 / 5,
+          height: Get.height * 1 / 9,
           child: TextFormField(
             validator: (value) =>
                 CheckValidate().validateEmail(_emailFocus, value!),
             controller: controller,
             keyboardType: TextInputType.emailAddress,
             focusNode: _emailFocus,
-            decoration: _textFormDecoration('이메일', '이메일을 입력해주세요'),
+            decoration: _textFormDecoration(
+                AppLocalizations.of(context)!.signUpmailForm1,
+                AppLocalizations.of(context)!.signUpmailForm2),
             onChanged: (text) {
               setState(() {});
             },
@@ -332,8 +453,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   InputDecoration _textFormDecoration(hintText, helperText) {
     return new InputDecoration(
-      contentPadding: EdgeInsets.fromLTRB(0, 16, 0, 0),
+      contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
       border: OutlineInputBorder(),
+      helperMaxLines: 2,
       hintText: hintText,
       helperText: helperText,
     );
@@ -345,6 +467,16 @@ class _SignUpPageState extends State<SignUpPage> {
       groupValue: _horizonGroupValue,
       onChanged: (value) => setState(() {
         _horizonGroupValue = value!;
+        if (value == _status[0]) {
+          authorityList.add('1');
+        }
+        if (value == _status[1]) {
+          authorityList.add('4');
+        }
+        if (value == _status[2]) {
+          authorityList.add('3');
+        }
+        print(authorityList);
       }),
       items: _status,
       itemBuilder: (item) => RadioButtonBuilder(
