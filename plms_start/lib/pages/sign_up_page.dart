@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_dropdown_search/flutter_dropdown_search.dart';
 import 'package:get/get.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:http/http.dart' as http;
@@ -33,8 +36,9 @@ class _SignUpPageState extends State<SignUpPage> {
     );
 
     var json = jsonDecode(uriResponse.body);
-    print(json.runtimeType);
+    // print(json.runtimeType);
     print(json[0]['deptName']);
+    _items += json;
     int len = json.length;
     // dispose();
     if (mounted)
@@ -48,11 +52,13 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool isSwitched = false;
   bool isSwitched2 = false;
+  bool isManager = false;
 
   String _horizonGroupValue = "Assignee";
 
   List<String> _status = ["Assignee", "QC", "Manager"];
-
+  String dropdownValue = '';
+  var _items = [];
   List<String> deptName = [];
   List<String> department = [];
   List<String> depList = [];
@@ -60,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
   // int authoritylen = (authorityList.length - 1);
   List<String> deptList = [];
   int count = 0;
-
+  TextEditingController _controller = TextEditingController();
   final _idTextEditController = TextEditingController();
   final _pwTextEditController = TextEditingController();
   final _repwTextEditController = TextEditingController();
@@ -96,20 +102,12 @@ class _SignUpPageState extends State<SignUpPage> {
           title: AppLocalizations.of(context)!.signUpHeader,
         ),
       ),
-      body: DefaultTabController(
-        // initialIndex: 0,
-        length: 3,
-        // child: Container(
-        //     height: MediaQuery.of(context).size.height,
-        //     width: MediaQuery.of(context).size.width,
-        //     child: _firstPage()),
-        child: ListView(
-          children: [
-            _firstPage(),
-            _checkPage1(AppLocalizations.of(context)!.signUpcheckPage1, 'data'),
-            _checkPage2(AppLocalizations.of(context)!.signUpcheckPage2, 'data'),
-          ],
-        ),
+      body: ListView(
+        children: [
+          _firstPage(),
+          _checkPage1(AppLocalizations.of(context)!.signUpcheckPage1, 'data'),
+          _checkPage2(AppLocalizations.of(context)!.signUpcheckPage2, 'data'),
+        ],
       ),
       bottomNavigationBar: Container(
         color: Color(0xFFE6E6E6),
@@ -117,52 +115,58 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            new ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xff71838D),
-              ),
-              child:
-                  new Text(AppLocalizations.of(context)!.signUpbottomButton1),
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            new ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Color(0xff2F4C5A), // background
-                // onPrimary: Colors.white, // foreground
-              ),
-              child:
-                  new Text(AppLocalizations.of(context)!.signUpbottomButton2),
-              onPressed: () async {
-                if ((isSwitched & isSwitched2 == true)) {
-                  formKey.currentState!.validate();
-                  print(AppLocalizations.of(context)!.signUpbottomButton2);
-                } else {
-                  return null;
-                }
-
-                if (((formKey.currentState!.validate() == true))) {
-                  print(formKey.currentState!.validate());
-                  var url = Uri.parse('http://10.0.2.2:5000/api/register');
-                  await http.post(url, body: {
-                    'userID': _idTextEditController.text,
-                    'password': _pwTextEditController.text,
-                    'userName': _nameTextEditController.text,
-                    'email': _emailTextEditController.text,
-                    'company': _comTextEditController.text,
-                    'authority': authorityList[authorityList.length - 1],
-                    'personalID': _personalTextEditController.text,
-                    'department': depList[depList.length - 1],
-                    'active': '1',
-                  });
+            Container(
+              width: Get.width * 1.9 / 7,
+              child: new ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff71838D),
+                ),
+                child:
+                    new Text(AppLocalizations.of(context)!.signUpbottomButton1),
+                onPressed: () {
                   Get.back();
-                } else {
-                  Get.defaultDialog(
-                      title: 'Error',
-                      middleText: 'Check your Email or Password');
-                }
-              },
+                },
+              ),
+            ),
+            Container(
+              width: Get.width * 1.9 / 7,
+              child: new ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff2F4C5A), // background
+                  // onPrimary: Colors.white, // foreground
+                ),
+                child:
+                    new Text(AppLocalizations.of(context)!.signUpbottomButton2),
+                onPressed: () async {
+                  if ((isSwitched & isSwitched2 == true)) {
+                    formKey.currentState!.validate();
+                    print(AppLocalizations.of(context)!.signUpbottomButton2);
+                  } else {
+                    return null;
+                  }
+
+                  if (((formKey.currentState!.validate() == true))) {
+                    // print(formKey.currentState!.validate());
+                    var url = Uri.parse('http://10.0.2.2:5000/api/register');
+                    await http.post(url, body: {
+                      'userID': _idTextEditController.text,
+                      'password': _pwTextEditController.text,
+                      'userName': _nameTextEditController.text,
+                      'email': _emailTextEditController.text,
+                      'company': _comTextEditController.text,
+                      'authority': authorityList[authorityList.length - 1],
+                      'personalID': _personalTextEditController.text,
+                      'department': depList[depList.length - 1],
+                      'active': '1',
+                    });
+                    Get.back();
+                  } else {
+                    Get.defaultDialog(
+                        title: 'Error',
+                        middleText: 'Check your Email or Password');
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -191,73 +195,76 @@ class _SignUpPageState extends State<SignUpPage> {
               ],
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(9.0),
               child: Column(
                 children: [
                   _radioButton(),
                   Container(
-                    width: 300,
+                    width: Get.width,
                     decoration: BoxDecoration(border: Border.all(width: 0.3)),
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Column(
-                    children: [
-                      _textField(
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
+                    child: Column(
+                      children: [
+                        _textField(
                           AppLocalizations.of(context)!.signUpID,
                           _idTextEditController,
-                          AppLocalizations.of(context)!.signUpID),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _pwFormField(
-                        AppLocalizations.of(context)!.signUpPW,
-                        _pwTextEditController,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _repwtextField(
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _pwFormField(
+                          AppLocalizations.of(context)!.signUpPW,
+                          _pwTextEditController,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _repwtextField(
                           AppLocalizations.of(context)!.signUprepw,
                           _repwTextEditController,
-                          AppLocalizations.of(context)!.signUprepw),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _emailFormField(
-                        AppLocalizations.of(context)!.signUpmail,
-                        _emailTextEditController,
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _textField(
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _emailFormField(
+                          AppLocalizations.of(context)!.signUpmail,
+                          _emailTextEditController,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _textField(
                           AppLocalizations.of(context)!.signUpcom,
                           _comTextEditController,
-                          AppLocalizations.of(context)!.signUpcom),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _textField(
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _textField(
                           AppLocalizations.of(context)!.signUpname,
                           _nameTextEditController,
-                          AppLocalizations.of(context)!.signUpname),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _textField(
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _enabletextField(
                           AppLocalizations.of(context)!.signUppersonal,
                           _personalTextEditController,
-                          AppLocalizations.of(context)!.signUppersonal),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _newButton(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _dropdownButton(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -268,24 +275,38 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _newButton() {
+  Widget _dropdownButton() {
     return Row(
       children: [
         SizedBox(
-          width: 100,
-          child: Text(AppLocalizations.of(context)!.signUpdept),
+          width: Get.width * 1 / 3.9,
+          child: Text(
+            AppLocalizations.of(context)!.signUpdept,
+            style: TextStyle(
+              color: isManager == true ? Colors.black : Colors.grey,
+            ),
+          ),
         ),
         Container(
-          width: Get.width * 3 / 5,
-          height: Get.height * 1 / 13,
+          width: Get.width * 2.9 / 5,
+          height: Get.height * 1.3 / 25,
           child: DropdownSearch<String>(
-            onSaved: print,
+            dropdownSearchDecoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              border: OutlineInputBorder(),
+              // isCollapsed: true,
+              suffixIcon: Icon(Icons.arrow_drop_down),
+            ),
+            enabled: isManager,
+            dropDownButton: Icon(null),
+            dropdownSearchBaseStyle: TextStyle(fontSize: 17),
             showSearchBox: true,
             mode: Mode.MENU,
             showSelectedItem: true,
             items: deptName,
-            label: AppLocalizations.of(context)!.signUpdeptselect,
-            popupItemDisabled: (String s) => s.startsWith('I'),
+            // hint: AppLocalizations.of(context)!.signUpdeptselect,
+
+            // popupItemDisabled: (String s) => s.startsWith('I'),
             onChanged: (valued) {
               setState(() {
                 for (var i = 0; i < deptName.length; i++) {
@@ -294,7 +315,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   }
                 }
 
-                print(depList);
+                // print(depList);
               });
             },
           ),
@@ -303,60 +324,20 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _swichs() {
+  Widget _textField(String title, var controller) {
     return Row(
       children: [
-        Checkbox(
-          value: isSwitched,
-          onChanged: (valued) {
-            setState(() {
-              isSwitched = valued!;
-              print(isSwitched);
-            });
-          },
-          // activeTrackColor: Colors.yellow,
-          activeColor: Colors.orangeAccent,
+        SizedBox(
+          width: Get.width * 1 / 3.9,
+          child: Text(title),
         ),
         SizedBox(
-          width: 90,
-          child: Text(AppLocalizations.of(context)!.signUpcheckbox),
-        ),
-      ],
-    );
-  }
-
-  Widget _swichs2() {
-    return Row(
-      children: [
-        Checkbox(
-          value: isSwitched2,
-          onChanged: (value) {
-            setState(() {
-              isSwitched2 = value!;
-              print(isSwitched2);
-            });
-          },
-          // activeTrackColor: Colors.yellow,
-          activeColor: Colors.orangeAccent,
-        ),
-        SizedBox(
-          width: 90,
-          child: Text(AppLocalizations.of(context)!.signUpcheckbox),
-        ),
-      ],
-    );
-  }
-
-  Widget _textField(String title, var controller, String hint) {
-    return Row(
-      children: [
-        SizedBox(width: 100, child: Text(title)),
-        SizedBox(
-          width: Get.width * 3 / 5,
-          height: Get.height * 1 / 13,
+          width: Get.width * 2.9 / 5,
+          height: Get.height * 1.3 / 25,
           child: TextFormField(
+            style: TextStyle(fontSize: 17),
             controller: controller,
-            decoration: _textDecoration(hint),
+            decoration: _textDecoration(),
             onChanged: (text) {
               setState(() {});
             },
@@ -366,23 +347,53 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  InputDecoration _textDecoration(hintText) {
+  Widget _enabletextField(String title, var controller) {
+    return Row(
+      children: [
+        SizedBox(
+          width: Get.width * 1 / 3.9,
+          child: Text(
+            title,
+            style: TextStyle(
+              color: isManager == true ? Colors.black : Colors.grey,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: Get.width * 2.9 / 5,
+          height: Get.height * 1.3 / 25,
+          child: TextFormField(
+            enabled: isManager,
+            style: TextStyle(fontSize: 17),
+            controller: controller,
+            decoration: _textDecoration(),
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  InputDecoration _textDecoration() {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
       border: OutlineInputBorder(),
-      hintText: hintText,
+
       // helperText: helperText,
     );
   }
 
-  Widget _repwtextField(String title, var controller, String hint) {
+  Widget _repwtextField(String title, var controller) {
     return Row(
       children: [
-        SizedBox(width: 100, child: Text(title)),
+        SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
-          width: Get.width * 3 / 5,
-          height: Get.height * 1 / 13,
+          width: Get.width * 2.9 / 5,
+          height: Get.height * 1.3 / 25,
           child: TextFormField(
+            style: TextStyle(fontSize: 17),
             keyboardType: TextInputType.visiblePassword,
             obscureText: true,
             validator: (val) {
@@ -390,7 +401,7 @@ class _SignUpPageState extends State<SignUpPage> {
               return null;
             },
             controller: controller,
-            decoration: _textDecoration(hint),
+            decoration: _textDecoration(),
             onChanged: (text) {
               setState(() {});
             },
@@ -403,20 +414,19 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _pwFormField(String title, var controller) {
     return Row(
       children: [
-        SizedBox(width: 100, child: Text(title)),
+        SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
-          width: Get.width * 3 / 5,
-          height: Get.height * 1.19 / 9,
+          width: Get.width * 2.9 / 5,
+          height: Get.height * 1.3 / 25,
           child: TextFormField(
+            style: TextStyle(fontSize: 17),
             keyboardType: TextInputType.visiblePassword,
             focusNode: _passwordFocus,
             obscureText: true,
             validator: (value) =>
                 CheckValidate().validatePassword(_passwordFocus, value!),
             controller: controller,
-            decoration: _textFormDecoration(
-                AppLocalizations.of(context)!.signUppwForm1,
-                AppLocalizations.of(context)!.signUppwForm2),
+            decoration: _textFormDecoration(),
             onChanged: (text) {
               setState(() {});
             },
@@ -429,19 +439,18 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _emailFormField(String title, var controller) {
     return Row(
       children: [
-        SizedBox(width: 100, child: Text(title)),
+        SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
-          width: Get.width * 3 / 5,
-          height: Get.height * 1 / 9,
+          width: Get.width * 2.9 / 5,
+          height: Get.height * 1.3 / 25,
           child: TextFormField(
+            style: TextStyle(fontSize: 17),
             validator: (value) =>
                 CheckValidate().validateEmail(_emailFocus, value!),
             controller: controller,
             keyboardType: TextInputType.emailAddress,
             focusNode: _emailFocus,
-            decoration: _textFormDecoration(
-                AppLocalizations.of(context)!.signUpmailForm1,
-                AppLocalizations.of(context)!.signUpmailForm2),
+            decoration: _textFormDecoration(),
             onChanged: (text) {
               setState(() {});
             },
@@ -451,18 +460,18 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  InputDecoration _textFormDecoration(hintText, helperText) {
+  InputDecoration _textFormDecoration() {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
       border: OutlineInputBorder(),
-      helperMaxLines: 2,
-      hintText: hintText,
-      helperText: helperText,
+
+      // helperText: helperText,
     );
   }
 
   Widget _radioButton() {
     return RadioGroup<String>.builder(
+      activeColor: Colors.black,
       direction: Axis.horizontal,
       groupValue: _horizonGroupValue,
       onChanged: (value) => setState(() {
@@ -475,8 +484,14 @@ class _SignUpPageState extends State<SignUpPage> {
         }
         if (value == _status[2]) {
           authorityList.add('3');
+
+          isManager = true;
+          // print(isSwitched);
+        } else {
+          isManager = false;
         }
-        print(authorityList);
+
+        // print(authorityList);
       }),
       items: _status,
       itemBuilder: (item) => RadioButtonBuilder(
@@ -512,6 +527,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 Column(
                   children: [
                     Text(title),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       color: Color(0xffeeeeee),
                       height: 200,
@@ -571,6 +589,50 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _swichs() {
+    return Row(
+      children: [
+        Checkbox(
+          value: isSwitched,
+          onChanged: (valued) {
+            setState(() {
+              isSwitched = valued!;
+              // print(isSwitched);
+            });
+          },
+          // activeTrackColor: Colors.yellow,
+          activeColor: Colors.black,
+        ),
+        SizedBox(
+          width: 90,
+          child: Text(AppLocalizations.of(context)!.signUpcheckbox),
+        ),
+      ],
+    );
+  }
+
+  Widget _swichs2() {
+    return Row(
+      children: [
+        Checkbox(
+          value: isSwitched2,
+          onChanged: (value) {
+            setState(() {
+              isSwitched2 = value!;
+              // print(isSwitched2);
+            });
+          },
+          // activeTrackColor: Colors.yellow,
+          activeColor: Colors.black,
+        ),
+        SizedBox(
+          width: 90,
+          child: Text(AppLocalizations.of(context)!.signUpcheckbox),
+        ),
+      ],
     );
   }
 }

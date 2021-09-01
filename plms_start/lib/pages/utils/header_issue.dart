@@ -17,22 +17,9 @@ class Header extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.white,
-                  ),
-                ),
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ],
+            Text(
+              title,
+              style: TextStyle(fontSize: 20, color: Colors.white),
             ),
           ],
         ),

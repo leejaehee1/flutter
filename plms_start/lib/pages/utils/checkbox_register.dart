@@ -24,7 +24,7 @@ class _CheckBoxButtonState extends State<CheckBoxButton> {
           onChanged: (value) {
             setState(() {
               isSwitched = value!;
-              print(isSwitched);
+              // print(isSwitched);
             });
           },
           // activeTrackColor: Colors.yellow,

@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   this.cdy = td.globalPosition.dy - (this.boxHeight * 2.75);
                   // this.cdx = td.globalPosition.dx;
                   // this.cdy = td.globalPosition.dy;
-                  print([this.cdx, this.cdy]);
+                  // print([this.cdx, this.cdy]);
                   // print();
                 });
               },
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   onPressed: () {
                     pixelList.add([this.cdx, this.cdy]);
                     print("pixelList");
-                    print(pixelList);
+                    // print(pixelList);
                   },
                   child: Text("Save Location"),
                 ),

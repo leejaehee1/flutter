@@ -33,7 +33,7 @@ class _JsonDataState extends State<JsonData> {
       }
     });
 
-    print(data);
+    // print(data);
   }
 
   void initState() {

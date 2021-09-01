@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   final _idTextEditController = TextEditingController();
   final _pwTextEditController = TextEditingController();
 
+  late double headerTopZone;
+
   @override
   void dispose() {
     _idTextEditController.dispose();
@@ -22,157 +25,184 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  Widget _background() {
+    return SafeArea(
+      child: Container(
+        width: Get.width,
+        height: Get.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(
+              "assets/images/login_page3.png",
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _textform() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Container(
+            height: Get.height * 1 / 30,
+            width: Get.width * 4.5 / 7,
+            child: TextFormField(
+              controller: _idTextEditController,
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.loginID,
+              ),
+              onChanged: (text) {
+                setState(() {});
+              },
+            ),
+          ),
+          SizedBox(
+            height: Get.height * 1 / 30,
+          ),
+          Container(
+            height: Get.height * 1 / 30,
+            width: Get.width * 4.5 / 7,
+            child: TextFormField(
+              controller: _pwTextEditController,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: AppLocalizations.of(context)!.loginPW,
+                // labelText: AppLocalizations.of(context)!.loginPW,
+              ),
+              onChanged: (text) {
+                setState(() {});
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _button() {
+    return Container(
+      width: Get.width * 3 / 7,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Color(0xff304D5B),
+        ),
+        onPressed: () async {
+          var url = Uri.parse('http://10.0.2.2:5000/api/login');
+          var response = await http.post(url, body: {
+            'userID': _idTextEditController.text,
+            'password': _pwTextEditController.text,
+          });
+          if (response.body == "true") {
+            Get.toNamed('/home');
+          } else {
+            _showDialog();
+          }
+        },
+        child: Text(
+          AppLocalizations.of(context)!.signIn,
+          style: TextStyle(
+            fontSize: 15,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _signuptext() {
+    return Column(
+      children: [
+        Container(
+          // width: 1,
+          height: 3,
+          child: Icon(
+            Icons.arrow_drop_down,
+            size: 50,
+          ),
+        ),
+        Text(
+          AppLocalizations.of(context)!.signUpText,
+          style: TextStyle(fontSize: 13, color: Colors.grey),
+        ),
+      ],
+    );
+  }
+
+  Widget _textbutton() {
+    return TextButton(
+        onPressed: () {
+          Get.toNamed("/signup");
+        },
+        child: Text(
+          AppLocalizations.of(context)!.signUp,
+          style: TextStyle(color: Colors.black, fontSize: 12),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-        color: Color(0xFFE6E6E6),
-        child: SingleChildScrollView(
-          child: SafeArea(
+    headerTopZone = Get.mediaQuery.padding.top;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          _background(),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: Get.height * 4.5 / 8,
+            bottom: 10,
             child: Column(
               children: [
+                _textform(),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 1 / 6,
+                  height: 30,
                 ),
-                Text(
-                  "Punch List",
-                  style: TextStyle(fontSize: 30),
-                ),
-                Text(
-                  "Management System",
-                  style: TextStyle(fontSize: 30),
-                ),
+                _button(),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 2 / 3,
-                  height: MediaQuery.of(context).size.width * 4 / 5,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    ),
-                  ),
-                  // color: Colors.white,
-                  padding: const EdgeInsets.only(
-                      left: 20, right: 20, top: 10, bottom: 10),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _idTextEditController,
-                        decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.loginID,
-                            labelText: AppLocalizations.of(context)!.loginID),
-                        onChanged: (text) {
-                          setState(() {});
-                        },
-                      ),
-                      TextFormField(
-                        controller: _pwTextEditController,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            hintText: AppLocalizations.of(context)!.loginPW,
-                            labelText: AppLocalizations.of(context)!.loginPW),
-                        onChanged: (text) {
-                          setState(() {});
-                        },
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 3 / 8,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff304D5B),
-                          ),
-                          onPressed: () {
-                            Get.toNamed("/home");
-                          },
-                          // onPressed: () async {
-                          //   // 서버에서 username and password 비교를 해서 로그인 되어야 한다.
-                          //   // response.OK => Get.toNamed('/home'); and 세션(이 사용자와 관련한 정보를 가지고 있습니다.)
-                          //   var url = Uri.http('10.0.2.2:5000', '/api/login',
-                          //       // {'userId': 'admin11', 'password': 'admin1'});
-                          //       {'userId': 'admin3', 'password': 'admin2'});
-
-                          //   // Await the http get response, then decode the json-formatted response.
-                          //   var response = await http.get(url);
-                          //   if (response.statusCode == 200) {
-                          //     var jsonResponse =
-                          //         convert.jsonDecode(response.body)
-                          //             as Map<String, dynamic>;
-                          //     var itemCount = jsonResponse['totalItems'];
-                          //     print('Number of books about http: $itemCount.');
-                          //     print('간다간다 쑝간다!');
-                          //     Get.toNamed('/home');
-                          //   } else {
-                          //     print(
-                          //         'Request failed with status: ${response.statusCode}.');
-                          //     // 에러 메시지를 사용자가 알 수 있게
-                          //   }
-                          // },
-                          // onPressed: () async {
-                          //   var url =
-                          //       Uri.parse('http://10.0.2.2:5000/api/login');
-                          //   var response = await http.post(url, body: {
-                          //     'userID': _idTextEditController.text,
-                          //     'password': _pwTextEditController.text,
-                          //   });
-                          //   print('Response status: ${response.statusCode}');
-                          //   print('Response body: ${response.body}');
-                          //   if (response.body == "true") {
-                          //     print('간다간다 쑝간다!');
-                          //     Get.toNamed('/home');
-                          //   } else {
-                          //     print("fail");
-                          //     _showDialog();
-                          //   }
-                          // },
-                          child: Text(
-                            AppLocalizations.of(context)!.signIn,
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        children: [
-                          Text(AppLocalizations.of(context)!.signUpText),
-                          Icon(Icons.arrow_downward_sharp),
-                          TextButton(
-                              onPressed: () {
-                                Get.toNamed(
-                                  "/signup",
-                                  // arguments: [
-                                  //   test(),
-                                  //   system,
-                                  //   subsystem,
-                                  //   discipline,
-                                  // ]
-                                );
-                              },
-                              child: Text(
-                                AppLocalizations.of(context)!.signUp,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              )),
-                        ],
-                      ),
-                    ],
-                  ),
+                _signuptext(),
+                SizedBox(
+                  height: 5,
                 ),
+                _textbutton(),
               ],
             ),
           ),
-        ));
+          // Positioned(
+          //   left: 0,
+          //   right: 0,
+          //   top: 380,
+          //   bottom: 10,
+          //   child: _textform(),
+          // ),
+          // Positioned(
+          //   left: 170,
+          //   right: 170,
+          //   top: 450,
+          //   bottom: 200,
+          //   child: _button(),
+          // ),
+          // Positioned(
+          //   left: 0,
+          //   right: 0,
+          //   top: 500,
+          //   bottom: 100,
+          //   child: _signuptext(),
+          // ),
+          // Positioned(
+          //   left: 0,
+          //   right: 0,
+          //   top: 500,
+          //   bottom: 100,
+          //   child: _textbutton(),
+          // ),
+        ],
+      ),
+    );
   }
 
   void _showDialog() {

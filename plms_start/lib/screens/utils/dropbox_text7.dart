@@ -2,11 +2,6 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:http/http.dart' as http;
-import 'package:plms_start/screens/models/model.dart';
-
-import 'dart:convert';
-
 class DropboxText7 extends StatefulWidget {
   final String text;
 
