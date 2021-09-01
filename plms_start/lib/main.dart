@@ -53,32 +53,34 @@ class _MyAppState extends State<MyApp> {
       ],
       // home: Home(),
       initialRoute: '/',
-      // initialBinding: BindingsBuilder(() {
-      //   Get.put(DropdownButtonController());
-      //   Get.put(DropdownButtonController2());
-      //   Get.put(DropdownButtonController3());
-      //   Get.put(DropdownButtonController4());
-      //   Get.put(DropdownButtonController5());
-      //   Get.put(DropdownButtonController6());
-      //   Get.put(DropdownButtonController7());
-      // }),
+      initialBinding: BindingsBuilder(() {
+        //   Get.put(DropdownButtonController());
+        //   Get.put(DropdownButtonController2());
+        //   Get.put(DropdownButtonController3());
+        //   Get.put(DropdownButtonController4());
+        //   Get.put(DropdownButtonController5());
+        //   Get.put(DropdownButtonController6());
+        //   Get.put(DropdownButtonController7());
+      }),
 
       getPages: [
         GetPage(
             name: '/', page: () => LoginPage(), transition: Transition.zoom),
         GetPage(name: '/home', page: () => Home(), transition: Transition.zoom),
         GetPage(
-            name: '/signup',
-            page: () => SignUpPage(),
-            transition: Transition.zoom),
+          name: '/signup',
+          page: () => SignUpPage(),
+          transition: Transition.zoom,
+        ),
         GetPage(
             name: '/loading',
             page: () => Loading(),
             transition: Transition.zoom),
         GetPage(
-            name: '/punchList',
-            page: () => PunchScreen(),
-            transition: Transition.zoom),
+          name: '/punchList',
+          page: () => PunchScreen(),
+          transition: Transition.zoom,
+        ),
         GetPage(
             name: '/draft',
             page: () => DraftPage(),

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
-import 'home.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -150,7 +148,15 @@ class _LoginPageState extends State<LoginPage> {
                           Icon(Icons.arrow_downward_sharp),
                           TextButton(
                               onPressed: () {
-                                Get.toNamed("/signup");
+                                Get.toNamed(
+                                  "/signup",
+                                  // arguments: [
+                                  //   test(),
+                                  //   system,
+                                  //   subsystem,
+                                  //   discipline,
+                                  // ]
+                                );
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.signUp,

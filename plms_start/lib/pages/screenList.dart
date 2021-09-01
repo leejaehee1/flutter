@@ -102,7 +102,7 @@ class _ScreenListState extends State<ScreenList>
         ),
         bottomNavigationBar: IssueButton(
             name: '/loading',
-            name2: '/loading',
+            name2: '/photoList',
             buttonname1: AppLocalizations.of(context)!.pListbutton1,
             buttonname2: AppLocalizations.of(context)!.pListbutton2));
   }
