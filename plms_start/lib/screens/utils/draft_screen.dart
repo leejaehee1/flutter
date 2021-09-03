@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Stack(
                   children: <Widget>[
                     Image.asset(
-                      'assets/punch_draft_sample.jpg',
+                      'assets/images/punch_draft_sample.jpg',
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height,
                       fit: BoxFit.fill,

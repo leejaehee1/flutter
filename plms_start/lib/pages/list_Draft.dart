@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
+import 'package:get/get.dart';
 import 'package:plms_start/pages/components/List_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListDraft extends StatelessWidget {
   ListDraft({Key? key}) : super(key: key);
 
-  final List<String> data1 = ['data1', 'data2', 'data3', 'asdf', 'asdfas'];
+  final List<String> data1 = Get.arguments[0];
   final List<String> data2 = [
     'data1',
     'data2',
     'data3',
     'asdf',
-    '0123456789012345678901234567890123456789012345'
+    '01234567890123456789012345678901'
   ];
 
   @override

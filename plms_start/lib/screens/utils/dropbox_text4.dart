@@ -12,7 +12,7 @@ class DropboxText4 extends StatefulWidget {
 }
 
 class _DropboxTextState extends State<DropboxText4> {
-  var data2 = Get.arguments[3];
+  var data2 = Get.arguments[1];
 
   @override
   Widget build(BuildContext context) {

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -89,17 +91,29 @@ class _LoginPageState extends State<LoginPage> {
         style: ElevatedButton.styleFrom(
           primary: Color(0xff304D5B),
         ),
+        // onPressed: () {
+        //   Get.toNamed('/home');
+        // },
         onPressed: () async {
-          var url = Uri.parse('http://10.0.2.2:5000/api/login');
+          // var url = Uri.parse('http://10.0.2.2:5000/api/login');
+          var url = Uri.parse('http://172.30.1.42:5000/api/login');
           var response = await http.post(url, body: {
             'userID': _idTextEditController.text,
             'password': _pwTextEditController.text,
           });
-          if (response.body == "true") {
-            Get.toNamed('/home');
-          } else {
+          print("response: ${response.body}");
+          Map<String, dynamic> jsonData = jsonDecode(response.body);
+          print("jsonData: $jsonData");
+
+          print(jsonData['authority']);
+          print(jsonData['result']);
+
+          if (jsonData['result'] == false) {
             _showDialog();
           }
+          if (jsonData['userID'] == _idTextEditController.text) {
+            Get.toNamed('/home', arguments: jsonData['authority']);
+          } else {}
         },
         child: Text(
           AppLocalizations.of(context)!.signIn,

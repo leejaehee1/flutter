@@ -23,9 +23,6 @@ import 'pages/success_page.dart';
 
 import 'screens/utils/draft_screen.dart';
 
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 void main() {
   runApp(MyApp());
 }
@@ -37,88 +34,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    test();
-    super.initState();
-  }
-
-  List<String> category = [];
-  List<String> system = [];
-  List<String> subsystem = [];
-  List<String> discipline = [];
-
-  Future<dynamic> test() async {
-    var uriResponse = await http.get(
-      Uri.parse(
-        'http://10.0.2.2:5000/api/category/',
-      ),
-    );
-
-    var json = jsonDecode(uriResponse.body);
-    print(json.runtimeType);
-    print(json[0]['category']);
-    int len = json.length;
-    // dispose();
-    if (mounted)
-      this.setState(() {
-        for (int i = 0; i < len; i++) {
-          category += [json[i]['category']];
-        }
-      });
-///////////////////////////////
-    var uriResponse2 = await http.get(
-      Uri.parse(
-        'http://10.0.2.2:5000/api/system/',
-      ),
-    );
-
-    var json2 = jsonDecode(uriResponse2.body);
-    print(json2[0]['system']);
-    int len2 = json2.length;
-    // dispose();
-    if (mounted)
-      this.setState(() {
-        for (int i = 0; i < len2; i++) {
-          system += [json2[i]['system']];
-        }
-      });
-/////////////////////////////
-    var uriResponse3 = await http.get(
-      Uri.parse(
-        'http://10.0.2.2:5000/api/subsystem/',
-      ),
-    );
-
-    var json3 = jsonDecode(uriResponse3.body);
-    print(json3[0]['subsystem']);
-    int len3 = json3.length;
-    // dispose();
-    if (mounted)
-      this.setState(() {
-        for (int i = 0; i < len3; i++) {
-          subsystem += [json3[i]['subsystem']];
-        }
-      });
-////////////////////////
-    var uriResponse4 = await http.get(
-      Uri.parse(
-        'http://10.0.2.2:5000/api/discipline/',
-      ),
-    );
-
-    var json4 = jsonDecode(uriResponse4.body);
-    print(json4[0]['discipline']);
-    int len4 = json4.length;
-    // dispose();
-    if (mounted)
-      this.setState(() {
-        for (int i = 0; i < len4; i++) {
-          discipline += [json4[i]['discipline']];
-        }
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -139,20 +54,24 @@ class _MyAppState extends State<MyApp> {
       ],
       // home: Home(),
       initialRoute: '/',
-      initialBinding: BindingsBuilder(() {
-        //   Get.put(DropdownButtonController());
-        //   Get.put(DropdownButtonController2());
-        //   Get.put(DropdownButtonController3());
-        //   Get.put(DropdownButtonController4());
-        //   Get.put(DropdownButtonController5());
-        //   Get.put(DropdownButtonController6());
-        //   Get.put(DropdownButtonController7());
-      }),
+      // initialBinding: BindingsBuilder(() {
+      //   Get.put(DropdownButtonController());
+      //   Get.put(DropdownButtonController2());
+      //   Get.put(DropdownButtonController3());
+      //   Get.put(DropdownButtonController4());
+      //   Get.put(DropdownButtonController5());
+      //   Get.put(DropdownButtonController6());
+      //   Get.put(DropdownButtonController7());
+      // }),
 
       getPages: [
         GetPage(
             name: '/', page: () => LoginPage(), transition: Transition.zoom),
-        GetPage(name: '/home', page: () => Home(), transition: Transition.zoom),
+        GetPage(
+          name: '/home',
+          page: () => Home(),
+          transition: Transition.zoom,
+        ),
         GetPage(
           name: '/signup',
           page: () => SignUpPage(),

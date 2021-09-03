@@ -79,7 +79,8 @@ class _PageThreeState extends State<PageThree> {
                             decoration: BoxDecoration(
                               border: Border.all(),
                             ),
-                            child: Image.asset("assets/punch_draft_sample.jpg"),
+                            child: Image.asset(
+                                "assets/images/punch_draft_sample.jpg"),
                           ),
                         )
                       ],

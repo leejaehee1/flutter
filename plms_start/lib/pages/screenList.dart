@@ -55,19 +55,21 @@ class _ScreenListState extends State<ScreenList>
           child: Column(
             children: [
               Container(
+                // height: Get.height,
                 color: Color(0xFFE6E6E6),
                 child: Container(
+                  // height: Get.height,
                   // width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   child: TabBar(
-                    labelPadding: EdgeInsets.symmetric(horizontal: 1),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 5),
                     onTap: (index) {
                       setState(() {
                         _currentIndex = index;
                       });
                     },
                     indicatorSize: TabBarIndicatorSize.label,
-                    indicatorWeight: 1,
+                    indicatorWeight: 0.0001,
                     // isScrollable: true,
                     labelColor:
                         _currentIndex == idx ? Colors.white : Colors.black,
@@ -108,11 +110,33 @@ class _ScreenListState extends State<ScreenList>
   }
 
   Widget _tabBars(int colors, String tiles, int idx) {
-    return Container(
-      padding: EdgeInsets.all(2),
-      width: MediaQuery.of(context).size.width * 1 / 5,
-      color: _currentIndex == idx ? Color(colors) : Colors.white,
-      child: Tab(child: _colorChange(tiles, idx)),
+    var radius = Radius.circular(8);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: Get.height * 1 / 130,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(topRight: radius, topLeft: radius),
+            color: Color(colors),
+          ),
+          width: MediaQuery.of(context).size.width * 1 / 5.5 * 1 / 2,
+        ),
+        Container(
+          height: Get.height * 1 / 16,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                bottomLeft: radius, topRight: radius, bottomRight: radius),
+            boxShadow: [
+              BoxShadow(color: Colors.grey, offset: Offset(0, 1)),
+            ],
+            color: _currentIndex == idx ? Color(colors) : Colors.white,
+          ),
+          padding: EdgeInsets.all(2),
+          width: MediaQuery.of(context).size.width * 1 / 5,
+          child: Tab(child: _colorChange(tiles, idx)),
+        ),
+      ],
     );
   }
 
@@ -121,7 +145,7 @@ class _ScreenListState extends State<ScreenList>
       name,
       style: TextStyle(
           color: _currentIndex == idx ? Colors.white : Colors.black,
-          fontSize: 12),
+          fontSize: 10),
     );
   }
 }

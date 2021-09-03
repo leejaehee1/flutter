@@ -14,7 +14,7 @@ class CatalogAppBar extends StatelessWidget {
               IconButton(
                 color: Colors.green,
                 onPressed: () {
-                  Get.offAllNamed("/home");
+                  Get.back();
                 },
                 icon: const Icon(Icons.arrow_back_ios_new_sharp),
               ),

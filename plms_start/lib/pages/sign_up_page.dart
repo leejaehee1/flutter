@@ -31,7 +31,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<dynamic> test() async {
     var uriResponse = await http.get(
       Uri.parse(
-        'http://10.0.2.2:5000/api/department/',
+        // 'http://10.0.2.2:5000/api/department/',
+
+        'http://172.30.1.42:5000/summury/department/',
       ),
     );
 
@@ -77,7 +79,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   FocusNode _emailFocus = new FocusNode();
   FocusNode _passwordFocus = new FocusNode();
-
+  FocusNode _repasswordFocus = new FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
@@ -116,7 +118,7 @@ class _SignUpPageState extends State<SignUpPage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              width: Get.width * 1.9 / 7,
+              width: Get.width * 2.2 / 7,
               child: new ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xff71838D),
@@ -129,7 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
             ),
             Container(
-              width: Get.width * 1.9 / 7,
+              width: Get.width * 2.2 / 7,
               child: new ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Color(0xff2F4C5A), // background
@@ -142,28 +144,57 @@ class _SignUpPageState extends State<SignUpPage> {
                     formKey.currentState!.validate();
                     print(AppLocalizations.of(context)!.signUpbottomButton2);
                   } else {
-                    return null;
+                    return Get.defaultDialog(
+                      textCancel: "cancel",
+                      cancelTextColor: Colors.black,
+                      title: 'Error',
+                      titleStyle: TextStyle(color: Colors.red),
+                      middleText: 'Check I agree',
+                      buttonColor: Colors.white,
+                    );
                   }
 
                   if (((formKey.currentState!.validate() == true))) {
                     // print(formKey.currentState!.validate());
-                    var url = Uri.parse('http://10.0.2.2:5000/api/register');
-                    await http.post(url, body: {
-                      'userID': _idTextEditController.text,
-                      'password': _pwTextEditController.text,
-                      'userName': _nameTextEditController.text,
-                      'email': _emailTextEditController.text,
-                      'company': _comTextEditController.text,
-                      'authority': authorityList[authorityList.length - 1],
-                      'personalID': _personalTextEditController.text,
-                      'department': depList[depList.length - 1],
-                      'active': '1',
-                    });
+                    // var url = Uri.parse('http://10.0.2.2:5000/api/register');
+                    var url = Uri.parse('http://172.30.1.42:5000/api/register');
+
+                    isManager == true
+                        ? await http.post(url, body: {
+                            'userID': _idTextEditController.text,
+                            'password': _pwTextEditController.text,
+                            'userName': _nameTextEditController.text,
+                            'email': _emailTextEditController.text,
+                            'company': _comTextEditController.text,
+                            'authority':
+                                authorityList[authorityList.length - 1],
+                            'personalID': _personalTextEditController.text,
+                            'department': depList[depList.length - 1],
+                            'active': '1',
+                          })
+                        : await http.post(url, body: {
+                            'userID': _idTextEditController.text,
+                            'password': _pwTextEditController.text,
+                            'userName': _nameTextEditController.text,
+                            'email': _emailTextEditController.text,
+                            'company': _comTextEditController.text,
+                            'authority':
+                                authorityList[authorityList.length - 1],
+                            // 'personalID': _personalTextEditController.text,
+                            // 'department': depList[depList.length - 1],
+                            'active': '1',
+                          });
+
                     Get.back();
                   } else {
                     Get.defaultDialog(
-                        title: 'Error',
-                        middleText: 'Check your Email or Password');
+                      textCancel: "cancel",
+                      cancelTextColor: Colors.black,
+                      title: 'Error',
+                      titleStyle: TextStyle(color: Colors.red),
+                      middleText: 'Check your Email or Password',
+                      buttonColor: Colors.white,
+                    );
                   }
                 },
               ),
@@ -215,7 +246,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           _idTextEditController,
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         _pwFormField(
                           AppLocalizations.of(context)!.signUpPW,
@@ -291,6 +322,7 @@ class _SignUpPageState extends State<SignUpPage> {
           width: Get.width * 2.9 / 5,
           height: Get.height * 1.3 / 25,
           child: DropdownSearch<String>(
+            // maxHeight: 100,
             dropdownSearchDecoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               border: OutlineInputBorder(),
@@ -301,12 +333,12 @@ class _SignUpPageState extends State<SignUpPage> {
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
             showSearchBox: true,
+
             mode: Mode.MENU,
-            showSelectedItem: true,
             items: deptName,
             // hint: AppLocalizations.of(context)!.signUpdeptselect,
 
-            // popupItemDisabled: (String s) => s.startsWith('I'),
+            popupItemDisabled: (String s) => s.startsWith('I'),
             onChanged: (valued) {
               setState(() {
                 for (var i = 0; i < deptName.length; i++) {
@@ -314,8 +346,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     depList.add(department[i]);
                   }
                 }
-
-                // print(depList);
               });
             },
           ),
@@ -391,15 +421,14 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.3 / 25,
+          height: Get.height * 2.2 / 25,
           child: TextFormField(
+            maxLength: 10,
             style: TextStyle(fontSize: 17),
             keyboardType: TextInputType.visiblePassword,
             obscureText: true,
-            validator: (val) {
-              if (val != _pwTextEditController.text) return 'Not Match';
-              return null;
-            },
+            validator: (value) => CheckValidate().validaterePassword(
+                _repasswordFocus, value!, _pwTextEditController),
             controller: controller,
             decoration: _textDecoration(),
             onChanged: (text) {
@@ -419,6 +448,7 @@ class _SignUpPageState extends State<SignUpPage> {
           width: Get.width * 2.9 / 5,
           height: Get.height * 1.3 / 25,
           child: TextFormField(
+            maxLength: 10,
             style: TextStyle(fontSize: 17),
             keyboardType: TextInputType.visiblePassword,
             focusNode: _passwordFocus,
@@ -440,9 +470,9 @@ class _SignUpPageState extends State<SignUpPage> {
     return Row(
       children: [
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
-        SizedBox(
+        Container(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.3 / 25,
+          // height: Get.height * 1.3 / 25,
           child: TextFormField(
             style: TextStyle(fontSize: 17),
             validator: (value) =>
@@ -462,7 +492,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   InputDecoration _textFormDecoration() {
     return new InputDecoration(
-      contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
+      contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
       border: OutlineInputBorder(),
 
       // helperText: helperText,
@@ -478,17 +508,22 @@ class _SignUpPageState extends State<SignUpPage> {
         _horizonGroupValue = value!;
         if (value == _status[0]) {
           authorityList.add('1');
+          isManager = false;
+          _personalTextEditController.clear();
+          print("Manager: $isManager");
         }
         if (value == _status[1]) {
           authorityList.add('4');
+          isManager = false;
+          _personalTextEditController.clear();
+          deptList = List.empty();
+          print("Manager: $isManager");
         }
         if (value == _status[2]) {
           authorityList.add('3');
-
           isManager = true;
+          print("Manager: $isManager");
           // print(isSwitched);
-        } else {
-          isManager = false;
         }
 
         // print(authorityList);
