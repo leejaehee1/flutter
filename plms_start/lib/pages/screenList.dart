@@ -23,12 +23,31 @@ class ScreenList extends StatefulWidget {
 
 class _ScreenListState extends State<ScreenList>
     with SingleTickerProviderStateMixin {
-  // late TabController _controller;
+  late TabController _tabController;
   int _currentIndex = 0;
+
+  List data = Get.arguments;
+
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 5, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  _handleTabSelection() {
+    setState(() {
+      _currentIndex = _tabController.index;
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    int idx = _currentIndex;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff2B3745),
@@ -62,17 +81,18 @@ class _ScreenListState extends State<ScreenList>
                   // width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.all(10),
                   child: TabBar(
+                    controller: _tabController,
                     labelPadding: EdgeInsets.symmetric(horizontal: 5),
                     onTap: (index) {
                       setState(() {
                         _currentIndex = index;
                       });
                     },
+
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorWeight: 0.0001,
                     // isScrollable: true,
-                    labelColor:
-                        _currentIndex == idx ? Colors.white : Colors.black,
+
                     tabs: [
                       _tabBars(
                           0xff9E9E9E, AppLocalizations.of(context)!.tile1, 0),
@@ -90,6 +110,7 @@ class _ScreenListState extends State<ScreenList>
               ),
               Expanded(
                 child: TabBarView(
+                  controller: _tabController,
                   children: [
                     ListFile(),
                     ListDraft(),

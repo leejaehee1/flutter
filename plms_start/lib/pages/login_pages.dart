@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
         // },
         onPressed: () async {
           // var url = Uri.parse('http://10.0.2.2:5000/api/login');
-          var url = Uri.parse('http://172.30.1.42:5000/api/login');
+          var url = Uri.parse('http://172.30.1.42:5000/summury/login');
           var response = await http.post(url, body: {
             'userID': _idTextEditController.text,
             'password': _pwTextEditController.text,
@@ -112,7 +112,8 @@ class _LoginPageState extends State<LoginPage> {
             _showDialog();
           }
           if (jsonData['userID'] == _idTextEditController.text) {
-            Get.toNamed('/home', arguments: jsonData['authority']);
+            Get.toNamed('/home',
+                arguments: [jsonData['authority'], jsonData['userID']]);
           } else {}
         },
         child: Text(

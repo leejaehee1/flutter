@@ -205,6 +205,12 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  Widget _size15() {
+    return SizedBox(
+      height: 15,
+    );
+  }
+
   Widget _firstPage() {
     return Form(
       key: formKey,
@@ -245,55 +251,39 @@ class _SignUpPageState extends State<SignUpPage> {
                           AppLocalizations.of(context)!.signUpID,
                           _idTextEditController,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
+                        _size15(),
                         _pwFormField(
                           AppLocalizations.of(context)!.signUpPW,
                           _pwTextEditController,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                         _repwtextField(
                           AppLocalizations.of(context)!.signUprepw,
                           _repwTextEditController,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                         _emailFormField(
                           AppLocalizations.of(context)!.signUpmail,
                           _emailTextEditController,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                         _textField(
                           AppLocalizations.of(context)!.signUpcom,
                           _comTextEditController,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                         _textField(
                           AppLocalizations.of(context)!.signUpname,
                           _nameTextEditController,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                         _enabletextField(
                           AppLocalizations.of(context)!.signUppersonal,
                           _personalTextEditController,
                         ),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                         _dropdownButton(),
-                        SizedBox(
-                          height: 20,
-                        ),
+                        _size15(),
                       ],
                     ),
                   ),
@@ -446,7 +436,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.3 / 25,
+          height: Get.height * 2.2 / 25,
           child: TextFormField(
             maxLength: 10,
             style: TextStyle(fontSize: 17),
@@ -472,7 +462,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         Container(
           width: Get.width * 2.9 / 5,
-          // height: Get.height * 1.3 / 25,
+          height: Get.height * 2.2 / 25,
           child: TextFormField(
             style: TextStyle(fontSize: 17),
             validator: (value) =>
