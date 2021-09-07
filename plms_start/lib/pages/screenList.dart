@@ -13,6 +13,7 @@ import 'list_Close.dart';
 import 'list_Draft.dart';
 import 'list_Open.dart';
 import 'list_Req.dart';
+import 'utils/popup_page.dart';
 
 class ScreenList extends StatefulWidget {
   const ScreenList({Key? key}) : super(key: key);
@@ -56,14 +57,12 @@ class _ScreenListState extends State<ScreenList>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(AppLocalizations.of(context)!.appTitle),
-              ElevatedButton(
+              IconButton(
                 onPressed: () {
-                  Get.offAllNamed('/');
+                  Get.toNamed('/popup');
+                  // Get.to(PopUpPage(), opaque: false);
                 },
-                child: Text('Logout'),
-                style: ElevatedButton.styleFrom(
-                  primary: Color(0xff5C8893),
-                ),
+                icon: Icon(Icons.settings),
               ),
             ],
           ),
