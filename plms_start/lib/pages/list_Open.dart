@@ -24,7 +24,7 @@ class ListOpen extends StatelessWidget {
                       data1:
                           "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
                       data2: data[index]['system'],
-                      colors: 0xffB88C69),
+                      colors: 0xffb88d6a),
                   Positioned(
                     top: 7,
                     right: 20,
@@ -50,7 +50,7 @@ class ListOpen extends StatelessWidget {
                   data1:
                       "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['system'],
-                  colors: 0xffB09078);
+                  colors: 0xffb88d6a);
         },
       ),
     );

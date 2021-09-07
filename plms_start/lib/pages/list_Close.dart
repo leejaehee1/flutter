@@ -22,7 +22,7 @@ class ListClose extends StatelessWidget {
               data1:
                   "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
               data2: data[index]['system'],
-              colors: 0xff7B3F40);
+              colors: 0xff637a8f);
         },
       ),
     );

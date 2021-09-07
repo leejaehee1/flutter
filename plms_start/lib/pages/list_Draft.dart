@@ -12,6 +12,17 @@ class ListDraft extends StatefulWidget {
 
 class _ListDraftState extends State<ListDraft> {
   List data = Get.arguments[0];
+  List categoryData = [];
+  List disciplineData = [];
+  List unitData = [];
+  List areaData = [];
+  List systemData = [];
+
+  List category = [];
+  List discipline = [];
+  List unit = [];
+  List area = [];
+  List system = [];
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +37,7 @@ class _ListDraftState extends State<ListDraft> {
               data1:
                   "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
               data2: data[index]['system'],
-              colors: 0xff7B3F40);
+              colors: 0xff7c4141);
         },
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:plms_start/app_config.dart';
 import 'dart:convert';
 
 import 'package:plms_start/pages/screenList.dart';
@@ -23,9 +24,6 @@ class _HomeState extends State<Home> {
   Future<dynamic> test() async {
     List<String> authority = [Get.arguments[0]];
     List<String> id = [Get.arguments[1]];
-    List sqlallList = [];
-    List sqlqcList = [];
-    List sqlassiList = [];
 
     // var len = sqlall.length;
     // var len2 = sqlqc.length;
@@ -35,6 +33,12 @@ class _HomeState extends State<Home> {
     List openList = [];
     List reqList = [];
     List closeList = [];
+
+    List categoryData = [];
+    List disciplineData = [];
+    List unitData = [];
+    List areaData = [];
+    List systemData = [];
 
     if (authority[0] == "3") {
       var uriResponse = await http.get(
@@ -57,6 +61,8 @@ class _HomeState extends State<Home> {
             } else if (sqlall[i]['status'] == "3" ||
                 sqlall[i]['status'] == "4") {
               reqList += [sqlall[i]];
+            } else if (sqlall[i]['status'] == '6') {
+              closeList += [sqlall[i]];
             }
 
             print("draftList: $draftList");
@@ -79,8 +85,6 @@ class _HomeState extends State<Home> {
       });
       var sqlassi = jsonDecode(response.body);
       // print('json2$json2');
-      sqlassiList += sqlassi;
-      print("sqlassi[0]: ${sqlassiList[0]}");
 
       if (mounted)
         this.setState(() {
@@ -93,6 +97,8 @@ class _HomeState extends State<Home> {
             } else if (sqlassi[i]['status'] == '3' ||
                 sqlassi[i]['status'] == '4') {
               reqList += [sqlassi[i]];
+            } else if (sqlassi[i]['status'] == '6') {
+              closeList += [sqlassi[i]];
             }
 
             print("draftList: $draftList");
@@ -126,6 +132,8 @@ class _HomeState extends State<Home> {
               openList += [sqlqc[i]];
             } else if (sqlqc[i]['status'] == '3' || sqlqc[i]['status'] == '4') {
               reqList += [sqlqc[i]];
+            } else if (sqlqc[i]['status'] == '6') {
+              closeList += [sqlqc[i]];
             }
 
             print("draftList: $draftList");
