@@ -29,7 +29,7 @@ class _IssueButtonState extends State<IssueButton> {
         children: [
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xff2F4C5A), // background
+              primary: Color(0xff304d5c), // background
               // onPrimary: Colors.white, // foreground
             ),
             onPressed: () {
@@ -41,7 +41,7 @@ class _IssueButtonState extends State<IssueButton> {
             width: 30,
           ),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(primary: Color(0xff71838D)),
+            style: ElevatedButton.styleFrom(primary: Color(0xff71838c)),
             onPressed: () {
               Get.toNamed(widget.name2);
             },

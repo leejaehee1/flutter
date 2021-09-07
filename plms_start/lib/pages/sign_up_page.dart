@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dropdown_search/flutter_dropdown_search.dart';
+// import 'package:flutter_dropdown_search/flutter_dropdown_search.dart';
 import 'package:get/get.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 import 'package:http/http.dart' as http;
@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
     var json = jsonDecode(uriResponse.body);
     // print(json.runtimeType);
     print(json[0]['deptName']);
-    _items += json;
+    // _items += json;
     int len = json.length;
     // dispose();
     if (mounted)
@@ -60,7 +60,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   List<String> _status = ["Assignee", "QC", "Manager"];
   String dropdownValue = '';
-  var _items = [];
+  // var _items = [];
   List<String> deptName = [];
   List<String> department = [];
   List<String> depList = [];
@@ -68,7 +68,7 @@ class _SignUpPageState extends State<SignUpPage> {
   // int authoritylen = (authorityList.length - 1);
   List<String> deptList = [];
   int count = 0;
-  TextEditingController _controller = TextEditingController();
+  // TextEditingController _controller = TextEditingController();
   final _idTextEditController = TextEditingController();
   final _pwTextEditController = TextEditingController();
   final _repwTextEditController = TextEditingController();

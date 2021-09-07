@@ -50,7 +50,7 @@ class _ScreenListState extends State<ScreenList>
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xff2B3745),
+          backgroundColor: Color(0xff2b3645),
           automaticallyImplyLeading: false,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,15 +95,15 @@ class _ScreenListState extends State<ScreenList>
 
                     tabs: [
                       _tabBars(
-                          0xff9E9E9E, AppLocalizations.of(context)!.tile1, 0),
+                          0xff959595, AppLocalizations.of(context)!.tile1, 0),
                       _tabBars(
-                          0xff7B3F40, AppLocalizations.of(context)!.tile2, 1),
+                          0xff7c4141, AppLocalizations.of(context)!.tile2, 1),
                       _tabBars(
-                          0xffB09078, AppLocalizations.of(context)!.tile3, 2),
+                          0xffb88d6a, AppLocalizations.of(context)!.tile3, 2),
                       _tabBars(
-                          0xff95809D, AppLocalizations.of(context)!.tile4, 3),
+                          0xff987ca1, AppLocalizations.of(context)!.tile4, 3),
                       _tabBars(
-                          0xff637990, AppLocalizations.of(context)!.tile5, 4),
+                          0xff637a8f, AppLocalizations.of(context)!.tile5, 4),
                     ],
                   ),
                 ),

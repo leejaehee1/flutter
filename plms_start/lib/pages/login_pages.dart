@@ -27,6 +27,42 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  @override
+  Widget build(BuildContext context) {
+    headerTopZone = Get.mediaQuery.padding.top;
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        children: [
+          _background(),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: Get.height * 4.5 / 8,
+            bottom: 10,
+            child: Column(
+              children: [
+                _textform(),
+                SizedBox(
+                  height: 30,
+                ),
+                _button(),
+                SizedBox(
+                  height: 30,
+                ),
+                _signuptext(),
+                SizedBox(
+                  height: 5,
+                ),
+                _textbutton(),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _background() {
     return SafeArea(
       child: Container(
@@ -154,70 +190,6 @@ class _LoginPageState extends State<LoginPage> {
           AppLocalizations.of(context)!.signUp,
           style: TextStyle(color: Colors.black, fontSize: 12),
         ));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    headerTopZone = Get.mediaQuery.padding.top;
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          _background(),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: Get.height * 4.5 / 8,
-            bottom: 10,
-            child: Column(
-              children: [
-                _textform(),
-                SizedBox(
-                  height: 30,
-                ),
-                _button(),
-                SizedBox(
-                  height: 30,
-                ),
-                _signuptext(),
-                SizedBox(
-                  height: 5,
-                ),
-                _textbutton(),
-              ],
-            ),
-          ),
-          // Positioned(
-          //   left: 0,
-          //   right: 0,
-          //   top: 380,
-          //   bottom: 10,
-          //   child: _textform(),
-          // ),
-          // Positioned(
-          //   left: 170,
-          //   right: 170,
-          //   top: 450,
-          //   bottom: 200,
-          //   child: _button(),
-          // ),
-          // Positioned(
-          //   left: 0,
-          //   right: 0,
-          //   top: 500,
-          //   bottom: 100,
-          //   child: _signuptext(),
-          // ),
-          // Positioned(
-          //   left: 0,
-          //   right: 0,
-          //   top: 500,
-          //   bottom: 100,
-          //   child: _textbutton(),
-          // ),
-        ],
-      ),
-    );
   }
 
   void _showDialog() {
