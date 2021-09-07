@@ -33,7 +33,7 @@
   "@signUpText": {
     "description": "Explain Sign up Button."
   },
-  "signUpHeader": "User Registration",
+  "signUpHeader": "Sign Up",
   "@signUpHeader": {
     "description": "signUpHeader"
   },
