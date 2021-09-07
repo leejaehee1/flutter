@@ -6,8 +6,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ListOpen extends StatelessWidget {
   ListOpen({Key? key}) : super(key: key);
 
-  final List<String> data1 = ['data1', 'data2', 'data3', 'asdf', 'asdfasdf'];
-  final List<String> data2 = ['data1', 'data2', 'data3', 'asdf', 'asdfasdf'];
+  final List data = Get.arguments[1];
   final int num = 1;
 
   @override
@@ -16,14 +15,15 @@ class ListOpen extends StatelessWidget {
     return Container(
       color: Color(0xFFE6E6E6),
       child: ListView.builder(
-        itemCount: data1.length,
+        itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
           return num == 1
               ? Stack(children: [
                   ListComponent(
                       title: AppLocalizations.of(context)!.tile3,
-                      data1: data1[index],
-                      data2: data2[index],
+                      data1:
+                          "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+                      data2: data[index]['system'],
                       colors: 0xffB88C69),
                   Positioned(
                     top: 7,
@@ -47,8 +47,9 @@ class ListOpen extends StatelessWidget {
                 ])
               : ListComponent(
                   title: AppLocalizations.of(context)!.tile3,
-                  data1: data1[index],
-                  data2: data2[index],
+                  data1:
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+                  data2: data[index]['system'],
                   colors: 0xffB09078);
         },
       ),

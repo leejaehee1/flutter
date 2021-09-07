@@ -11,23 +11,7 @@ class ListDraft extends StatefulWidget {
 }
 
 class _ListDraftState extends State<ListDraft> {
-  var data = Get.arguments;
-
-  // @override
-  // void initState() {
-  //   test();
-  //   super.initState();
-  // }
-
-  // final List<String> data1 = [data[0]];
-
-  // final List<String> data2 = [
-  //   'data1',
-  //   'data2',
-  //   'data3',
-  //   'asdf',
-  //   '01234567890123456789012345678901'
-  // ];
+  List data = Get.arguments[0];
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +23,9 @@ class _ListDraftState extends State<ListDraft> {
         itemBuilder: (BuildContext context, int index) {
           return ListComponent(
               title: AppLocalizations.of(context)!.tile2,
-              data1: data[0]["punchID"],
-              data2: data[1]["punchID"],
+              data1:
+                  "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+              data2: data[index]['system'],
               colors: 0xff7B3F40);
         },
       ),
