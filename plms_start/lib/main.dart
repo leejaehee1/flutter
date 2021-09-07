@@ -21,6 +21,7 @@ import 'pages/login_pages.dart';
 import 'pages/punch_screen.dart';
 import 'pages/success_page.dart';
 
+import 'pages/utils/popup_page.dart';
 import 'screens/utils/draft_screen.dart';
 
 void main() {
@@ -86,6 +87,11 @@ class _MyAppState extends State<MyApp> {
           page: () => PunchScreen(),
           transition: Transition.zoom,
         ),
+        GetPage(
+            name: '/popup',
+            page: () => PopUpPage(),
+            // transition: Transition.upToDown,
+            opaque: false),
         GetPage(
             name: '/draft',
             page: () => DraftPage(),
