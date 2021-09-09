@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class ListComponent extends StatelessWidget {
   ListComponent({
     Key? key,
+    this.nums,
     required this.title,
     required this.data1,
     required this.data2,
@@ -14,7 +15,7 @@ class ListComponent extends StatelessWidget {
   final String title;
   final String data1;
   final String data2;
-
+  final int? nums;
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);

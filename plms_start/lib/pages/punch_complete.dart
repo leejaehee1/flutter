@@ -24,76 +24,72 @@ class _PunchCompleteState extends State<PunchComplete> {
           title: AppLocalizations.of(context)!.completeTitle,
         ),
       ),
-      body: DefaultTabController(
-        // initialIndex: 0,
-        length: 1,
-        child: Column(
-          children: [
-            Container(
-              // height: MediaQuery.of(context).size.height * 1.45 / 7,
-              width: MediaQuery.of(context).size.width,
-              color: Color(0xFFE6E6E6),
+      body: Column(
+        children: [
+          Container(
+            // height: MediaQuery.of(context).size.height * 1.45 / 7,
+            width: MediaQuery.of(context).size.width,
+            color: Color(0xFFE6E6E6),
+            child: Container(
+              padding: EdgeInsets.all(10),
               child: Container(
-                padding: EdgeInsets.all(10),
-                child: Container(
-                  color: Color(0xff2B3745),
-                  // height: 30,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: CompleteComponent(),
-                  ),
+                color: Color(0xff2B3745),
+                // height: 30,
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: CompleteComponent(),
                 ),
               ),
             ),
-            Expanded(
-              child: ListView(
-                children: [
-                  Container(
-                    color: Color(0xFFE6E6E6),
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xffB7C5B9),
-                              offset: Offset(-7, 0),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  TitleText(
-                                    title: AppLocalizations.of(context)!
-                                        .completePageTitle,
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              ImagePickers(),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              _description(),
-                            ],
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                Container(
+                  color: Color(0xFFE6E6E6),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffB7C5B9),
+                            offset: Offset(-7, 0),
                           ),
+                        ],
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                TitleText(
+                                  title: AppLocalizations.of(context)!
+                                      .completePageTitle,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ImagePickers(),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            _description(),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         color: Color(0xFFE6E6E6),
@@ -121,7 +117,7 @@ class _PunchCompleteState extends State<PunchComplete> {
                   // onPrimary: Colors.white, // foreground
                 ),
                 onPressed: () {
-                  Get.offAllNamed('/home');
+                  Get.back();
                 },
                 child: Text(AppLocalizations.of(context)!.completePageButton2),
               ),

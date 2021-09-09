@@ -7,7 +7,7 @@ class ListOpen extends StatelessWidget {
   ListOpen({Key? key}) : super(key: key);
 
   final List data = Get.arguments[1];
-  final int num = 1;
+  final int number = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -17,39 +17,42 @@ class ListOpen extends StatelessWidget {
       child: ListView.builder(
         itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
-          return num == 1
-              ? Stack(children: [
-                  ListComponent(
-                      title: AppLocalizations.of(context)!.tile3,
-                      data1:
-                          "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                      data2: data[index]['system'],
-                      colors: 0xffb88d6a),
-                  Positioned(
-                    top: Get.height * 1 / 80,
-                    right: Get.width * 1 / 25,
-                    child: SizedBox(
-                      width: Get.width * 1.2 / 7,
-                      height: Get.height * 1 / 45,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.only(left: 0, right: 0),
-                          primary: Color(0xff55b093), // background
-                          // onPrimary: Colors.white, // foreground
-                        ),
-                        onPressed: () {
-                          // print(data[index]);
-                          Get.toNamed('/complete', arguments: data[index]);
-                        },
-                        child: Text(
-                          "${AppLocalizations.of(context)!.completeButton}",
-                          style: TextStyle(fontSize: 10),
-                        ),
-                      ),
-                    ),
-                  ),
-                ])
-              : ListComponent(
+          return
+              // number == 1
+              //     ? Stack(children: [
+              //         ListComponent(
+              //             nums: 1,
+              //             title: AppLocalizations.of(context)!.tile3,
+              //             data1:
+              //                 "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+              //             data2: data[index]['system'],
+              //             colors: 0xffb88d6a),
+              //         Positioned(
+              //           top: Get.height * 1 / 80,
+              //           right: Get.width * 1 / 25,
+              //           child: SizedBox(
+              //             width: Get.width * 1.2 / 7,
+              //             height: Get.height * 1 / 45,
+              //             child: ElevatedButton(
+              //               style: ElevatedButton.styleFrom(
+              //                 padding: EdgeInsets.only(left: 0, right: 0),
+              //                 primary: Color(0xff55b093), // background
+              //                 // onPrimary: Colors.white, // foreground
+              //               ),
+              //               onPressed: () {
+              //                 // print(data[index]);
+              //                 Get.toNamed('/complete', arguments: data[index]);
+              //               },
+              //               child: Text(
+              //                 AppLocalizations.of(context)!.completeButton,
+              //                 style: TextStyle(fontSize: 10),
+              //               ),
+              //             ),
+              //           ),
+              //         ),
+              //       ])
+              //     :
+              ListComponent(
                   title: AppLocalizations.of(context)!.tile3,
                   data1:
                       "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
