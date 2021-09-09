@@ -29,10 +29,10 @@ class _HomeState extends State<Home> {
     // var len2 = sqlqc.length;
     // var len3 = sqlassi.length;
 
-    List draftList = [];
-    List openList = [];
-    List reqList = [];
-    List closeList = [];
+    var draftList = [];
+    var openList = [];
+    var reqList = [];
+    var closeList = [];
 
     List categoryData = [];
     List disciplineData = [];

@@ -26,21 +26,25 @@ class ListOpen extends StatelessWidget {
                       data2: data[index]['system'],
                       colors: 0xffb88d6a),
                   Positioned(
-                    top: 7,
-                    right: 20,
+                    top: Get.height * 1 / 80,
+                    right: Get.width * 1 / 25,
                     child: SizedBox(
-                      width: 100,
-                      height: 30,
+                      width: Get.width * 1.2 / 7,
+                      height: Get.height * 1 / 45,
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Color(0xff2F4C5A), // background
+                          padding: EdgeInsets.only(left: 0, right: 0),
+                          primary: Color(0xff55b093), // background
                           // onPrimary: Colors.white, // foreground
                         ),
                         onPressed: () {
-                          Get.toNamed('/complete');
+                          // print(data[index]);
+                          Get.toNamed('/complete', arguments: data[index]);
                         },
-                        child:
-                            Text(AppLocalizations.of(context)!.completeButton),
+                        child: Text(
+                          "${AppLocalizations.of(context)!.completeButton}",
+                          style: TextStyle(fontSize: 10),
+                        ),
                       ),
                     ),
                   ),

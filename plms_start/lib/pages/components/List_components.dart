@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ListComponent extends StatelessWidget {
   ListComponent({
@@ -16,56 +17,95 @@ class ListComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Colors.red,
-      height: MediaQuery.of(context).size.height * 1.09 / 8,
-      // width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 17, top: 3, bottom: 8, right: 10),
-        child: Container(
-          // height: MediaQuery.of(context).size.height * 1 / 8,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Color(colors),
-                offset: Offset(-7, 0.3),
-              ),
-            ],
-          ),
+    var radius = Radius.circular(10);
+    return Row(
+      children: [
+        Container(
+          // color: Colors.red,
+          height: MediaQuery.of(context).size.height * 1.14 / 8,
+
+          // width: MediaQuery.of(context).size.width,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
+            padding:
+                const EdgeInsets.only(left: 10, top: 5, bottom: 10, right: 10),
+            child: Row(
               children: [
-                Column(
-                  children: [
-                    Row(
+                Container(
+                  height: MediaQuery.of(context).size.height * 1.14 / 8,
+                  width: Get.width * 1 / 50,
+                  decoration: BoxDecoration(
+                    color: Color(colors),
+                    borderRadius:
+                        BorderRadius.only(topLeft: radius, bottomLeft: radius),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  // height: MediaQuery.of(context).size.height * 1 / 8,
+                  width: MediaQuery.of(context).size.width - Get.width * 1 / 13,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topRight: radius, bottomRight: radius),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(0, 1),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
                       children: [
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              title,
-                              style: TextStyle(
-                                color: Color(colors),
-                              ),
-                            ),
-                            Text(data1),
-                            Text(data2),
+                            Row(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      title,
+                                      style: TextStyle(
+                                        color: Color(colors),
+                                      ),
+                                    ),
+                                    _boxsize(),
+                                    Text(data1),
+                                    _boxsize(),
+                                    Text(
+                                      data2,
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 11),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ),
-      ),
+      ],
+    );
+  }
+
+  Widget _boxsize() {
+    return SizedBox(
+      height: 10,
     );
   }
 }
