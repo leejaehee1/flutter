@@ -16,7 +16,7 @@ class _CheckButtonState extends State<CheckButton> {
     return Row(
       children: [
         SizedBox(
-          width: 85,
+          width: 55,
           child: Text(widget.name),
         ),
         Checkbox(

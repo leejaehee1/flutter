@@ -19,60 +19,85 @@ class PageOne extends StatefulWidget {
 
 class _PageOneState extends State<PageOne> {
   List<dynamic> getdata = Get.arguments;
+
+  Widget _size15() {
+    return SizedBox(
+      height: 15,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DelayedDisplay(
-      delay: Duration(seconds: 1),
-      child: Container(
-        // height: MediaQuery.of(context).size.height,
-        color: Color(0xFFE6E6E6),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0xffB7C5B9),
-                  offset: Offset(-7, 0),
-                ),
-              ],
+    var radius = Radius.circular(10);
+    return Container(
+      // height: MediaQuery.of(context).size.height,
+      color: Color(0xFFE6E6E6),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Color(0xffB7C5B9),
+                borderRadius:
+                    BorderRadius.only(topLeft: radius, bottomLeft: radius),
+              ),
+              height: MediaQuery.of(context).size.height,
+              width: Get.width * 1 / 50,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TitleText(
-                        title: 'General Infomation',
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Column(
-                    children: [
-                      DropboxText(
-                        text: 'category',
-                      ),
-                      DropboxText2(text: 'System'),
-                      DropboxText3(text: 'Sub-System'),
-                      TextFieldText(text: 'Unit', hint: 'Create or Add'),
-                      TextFieldText(text: 'Area', hint: 'Create or Add'),
-                      TextFieldText(text: 'Punch ID', hint: 'Add'),
-                      TextFieldText(text: 'Tag Number', hint: 'Create or Add'),
-                      CheckButton(name: 'Bulk Item'),
-                      _description(),
-                    ],
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: Get.width - Get.width * 1 / 8,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.only(topRight: radius, bottomRight: radius),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffB7C5B9),
+                    offset: Offset(0, 0.3),
                   ),
                 ],
               ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TitleText(
+                          title: 'General Infomation',
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Column(
+                      children: [
+                        DropboxText(
+                          text: 'category',
+                        ),
+                        _size15(),
+                        DropboxText2(text: 'System'),
+                        _size15(),
+                        DropboxText3(text: 'Sub-System'),
+                        // _size15(),
+                        TextFieldText(text: 'Unit', hint: 'Create or Add'),
+                        TextFieldText(text: 'Area', hint: 'Create or Add'),
+                        TextFieldText(text: 'Punch ID', hint: 'Add'),
+                        TextFieldText(
+                            text: 'Tag Number', hint: 'Create or Add'),
+                        CheckButton(name: 'Bulk Item'),
+                        _description(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -94,7 +119,7 @@ class _PageOneState extends State<PageOne> {
               maxLength: 100,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: "hint",
+                hintText: "hint",
                 isDense: true,
               )),
         ),

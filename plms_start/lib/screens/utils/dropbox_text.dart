@@ -19,12 +19,12 @@ class _DropboxTextState extends State<DropboxText> {
     return Row(
       children: [
         SizedBox(
-          width: 100,
+          width: Get.width * 1 / 3.6,
           child: Text(widget.text),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width * 4 / 7,
-          height: 50,
+        SizedBox(
+          width: Get.width * 2.7 / 5,
+          height: Get.height * 1.3 / 25,
           // child: Newbutton(),
           child: _newButton(),
         ),
