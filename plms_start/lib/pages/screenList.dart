@@ -27,7 +27,10 @@ class _ScreenListState extends State<ScreenList>
   late TabController _tabController;
   int _currentIndex = 0;
 
-  List data = Get.arguments;
+  List draftList = Get.arguments[0];
+  List openList = Get.arguments[1];
+  List reqList = Get.arguments[2];
+  List closeList = Get.arguments[3];
 
   void initState() {
     super.initState();
@@ -49,6 +52,10 @@ class _ScreenListState extends State<ScreenList>
 
   @override
   Widget build(BuildContext context) {
+    int len = (draftList.length +
+        openList.length +
+        reqList.length +
+        closeList.length);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff2b3645),
@@ -78,7 +85,8 @@ class _ScreenListState extends State<ScreenList>
                 child: Container(
                   // height: Get.height,
                   // width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.all(10),
+                  padding:
+                      EdgeInsets.only(top: 10, bottom: 10, left: 6, right: 6),
                   child: TabBar(
                     controller: _tabController,
                     labelPadding: EdgeInsets.symmetric(horizontal: 5),
@@ -93,16 +101,16 @@ class _ScreenListState extends State<ScreenList>
                     // isScrollable: true,
 
                     tabs: [
-                      _tabBars(
-                          0xff959595, AppLocalizations.of(context)!.tile1, 0),
-                      _tabBars(
-                          0xff7c4141, AppLocalizations.of(context)!.tile2, 1),
-                      _tabBars(
-                          0xffb88d6a, AppLocalizations.of(context)!.tile3, 2),
-                      _tabBars(
-                          0xff987ca1, AppLocalizations.of(context)!.tile4, 3),
-                      _tabBars(
-                          0xff637a8f, AppLocalizations.of(context)!.tile5, 4),
+                      _tabBars(0xff959595, AppLocalizations.of(context)!.tile1,
+                          '$len', 0),
+                      _tabBars(0xff7c4141, AppLocalizations.of(context)!.tile2,
+                          '${draftList.length}', 1),
+                      _tabBars(0xffb88d6a, AppLocalizations.of(context)!.tile3,
+                          '${openList.length}', 2),
+                      _tabBars(0xff987ca1, AppLocalizations.of(context)!.tile4,
+                          '${reqList.length}', 3),
+                      _tabBars(0xff637a8f, AppLocalizations.of(context)!.tile5,
+                          '${closeList.length}', 4),
                     ],
                   ),
                 ),
@@ -129,7 +137,7 @@ class _ScreenListState extends State<ScreenList>
             buttonname2: AppLocalizations.of(context)!.pListbutton2));
   }
 
-  Widget _tabBars(int colors, String tiles, int idx) {
+  Widget _tabBars(int colors, String tiles, String nums, int idx) {
     var radius = Radius.circular(8);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,18 +162,29 @@ class _ScreenListState extends State<ScreenList>
           ),
           padding: EdgeInsets.all(2),
           width: MediaQuery.of(context).size.width * 1 / 5,
-          child: Tab(child: _colorChange(tiles, idx)),
+          child: Tab(child: _colorChange(tiles, nums, idx)),
         ),
       ],
     );
   }
 
-  Widget _colorChange(String name, int idx) {
-    return Text(
-      name,
-      style: TextStyle(
-          color: _currentIndex == idx ? Colors.white : Colors.black,
-          fontSize: 10),
+  Widget _colorChange(String name, String nums, int idx) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          name,
+          style: TextStyle(
+              color: _currentIndex == idx ? Colors.white : Colors.black,
+              fontSize: 10),
+        ),
+        Text(
+          nums,
+          style: TextStyle(
+              color: _currentIndex == idx ? Colors.white : Colors.grey,
+              fontSize: 10),
+        ),
+      ],
     );
   }
 }
