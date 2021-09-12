@@ -1,14 +1,10 @@
 import 'package:delayed_display/delayed_display.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/screens/utils/checkbox_punch.dart';
 
 import 'package:plms_start/screens/utils/title_text.dart';
-
-import 'utils/dropbox_text.dart';
-import 'utils/dropbox_text2.dart';
-import 'utils/dropbox_text3.dart';
-import 'utils/textfield_text.dart';
+import 'package:group_radio_button/group_radio_button.dart';
 
 class PageOne extends StatefulWidget {
   const PageOne({Key? key}) : super(key: key);
@@ -18,7 +14,17 @@ class PageOne extends StatefulWidget {
 }
 
 class _PageOneState extends State<PageOne> {
-  List<dynamic> getdata = Get.arguments;
+  List category = Get.arguments[0];
+  List system = Get.arguments[1];
+  List subsystem = Get.arguments[2];
+  List actionon = Get.arguments[3];
+  List discipline = Get.arguments[2];
+  List raisedon = Get.arguments[1];
+
+  String _horizonGroupValue = "Tag Number";
+  List<String> _status = ['Tag Number', "Bulk Item"];
+  bool _isTag = true;
+  bool _isBulk = false;
 
   Widget _size15() {
     return SizedBox(
@@ -76,20 +82,32 @@ class _PageOneState extends State<PageOne> {
                     ),
                     Column(
                       children: [
-                        DropboxText(
-                          text: 'category',
-                        ),
+                        _dropdownButton('Category', category),
                         _size15(),
-                        DropboxText2(text: 'System'),
+                        _dropdownButton('System', system),
                         _size15(),
-                        DropboxText3(text: 'Sub-System'),
+                        _dropdownButton('Sub- System', subsystem),
+                        _size15(),
                         // _size15(),
-                        TextFieldText(text: 'Unit', hint: 'Create or Add'),
-                        TextFieldText(text: 'Area', hint: 'Create or Add'),
-                        TextFieldText(text: 'Punch ID', hint: 'Add'),
-                        TextFieldText(
-                            text: 'Tag Number', hint: 'Create or Add'),
-                        CheckButton(name: 'Bulk Item'),
+                        _textField('Unit', 'Create or Add'),
+                        _size15(),
+                        _textField('Area', 'Create or Add'),
+                        _size15(),
+                        _textField('Punch ID', 'Add'),
+                        _size15(),
+
+                        Container(
+                            padding: EdgeInsets.all(10),
+                            color: Colors.grey[100],
+                            child: Column(
+                              children: [
+                                _radioButton(),
+                                _textField2('Tag Number', 'Create or Add'),
+                                _size15(),
+                                _textField3('Bulk Item', ''),
+                              ],
+                            )),
+
                         _description(),
                       ],
                     ),
@@ -99,6 +117,28 @@ class _PageOneState extends State<PageOne> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _radioButton() {
+    return RadioGroup<String>.builder(
+      direction: Axis.horizontal,
+      groupValue: _horizonGroupValue,
+      onChanged: (value) => setState(() {
+        _horizonGroupValue = value!;
+
+        if (value == _status[0]) {
+          _isTag = true;
+          _isBulk = false;
+        } else {
+          _isTag = false;
+          _isBulk = true;
+        }
+      }),
+      items: _status,
+      itemBuilder: (item) => RadioButtonBuilder(
+        item,
       ),
     );
   }
@@ -121,6 +161,140 @@ class _PageOneState extends State<PageOne> {
                 border: OutlineInputBorder(),
                 hintText: "hint",
                 isDense: true,
+              )),
+        ),
+      ],
+    );
+  }
+
+  Widget _dropdownButton(String text, var data) {
+    return Row(
+      children: [
+        SizedBox(
+          width: Get.width * 1 / 3.6,
+          child: Text(text),
+        ),
+        SizedBox(
+          width: Get.width * 2.7 / 5,
+          height: Get.height * 1.1 / 25,
+          // child: Newbutton(),
+          child: _newButton(data),
+        ),
+      ],
+    );
+  }
+
+  Widget _newButton(var data) {
+    return DropdownSearch<String>(
+      dropdownSearchDecoration: InputDecoration(
+        contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        border: OutlineInputBorder(),
+        isDense: true,
+        // isCollapsed: true,
+        suffixIcon: Icon(Icons.arrow_drop_down),
+      ),
+      dropDownButton: Icon(null),
+      showSearchBox: true,
+      mode: Mode.MENU,
+      showSelectedItem: true,
+      items: data,
+      hint: "Menu mode",
+      onChanged: print,
+      selectedItem: data[0],
+    );
+  }
+
+  Widget _textField(String text, String hint) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(text)),
+        SizedBox(
+          width: 160,
+          height: 30,
+          child: TextField(
+              decoration: InputDecoration(
+            isDense: true,
+            border: OutlineInputBorder(),
+            hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+            hintText: hint,
+          )),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Container(
+            color: Colors.grey[500],
+            width: 30,
+            height: 30,
+            child: IconButton(
+                padding: EdgeInsets.all(4),
+                // autofocus: true,
+                // visualDensity: VisualDensity(
+                //   vertical: 2.5,
+                //   horizontal: 2.5,
+                // ),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ))),
+      ],
+    );
+  }
+
+  Widget _textField2(String text, String hint) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(text)),
+        SizedBox(
+          width: 100,
+          height: 30,
+          child: TextField(
+              enabled: _isTag,
+              decoration: InputDecoration(
+                isDense: true,
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                hintText: hint,
+              )),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Container(
+            color: Colors.grey[500],
+            width: 30,
+            height: 30,
+            child: IconButton(
+                padding: EdgeInsets.all(4),
+                // autofocus: true,
+                // visualDensity: VisualDensity(
+                //   vertical: 2.5,
+                //   horizontal: 2.5,
+                // ),
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ))),
+      ],
+    );
+  }
+
+  Widget _textField3(String text, String hint) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(text)),
+        SizedBox(
+          width: 100,
+          height: 30,
+          child: TextField(
+              enabled: _isBulk,
+              decoration: InputDecoration(
+                isDense: true,
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                hintText: hint,
               )),
         ),
       ],
