@@ -17,9 +17,6 @@ class _PageOneState extends State<PageOne> {
   List category = Get.arguments[0];
   List system = Get.arguments[1];
   List subsystem = Get.arguments[2];
-  List actionon = Get.arguments[3];
-  List discipline = Get.arguments[2];
-  List raisedon = Get.arguments[1];
 
   String _horizonGroupValue = "Tag Number";
   List<String> _status = ['Tag Number', "Bulk Item"];
@@ -97,17 +94,27 @@ class _PageOneState extends State<PageOne> {
                         _size15(),
 
                         Container(
-                            padding: EdgeInsets.all(10),
+                            padding:
+                                EdgeInsets.only(left: 10, right: 10, top: 10),
                             color: Colors.grey[100],
                             child: Column(
                               children: [
                                 _radioButton(),
-                                _textField2('Tag Number', 'Create or Add'),
-                                _size15(),
-                                _textField3('Bulk Item', ''),
+                                Container(
+                                  padding: EdgeInsets.only(
+                                      left: 10, right: 10, bottom: 10),
+                                  child: Column(
+                                    children: [
+                                      _textField2(
+                                          'Tag Number', 'Create or Add'),
+                                      _size15(),
+                                      _textField3('Bulk Item', ''),
+                                    ],
+                                  ),
+                                ),
                               ],
                             )),
-
+                        _size15(),
                         _description(),
                       ],
                     ),
@@ -123,6 +130,7 @@ class _PageOneState extends State<PageOne> {
 
   Widget _radioButton() {
     return RadioGroup<String>.builder(
+      activeColor: Colors.green,
       direction: Axis.horizontal,
       groupValue: _horizonGroupValue,
       onChanged: (value) => setState(() {
@@ -139,6 +147,7 @@ class _PageOneState extends State<PageOne> {
       items: _status,
       itemBuilder: (item) => RadioButtonBuilder(
         item,
+        textPosition: RadioButtonTextPosition.left,
       ),
     );
   }
@@ -247,7 +256,7 @@ class _PageOneState extends State<PageOne> {
       children: [
         SizedBox(width: 100, child: Text(text)),
         SizedBox(
-          width: 100,
+          width: 122,
           height: 30,
           child: TextField(
               enabled: _isTag,
@@ -286,7 +295,7 @@ class _PageOneState extends State<PageOne> {
       children: [
         SizedBox(width: 100, child: Text(text)),
         SizedBox(
-          width: 100,
+          width: 157,
           height: 30,
           child: TextField(
               enabled: _isBulk,

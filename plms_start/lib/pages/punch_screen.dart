@@ -18,7 +18,7 @@ class _PunchScreenState extends State<PunchScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
 
   final page1Key = new GlobalKey();
   final page2Key = new GlobalKey();
@@ -35,9 +35,6 @@ class _PunchScreenState extends State<PunchScreen>
     _scrollController = ScrollController();
     _scrollController.addListener(() {
       _onScroll();
-      setState(() {
-        _selectedIndex = _tabController.index;
-      });
     });
 
     super.initState();
@@ -66,14 +63,16 @@ class _PunchScreenState extends State<PunchScreen>
             pinned: true,
             // titleSpacing: 0,
             backgroundColor: Color(0xFFE6E6E6),
-            title: _tabbar(
-              _tabController,
-              _onTapToScroll,
+            title:
+                // _tabbar(
+                //   _tabController,
+                //   _onTapToScroll,
+                // ),
+                CatalogTabBar(
+              scrollController: _scrollController,
+              tabController: _tabController,
+              onTap: _onTapToScroll,
             ),
-            // CatalogTabBar(
-            //   tabController: _tabController,
-            //   onTap: _onTapToScroll,
-            // ),
           ),
           SliverList(
             delegate: SliverChildListDelegate.fixed(
@@ -162,41 +161,5 @@ class _PunchScreenState extends State<PunchScreen>
       }
     }
     isTapToScroll = false;
-  }
-
-  Widget _tabbar(var tabController, var onTap) {
-    return Container(
-      padding: EdgeInsets.only(right: 8, left: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      height: 70,
-      // padding: EdgeInsets.only(),
-      child: TabBar(
-        indicatorSize: TabBarIndicatorSize.label,
-        controller: tabController,
-        onTap: onTap,
-        // labelColor: Colors.black,
-        indicatorColor: Colors.white,
-        indicatorWeight: 2.0,
-        unselectedLabelColor: Colors.red,
-        labelPadding: const EdgeInsets.symmetric(horizontal: 0),
-        tabs: [
-          Tab(child: Image.asset('assets/images/tab_one.png')),
-          Tab(
-              child: _selectedIndex == 1
-                  ? Image.asset('assets/images/tab_two_click.png')
-                  : _selectedIndex > 1
-                      ? Image.asset('assets/images/tab_two_click.png')
-                      : Image.asset('assets/images/tab_two.png')),
-          Tab(
-            child: _selectedIndex == 2
-                ? Image.asset('assets/images/tab_three_click.png')
-                : Image.asset('assets/images/tab_three.png'),
-          ),
-        ],
-      ),
-    );
   }
 }

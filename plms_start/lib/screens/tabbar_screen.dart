@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class CatalogTabBar extends StatefulWidget {
   final TabController tabController;
   final onTap;
+  final ScrollController scrollController;
 
   const CatalogTabBar({
     Key? key,
     required this.tabController,
     required this.onTap,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -18,8 +20,20 @@ class _CatalogTabBarState extends State<CatalogTabBar> {
   int _selectedIndex = 0;
 
   @override
+  void initState() {
+    widget.scrollController.addListener(() {
+      setState(() {
+        _selectedIndex = widget.tabController.index;
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(right: 8, left: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -35,19 +49,19 @@ class _CatalogTabBarState extends State<CatalogTabBar> {
         indicatorColor: Colors.white,
         indicatorWeight: 2.0,
         unselectedLabelColor: Colors.red,
-        labelPadding: const EdgeInsets.symmetric(horizontal: 10),
+        labelPadding: const EdgeInsets.symmetric(horizontal: 0),
         tabs: [
           Tab(child: Image.asset('assets/images/tab_one.png')),
           Tab(
-              child: widget.tabController.index >
-                      widget.tabController.previousIndex
+              child: _selectedIndex == 1
                   ? Image.asset('assets/images/tab_two_click.png')
-                  : Image.asset('assets/images/tab_two.png')),
+                  : _selectedIndex > 1
+                      ? Image.asset('assets/images/tab_two_click.png')
+                      : Image.asset('assets/images/tab_two.png')),
           Tab(
-            child:
-                widget.tabController.index > widget.tabController.previousIndex
-                    ? Image.asset('assets/images/tab_three.png')
-                    : Image.asset('assets/images/tab_three_click.png'),
+            child: _selectedIndex == 2
+                ? Image.asset('assets/images/tab_three_click.png')
+                : Image.asset('assets/images/tab_three.png'),
           ),
         ],
       ),
