@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'swich_punch.dart';
 
 class ImagePickers extends StatefulWidget {
   const ImagePickers({Key? key}) : super(key: key);
@@ -16,7 +15,10 @@ class ImagePickers extends StatefulWidget {
 class _ImagePickersState extends State<ImagePickers> {
   final ImagePicker _picker = ImagePicker();
   List<XFile> _imageList = [];
+
+  bool status = false;
   // double len = [].length as double;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,67 +29,22 @@ class _ImagePickersState extends State<ImagePickers> {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-          SwitchButton(name: 'Upload Images now'),
+          _swichWidget('Upload Images now'),
+          // SwitchButton(name: 'Upload Images now'),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Photo'),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      _showDialog2();
+                    });
+                  },
+                  icon: Icon(Icons.add_a_photo))
             ],
           ),
-          Row(
-            children: [
-              InkWell(
-                onTap: () {
-                  setState(() {
-                    AlertDialog(
-                      content: new Text("Are you sure you want to Delete?"),
-                      actions: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            new ElevatedButton(
-                              child: new Text("No"),
-                              onPressed: () {
-                                Get.back();
-                              },
-                            ),
-                            new ElevatedButton(
-                              child: new Text("Yes"),
-                              onPressed: () {
-                                Get.back();
-                              },
-                            ),
-                          ],
-                        )
-                      ],
-                    );
-                  });
 
-                  // _imageButton();
-                },
-                child: Container(
-                  child: Column(
-                    children: [
-                      Icon(Icons.image),
-                      Text('button'),
-                    ],
-                  ),
-                ),
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  imageSelect();
-                },
-                child: const Text("select Image"),
-              ),
-              OutlinedButton(
-                onPressed: () {
-                  videoSelect();
-                },
-                child: const Text("take Image"),
-              ),
-            ],
-          ),
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,7 +52,7 @@ class _ImagePickersState extends State<ImagePickers> {
               itemCount: _imageList.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(3.0),
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
@@ -124,6 +81,92 @@ class _ImagePickersState extends State<ImagePickers> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _swichWidget(String name) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(name),
+        FlutterSwitch(
+          activeColor: Colors.green,
+          width: 40.0,
+          height: 20.0,
+          valueFontSize: 10.0,
+          toggleSize: 10.0,
+          value: status,
+          borderRadius: 30.0,
+          // padding: 3.0,
+          showOnOff: true,
+          onToggle: (val) {
+            setState(() {
+              status = val;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  void _showDialog2() {
+    double _imageSize = Get.width * 1 / 11;
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          actions: <Widget>[
+            Column(
+              children: [
+                TextButton(
+                  onPressed: () {
+                    imageSelect();
+                    Get.back();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/gallery_button.png',
+                        height: _imageSize,
+                        width: _imageSize,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Open Gallery",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    videoSelect();
+                    Get.back();
+                  },
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/camera_button.png',
+                        height: _imageSize,
+                        width: _imageSize,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Open Camera",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 
@@ -160,39 +203,13 @@ class _ImagePickersState extends State<ImagePickers> {
     );
   }
 
-  // void _imageButton() {
-  //   Row(
-  //     children: [
-  //       InkWell(
-  //         child: Container(
-  //           child: Row(
-  //             children: [Icon(Icons.album), Text("Gallery")],
-  //           ),
-  //         ),
-  //         onTap: () {
-  //           imageSelect();
-  //         },
-  //       ),
-  //       InkWell(
-  //         child: Container(
-  //           child: Row(
-  //             children: [Icon(Icons.camera), Text("Camera")],
-  //           ),
-  //         ),
-  //         onTap: () {
-  //           videoSelect();
-  //         },
-  //       ),
-  //     ],
-  //   );
-  // }
-
   void imageSelect() async {
     final XFile? selectedImage =
         await _picker.pickImage(source: ImageSource.gallery);
     try {
       if (selectedImage!.path.isNotEmpty) {
         _imageList.add(selectedImage);
+        print(selectedImage.path);
       }
       setState(() {});
     } catch (e) {}
