@@ -43,57 +43,59 @@ class _PunchScreenState extends State<PunchScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: <Widget>[
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            // expandedHeight: 100,
-            floating: true,
-            pinned: true,
-            backgroundColor: Color(0xff2B3745),
-            title: CatalogAppBar(),
-          ),
-          SliverAppBar(
-            toolbarHeight: 100,
-            // titleSpacing: 10,
-            automaticallyImplyLeading: false,
-            // expandedHeight: 0,
-            elevation: 0,
-            pinned: true,
-            // titleSpacing: 0,
-            backgroundColor: Color(0xFFE6E6E6),
-            title:
-                // _tabbar(
-                //   _tabController,
-                //   _onTapToScroll,
-                // ),
-                CatalogTabBar(
-              scrollController: _scrollController,
-              tabController: _tabController,
-              onTap: _onTapToScroll,
+      body: SafeArea(
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: <Widget>[
+            SliverAppBar(
+              automaticallyImplyLeading: false,
+              // expandedHeight: 20,
+              floating: true,
+              // pinned: true,
+              backgroundColor: Color(0xff2B3745),
+              title: CatalogAppBar(),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate.fixed(
-              [
-                PageOne(
-                  key: page1Key,
-                ),
-                PageTwo(
-                  key: page2Key,
-                ),
-                PageThree(
-                  key: page3Key,
-                ),
-                // PunchButton(
-                //     name: '/confirm',
-                //     buttonName1: "Save Draft",
-                //     buttonName2: "Create Issue"),
-              ],
+            SliverAppBar(
+              toolbarHeight: 90,
+              // titleSpacing: 10,
+              automaticallyImplyLeading: false,
+              // expandedHeight: 50,
+              elevation: 0,
+              pinned: true,
+              // titleSpacing: 0,
+              backgroundColor: Color(0xFFE6E6E6),
+              title:
+                  // _tabbar(
+                  //   _tabController,
+                  //   _onTapToScroll,
+                  // ),
+                  CatalogTabBar(
+                scrollController: _scrollController,
+                tabController: _tabController,
+                onTap: _onTapToScroll,
+              ),
             ),
-          ),
-        ],
+            SliverList(
+              delegate: SliverChildListDelegate.fixed(
+                [
+                  PageOne(
+                    key: page1Key,
+                  ),
+                  PageTwo(
+                    key: page2Key,
+                  ),
+                  PageThree(
+                    key: page3Key,
+                  ),
+                  // PunchButton(
+                  //     name: '/confirm',
+                  //     buttonName1: "Save Draft",
+                  //     buttonName2: "Create Issue"),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -139,13 +141,15 @@ class _PunchScreenState extends State<PunchScreen>
     } else {
       if (previousIndex < index) {
         for (var i = previousIndex; i <= index; i++) {
-          final RenderBox renderBox =
-              keys[i].currentContext!.findRenderObject() as RenderBox;
-          await _scrollController.position.ensureVisible(
-            renderBox,
-            duration: const Duration(milliseconds: 100),
-            curve: Curves.linear,
-          );
+          try {
+            final RenderBox renderBox =
+                keys[i].currentContext!.findRenderObject() as RenderBox;
+            await _scrollController.position.ensureVisible(
+              renderBox,
+              duration: const Duration(milliseconds: 100),
+              curve: Curves.linear,
+            );
+          } catch (e) {}
         }
       } else {
         for (var i = previousIndex; i >= index; i--) {

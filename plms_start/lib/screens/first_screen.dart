@@ -50,7 +50,7 @@ class _PageOneState extends State<PageOne> {
             ),
             Container(
               height: MediaQuery.of(context).size.height,
-              width: Get.width - Get.width * 1 / 8,
+              width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius:

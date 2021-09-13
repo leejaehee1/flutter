@@ -4,6 +4,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/screens/utils/swich_punch.dart';
+import 'package:simple_tags/simple_tags.dart';
 // import 'utils/dropbox_text.dart';
 import 'utils/dropbox_text4.dart';
 import 'utils/dropbox_text5.dart';
@@ -25,9 +26,23 @@ class _PageTwoState extends State<PageTwo> {
   List discipline = Get.arguments[2];
   List raisedon = Get.arguments[1];
 
+  bool isSwitch1 = false;
+  bool isSwitch2 = false;
+
+  List<String> contentList = [];
+
+  final _tagTextEditController = TextEditingController();
+
   Widget _size15() {
     return SizedBox(
       height: 15,
+    );
+  }
+
+  Widget _lineWidget() {
+    return Container(
+      width: Get.width,
+      decoration: BoxDecoration(border: Border.all(width: 0.3)),
     );
   }
 
@@ -46,12 +61,12 @@ class _PageTwoState extends State<PageTwo> {
                 borderRadius:
                     BorderRadius.only(topLeft: radius, bottomLeft: radius),
               ),
-              height: MediaQuery.of(context).size.height * 1.7 / 3,
+              height: MediaQuery.of(context).size.height * 2.1 / 3,
               width: Get.width * 1 / 50,
             ),
             Container(
-              height: MediaQuery.of(context).size.height * 1.7 / 3,
-              width: Get.width - Get.width * 1 / 8,
+              height: MediaQuery.of(context).size.height * 2.1 / 3,
+              width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius:
@@ -88,15 +103,16 @@ class _PageTwoState extends State<PageTwo> {
                         _size15(),
                         _dataTime('Target Date'),
                         _size15(),
-                        TaggingButton(name: 'Keyword'),
-                        _size15(),
-                        SwitchButton(
-                          name: 'Design Change Required',
+                        // TaggingButton(name: 'Keyword'),
+                        _tagWidget('keyword', _tagTextEditController),
+                        SizedBox(
+                          height: 30,
                         ),
+                        _lineWidget(),
                         _size15(),
-                        SwitchButton(
-                          name: 'Material Required',
-                        ),
+                        _swichsButton('Design Change Required'),
+                        // _size15(),
+                        _swichsButton2('Material Required'),
                       ],
                     ),
                   ],
@@ -181,22 +197,130 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
-  // Widget _switch(String text) {
-  //   bool _isChecked = false;
-  //   return Row(
-  //     children: [
-  //       SizedBox(
-  //         child: Text(text),
-  //       ),
-  //       Switch(
-  //         value: _isChecked,
-  //         onChanged: (value) {
-  //           setState(() {
-  //             _isChecked = value;
-  //           });
-  //         },
-  //       )
-  //     ],
-  //   );
-  // }
+  Widget _swichsButton(String title) {
+    return Row(
+      // crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        SizedBox(
+          width: 250,
+          child: Text(title),
+        ),
+        Checkbox(
+          value: isSwitch1,
+          onChanged: (valued) {
+            setState(() {
+              isSwitch1 = valued!;
+              print(isSwitch1);
+            });
+          },
+          // activeTrackColor: Colors.yellow,
+          activeColor: Colors.green,
+        ),
+      ],
+    );
+  }
+
+  Widget _swichsButton2(String title) {
+    return Row(
+      // crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        SizedBox(
+          width: 250,
+          child: Text(title),
+        ),
+        Checkbox(
+          value: isSwitch2,
+          onChanged: (valued) {
+            setState(() {
+              isSwitch2 = valued!;
+              print(isSwitch2);
+            });
+          },
+          // activeTrackColor: Colors.yellow,
+          activeColor: Colors.green,
+        ),
+      ],
+    );
+  }
+
+  Widget _textField(String title, var controller) {
+    return Row(
+      children: [
+        SizedBox(
+          width: Get.width * 1 / 3.6,
+          child: Text(title),
+        ),
+        SizedBox(
+          width: Get.width * 2.22 / 5,
+          height: Get.height * 1.1 / 25,
+          child: TextFormField(
+            style: TextStyle(fontSize: 17),
+            controller: controller,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
+              border: OutlineInputBorder(),
+
+              // helperText: helperText,
+            ),
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+        SizedBox(
+          width: 5,
+        ),
+        Container(
+          width: Get.height * 1.1 / 25,
+          height: Get.height * 1.1 / 25,
+          color: Colors.grey,
+          child: IconButton(
+            color: Colors.white,
+            padding: EdgeInsets.all(2),
+            icon: Icon(Icons.add),
+            onPressed: () {
+              contentList.add(controller.text);
+              controller.clear();
+              setState(() {});
+            },
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _tagWidget(String text, var controller) {
+    return Column(
+      children: [
+        _textField(text, controller),
+        SizedBox(
+          height: 5,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: Get.width * 1 / 3.6,
+            ),
+            SimpleTags(
+              content: contentList,
+              // wrapSpacing: 4,
+              // wrapRunSpacing: 4,
+              onTagPress: (tag) {
+                setState(() {});
+                contentList.remove(tag);
+                print('pressed $tag');
+              },
+              tagContainerPadding: EdgeInsets.all(6),
+              tagTextStyle: TextStyle(color: Colors.black),
+              tagIcon: Icon(Icons.clear, size: 12),
+              tagContainerDecoration: BoxDecoration(
+                color: Colors.grey[300],
+                border: Border.all(color: Colors.white),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }

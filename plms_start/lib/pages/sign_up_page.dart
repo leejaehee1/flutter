@@ -411,7 +411,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 2.2 / 25,
+          height: Get.height * 1.95 / 25,
           child: TextFormField(
             maxLength: 10,
             style: TextStyle(fontSize: 17),
@@ -436,7 +436,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 2.2 / 25,
+          height: Get.height * 1.95 / 25,
           child: TextFormField(
             maxLength: 10,
             style: TextStyle(fontSize: 17),
@@ -462,7 +462,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         Container(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 2.2 / 25,
+          height: Get.height * 2.1 / 25,
           child: TextFormField(
             style: TextStyle(fontSize: 17),
             validator: (value) =>
@@ -470,7 +470,11 @@ class _SignUpPageState extends State<SignUpPage> {
             controller: controller,
             keyboardType: TextInputType.emailAddress,
             focusNode: _emailFocus,
-            decoration: _textFormDecoration(),
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              border: OutlineInputBorder(),
+              helperText: '이메일을 입력하세요',
+            ),
             onChanged: (text) {
               setState(() {});
             },
