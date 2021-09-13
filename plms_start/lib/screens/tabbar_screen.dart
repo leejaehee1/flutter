@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CatalogTabBar extends StatefulWidget {
   final TabController tabController;
@@ -38,7 +39,8 @@ class _CatalogTabBarState extends State<CatalogTabBar> {
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
-      height: 70,
+      height: 60,
+      // width: Get.width,
       // padding: EdgeInsets.only(),
 
       child: TabBar(
@@ -48,20 +50,29 @@ class _CatalogTabBarState extends State<CatalogTabBar> {
         // labelColor: Colors.black,
         indicatorColor: Colors.white,
         indicatorWeight: 2.0,
-        unselectedLabelColor: Colors.red,
+        // unselectedLabelColor: Colors.red,
         labelPadding: const EdgeInsets.symmetric(horizontal: 0),
         tabs: [
-          Tab(child: Image.asset('assets/images/tab_one.png')),
+          Tab(
+              child: _selectedIndex == 0
+                  ? Image.asset('assets/images/tab_one3_click.png')
+                  : Image.asset('assets/images/tab_one3.png')),
           Tab(
               child: _selectedIndex == 1
-                  ? Image.asset('assets/images/tab_two_click.png')
+                  ? Image.asset(
+                      'assets/images/tab_two3_click.png',
+                    )
                   : _selectedIndex > 1
-                      ? Image.asset('assets/images/tab_two_click.png')
-                      : Image.asset('assets/images/tab_two.png')),
+                      ? Image.asset(
+                          'assets/images/tab_two3_over.png',
+                        )
+                      : Image.asset(
+                          'assets/images/tab_two3.png',
+                        )),
           Tab(
             child: _selectedIndex == 2
-                ? Image.asset('assets/images/tab_three_click.png')
-                : Image.asset('assets/images/tab_three.png'),
+                ? Image.asset('assets/images/tab_three3_click.png')
+                : Image.asset('assets/images/tab_three3.png'),
           ),
         ],
       ),
