@@ -1,16 +1,10 @@
 import 'package:date_time_picker/date_time_picker.dart';
-import 'package:delayed_display/delayed_display.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/screens/utils/swich_punch.dart';
 import 'package:simple_tags/simple_tags.dart';
 // import 'utils/dropbox_text.dart';
-import 'utils/dropbox_text4.dart';
-import 'utils/dropbox_text5.dart';
-import 'utils/dropbox_text6.dart';
-import 'utils/dropbox_text7.dart';
-import 'utils/tagging_text.dart';
+
 // import 'utils/textfield_text.dart';
 import 'utils/title_text.dart';
 
