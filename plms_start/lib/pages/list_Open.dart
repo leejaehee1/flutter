@@ -16,7 +16,9 @@ class ListOpen extends StatelessWidget {
       color: Color(0xFFE6E6E6),
       child: ListView.builder(
         itemCount: data.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext context, var index) {
+          if (data.isEmpty) {}
+
           return
               // number == 1
               //     ? Stack(children: [

@@ -31,7 +31,7 @@ class _ListDraftState extends State<ListDraft> {
       color: Color(0xFFE6E6E6),
       child: ListView.builder(
         itemCount: data.length,
-        itemBuilder: (BuildContext context, int index) {
+        itemBuilder: (BuildContext context, var index) {
           return ListComponent(
               title: AppLocalizations.of(context)!.tile2,
               data1:

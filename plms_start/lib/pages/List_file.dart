@@ -28,7 +28,7 @@ class _ListFileState extends State<ListFile> {
       color: Color(0xFFE6E6E6),
       child: ListView.builder(
           itemCount: data.length,
-          itemBuilder: (BuildContext context, int index) {
+          itemBuilder: (BuildContext context, var index) {
             if (data[index]['status'] == "1") {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile2,
