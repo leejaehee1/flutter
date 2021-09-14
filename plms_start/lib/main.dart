@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:plms_start/app_config.dart';
 
 import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
@@ -24,7 +26,8 @@ import 'pages/success_page.dart';
 import 'pages/utils/popup_page.dart';
 import 'screens/utils/draft_screen.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: 'assets/config/.env');
   runApp(MyApp());
 }
 

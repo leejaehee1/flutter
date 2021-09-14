@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:flutter_dropdown_search/flutter_dropdown_search.dart';
 import 'package:get/get.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -82,6 +83,8 @@ class _SignUpPageState extends State<SignUpPage> {
   FocusNode _repasswordFocus = new FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  var api = dotenv.env['PHONE_IP'];
+
   @override
   void dispose() {
     _idTextEditController.dispose();
@@ -157,7 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   if (((formKey.currentState!.validate() == true))) {
                     // print(formKey.currentState!.validate());
                     // var url = Uri.parse('http://10.0.2.2:5000/api/register');
-                    var url = Uri.parse('http://172.30.1.42:5000/api/register');
+                    var url = Uri.parse('$api/api/register');
 
                     isManager == true
                         ? await http.post(url, body: {

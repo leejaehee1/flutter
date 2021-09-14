@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
 import 'package:http/http.dart' as http;
@@ -40,14 +41,17 @@ class _HomeState extends State<Home> {
     List areaData = [];
     List systemData = [];
 
+    var api = dotenv.env['PHONE_IP'];
+
     if (authority[0] == "3") {
       var uriResponse = await http.get(
         Uri.parse(
             // 'http://10.0.2.2:5000/summury/category/',
-            "http://172.30.1.42:5000/summury/sqlall/"),
+            "$api/summury/sqlall/"),
       );
       var sqlall = jsonDecode(uriResponse.body);
       print(json.runtimeType);
+      print('요기요');
       // sqlall += json;
       print("sqlall[0]: ${sqlall[0]}");
       if (mounted)
@@ -69,6 +73,7 @@ class _HomeState extends State<Home> {
             print("openList: $openList");
             print("reqList: $reqList");
             print("closeList: $closeList");
+            print('된다!');
           }
         });
 
@@ -79,13 +84,15 @@ class _HomeState extends State<Home> {
         closeList,
       ]);
     } else if (authority[0] == "1") {
-      var url = Uri.parse('http://172.30.1.42:5000/summury/sqlassi/');
+      // var url = Uri.parse('http://172.30.1.42:5000/summury/sqlassi/');
+
+      var url = Uri.parse('$api/summury/sqlassi/');
       var response = await http.post(url, body: {
         'userID': id[0],
       });
       var sqlassi = jsonDecode(response.body);
       // print('json2$json2');
-
+      print('요기요');
       if (mounted)
         this.setState(() {
           for (int i = 0; i < sqlassi.length; i++) {
@@ -100,11 +107,12 @@ class _HomeState extends State<Home> {
             } else if (sqlassi[i]['status'] == '6') {
               closeList += [sqlassi[i]];
             }
-
+            print('되냐?');
             print("draftList: $draftList");
             print("openList: $openList");
             print("reqList: $reqList");
             print("closeList: $closeList");
+            print('된다! 된다!');
           }
         });
 
@@ -115,7 +123,7 @@ class _HomeState extends State<Home> {
         closeList,
       ]);
     } else {
-      var url = Uri.parse('http://172.30.1.42:5000/summury/sqlqc/');
+      var url = Uri.parse('$api/summury/sqlqc/');
       var response = await http.post(url, body: {
         'userID': id[0],
       });
