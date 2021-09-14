@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +20,8 @@ class _LoginPageState extends State<LoginPage> {
   final _pwTextEditController = TextEditingController();
 
   late double headerTopZone;
+
+  var api = dotenv.env['PHONE_IP'];
 
   @override
   void dispose() {
@@ -132,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
         // },
         onPressed: () async {
           // var url = Uri.parse('http://10.0.2.2:5000/api/login');
-          var url = Uri.parse('http://172.30.1.42:5000/summury/login');
+          var url = Uri.parse('$api/summury/login');
           var response = await http.post(url, body: {
             'userID': _idTextEditController.text,
             'password': _pwTextEditController.text,
