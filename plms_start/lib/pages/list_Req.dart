@@ -21,7 +21,7 @@ class ListReq extends StatelessWidget {
               title: AppLocalizations.of(context)!.tile4,
               data1:
                   "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-              data2: data[index]['system'],
+              data2: data[index]['systemID'],
               colors: 0xff987ca1);
         },
       ),

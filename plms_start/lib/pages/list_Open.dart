@@ -58,7 +58,7 @@ class ListOpen extends StatelessWidget {
                   title: AppLocalizations.of(context)!.tile3,
                   data1:
                       "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['system'],
+                  data2: data[index]['systemID'],
                   colors: 0xffb88d6a);
         },
       ),
