@@ -1,20 +1,20 @@
-// import 'dart:convert';
-// import 'package:http/http.dart' as http;
-// import 'package:plms_start/screens/models/model.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:get/get.dart';
 
-// class PostRepository {
-//   Future<List<User>> loadData() async {
-//     final response = await http.get(
-//       Uri.parse(
-//         'http://10.0.2.2:5000/api/category/',
-//       ),
-//     );
-//     if (response.body != null) {
-//       Map<String, dynamic> parsedResponse = jsonDecode(response.body);
-//       if (parsedResponse['result'] != null) {
-//         List<dynamic> body = parsedResponse['result'];
-//         return body.map<User>((json) => User.fromJson(json)).toList();
-//       }
-//     }
-//   }
-// }
+class DataRepository extends GetConnect {
+  static DataRepository get to => Get.find();
+
+  var api = dotenv.env['PHONE_IP'];
+
+  @override
+  void onInit() {
+    httpClient.baseUrl = api;
+    super.onInit();
+  }
+
+  loadSystem() async {
+    String url = '/summury/system';
+    final response = await get(url);
+    // if (response)
+  }
+}
