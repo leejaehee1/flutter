@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:get/get.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:plms_start/app_config.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:get/get.dart';
+
+import 'package:plms_start/app_config.dart';
 import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
 import 'package:plms_start/pages/sign_up_page.dart';
@@ -22,8 +24,8 @@ import 'pages/confirm_page.dart';
 import 'pages/login_pages.dart';
 import 'pages/punch_screen.dart';
 import 'pages/success_page.dart';
-
 import 'pages/utils/popup_page.dart';
+
 import 'screens/utils/draft_screen.dart';
 
 Future<void> main() async {
@@ -32,7 +34,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -82,9 +83,10 @@ class _MyAppState extends State<MyApp> {
           transition: Transition.zoom,
         ),
         GetPage(
-            name: '/loading',
-            page: () => Loading(),
-            transition: Transition.zoom),
+          name: '/loading',
+          page: () => Loading(),
+          transition: Transition.zoom,
+        ),
         GetPage(
           name: '/punchList',
           page: () => PunchScreen(),

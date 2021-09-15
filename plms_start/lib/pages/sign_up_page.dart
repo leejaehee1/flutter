@@ -34,7 +34,7 @@ class _SignUpPageState extends State<SignUpPage> {
       Uri.parse(
         // 'http://10.0.2.2:5000/api/department/',
 
-        'http://172.30.1.42:5000/summury/department/',
+        '$api/summury/department/',
       ),
     );
 

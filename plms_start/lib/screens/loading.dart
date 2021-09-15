@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -14,6 +15,8 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  var api = dotenv.env['PHONE_IP'];
+
   @override
   void initState() {
     test();
@@ -28,7 +31,7 @@ class _LoadingState extends State<Loading> {
     var uriResponse = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/category/',
-          "http://172.30.1.42:5000/summury/category/"),
+          "$api/summury/category/"),
     );
 
     var json = jsonDecode(uriResponse.body);
@@ -46,7 +49,7 @@ class _LoadingState extends State<Loading> {
     var uriResponse2 = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/systems/',
-          "http://172.30.1.42:5000/summury/systems/"),
+          "$api/summury/systems/"),
     );
 
     var json2 = jsonDecode(uriResponse2.body);
@@ -56,14 +59,14 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len2; i++) {
-          systems += [json2[i]['systems']];
+          systems += [json2[i]['systemID']];
         }
       });
 /////////////////////////////
     var uriResponse3 = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/subsystem/',
-          "http://172.30.1.42:5000/summury/subsystem/"),
+          "$api/summury/subsystem/"),
     );
 
     var json3 = jsonDecode(uriResponse3.body);
@@ -80,7 +83,7 @@ class _LoadingState extends State<Loading> {
     var uriResponse4 = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/discipline/',
-          "http://172.30.1.42:5000/summury/discipline/"),
+          "$api/summury/discipline/"),
     );
 
     var json4 = jsonDecode(uriResponse4.body);

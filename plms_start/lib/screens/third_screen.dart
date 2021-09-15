@@ -1,5 +1,6 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
+
+import 'package:delayed_display/delayed_display.dart';
 import 'package:get/get.dart';
 // import 'package:plms_start/screens/utils/swich_punch.dart';
 // import 'utils/draft_screen.dart';
