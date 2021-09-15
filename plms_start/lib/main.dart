@@ -10,6 +10,7 @@ import 'package:plms_start/app_config.dart';
 import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
 import 'package:plms_start/pages/sign_up_page.dart';
+import 'package:plms_start/screens/binding/init_binding.dart';
 // import 'screens/controller/dropdown_button_controller.dart';
 // import 'screens/controller/dropdown_button_controller2.dart';
 // import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';
@@ -18,6 +19,7 @@ import 'package:plms_start/pages/sign_up_page.dart';
 // import 'package:plms_start/screens/controller/dropdown_button_controller6.dart';
 // import 'package:plms_start/screens/controller/dropdown_button_controller7.dart';
 import 'package:plms_start/screens/loading.dart';
+import 'package:plms_start/screens/repository/data_repository.dart';
 
 import 'pages/punch_complete.dart';
 import 'pages/confirm_page.dart';
@@ -59,15 +61,17 @@ class _MyAppState extends State<MyApp> {
       ],
       // home: Home(),
       initialRoute: '/',
-      // initialBinding: BindingsBuilder(() {
-      //   Get.put(DropdownButtonController());
-      //   Get.put(DropdownButtonController2());
-      //   Get.put(DropdownButtonController3());
-      //   Get.put(DropdownButtonController4());
-      //   Get.put(DropdownButtonController5());
-      //   Get.put(DropdownButtonController6());
-      //   Get.put(DropdownButtonController7());
-      // }),
+      initialBinding: BindingsBuilder(() {
+        // InitBinding();
+        Get.put(DataRepository(), permanent: true);
+        //   Get.put(DropdownButtonController());
+        //   Get.put(DropdownButtonController2());
+        //   Get.put(DropdownButtonController3());
+        //   Get.put(DropdownButtonController4());
+        //   Get.put(DropdownButtonController5());
+        //   Get.put(DropdownButtonController6());
+        //   Get.put(DropdownButtonController7());
+      }),
 
       getPages: [
         GetPage(

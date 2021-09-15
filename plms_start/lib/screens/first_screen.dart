@@ -1,13 +1,14 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/screens/controller/home_controller.dart';
 
 import 'package:plms_start/screens/utils/title_text.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 
 class PageOne extends StatefulWidget {
-  const PageOne({Key? key}) : super(key: key);
-
+  PageOne({Key? key}) : super(key: key);
+  final DataController controller = Get.put(DataController());
   @override
   _PageOneState createState() => _PageOneState();
 }
