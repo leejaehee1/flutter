@@ -6,6 +6,7 @@ import 'package:plms_start/screens/repository/data_repository.dart';
 class DataController extends GetxController {
   static DataController get to => Get.find();
 
+  // Rx<System> systemData = System(systemId: '', systemName: '').obs;
   Rx<SystemList> systemData = SystemList(system: []).obs;
 
   @override
@@ -20,4 +21,10 @@ class DataController extends GetxController {
     print(system.system.length);
     systemData(system);
   }
+  // Future<void> _dataLoad() async {
+  //   System system = await DataRepository.to.loadSystem();
+  //   print("여기에 시스템 있어요!!!!!!!!!!");
+  //   print(system);
+  //   systemData(system);
+  // }
 }

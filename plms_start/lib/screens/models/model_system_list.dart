@@ -6,7 +6,7 @@ class SystemList {
   SystemList({required this.system});
 
   factory SystemList.fromJson(List<dynamic> json) {
-    List<System> system = [];
+    List<System> system = <System>[];
     system = json.map((i) => System.fromJson(i)).toList();
 
     return new SystemList(system: system);
