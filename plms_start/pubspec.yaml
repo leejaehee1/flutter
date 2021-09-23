@@ -27,6 +27,7 @@ dependencies:
   date_time_picker: ^2.1.0
   simple_tags: ^0.0.4
   flutter_dotenv: ^5.0.2
+  image_painter: ^0.4.0
   
 
 dev_dependencies:
