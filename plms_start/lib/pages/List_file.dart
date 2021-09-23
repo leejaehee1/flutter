@@ -33,8 +33,8 @@ class _ListFileState extends State<ListFile> {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile2,
                   data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemID'],
+                      "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                  data2: data[index]['systemName'],
                   colors: 0xff7c4141);
             } else if (data[index]['status'] == "2" ||
                 data[index]['status'] == '5') {
@@ -43,8 +43,8 @@ class _ListFileState extends State<ListFile> {
                       ListComponent(
                           title: AppLocalizations.of(context)!.tile3,
                           data1:
-                              "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                          data2: data[index]['systemID'],
+                              "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                          data2: data[index]['systemName'],
                           colors: 0xffb88d6a),
                       Positioned(
                         top: Get.height * 1 / 80,
@@ -72,23 +72,23 @@ class _ListFileState extends State<ListFile> {
                   : ListComponent(
                       title: AppLocalizations.of(context)!.tile3,
                       data1:
-                          "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                      data2: data[index]['systemID'],
+                          "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      data2: data[index]['systemName'],
                       colors: 0xffb88d6a);
             } else if (data[index]['status'] == "3" ||
                 data[index]['status'] == '4') {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile4,
                   data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemID'],
+                      "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                  data2: data[index]['systemName'],
                   colors: 0xff987ca1);
             } else {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile5,
                   data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemID'],
+                      "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                  data2: data[index]['systemName'],
                   colors: 0xff637a8f);
             }
           }),
