@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:image_painter/image_painter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:plms_start/screens/utils/image_painter.dart';
 
 class ImagePickers extends StatefulWidget {
   const ImagePickers({Key? key}) : super(key: key);
@@ -56,9 +58,21 @@ class _ImagePickersState extends State<ImagePickers> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.file(
-                        File(_imageList[index].path),
-                        fit: BoxFit.cover,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            print('hi');
+                            // _imagePainter(index);
+                            Get.to(ImagePainters(),
+                                arguments: _imageList[index].path);
+
+                            print('hihi');
+                          });
+                        },
+                        child: Image.file(
+                          File(_imageList[index].path),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                       Positioned(
                         top: 0,
@@ -224,5 +238,11 @@ class _ImagePickersState extends State<ImagePickers> {
       }
       setState(() {});
     } catch (e) {}
+  }
+
+  void _imagePainter(int idx) {
+    final _imageKey = GlobalKey<ImagePainterState>();
+    // ImagePainter.file(File(_imageList[idx].path), key: _imageKey);
+    ImagePainter.asset('assets/images/punch_draft_sample.jpg', key: _imageKey);
   }
 }
