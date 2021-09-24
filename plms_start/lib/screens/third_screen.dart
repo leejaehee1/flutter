@@ -130,10 +130,9 @@ class _PageThreeState extends State<PageThree> {
 
   final ImagePicker _picker = ImagePicker();
   List<XFile> _imageList = [];
-
+  late XFile value = Get.to(ImagePainters()) as XFile;
   bool status = false;
   // double len = [].length as double;
-
   Widget _imagePicker() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
@@ -155,7 +154,16 @@ class _PageThreeState extends State<PageThree> {
                       _showDialog2();
                     });
                   },
-                  icon: Icon(Icons.add_a_photo))
+                  icon: Icon(Icons.add_a_photo)),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      print("value다!!!!!!!: $value");
+                      _imageList.add(value);
+                      print("된다");
+                    });
+                  },
+                  icon: Icon(Icons.check)),
             ],
           ),
 
@@ -172,15 +180,12 @@ class _PageThreeState extends State<PageThree> {
                     children: [
                       InkWell(
                         onTap: () {
-                          setState(() {
-                            print('hi');
-                            // _imagePainter(index);
-                            Get.to(ImagePainters(),
-                                arguments: _imageList[index].path);
+                          print('hi');
+                          // _imagePainter(index);
+                          Get.to(() => ImagePainters(),
+                              arguments: _imageList[index].path);
 
-                            print('hihi');
-                            // _imageList.removeAt(index);
-                          });
+                          print('hihi');
                         },
                         child: Image.file(
                           File(_imageList[index].path),
@@ -336,7 +341,7 @@ class _PageThreeState extends State<PageThree> {
     try {
       if (selectedImage!.path.isNotEmpty) {
         _imageList.add(selectedImage);
-        print(selectedImage.path);
+        print(selectedImage.runtimeType);
       }
       setState(() {});
     } catch (e) {}

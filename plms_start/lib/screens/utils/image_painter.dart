@@ -18,7 +18,7 @@ class _ImagePaintersState extends State<ImagePainters> {
   final _key = GlobalKey<ScaffoldState>();
 
   String imageData = Get.arguments;
-
+  List _imageList = [];
   void saveImage() async {
     final image = await _imageKey.currentState!.exportImage();
     final directory = (await getApplicationDocumentsDirectory()).path;
@@ -27,6 +27,13 @@ class _ImagePaintersState extends State<ImagePainters> {
         '$directory/sample/${DateTime.now().millisecondsSinceEpoch}.png';
     final imgFile = File('$fullPath');
     imgFile.writeAsBytesSync(image!);
+    print(fullPath.runtimeType);
+    print(imgFile);
+    _imageList.add(imgFile);
+    // print(_imageList);
+    print('간다!');
+    // Get.back(result: _imageList[0].toString());
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.grey[700],
@@ -45,6 +52,13 @@ class _ImagePaintersState extends State<ImagePainters> {
     );
   }
 
+  void loadData() {
+    print(_imageList[0].runtimeType);
+
+    OpenFile.open('${_imageList[0].toString()}');
+    print('hiiiiiiiiiiiiiiiiiiii');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +66,19 @@ class _ImagePaintersState extends State<ImagePainters> {
         appBar: AppBar(
           title: const Text("Image Painter Example"),
           actions: [
-            IconButton(
-              icon: const Icon(Icons.save_alt),
-              onPressed: () {
-                print('hi');
-              },
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.save_alt),
+                  onPressed: saveImage,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.save),
+                  onPressed: () {
+                    loadData();
+                  },
+                ),
+              ],
             )
           ],
         ),
