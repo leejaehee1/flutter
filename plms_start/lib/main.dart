@@ -10,7 +10,7 @@ import 'package:plms_start/app_config.dart';
 import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
 import 'package:plms_start/pages/sign_up_page.dart';
-import 'package:plms_start/screens/binding/init_binding.dart';
+// import 'package:plms_start/screens/binding/init_binding.dart';
 // import 'screens/controller/dropdown_button_controller.dart';
 // import 'screens/controller/dropdown_button_controller2.dart';
 // import 'package:plms_start/screens/controller/dropdown_button_controller3.dart';

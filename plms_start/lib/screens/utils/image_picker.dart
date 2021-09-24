@@ -67,6 +67,7 @@ class _ImagePickersState extends State<ImagePickers> {
                                 arguments: _imageList[index].path);
 
                             print('hihi');
+                            _imageList.removeAt(index);
                           });
                         },
                         child: Image.file(

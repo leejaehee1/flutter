@@ -52,10 +52,12 @@ class _ImagePaintersState extends State<ImagePainters> {
         appBar: AppBar(
           title: const Text("Image Painter Example"),
           actions: [
-            // IconButton(
-            //   icon: const Icon(Icons.save_alt),
-            //   onPressed: saveImage,
-            // )
+            IconButton(
+              icon: const Icon(Icons.save_alt),
+              onPressed: () {
+                print('hi');
+              },
+            )
           ],
         ),
         body: ImagePainter.file(File(imageData), key: _imageKey));

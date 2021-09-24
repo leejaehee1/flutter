@@ -64,7 +64,7 @@ class _PageThreeState extends State<PageThree> {
                     ),
                     ImagePickers(),
                     Container(
-                      height: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height - 305,
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(color: Colors.white),
                       child: Column(
@@ -102,7 +102,7 @@ class _PageThreeState extends State<PageThree> {
                               });
                             },
                             child: Container(
-                              height: MediaQuery.of(context).size.width - 50,
+                              height: MediaQuery.of(context).size.width - 90,
                               decoration: BoxDecoration(
                                 border: Border.all(),
                               ),
