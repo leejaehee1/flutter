@@ -83,7 +83,8 @@ class _SignUpPageState extends State<SignUpPage> {
   FocusNode _repasswordFocus = new FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
 
   @override
   void dispose() {

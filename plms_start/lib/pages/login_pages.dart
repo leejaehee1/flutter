@@ -21,8 +21,8 @@ class _LoginPageState extends State<LoginPage> {
 
   late double headerTopZone;
 
-  var api = dotenv.env['PHONE_IP'];
-
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
   @override
   void dispose() {
     _idTextEditController.dispose();

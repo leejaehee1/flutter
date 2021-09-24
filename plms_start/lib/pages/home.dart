@@ -41,7 +41,8 @@ class _HomeState extends State<Home> {
     List areaData = [];
     List systemData = [];
 
-    var api = dotenv.env['PHONE_IP'];
+    // var api = dotenv.env['PHONE_IP'];
+    var api = dotenv.env['EMUL_IP'];
 
     if (authority[0] == "3") {
       var uriResponse = await http.get(
