@@ -317,6 +317,7 @@ class _SignUpPageState extends State<SignUpPage> {
           height: Get.height * 1.3 / 25,
           child: DropdownSearch<String>(
             // maxHeight: 100,
+
             dropdownSearchDecoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               border: OutlineInputBorder(),
@@ -326,13 +327,11 @@ class _SignUpPageState extends State<SignUpPage> {
             enabled: isManager,
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
-            showSearchBox: true,
 
             mode: Mode.MENU,
             items: deptName,
+            showSelectedItem: true,
             // hint: AppLocalizations.of(context)!.signUpdeptselect,
-
-            popupItemDisabled: (String s) => s.startsWith('I'),
             onChanged: (valued) {
               setState(() {
                 for (var i = 0; i < deptName.length; i++) {
@@ -508,6 +507,7 @@ class _SignUpPageState extends State<SignUpPage> {
           authorityList.add('1');
           isManager = false;
           _personalTextEditController.clear();
+          deptList = List.empty();
           print("Manager: $isManager");
         }
         if (value == _status[1]) {
@@ -515,6 +515,7 @@ class _SignUpPageState extends State<SignUpPage> {
           isManager = false;
           _personalTextEditController.clear();
           deptList = List.empty();
+
           print("Manager: $isManager");
         }
         if (value == _status[2]) {
