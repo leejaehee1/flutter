@@ -146,14 +146,23 @@ class _LoginPageState extends State<LoginPage> {
 
           print(jsonData['authority']);
           print(jsonData['result']);
+          print(jsonData['password']);
 
           if (jsonData['result'] == false) {
             _showDialog();
           }
           if (jsonData['userID'] == _idTextEditController.text) {
-            Get.toNamed('/home',
-                arguments: [jsonData['authority'], jsonData['userID']]);
-          } else {}
+            Get.toNamed('/home', arguments: [
+              jsonData['authority'],
+              jsonData['userID'],
+              _pwTextEditController.text,
+              jsonData['userName'],
+              jsonData['email'],
+              jsonData['company'],
+            ]);
+          } else {
+            _showDialog();
+          }
         },
         child: Text(
           AppLocalizations.of(context)!.signIn,

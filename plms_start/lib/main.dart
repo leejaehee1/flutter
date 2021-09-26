@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:plms_start/app_config.dart';
 import 'package:plms_start/pages/photoList.dart';
 import 'package:plms_start/pages/home.dart';
+import 'package:plms_start/pages/punch_modify.dart';
 import 'package:plms_start/pages/sign_up_page.dart';
 // import 'package:plms_start/screens/binding/init_binding.dart';
 // import 'screens/controller/dropdown_button_controller.dart';
@@ -79,6 +80,11 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: '/home',
           page: () => Home(),
+          transition: Transition.zoom,
+        ),
+        GetPage(
+          name: '/modify',
+          page: () => ModifyPage(),
           transition: Transition.zoom,
         ),
         GetPage(

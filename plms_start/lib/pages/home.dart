@@ -23,8 +23,12 @@ class _HomeState extends State<Home> {
   }
 
   Future<dynamic> test() async {
-    List<String> authority = [Get.arguments[0]];
-    List<String> id = [Get.arguments[1]];
+    String authority = Get.arguments[0];
+    String id = Get.arguments[1];
+    String password = Get.arguments[2];
+    String userName = Get.arguments[3];
+    String email = Get.arguments[4];
+    String company = Get.arguments[5];
 
     // var len = sqlall.length;
     // var len2 = sqlqc.length;
@@ -74,6 +78,7 @@ class _HomeState extends State<Home> {
             print("openList: $openList");
             print("reqList: $reqList");
             print("closeList: $closeList");
+            print("id: $id");
             print('된다!');
           }
         });
@@ -83,6 +88,11 @@ class _HomeState extends State<Home> {
         openList,
         reqList,
         closeList,
+        id,
+        password,
+        userName,
+        email,
+        company,
       ]);
     } else if (authority[0] == "1") {
       // var url = Uri.parse('http://172.30.1.42:5000/summury/sqlassi/');
@@ -113,6 +123,7 @@ class _HomeState extends State<Home> {
             print("openList: $openList");
             print("reqList: $reqList");
             print("closeList: $closeList");
+            print("id: $id");
             print('된다! 된다!');
           }
         });
@@ -122,6 +133,11 @@ class _HomeState extends State<Home> {
         openList,
         reqList,
         closeList,
+        id,
+        password,
+        userName,
+        email,
+        company,
       ]);
     } else {
       var url = Uri.parse('$api/summury/sqlqc/');
