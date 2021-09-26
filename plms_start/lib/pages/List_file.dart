@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/pages/components/List_components.dart';
+import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListFile extends StatefulWidget {
@@ -33,7 +33,7 @@ class _ListFileState extends State<ListFile> {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile2,
                   data1:
-                      "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['systemName'],
                   colors: 0xff7c4141);
             } else if (data[index]['status'] == "2" ||
@@ -43,7 +43,7 @@ class _ListFileState extends State<ListFile> {
                       ListComponent(
                           title: AppLocalizations.of(context)!.tile3,
                           data1:
-                              "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                              "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
                           data2: data[index]['systemName'],
                           colors: 0xffb88d6a),
                       Positioned(
@@ -72,7 +72,7 @@ class _ListFileState extends State<ListFile> {
                   : ListComponent(
                       title: AppLocalizations.of(context)!.tile3,
                       data1:
-                          "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                          "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
                       data2: data[index]['systemName'],
                       colors: 0xffb88d6a);
             } else if (data[index]['status'] == "3" ||
@@ -80,14 +80,14 @@ class _ListFileState extends State<ListFile> {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile4,
                   data1:
-                      "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['systemName'],
                   colors: 0xff987ca1);
             } else {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile5,
                   data1:
-                      "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['systemName'],
                   colors: 0xff637a8f);
             }

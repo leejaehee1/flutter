@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:plms_start/pages/components/List_components.dart';
+import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListDraft extends StatefulWidget {
@@ -35,7 +35,7 @@ class _ListDraftState extends State<ListDraft> {
           return ListComponent(
               title: AppLocalizations.of(context)!.tile2,
               data1:
-                  "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                  "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
               data2: data[index]['systemName'],
               colors: 0xff7c4141);
         },

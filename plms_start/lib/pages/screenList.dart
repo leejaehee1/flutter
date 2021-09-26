@@ -9,11 +9,11 @@ import 'package:plms_start/pages/utils/button_issue.dart';
 
 // import 'screen_punch.dart';
 
-import 'List_file.dart';
-import 'list_Close.dart';
-import 'list_Draft.dart';
-import 'list_Open.dart';
-import 'list_Req.dart';
+import 'list_file.dart';
+import 'list_close.dart';
+import 'list_draft.dart';
+import 'list_open.dart';
+import 'list_req.dart';
 import 'utils/popup_page.dart';
 
 class ScreenList extends StatefulWidget {
@@ -32,6 +32,11 @@ class _ScreenListState extends State<ScreenList>
   List openList = Get.arguments[1];
   List reqList = Get.arguments[2];
   List closeList = Get.arguments[3];
+  String id = Get.arguments[4];
+  String password = Get.arguments[5];
+  String userName = Get.arguments[6];
+  String email = Get.arguments[7];
+  String company = Get.arguments[8];
 
   void initState() {
     super.initState();
@@ -67,7 +72,13 @@ class _ScreenListState extends State<ScreenList>
               Text(AppLocalizations.of(context)!.appTitle),
               IconButton(
                 onPressed: () {
-                  Get.toNamed('/popup');
+                  Get.toNamed('/popup', arguments: [
+                    id,
+                    password,
+                    userName,
+                    email,
+                    company,
+                  ]);
                   // Get.to(PopUpPage(), opaque: false);
                 },
                 icon: Icon(Icons.settings),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:get/get.dart';
-import 'package:plms_start/pages/components/List_components.dart';
+import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListClose extends StatelessWidget {
@@ -21,7 +21,7 @@ class ListClose extends StatelessWidget {
           return ListComponent(
               title: AppLocalizations.of(context)!.tile5,
               data1:
-                  "${data[index]['punchID']},${data[index]['categoryName']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                  "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
               data2: data[index]['systemName'],
               colors: 0xff637a8f);
         },
