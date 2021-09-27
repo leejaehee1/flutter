@@ -45,8 +45,8 @@ class _HomeState extends State<Home> {
     List areaData = [];
     List systemData = [];
 
-    // var api = dotenv.env['PHONE_IP'];
-    var api = dotenv.env['EMUL_IP'];
+    var api = dotenv.env['PHONE_IP'];
+    // var api = dotenv.env['EMUL_IP'];
 
     if (authority[0] == "3") {
       var uriResponse = await http.get(
@@ -93,6 +93,7 @@ class _HomeState extends State<Home> {
         userName,
         email,
         company,
+        authority,
       ]);
     } else if (authority[0] == "1") {
       // var url = Uri.parse('http://172.30.1.42:5000/summury/sqlassi/');
@@ -103,7 +104,7 @@ class _HomeState extends State<Home> {
       });
       var sqlassi = jsonDecode(response.body);
       // print('json2$json2');
-      print('요기요');
+      print('sqlassi');
       if (mounted)
         this.setState(() {
           for (int i = 0; i < sqlassi.length; i++) {
@@ -138,6 +139,7 @@ class _HomeState extends State<Home> {
         userName,
         email,
         company,
+        authority,
       ]);
     } else {
       var url = Uri.parse('$api/summury/sqlqc/');
