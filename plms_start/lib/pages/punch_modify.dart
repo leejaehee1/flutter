@@ -32,7 +32,8 @@ class _ModifyPageState extends State<ModifyPage> {
 
   FocusNode _pwFocusNode = FocusNode();
 
-  var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['EMUL_IP'];
+  var api = dotenv.env['PHONE_IP'];
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +158,7 @@ class _ModifyPageState extends State<ModifyPage> {
                       'userID': Get.arguments[0],
                       'password': _repwTextEditController.text,
                     });
-                    print('hi');
+                    Get.offAllNamed('/');
                   }
                 },
               ),
