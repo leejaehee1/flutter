@@ -37,6 +37,7 @@ class _ScreenListState extends State<ScreenList>
   String userName = Get.arguments[6];
   String email = Get.arguments[7];
   String company = Get.arguments[8];
+  String authority = Get.arguments[9];
 
   void initState() {
     super.initState();

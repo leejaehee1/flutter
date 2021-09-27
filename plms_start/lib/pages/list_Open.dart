@@ -7,7 +7,12 @@ class ListOpen extends StatelessWidget {
   ListOpen({Key? key}) : super(key: key);
 
   final List data = Get.arguments[1];
-  final int number = 0;
+  String id = Get.arguments[4];
+  String password = Get.arguments[5];
+  String userName = Get.arguments[6];
+  String email = Get.arguments[7];
+  String company = Get.arguments[8];
+  String authority = Get.arguments[9];
 
   @override
   Widget build(BuildContext context) {
@@ -19,47 +24,46 @@ class ListOpen extends StatelessWidget {
         itemBuilder: (BuildContext context, var index) {
           if (data.isEmpty) {}
 
-          return
-              // number == 1
-              //     ? Stack(children: [
-              //         ListComponent(
-              //             nums: 1,
-              //             title: AppLocalizations.of(context)!.tile3,
-              //             data1:
-              //                 "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-              //             data2: data[index]['system'],
-              //             colors: 0xffb88d6a),
-              //         Positioned(
-              //           top: Get.height * 1 / 80,
-              //           right: Get.width * 1 / 25,
-              //           child: SizedBox(
-              //             width: Get.width * 1.2 / 7,
-              //             height: Get.height * 1 / 45,
-              //             child: ElevatedButton(
-              //               style: ElevatedButton.styleFrom(
-              //                 padding: EdgeInsets.only(left: 0, right: 0),
-              //                 primary: Color(0xff55b093), // background
-              //                 // onPrimary: Colors.white, // foreground
-              //               ),
-              //               onPressed: () {
-              //                 // print(data[index]);
-              //                 Get.toNamed('/complete', arguments: data[index]);
-              //               },
-              //               child: Text(
-              //                 AppLocalizations.of(context)!.completeButton,
-              //                 style: TextStyle(fontSize: 10),
-              //               ),
-              //             ),
-              //           ),
-              //         ),
-              //       ])
-              //     :
-              ListComponent(
-                  title: AppLocalizations.of(context)!.tile3,
-                  data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemName'],
-                  colors: 0xffb88d6a);
+          return Stack(children: [
+            ListComponent(
+                nums: 1,
+                title: AppLocalizations.of(context)!.tile3,
+                data1:
+                    "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+                data2: data[index]['systemID'],
+                colors: 0xffb88d6a),
+            Positioned(
+              top: Get.height * 1 / 80,
+              right: Get.width * 1 / 25,
+              child: SizedBox(
+                width: Get.width * 1.2 / 7,
+                height: Get.height * 1 / 45,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.only(left: 0, right: 0),
+                    primary: Color(0xff55b093), // background
+                    // onPrimary: Colors.white, // foreground
+                  ),
+                  onPressed: () {
+                    // print(data[index]);
+                    Get.toNamed('/complete', arguments: [
+                      data[index],
+                      id,
+                      password,
+                      userName,
+                      email,
+                      company,
+                      authority,
+                    ]);
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)!.completeButton,
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ),
+              ),
+            ),
+          ]);
         },
       ),
     );

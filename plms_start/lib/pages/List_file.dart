@@ -15,13 +15,19 @@ class _ListFileState extends State<ListFile> {
   List openList = Get.arguments[1];
   List reqList = Get.arguments[2];
   List closeList = Get.arguments[3];
-  int num = 1;
+
   // List data =
   //     Get.arguments[0] + Get.arguments[1] + Get.arguments[2] + Get.arguments[3];
 
   @override
   Widget build(BuildContext context) {
     List data = (draftList + openList + reqList + closeList);
+    String id = Get.arguments[4];
+    String password = Get.arguments[5];
+    String userName = Get.arguments[6];
+    String email = Get.arguments[7];
+    String company = Get.arguments[8];
+    String authority = Get.arguments[9];
 
     // FutureBuilder listview
     return Container(
@@ -33,61 +39,64 @@ class _ListFileState extends State<ListFile> {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile2,
                   data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['systemName'],
                   colors: 0xff7c4141);
             } else if (data[index]['status'] == "2" ||
                 data[index]['status'] == '5') {
-              return num == 1
-                  ? Stack(children: [
-                      ListComponent(
-                          title: AppLocalizations.of(context)!.tile3,
-                          data1:
-                              "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
-                          data2: data[index]['systemName'],
-                          colors: 0xffb88d6a),
-                      Positioned(
-                        top: Get.height * 1 / 80,
-                        right: Get.width * 1 / 25,
-                        child: SizedBox(
-                          width: Get.width * 1.2 / 7,
-                          height: Get.height * 1 / 45,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.only(left: 0, right: 0),
-                              primary: Color(0xff55b093), // background
-                              // onPrimary: Colors.white, // foreground
-                            ),
-                            onPressed: () {
-                              Get.toNamed('/complete', arguments: data[index]);
-                            },
-                            child: Text(
-                              AppLocalizations.of(context)!.completeButton,
-                              style: TextStyle(fontSize: 10),
-                            ),
-                          ),
-                        ),
+              return Stack(children: [
+                ListComponent(
+                    title: AppLocalizations.of(context)!.tile3,
+                    data1:
+                        "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+                    data2: data[index]['systemName'],
+                    colors: 0xffb88d6a),
+                Positioned(
+                  top: Get.height * 1 / 80,
+                  right: Get.width * 1 / 25,
+                  child: SizedBox(
+                    width: Get.width * 1.2 / 7,
+                    height: Get.height * 1 / 45,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.only(left: 0, right: 0),
+                        primary: Color(0xff55b093), // background
+                        // onPrimary: Colors.white, // foreground
                       ),
-                    ])
-                  : ListComponent(
-                      title: AppLocalizations.of(context)!.tile3,
-                      data1:
-                          "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
-                      data2: data[index]['systemName'],
-                      colors: 0xffb88d6a);
+                      onPressed: () {
+                        print(data[index].runtimeType);
+                        print(data[index]);
+                        Get.toNamed('/complete', arguments: [
+                          data[index],
+                          id,
+                          password,
+                          userName,
+                          email,
+                          company,
+                          authority,
+                        ]);
+                      },
+                      child: Text(
+                        AppLocalizations.of(context)!.completeButton,
+                        style: TextStyle(fontSize: 10),
+                      ),
+                    ),
+                  ),
+                ),
+              ]);
             } else if (data[index]['status'] == "3" ||
                 data[index]['status'] == '4') {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile4,
                   data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['systemName'],
                   colors: 0xff987ca1);
             } else {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile5,
                   data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
                   data2: data[index]['systemName'],
                   colors: 0xff637a8f);
             }
