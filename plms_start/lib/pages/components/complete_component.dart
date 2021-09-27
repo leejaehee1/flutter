@@ -10,34 +10,24 @@ class CompleteComponent extends StatefulWidget {
 }
 
 class _CompleteComponentState extends State<CompleteComponent> {
-  var data = Get.arguments;
+  var data = Get.arguments[0];
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _dataWidget('Category', data['category']),
-                _dataWidget('System', data['system']),
-                _dataWidget('Sub-system', data['category']),
-              ],
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _dataWidget('Unit', data['unit']),
-                _dataWidget('Area', data['area']),
-                _dataWidget('Tag Numger', data['category']),
-              ],
-            ),
-          ],
+        _dataWidget('PunchID', data['punchID']),
+        _dataWidget('Category', data['category']),
+        SizedBox(
+          width: 20,
         ),
+        _dataWidget('Area', data['area']),
+        SizedBox(
+          width: 20,
+        ),
+        _dataWidget('Unit', data['unit']),
+        _dataWidget('Tag Number', data['tagNumber']),
+        _dataWidget('System', data['systemName']),
+        _dataWidget('Sub-system', data['subsystemName']),
         SizedBox(
           height: 10,
         ),
@@ -50,9 +40,12 @@ class _CompleteComponentState extends State<CompleteComponent> {
         ),
         Row(
           children: [
-            Text(
-              AppLocalizations.of(context)!.completeText,
-              style: TextStyle(color: Color(0xff5D8791)),
+            Flexible(
+              child: Text(
+                data['notAcceptComment'],
+                style: TextStyle(color: Color(0xff5D8791)),
+                overflow: TextOverflow.fade,
+              ),
             ),
           ],
         )
@@ -60,23 +53,35 @@ class _CompleteComponentState extends State<CompleteComponent> {
     );
   }
 
-  Widget _dataWidget(String title, var datas) {
+  Widget _dataWidget(String title, String datas) {
     return Row(
       children: [
         SizedBox(
           width: Get.width * 2 / 7,
           // height: Get.height * 1 / 11,
-          child: _textWidget(title),
+          child: Text(
+            title,
+            style: TextStyle(color: Colors.white60, fontSize: 13),
+          ),
         ),
-        _textWidget(datas),
+        Flexible(
+          child: Text(
+            datas,
+            style: TextStyle(color: Colors.white, fontSize: 13),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _textWidget(String data) {
-    return Text(
-      data,
-      style: TextStyle(color: Colors.white),
-    );
-  }
+  // Widget _textWidget(String data) {
+  //   return Flexible(
+  //     child: Text(
+  //       data,
+  //       overflow: TextOverflow.ellipsis,
+  //       style: TextStyle(color: Colors.white, fontSize: 13),
+  //     ),
+  //   );
+  // }
 }
