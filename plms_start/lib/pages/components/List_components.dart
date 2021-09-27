@@ -63,34 +63,23 @@ class ListComponent extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          children: [
-                            Row(
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      title,
-                                      style: TextStyle(
-                                        color: Color(colors),
-                                      ),
-                                    ),
-                                    _boxsize(),
-                                    Text(data1),
-                                    _boxsize(),
-                                    Text(
-                                      data2,
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 11),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
+                        Text(
+                          title,
+                          style: TextStyle(
+                            color: Color(colors),
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        _boxsize(),
+                        Text(data1),
+                        _boxsize(),
+                        Text(
+                          data2,
+                          style: TextStyle(color: Colors.grey, fontSize: 11),
+                          // softWrap: false,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
