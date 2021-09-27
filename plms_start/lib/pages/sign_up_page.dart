@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 // import 'package:flutter_dropdown_search/flutter_dropdown_search.dart';
 import 'package:get/get.dart';
@@ -23,10 +24,28 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
+
   @override
   void initState() {
     test();
+    readFile();
     super.initState();
+  }
+
+  String filePath1 = "assets/text/Service_Terms_and_Conditions.txt";
+  String filePath2 = "assets/text/Person_Data_Agree.txt";
+  String fileText1 = "";
+  String fileText2 = "";
+
+  readFile() async {
+    String text1 = await rootBundle.loadString(filePath1);
+    String text2 = await rootBundle.loadString(filePath2);
+    setState(() {
+      fileText1 = text1;
+      fileText2 = text2;
+    });
   }
 
   Future<dynamic> test() async {
@@ -83,9 +102,6 @@ class _SignUpPageState extends State<SignUpPage> {
   FocusNode _repasswordFocus = new FocusNode();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // var api = dotenv.env['PHONE_IP'];
-  var api = dotenv.env['EMUL_IP'];
-
   @override
   void dispose() {
     _idTextEditController.dispose();
@@ -111,8 +127,14 @@ class _SignUpPageState extends State<SignUpPage> {
       body: ListView(
         children: [
           _firstPage(),
-          _checkPage1(AppLocalizations.of(context)!.signUpcheckPage1, 'data'),
-          _checkPage2(AppLocalizations.of(context)!.signUpcheckPage2, 'data'),
+          _checkPage1(
+            AppLocalizations.of(context)!.signUpcheckPage1,
+            fileText1,
+          ),
+          _checkPage2(
+            AppLocalizations.of(context)!.signUpcheckPage2,
+            fileText2,
+          ),
         ],
       ),
       bottomNavigationBar: Container(
@@ -211,7 +233,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   Widget _size15() {
     return SizedBox(
-      height: 15,
+      height: 5,
     );
   }
 
@@ -251,10 +273,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     padding: const EdgeInsets.only(left: 8),
                     child: Column(
                       children: [
-                        _textField(
-                          AppLocalizations.of(context)!.signUpID,
-                          _idTextEditController,
-                        ),
+                        _textField(AppLocalizations.of(context)!.signUpID,
+                            _idTextEditController, 'ID를'),
                         _size15(),
                         _pwFormField(
                           AppLocalizations.of(context)!.signUpPW,
@@ -271,20 +291,16 @@ class _SignUpPageState extends State<SignUpPage> {
                           _emailTextEditController,
                         ),
                         _size15(),
-                        _textField(
-                          AppLocalizations.of(context)!.signUpcom,
-                          _comTextEditController,
-                        ),
+                        _textField(AppLocalizations.of(context)!.signUpcom,
+                            _comTextEditController, '회사를'),
                         _size15(),
-                        _textField(
-                          AppLocalizations.of(context)!.signUpname,
-                          _nameTextEditController,
-                        ),
+                        _textField(AppLocalizations.of(context)!.signUpname,
+                            _nameTextEditController, '이름을'),
                         _size15(),
                         _enabletextField(
-                          AppLocalizations.of(context)!.signUppersonal,
-                          _personalTextEditController,
-                        ),
+                            AppLocalizations.of(context)!.signUppersonal,
+                            _personalTextEditController,
+                            '개인ID를'),
                         _size15(),
                         _dropdownButton(),
                         _size15(),
@@ -347,7 +363,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _textField(String title, var controller) {
+  Widget _textField(String title, var controller, String text) {
     return Row(
       children: [
         SizedBox(
@@ -356,11 +372,16 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.3 / 25,
+          height: Get.height * 2.1 / 25,
           child: TextFormField(
             style: TextStyle(fontSize: 17),
             controller: controller,
             decoration: _textDecoration(),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return '$text 입력하세요';
+              }
+            },
             onChanged: (text) {
               setState(() {});
             },
@@ -370,7 +391,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _enabletextField(String title, var controller) {
+  Widget _enabletextField(String title, var controller, String text) {
     return Row(
       children: [
         SizedBox(
@@ -384,7 +405,7 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.3 / 25,
+          height: Get.height * 2.1 / 25,
           child: TextFormField(
             enabled: isManager,
             style: TextStyle(fontSize: 17),
@@ -403,7 +424,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
       border: OutlineInputBorder(),
-
+      helperText: '',
       // helperText: helperText,
     );
   }
@@ -414,7 +435,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.95 / 25,
+          height: Get.height * 2.1 / 25,
           child: TextFormField(
             maxLength: 10,
             style: TextStyle(fontSize: 17),
@@ -423,7 +444,7 @@ class _SignUpPageState extends State<SignUpPage> {
             validator: (value) => CheckValidate().validaterePassword(
                 _repasswordFocus, value!, _pwTextEditController),
             controller: controller,
-            decoration: _textDecoration(),
+            decoration: _textFormDecoration(),
             onChanged: (text) {
               setState(() {});
             },
@@ -439,7 +460,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
           width: Get.width * 2.9 / 5,
-          height: Get.height * 1.95 / 25,
+          height: Get.height * 2.1 / 25,
           child: TextFormField(
             maxLength: 10,
             style: TextStyle(fontSize: 17),
