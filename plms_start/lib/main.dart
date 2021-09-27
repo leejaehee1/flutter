@@ -76,31 +76,16 @@ class _MyAppState extends State<MyApp> {
 
       getPages: [
         GetPage(
-            name: '/', page: () => LoginPage(), transition: Transition.zoom),
-        GetPage(
-          name: '/home',
-          page: () => Home(),
-          transition: Transition.zoom,
-        ),
-        GetPage(
-          name: '/modify',
-          page: () => ModifyPage(),
-          transition: Transition.zoom,
+          name: '/',
+          page: () => LoginPage(),
         ),
         GetPage(
           name: '/signup',
           page: () => SignUpPage(),
-          transition: Transition.zoom,
         ),
         GetPage(
-          name: '/loading',
-          page: () => Loading(),
-          transition: Transition.zoom,
-        ),
-        GetPage(
-          name: '/punchList',
-          page: () => PunchScreen(),
-          transition: Transition.zoom,
+          name: '/home',
+          page: () => Home(),
         ),
         GetPage(
             name: '/popup',
@@ -108,25 +93,37 @@ class _MyAppState extends State<MyApp> {
             // transition: Transition.upToDown,
             opaque: false),
         GetPage(
-            name: '/draft',
-            page: () => DraftPage(),
-            transition: Transition.zoom),
+          name: '/modify',
+          page: () => ModifyPage(),
+        ),
         GetPage(
-            name: '/confirm',
-            page: () => ConfirmPage(),
-            transition: Transition.zoom),
+          name: '/photoList',
+          page: () => PhotoList(),
+        ),
         GetPage(
-            name: '/success',
-            page: () => SuccessPage(),
-            transition: Transition.zoom),
+          name: '/complete',
+          page: () => PunchComplete(),
+        ),
         GetPage(
-            name: '/photoList',
-            page: () => PhotoList(),
-            transition: Transition.zoom),
+          name: '/loading',
+          page: () => Loading(),
+        ),
         GetPage(
-            name: '/complete',
-            page: () => PunchComplete(),
-            transition: Transition.zoom),
+          name: '/punchList',
+          page: () => PunchScreen(),
+        ),
+        GetPage(
+          name: '/draft',
+          page: () => DraftPage(),
+        ),
+        GetPage(
+          name: '/confirm',
+          page: () => ConfirmPage(),
+        ),
+        GetPage(
+          name: '/success',
+          page: () => SuccessPage(),
+        ),
       ],
     );
   }
