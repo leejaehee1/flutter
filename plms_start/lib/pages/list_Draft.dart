@@ -35,7 +35,7 @@ class _ListDraftState extends State<ListDraft> {
           return ListComponent(
               title: AppLocalizations.of(context)!.tile2,
               data1:
-                  "${data[index]['punchID']},${data[index]['category']},${data[index]['disciplineName']},${data[index]['unit']},${data[index]['area']}",
+                  "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
               data2: data[index]['systemName'],
               colors: 0xff7c4141);
         },
