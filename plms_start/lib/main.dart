@@ -85,6 +85,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(
           name: '/loading',
           page: () => Loading(),
+          opaque: false,
         ),
         GetPage(
           name: '/punchList',
