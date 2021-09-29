@@ -14,8 +14,6 @@ import 'package:plms_start/punch_main/list_req.dart';
 
 // import 'screen_punch.dart';
 
-import '../modify/popup_page.dart';
-
 class ScreenList extends StatefulWidget {
   const ScreenList({Key? key}) : super(key: key);
 
@@ -32,14 +30,14 @@ class _ScreenListState extends State<ScreenList>
   List openList = Get.arguments[1];
   List reqList = Get.arguments[2];
   List closeList = Get.arguments[3];
-  String id = Get.arguments[4];
-  String password = Get.arguments[5];
-  String userName = Get.arguments[6];
-  String email = Get.arguments[7];
-  String company = Get.arguments[8];
-  String authority = Get.arguments[9];
-  String personalID = Get.arguments[10];
-  String department = Get.arguments[11];
+  // String id = Get.arguments[4];
+  // String password = Get.arguments[5];
+  // String userName = Get.arguments[6];
+  // String email = Get.arguments[7];
+  // String company = Get.arguments[8];
+  // String authority = Get.arguments[9];
+  // String personalID = Get.arguments[10];
+  // String department = Get.arguments[11];
 
   void initState() {
     super.initState();
@@ -76,14 +74,14 @@ class _ScreenListState extends State<ScreenList>
               IconButton(
                 onPressed: () {
                   Get.toNamed('/popup', arguments: [
-                    id,
-                    password,
-                    userName,
-                    email,
-                    company,
-                    personalID,
-                    department,
-                    authority,
+                    Get.arguments[4],
+                    Get.arguments[5],
+                    Get.arguments[6],
+                    Get.arguments[7],
+                    Get.arguments[8],
+                    Get.arguments[10],
+                    Get.arguments[10],
+                    Get.arguments[11],
                   ]);
                   // Get.to(PopUpPage(), opaque: false);
                 },
