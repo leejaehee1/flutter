@@ -21,6 +21,12 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    test();
+    super.dispose();
+  }
+
   Future<dynamic> test() async {
     String authority = Get.arguments[0];
     String id = Get.arguments[1];
@@ -31,29 +37,17 @@ class _HomeState extends State<Home> {
     String personalID = Get.arguments[6];
     String department = Get.arguments[7];
 
-    // var len = sqlall.length;
-    // var len2 = sqlqc.length;
-    // var len3 = sqlassi.length;
-
     var draftList = [];
     var openList = [];
     var reqList = [];
     var closeList = [];
-
-    List categoryData = [];
-    List disciplineData = [];
-    List unitData = [];
-    List areaData = [];
-    List systemData = [];
 
     var api = dotenv.env['PHONE_IP'];
     // var api = dotenv.env['EMUL_IP'];
 
     if (authority[0] == "3") {
       var uriResponse = await http.get(
-        Uri.parse(
-            // 'http://10.0.2.2:5000/summury/category/',
-            "$api/summury/sqlall/"),
+        Uri.parse("$api/summury/sqlall/"),
       );
       var sqlall = jsonDecode(uriResponse.body);
       print(json.runtimeType);
@@ -84,7 +78,7 @@ class _HomeState extends State<Home> {
           }
         });
 
-      Get.off(() => ScreenList(), arguments: [
+      Get.offAll(() => ScreenList(), arguments: [
         draftList,
         openList,
         reqList,
@@ -132,7 +126,7 @@ class _HomeState extends State<Home> {
           }
         });
 
-      Get.off(() => ScreenList(), arguments: [
+      Get.offAll(() => ScreenList(), arguments: [
         draftList,
         openList,
         reqList,
@@ -175,11 +169,19 @@ class _HomeState extends State<Home> {
           }
         });
 
-      Get.off(() => ScreenList(), arguments: [
+      Get.offAll(() => ScreenList(), arguments: [
         draftList,
         openList,
         reqList,
         closeList,
+        id,
+        password,
+        userName,
+        email,
+        company,
+        authority,
+        personalID,
+        department,
       ]);
     }
   }
