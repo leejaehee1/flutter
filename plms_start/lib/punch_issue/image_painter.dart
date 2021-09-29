@@ -52,13 +52,6 @@ class _ImagePaintersState extends State<ImagePainters> {
     );
   }
 
-  void loadData() {
-    print(_imageList[0].runtimeType);
-
-    OpenFile.open('${_imageList[0].toString()}');
-    print('hiiiiiiiiiiiiiiiiiiii');
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
