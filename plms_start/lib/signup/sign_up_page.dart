@@ -74,6 +74,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   bool isSwitched = false;
   bool isSwitched2 = false;
+  bool isSwitched3 = false;
   bool isManager = false;
 
   String _horizonGroupValue = "Assignee";
@@ -135,6 +136,7 @@ class _SignUpPageState extends State<SignUpPage> {
             AppLocalizations.of(context)!.signUpcheckPage2,
             fileText2,
           ),
+          _checkPage3(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -589,7 +591,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Color(0xffeeeeee),
                       height: 200,
                       child: ListView(
-                        children: [Text(data)],
+                        children: [Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(data),
+                        )],
                       ),
                     ),
                     _swichs()
@@ -629,14 +634,64 @@ class _SignUpPageState extends State<SignUpPage> {
                 Column(
                   children: [
                     Text(title),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       color: Color(0xffeeeeee),
                       height: 200,
                       child: ListView(
-                        children: [Text(data)],
+                        children: [Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(data),
+                        )],
                       ),
                     ),
                     _swichs2()
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _checkPage3() {
+    // bool isSwitched1 = false;
+
+    return Container(
+      // height: MediaQuery.of(context).size.height,
+      color: Color(0xFFE6E6E6),
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                color: Color(0xffB7C5B9),
+                offset: Offset(-7, 0),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Column(
+                  children: [
+                    // Text(title),
+                    // Container(
+                    //   color: Color(0xffeeeeee),
+                    //   height: 200,
+                    //   child: ListView(
+                    //     children: [Text(data)],
+                    //   ),
+                    // ),
+                    _swichs3()
                   ],
                 ),
               ],
@@ -652,9 +707,13 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         Checkbox(
           value: isSwitched,
-          onChanged: (valued) {
+          onChanged: (value) {
+            if(value == false) {
+              isSwitched3 = false;
+            }
+
             setState(() {
-              isSwitched = valued!;
+              isSwitched = value!;
               // print(isSwitched);
             });
           },
@@ -675,6 +734,10 @@ class _SignUpPageState extends State<SignUpPage> {
         Checkbox(
           value: isSwitched2,
           onChanged: (value) {
+            if(value == false) {
+              isSwitched3 = false;
+            }
+
             setState(() {
               isSwitched2 = value!;
               // print(isSwitched2);
@@ -686,6 +749,36 @@ class _SignUpPageState extends State<SignUpPage> {
         SizedBox(
           width: 90,
           child: Text(AppLocalizations.of(context)!.signUpcheckbox),
+        ),
+      ],
+    );
+  }
+
+  Widget _swichs3() {
+    return Row(
+      children: [
+        Checkbox(
+          value: isSwitched3,
+          onChanged: (value) {
+            if(value == true) {
+              isSwitched = true;
+              isSwitched2 = true;
+            } else {
+              isSwitched = false;
+              isSwitched2 = false;
+            }
+
+            setState(() {
+              isSwitched3 = value!;
+              // print(isSwitched2);
+            });
+          },
+          // activeTrackColor: Colors.yellow,
+          activeColor: Colors.black,
+        ),
+        SizedBox(
+          width: 150,
+          child: Text(AppLocalizations.of(context)!.signUpAllcheckbox),
         ),
       ],
     );

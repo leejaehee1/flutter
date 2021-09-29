@@ -93,6 +93,10 @@
   "@signUpcheckbox": {
     "description": "signUpcheckbox text"
   },
+  "signUpAllcheckbox": "Yes, I agree all",
+  "@signUpAllcheckbox": {
+    "description": "signUpAllcheckbox text"
+  },
   "signUppwForm1": "비밀번호",
   "@signUppwForm1": {
     "description": "signUppwForm1"
