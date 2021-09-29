@@ -78,20 +78,6 @@ class _PageOneState extends State<PageOne> {
                     ),
                     Column(
                       children: [
-                        _dropdownButton('Category', category),
-                        _size15(),
-                        _dropdownButton('System', system),
-                        _size15(),
-                        _dropdownButton('Sub- System', subsystem),
-                        _size15(),
-                        // _size15(),
-                        _textField('Unit', 'Create or Add'),
-                        _size15(),
-                        _textField('Area', 'Create or Add'),
-                        _size15(),
-                        _textField('Punch ID', 'Add'),
-                        _size15(),
-
                         Container(
                             padding:
                                 EdgeInsets.only(left: 10, right: 10, top: 10),
@@ -113,6 +99,21 @@ class _PageOneState extends State<PageOne> {
                                 ),
                               ],
                             )),
+                        _size15(),
+                        _dropdownButton('Category', category),
+                        _size15(),
+                        _dropdownButton('System', system),
+                        _size15(),
+                        _dropdownButton('Sub- System', subsystem),
+                        _size15(),
+                        // _size15(),
+                        _textField('Unit', 'Create or Add'),
+                        _size15(),
+                        _textField('Area', 'Create or Add'),
+                        _size15(),
+                        _textField('Punch ID', 'Add'),
+                        _size15(),
+
                         _size15(),
                         _description(),
                       ],
