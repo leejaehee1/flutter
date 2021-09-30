@@ -591,10 +591,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Color(0xffeeeeee),
                       height: 200,
                       child: ListView(
-                        children: [Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(data),
-                        )],
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(data),
+                          )
+                        ],
                       ),
                     ),
                     _swichs()
@@ -641,10 +643,12 @@ class _SignUpPageState extends State<SignUpPage> {
                       color: Color(0xffeeeeee),
                       height: 200,
                       child: ListView(
-                        children: [Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Text(data),
-                        )],
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Text(data),
+                          )
+                        ],
                       ),
                     ),
                     _swichs2()
@@ -708,7 +712,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Checkbox(
           value: isSwitched,
           onChanged: (value) {
-            if(value == false) {
+            if (value == false) {
               isSwitched3 = false;
             }
 
@@ -734,7 +738,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Checkbox(
           value: isSwitched2,
           onChanged: (value) {
-            if(value == false) {
+            if (value == false) {
               isSwitched3 = false;
             }
 
@@ -760,7 +764,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Checkbox(
           value: isSwitched3,
           onChanged: (value) {
-            if(value == true) {
+            if (value == true) {
               isSwitched = true;
               isSwitched2 = true;
             } else {

@@ -143,9 +143,8 @@ class _LoginPageState extends State<LoginPage> {
           print("response: ${response.body}");
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           print("jsonData: $jsonData");
-
+          print('시발');
           print(jsonData['authority']);
-          print(jsonData['result']);
           print(jsonData['password']);
 
           if (jsonData['result'] == false) {
@@ -159,8 +158,8 @@ class _LoginPageState extends State<LoginPage> {
               jsonData['userName'],
               jsonData['email'],
               jsonData['company'],
-              jsonData['personalID'],
-              jsonData['department'],
+              jsonData['personalID'] == null ? ' ' : jsonData['personalID'],
+              jsonData['department'] == null ? ' ' : jsonData['department'],
             ]);
           } else {
             _showDialog();

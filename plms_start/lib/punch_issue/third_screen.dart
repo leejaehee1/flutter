@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -128,11 +127,10 @@ class _PageThreeState extends State<PageThree> {
   }
 
   final ImagePicker _picker = ImagePicker();
-  List<XFile> _imageList = [];
-  // List _imageData = [];
+  // List<XFile> _imageList = [];
+  List _imageData = [];
   // late XFile value = Get.to(ImagePainters()) as XFile;
   bool status = false;
-  late List _imageData = [Get.to(ImagePainters())];
   // double len = [].length as double;
   Widget _imagePicker() {
     return Container(
@@ -156,16 +154,6 @@ class _PageThreeState extends State<PageThree> {
                     });
                   },
                   icon: Icon(Icons.add_a_photo)),
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      print(_imageList[0].path.runtimeType);
-                      // print("value다!!!!!!!: $value");
-                      // _imageList.add(value);
-                      // print("된다");
-                    });
-                  },
-                  icon: Icon(Icons.check)),
             ],
           ),
 
@@ -173,7 +161,7 @@ class _PageThreeState extends State<PageThree> {
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
-              itemCount: _imageList.length,
+              itemCount: _imageData.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(3.0),
@@ -181,17 +169,19 @@ class _PageThreeState extends State<PageThree> {
                     fit: StackFit.expand,
                     children: [
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           print('hi');
                           // _imagePainter(index);
-                          Get.to(() => ImagePainters(),
-                              arguments: _imageList[index].path);
-
+                          // final imageData = await Get.to(() => ImagePainters(),
+                          //     arguments: _imageList[index].path);
+                          // setState(() {
+                          //   _imageData.add(imageData);
+                          // });
                           print('hihi');
                         },
                         child: Image.file(
                           // File(_imageList[index].path),
-                          File(_imageList[index].path),
+                          File(_imageData[index].path),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -325,7 +315,7 @@ class _PageThreeState extends State<PageThree> {
                 new ElevatedButton(
                   child: new Text("Yes"),
                   onPressed: () {
-                    _imageList.removeAt(index);
+                    _imageData.removeAt(index);
                     setState(() {});
                     Get.back();
                   },
@@ -343,10 +333,15 @@ class _PageThreeState extends State<PageThree> {
         await _picker.pickImage(source: ImageSource.gallery);
     try {
       if (selectedImage!.path.isNotEmpty) {
+        final imageData =
+            await Get.to(() => ImagePainters(), arguments: selectedImage.path);
+        setState(() {
+          _imageData.add(imageData);
+        });
         // Get.to(ImagePainters());
-        _imageList.add(selectedImage);
-        print(selectedImage.runtimeType);
-        print(selectedImage);
+        // _imageList.add(selectedImage);
+        // print(selectedImage.runtimeType);
+        // print(selectedImage);
       }
       setState(() {});
     } catch (e) {}
@@ -357,9 +352,15 @@ class _PageThreeState extends State<PageThree> {
         await _picker.pickImage(source: ImageSource.camera);
     try {
       if (takenImage!.path.isNotEmpty) {
-        Get.to(ImagePainters(), arguments: takenImage.path);
+        // Get.to(ImagePainters(), arguments: takenImage.path);
         // _imageList.add(takenImage);
+        final imageData =
+            await Get.to(() => ImagePainters(), arguments: takenImage.path);
+        setState(() {
+          _imageData.add(imageData);
+        });
       }
+
       setState(() {});
     } catch (e) {}
   }

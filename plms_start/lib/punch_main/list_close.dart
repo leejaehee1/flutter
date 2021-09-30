@@ -17,7 +17,6 @@ class ListClose extends StatelessWidget {
       child: ListView.builder(
         itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
-          if (data.length == 0) {}
           return ListComponent(
               title: AppLocalizations.of(context)!.tile5,
               data1:
