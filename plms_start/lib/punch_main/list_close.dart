@@ -4,9 +4,14 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ListClose extends StatelessWidget {
+class ListClose extends StatefulWidget {
   ListClose({Key? key}) : super(key: key);
 
+  @override
+  _ListCloseState createState() => _ListCloseState();
+}
+
+class _ListCloseState extends State<ListClose> {
   final List data = Get.arguments[3];
 
   @override

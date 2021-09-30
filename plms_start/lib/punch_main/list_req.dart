@@ -4,9 +4,14 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ListReq extends StatelessWidget {
+class ListReq extends StatefulWidget {
   ListReq({Key? key}) : super(key: key);
 
+  @override
+  _ListReqState createState() => _ListReqState();
+}
+
+class _ListReqState extends State<ListReq> {
   final List data = Get.arguments[2];
 
   @override
