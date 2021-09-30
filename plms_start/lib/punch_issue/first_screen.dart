@@ -114,7 +114,6 @@ class _PageOneState extends State<PageOne> {
                         _textField('Punch ID', 'Add'),
                         _size15(),
 
-                        _size15(),
                         _description(),
                       ],
                     ),
