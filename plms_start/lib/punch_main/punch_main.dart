@@ -14,6 +14,14 @@ import 'package:plms_start/punch_main/list_req.dart';
 
 // import 'screen_punch.dart';
 
+/*
+* name : ScreenList
+* description : punch main page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class ScreenList extends StatefulWidget {
   const ScreenList({Key? key}) : super(key: key);
 
@@ -153,6 +161,7 @@ class _ScreenListState extends State<ScreenList>
             buttonname2: AppLocalizations.of(context)!.pListbutton2));
   }
 
+  // tab bar
   Widget _tabBars(int colors, String tiles, String nums, int idx) {
     var radius = Radius.circular(8);
     return Column(
@@ -184,6 +193,7 @@ class _ScreenListState extends State<ScreenList>
     );
   }
 
+  // tab color change
   Widget _colorChange(String name, String nums, int idx) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

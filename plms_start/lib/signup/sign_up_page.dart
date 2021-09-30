@@ -46,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String fileText1 = "";
   String fileText2 = "";
 
+  // read agreement txt
   readFile() async {
     String text1 = await rootBundle.loadString(filePath1);
     String text2 = await rootBundle.loadString(filePath2);
@@ -55,6 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
+  // get data
   Future<dynamic> test() async {
     var uriResponse = await http.get(
       Uri.parse(
@@ -246,6 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // first page
   Widget _firstPage() {
     return Form(
       key: formKey,
@@ -325,6 +328,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // dropdown button
   Widget _dropdownButton() {
     return Row(
       children: [
@@ -372,6 +376,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // text field
   Widget _textField(String title, var controller, String text) {
     return Row(
       children: [
@@ -400,6 +405,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // text field use enables
   Widget _enabletextField(String title, var controller, String text) {
     return Row(
       children: [
@@ -429,6 +435,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // text decoration
   InputDecoration _textDecoration() {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
@@ -438,6 +445,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // check password
   Widget _repwtextField(String title, var controller) {
     return Row(
       children: [
@@ -463,6 +471,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // password
   Widget _pwFormField(String title, var controller) {
     return Row(
       children: [
@@ -489,6 +498,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // email
   Widget _emailFormField(String title, var controller) {
     return Row(
       children: [
@@ -517,6 +527,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // textform decoration
   InputDecoration _textFormDecoration() {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -526,6 +537,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // radio button
   Widget _radioButton() {
     return RadioGroup<String>.builder(
       activeColor: Colors.black,
@@ -565,6 +577,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // agreement page one
   Widget _checkPage1(String title, String data) {
     // bool isSwitched1 = false;
 
@@ -617,6 +630,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // agreement page two
   Widget _checkPage2(String title, String data) {
     // bool isSwitched1 = false;
 
@@ -669,6 +683,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // all agreement check button
   Widget _checkPage3() {
     // bool isSwitched1 = false;
 
@@ -713,6 +728,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // switch button one
   Widget _swichs() {
     return Row(
       children: [
@@ -739,6 +755,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // switch button two
   Widget _swichs2() {
     return Row(
       children: [
@@ -765,6 +782,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // switch button three
   Widget _swichs3() {
     return Row(
       children: [

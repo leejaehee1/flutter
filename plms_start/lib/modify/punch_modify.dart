@@ -10,6 +10,14 @@ import 'package:plms_start/pages/components/registrations/validate.dart';
 
 import 'package:http/http.dart' as http;
 
+/*
+* name : ModifyPage
+* description : modify page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class ModifyPage extends StatefulWidget {
   const ModifyPage({Key? key}) : super(key: key);
 
@@ -161,6 +169,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// first page
   Widget _firstPage() {
     var radius = Radius.circular(10);
     return Form(

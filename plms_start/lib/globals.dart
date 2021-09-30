@@ -1,4 +1,13 @@
+/*
+* name : globals
+* description : punch issue globals page.
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 library plms.globals;
+
 // first page
 String punch_issue_Tag_Number = "";
 String punch_issue_Bulk_Item = "";

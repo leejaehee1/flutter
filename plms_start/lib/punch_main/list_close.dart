@@ -4,6 +4,14 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/*
+* name : ListClose Page
+* description : close data page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class ListClose extends StatefulWidget {
   ListClose({Key? key}) : super(key: key);
 

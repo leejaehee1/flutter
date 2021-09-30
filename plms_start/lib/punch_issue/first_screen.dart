@@ -7,6 +7,14 @@ import 'package:group_radio_button/group_radio_button.dart';
 
 import '../globals.dart' as globals;
 
+/*
+* name : PageOne
+* description : punch issue first page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class PageOne extends StatefulWidget {
   PageOne({Key? key}) : super(key: key);
 
@@ -129,6 +137,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
+// 라디오 버튼
   Widget _radioButton() {
     return RadioGroup<String>.builder(
       activeColor: Colors.green,
@@ -153,6 +162,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
+// description
   Widget _description() {
     return Column(
       children: [
@@ -177,6 +187,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
+// dropdown button
   Widget _dropdownButton(String text, var data) {
     return Row(
       children: [
@@ -209,13 +220,14 @@ class _PageOneState extends State<PageOne> {
 
               print("confirm : " + value.toString());
 
-              if(text == "Category") {
+              if (text == "Category") {
                 globals.punch_issue_Category = value.toString();
               } else if (text == "System") {
                 globals.punch_issue_System = value.toString();
               } else if (text == "Sub-System") {
                 globals.punch_issue_Sub_System = value.toString();
-              };
+              }
+              ;
               print("global 테스트");
               print(globals.punch_issue_Category);
               print(globals.punch_issue_System);
@@ -228,6 +240,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
+// textfield
   Widget _textField(String text, String hint) {
     return Row(
       children: [
@@ -266,6 +279,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
+// textfield tag number
   Widget _textField2(String text, String hint) {
     return Row(
       children: [
@@ -305,6 +319,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
+// textfield bulk
   Widget _textField3(String text, String hint) {
     return Row(
       children: [

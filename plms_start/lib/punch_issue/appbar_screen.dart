@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/*
+* name : CatalogAppBar Page
+* description : app bar page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class CatalogAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

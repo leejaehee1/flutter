@@ -4,6 +4,14 @@ import 'package:plms_start/pages/utils/header_issue.dart';
 
 // https://www.youtube.com/watch?v=eWhnXGjppHw
 
+/*
+* name : DraftPage
+* description : draft page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class DraftPage extends StatelessWidget {
   // This widget is the root of your application.
   @override

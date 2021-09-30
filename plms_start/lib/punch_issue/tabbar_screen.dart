@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
+
+/*
+* name : CatalogTabBar
+* description : punch issue tabbar page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 
 class CatalogTabBar extends StatefulWidget {
   final TabController tabController;

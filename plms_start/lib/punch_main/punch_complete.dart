@@ -1,16 +1,24 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:plms_start/punch_issue/image_painter.dart';
-import 'package:plms_start/punch_main/complete_component.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/pages/utils/title_text.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart' as http;
+
+/*
+* name : PunchComplete Page
+* description : complete page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 
 class PunchComplete extends StatefulWidget {
   const PunchComplete({Key? key}) : super(key: key);
@@ -167,6 +175,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  // 사진 카메라에서 이미지 선택
   final ImagePicker _picker = ImagePicker();
   List<XFile> _imageList = [];
   late XFile value = Get.to(ImagePainters()) as XFile;
@@ -255,6 +264,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  //스위치 버튼
   Widget _swichWidget(String name) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -280,6 +290,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  // 갤러리 카메라 선택 다이얼로그
   void _showDialog2() {
     double _imageSize = Get.width * 1 / 11;
     showDialog(
@@ -341,6 +352,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  // 삭제 다이얼로그
   void _showDialog(int index) {
     showDialog(
       context: context,
@@ -374,6 +386,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  // 갤러리 이미지 선택
   void imageSelect() async {
     final XFile? selectedImage =
         await _picker.pickImage(source: ImageSource.gallery);
@@ -386,6 +399,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     } catch (e) {}
   }
 
+  // 카메라 이미지 선택
   void videoSelect() async {
     final XFile? takenImage =
         await _picker.pickImage(source: ImageSource.camera);
@@ -397,6 +411,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     } catch (e) {}
   }
 
+  // description
   Widget _description() {
     return Column(
       children: [
@@ -419,6 +434,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  // app bar data
   Widget _completeComponent() {
     return Column(
       children: [
@@ -460,6 +476,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  // data text widget
   Widget _dataWidget(String title, String datas) {
     return Row(
       children: [

@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/*
+* name : PopUpPage
+* description : popup page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class PopUpPage extends StatefulWidget {
   PopUpPage({Key? key}) : super(key: key);
 

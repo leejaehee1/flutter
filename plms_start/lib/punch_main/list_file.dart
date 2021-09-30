@@ -3,6 +3,14 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/*
+* name : ListFile Page
+* description : all data page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class ListFile extends StatefulWidget {
   const ListFile({Key? key}) : super(key: key);
 
@@ -35,21 +43,22 @@ class _ListFileState extends State<ListFile> {
       child: ListView.builder(
           itemCount: data.length,
           itemBuilder: (BuildContext context, var index) {
+            String data1 =
+                "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}";
+            String data2 = data[index]['systemName'];
             if (data[index]['status'] == "1") {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile2,
-                  data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemName'],
+                  data1: data1,
+                  data2: data2,
                   colors: 0xff7c4141);
             } else if (data[index]['status'] == "2" ||
                 data[index]['status'] == '5') {
               return Stack(children: [
                 ListComponent(
                     title: AppLocalizations.of(context)!.tile3,
-                    data1:
-                        "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                    data2: data[index]['systemName'],
+                    data1: data1,
+                    data2: data2,
                     colors: 0xffb88d6a),
                 Positioned(
                   top: Get.height * 1 / 80,
@@ -88,16 +97,14 @@ class _ListFileState extends State<ListFile> {
                 data[index]['status'] == '4') {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile4,
-                  data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemName'],
+                  data1: data1,
+                  data2: data2,
                   colors: 0xff987ca1);
             } else {
               return ListComponent(
                   title: AppLocalizations.of(context)!.tile5,
-                  data1:
-                      "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-                  data2: data[index]['systemName'],
+                  data1: data1,
+                  data2: data2,
                   colors: 0xff637a8f);
             }
           }),

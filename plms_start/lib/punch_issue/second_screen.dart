@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:simple_tags/simple_tags.dart';
-// import 'utils/dropbox_text.dart';
 
-// import 'utils/textfield_text.dart';
 import '../pages/utils/title_text.dart';
+
+/*
+* name : PageTwo
+* description : punch issue two page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 
 class PageTwo extends StatefulWidget {
   const PageTwo({Key? key}) : super(key: key);
@@ -27,19 +34,6 @@ class _PageTwoState extends State<PageTwo> {
   List<String> contentList = [];
 
   final _tagTextEditController = TextEditingController();
-
-  Widget _size15() {
-    return SizedBox(
-      height: 15,
-    );
-  }
-
-  Widget _lineWidget() {
-    return Container(
-      width: Get.width,
-      decoration: BoxDecoration(border: Border.all(width: 0.3)),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,6 +114,22 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+  // 높이 15 박스
+  Widget _size15() {
+    return SizedBox(
+      height: 15,
+    );
+  }
+
+  // line container
+  Widget _lineWidget() {
+    return Container(
+      width: Get.width,
+      decoration: BoxDecoration(border: Border.all(width: 0.3)),
+    );
+  }
+
+  // 달력 날짜 선택
   Widget _dataTime(String text) {
     return Row(
       children: [
@@ -155,6 +165,7 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+  //button row
   Widget _dropdownButton(String text, var data) {
     return Row(
       children: [
@@ -172,6 +183,7 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+  // 드롭다운 버튼
   Widget _newButton(var data) {
     return DropdownSearch<String>(
       dropdownSearchDecoration: InputDecoration(
@@ -192,6 +204,7 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+  // 체크박스 버튼 디자인
   Widget _swichsButton(String title) {
     return Row(
       // crossAxisAlignment: CrossAxisAlignment.end,
@@ -215,6 +228,7 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+  // 체크박스 버튼 material
   Widget _swichsButton2(String title) {
     return Row(
       // crossAxisAlignment: CrossAxisAlignment.end,
@@ -238,6 +252,7 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+  //textfield keyword
   Widget _textField(String title, var controller) {
     return Row(
       children: [
@@ -284,6 +299,7 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+// tagwidget
   Widget _tagWidget(String text, var controller) {
     return Column(
       children: [

@@ -8,6 +8,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // import 'screen_punch.dart';
 
+/*
+* name : PhtoList
+* description : don't send photo data page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class PhotoList extends StatefulWidget {
   const PhotoList({Key? key}) : super(key: key);
 

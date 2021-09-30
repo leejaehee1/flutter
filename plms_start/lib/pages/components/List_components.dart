@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/*
+* name : ListComponent Page
+* description : ListComponent page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class ListComponent extends StatelessWidget {
   ListComponent({
     Key? key,
@@ -93,6 +101,7 @@ class ListComponent extends StatelessWidget {
     );
   }
 
+  // 높이 10 박스
   Widget _boxsize() {
     return SizedBox(
       height: 10,

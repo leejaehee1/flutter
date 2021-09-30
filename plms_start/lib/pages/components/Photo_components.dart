@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ListComponent extends StatelessWidget {
-  ListComponent({Key? key, required this.colors}) : super(key: key);
+/*
+* name : ListComponent Page
+* description : ListComponent page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
+class PhotoComponent extends StatelessWidget {
+  PhotoComponent({Key? key, required this.colors}) : super(key: key);
 
   final int colors;
 

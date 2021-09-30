@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
+/*
+* name : CheckValidate Page
+* description : Validate page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class CheckValidate {
+  // 이메일 체크
   String? validateEmail(FocusNode focusNode, String value) {
     if (value.isEmpty) {
       focusNode.requestFocus();
@@ -19,6 +28,7 @@ class CheckValidate {
     }
   }
 
+  // 비밀번호 체크
   String? validatePassword(FocusNode focusNode, String value) {
     if (value.isEmpty) {
       focusNode.requestFocus();
@@ -36,6 +46,7 @@ class CheckValidate {
     }
   }
 
+  // 비밀번호 동일 확인
   String? validaterePassword(
       FocusNode focusNode, String value, var controller) {
     if (value != controller.text) return 'Not Match';

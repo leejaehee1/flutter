@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 
+/*
+* name : CompleteComponent Page
+* description : complete component page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class CompleteComponent extends StatefulWidget {
   const CompleteComponent({Key? key}) : super(key: key);
 

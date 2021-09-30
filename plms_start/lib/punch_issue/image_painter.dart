@@ -1,12 +1,19 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
+import 'package:image_painter/image_painter.dart';
+
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 
-import 'package:image_painter/image_painter.dart';
+/*
+* name : ImagePainters
+* description : image painter page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 
 class ImagePainters extends StatefulWidget {
   @override
@@ -19,6 +26,9 @@ class _ImagePaintersState extends State<ImagePainters> {
 
   String imageData = Get.arguments;
   List _imageList = [];
+
+  //이미지 저장
+
   void saveImage() async {
     final image = await _imageKey.currentState!.exportImage();
     final directory = (await getApplicationDocumentsDirectory()).path;
@@ -34,6 +44,7 @@ class _ImagePaintersState extends State<ImagePainters> {
     print('간다!');
     // Get.back(result: _imageList[0].toString());
 
+    // 저장 알림 스낵바
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.grey[700],

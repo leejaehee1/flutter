@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:plms_start/punch_issue/punch_issue.dart';
+
+/*
+* name : Loading
+* description : Loading page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 
 class Loading extends StatefulWidget {
   const Loading({Key? key}) : super(key: key);
@@ -24,6 +32,7 @@ class _LoadingState extends State<Loading> {
     super.initState();
   }
 
+  // get data
   Future<dynamic> test() async {
     List<String> category = [];
     List<String> systems = [];

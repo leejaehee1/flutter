@@ -1,14 +1,20 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 
-import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plms_start/punch_issue/image_painter.dart';
-// import 'package:plms_start/screens/utils/swich_punch.dart';
-// import 'utils/draft_screen.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+
 import '../pages/utils/title_text.dart';
+
+/*
+* name : PageThree
+* description : punch issue three page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 
 class PageThree extends StatefulWidget {
   const PageThree({Key? key}) : super(key: key);
@@ -128,6 +134,7 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
+  // image picker
   final ImagePicker _picker = ImagePicker();
   // List<XFile> _imageList = [];
   List _imageData = [];
@@ -172,7 +179,7 @@ class _PageThreeState extends State<PageThree> {
           // i) 바로 업로드
           // ii) 나중에 업로드
 
-
+          // 이미지 저장 및 보기
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -225,6 +232,7 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
+  // 스위치 버튼
   Widget _swichWidget(String name) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,6 +258,7 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
+  // 카메라 갤러리 선택
   void _showDialog2() {
     double _imageSize = Get.width * 1 / 11;
     showDialog(
@@ -311,6 +320,7 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
+  // 이미지 삭제
   void _showDialog(int index) {
     showDialog(
       context: context,
@@ -344,6 +354,7 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
+  // 갤러리 이미지 선택
   void imageSelect() async {
     final XFile? selectedImage =
         await _picker.pickImage(source: ImageSource.gallery);
@@ -363,6 +374,7 @@ class _PageThreeState extends State<PageThree> {
     } catch (e) {}
   }
 
+  // 카메라 이미지 선택
   void videoSelect() async {
     final XFile? takenImage =
         await _picker.pickImage(source: ImageSource.camera);

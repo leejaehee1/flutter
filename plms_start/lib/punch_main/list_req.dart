@@ -4,6 +4,14 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+/*
+* name : Listreq Page
+* description : req data page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
+
 class ListReq extends StatefulWidget {
   ListReq({Key? key}) : super(key: key);
 
