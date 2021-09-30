@@ -28,8 +28,8 @@ class _HomeState extends State<Home> {
     String userName = Get.arguments[3];
     String email = Get.arguments[4];
     String company = Get.arguments[5];
-    String personalID = Get.arguments[6];
-    String department = Get.arguments[7];
+    String personalID = Get.arguments[6] == null ? "" : Get.arguments[6];
+    String department = Get.arguments[7] == null ? "" : Get.arguments[7];
 
     // var len = sqlall.length;
     // var len2 = sqlqc.length;
@@ -105,9 +105,12 @@ class _HomeState extends State<Home> {
       var response = await http.post(url, body: {
         'userID': id[0],
       });
+
+      // print('sqlassi');
+      // print(response.body);
       var sqlassi = jsonDecode(response.body);
       // print('json2$json2');
-      print('sqlassi');
+
       if (mounted)
         this.setState(() {
           for (int i = 0; i < sqlassi.length; i++) {
