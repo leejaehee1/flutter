@@ -66,54 +66,56 @@ class _PageThreeState extends State<PageThree> {
                       height: 20,
                     ),
                     _imagePicker(),
-                    Container(
-                      height: MediaQuery.of(context).size.height - 305,
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(color: Colors.white),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('View drawing'),
-                              Container(
-                                width: Get.width * 1 / 4.1,
-                                height: Get.height * 1 / 30,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Color(0xff8ab898)),
-                                  onPressed: () {
-                                    // FileImage();
-                                  },
-                                  child: Text(
-                                    "Location",
-                                    style: TextStyle(fontSize: 13),
+                    Expanded(
+                      child: Container(
+                        height: MediaQuery.of(context).size.height - 305,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('View drawing'),
+                                Container(
+                                  width: Get.width * 1 / 4.1,
+                                  height: Get.height * 1 / 30,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Color(0xff8ab898)),
+                                    onPressed: () {
+                                      // FileImage();
+                                    },
+                                    child: Text(
+                                      "Location",
+                                      style: TextStyle(fontSize: 13),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              // Text(pixelList),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          InkWell(
-                            onDoubleTap: () {
-                              setState(() {
-                                Get.toNamed("/draft");
-                              });
-                            },
-                            child: Container(
-                              height: MediaQuery.of(context).size.width - 90,
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                              ),
-                              child: Image.asset(
-                                  "assets/images/punch_draft_sample.jpg"),
+                                // Text(pixelList),
+                              ],
                             ),
-                          )
-                        ],
+                            SizedBox(
+                              height: 10,
+                            ),
+                            InkWell(
+                              onDoubleTap: () {
+                                setState(() {
+                                  Get.toNamed("/draft");
+                                });
+                              },
+                              child: Container(
+                                height: MediaQuery.of(context).size.width - 90,
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                ),
+                                child: Image.asset(
+                                    "assets/images/punch_draft_sample.jpg"),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],

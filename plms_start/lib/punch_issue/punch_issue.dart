@@ -104,14 +104,16 @@ class _PunchScreenState extends State<PunchScreen>
   void _onScroll() {
     if (isTapToScroll) return;
 
-    if (page1Key.currentContext != null) {
-      page1Height = page1Key.currentContext!.size!.height;
-    }
-    if (page2Key.currentContext != null) {
-      page2Height = page2Key.currentContext!.size!.height;
-    }
     if (page3Key.currentContext != null) {
       page3Height = page3Key.currentContext!.size!.height;
+    } else {
+      if (page1Key.currentContext != null) {
+        page1Height = page1Key.currentContext!.size!.height;
+      }
+    }
+
+    if (page2Key.currentContext != null) {
+      page2Height = page2Key.currentContext!.size!.height;
     }
 
     if (_scrollController.offset <= page1Height) {
