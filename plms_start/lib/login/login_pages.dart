@@ -8,6 +8,13 @@ import 'dart:convert';
 
 // import 'package:google_fonts/google_fonts.dart';
 
+/*
+* name : LoginPage
+* description : login page
+* writer : john
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -45,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
             bottom: 10,
             child: Column(
               children: [
-                _textform(),
+                _textForm(),
                 SizedBox(
                   height: 30,
                 ),
@@ -53,11 +60,11 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 30,
                 ),
-                _signuptext(),
+                _signupText(),
                 SizedBox(
                   height: 5,
                 ),
-                _textbutton(),
+                _textButton(),
               ],
             ),
           ),
@@ -66,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // 배경화면
   Widget _background() {
     return SafeArea(
       child: Container(
@@ -83,7 +91,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _textform() {
+  // login form
+  Widget _textForm() {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -123,6 +132,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // login button
   Widget _button() {
     return Container(
       width: Get.width * 3 / 7,
@@ -175,7 +185,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _signuptext() {
+  // signup form
+  Widget _signupText() {
     return Column(
       children: [
         Container(
@@ -194,7 +205,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _textbutton() {
+  Widget _textButton() {
     return TextButton(
         onPressed: () {
           Get.toNamed("/signup");

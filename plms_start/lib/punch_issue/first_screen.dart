@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/title_text.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 
+import '../globals.dart' as globals;
+
 class PageOne extends StatefulWidget {
   PageOne({Key? key}) : super(key: key);
 
@@ -104,7 +106,7 @@ class _PageOneState extends State<PageOne> {
                         _size15(),
                         _dropdownButton('System', system),
                         _size15(),
-                        _dropdownButton('Sub- System', subsystem),
+                        _dropdownButton('Sub-System', subsystem),
                         _size15(),
                         // _size15(),
                         _textField('Unit', 'Create or Add'),
@@ -186,29 +188,43 @@ class _PageOneState extends State<PageOne> {
           width: Get.width * 2.7 / 5,
           height: Get.height * 1.1 / 25,
           // child: Newbutton(),
-          child: _newButton(data),
+          child: DropdownSearch<String>(
+            dropdownSearchDecoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              border: OutlineInputBorder(),
+              isDense: true,
+              // isCollapsed: true,
+              suffixIcon: Icon(Icons.arrow_drop_down),
+            ),
+            dropDownButton: Icon(null),
+            showSearchBox: true,
+            mode: Mode.MENU,
+            showSelectedItem: true,
+            items: data,
+            hint: "Menu mode",
+            onChanged: (value) {
+              // 1. global first, second, third 값을 모두 한방에 관리하는 방법
+              // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
+              // 3. 결론 : flutter 에 global key 활용
+
+              print("confirm : " + value.toString());
+
+              if(text == "Category") {
+                globals.punch_issue_Category = value.toString();
+              } else if (text == "System") {
+                globals.punch_issue_System = value.toString();
+              } else if (text == "Sub-System") {
+                globals.punch_issue_Sub_System = value.toString();
+              };
+              print("global 테스트");
+              print(globals.punch_issue_Category);
+              print(globals.punch_issue_System);
+              print(globals.punch_issue_Sub_System);
+            },
+            selectedItem: data[0],
+          ),
         ),
       ],
-    );
-  }
-
-  Widget _newButton(var data) {
-    return DropdownSearch<String>(
-      dropdownSearchDecoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-        border: OutlineInputBorder(),
-        isDense: true,
-        // isCollapsed: true,
-        suffixIcon: Icon(Icons.arrow_drop_down),
-      ),
-      dropDownButton: Icon(null),
-      showSearchBox: true,
-      mode: Mode.MENU,
-      showSelectedItem: true,
-      items: data,
-      hint: "Menu mode",
-      onChanged: print,
-      selectedItem: data[0],
     );
   }
 

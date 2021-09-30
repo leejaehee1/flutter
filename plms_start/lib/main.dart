@@ -20,6 +20,14 @@ import 'punch_success/success_page.dart';
 import 'modify/popup_page.dart';
 import 'punch_issue/draft_screen.dart';
 
+import 'globals.dart' as globals;
+/*
+* name : main
+* description : This is a start page.
+* writer : john
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 Future<void> main() async {
   await dotenv.load(fileName: 'assets/config/.env');
   runApp(MyApp());

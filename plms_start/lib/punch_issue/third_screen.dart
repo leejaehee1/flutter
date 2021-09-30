@@ -158,6 +158,20 @@ class _PageThreeState extends State<PageThree> {
                   icon: Icon(Icons.add_a_photo)),
             ],
           ),
+          // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
+          // ii) filename 지정해주고, 경로를 지정
+          // upload file table : file id, original filename, server filename, server path, time, device path
+          // iii) 실제 구현 측면에서 타이밍
+          // 1) 바로 업로드
+          // 2) 나중 업로드
+
+          // 저장 타이밍 2가지
+          // 테이블 영구적인 저장
+          // 기기내의 저장소 -> sqlite -> (x)
+
+          // i) 바로 업로드
+          // ii) 나중에 업로드
+
 
           Expanded(
             child: GridView.builder(

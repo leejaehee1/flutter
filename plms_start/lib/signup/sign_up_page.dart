@@ -16,6 +16,13 @@ import '../pages/utils/header_issue.dart';
 
 import 'dart:convert';
 
+/*
+* name : SignUpPage
+* description : join page
+* writer : john
+* create date : 2021-09-30
+* last update : 2021-09-30
+* */
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
 

@@ -8,6 +8,10 @@ import 'package:plms_start/punch_issue/second_screen.dart';
 import 'package:plms_start/punch_issue/tabbar_screen.dart';
 import 'package:plms_start/punch_issue/third_screen.dart';
 
+import 'package:http/http.dart' as http;
+import '../globals.dart' as globals;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class PunchScreen extends StatefulWidget {
   const PunchScreen({Key? key}) : super(key: key);
 
@@ -19,6 +23,7 @@ class _PunchScreenState extends State<PunchScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
+
   // int _selectedIndex = 0;
 
   final page1Key = new GlobalKey();
@@ -66,11 +71,11 @@ class _PunchScreenState extends State<PunchScreen>
               // titleSpacing: 0,
               backgroundColor: Color(0xFFE6E6E6),
               title:
-                  // _tabbar(
-                  //   _tabController,
-                  //   _onTapToScroll,
-                  // ),
-                  CatalogTabBar(
+              // _tabbar(
+              //   _tabController,
+              //   _onTapToScroll,
+              // ),
+              CatalogTabBar(
                 scrollController: _scrollController,
                 tabController: _tabController,
                 onTap: _onTapToScroll,
@@ -92,6 +97,12 @@ class _PunchScreenState extends State<PunchScreen>
                   //     name: '/confirm',
                   //     buttonName1: "Save Draft",
                   //     buttonName2: "Create Issue"),
+                  //todo 버튼 만들고, 이벤트 연결(put)
+                  // Create post insert
+                  // Read get select
+                  // Update put update => 대상 id(where), 변경할 값들(set 구문)
+                  // Delete delete delete
+
                 ],
               ),
             ),
@@ -99,6 +110,23 @@ class _PunchScreenState extends State<PunchScreen>
         ),
       ),
     );
+  }
+
+  var api = dotenv.env['PHONE_IP'];
+
+  void _updateGlobal() async {
+    var url = Uri.parse('$api/api/register');
+    await http.post(url, body: {
+    "punch_issue_Tag_Number" : globals.punch_issue_Tag_Number,
+    "punch_issue_Bulk_Item" : globals.punch_issue_Bulk_Item,
+    "punch_issue_Unit" : globals.punch_issue_Unit,
+    "punch_issue_Area" : globals.punch_issue_Area,
+    "punch_issue_Punch_ID" : globals.punch_issue_Punch_ID,
+    "punch_issue_Description" : globals.punch_issue_Description,
+    "punch_issue_Category" : globals.punch_issue_Category,
+    "punch_issue_System" : globals.punch_issue_System,
+    "punch_issue_Sub_System" : globals.punch_issue_Sub_System
+    });
   }
 
   void _onScroll() {
@@ -146,7 +174,7 @@ class _PunchScreenState extends State<PunchScreen>
         for (var i = previousIndex; i <= index; i++) {
           try {
             final RenderBox renderBox =
-                keys[i].currentContext!.findRenderObject() as RenderBox;
+            keys[i].currentContext!.findRenderObject() as RenderBox;
             await _scrollController.position.ensureVisible(
               renderBox,
               duration: const Duration(milliseconds: 100),
@@ -157,7 +185,7 @@ class _PunchScreenState extends State<PunchScreen>
       } else {
         for (var i = previousIndex; i >= index; i--) {
           final RenderBox renderBox =
-              keys[i].currentContext!.findRenderObject() as RenderBox;
+          keys[i].currentContext!.findRenderObject() as RenderBox;
           await _scrollController.position.ensureVisible(
             renderBox,
             // keys[i].currentContext!.findRenderObject(),
