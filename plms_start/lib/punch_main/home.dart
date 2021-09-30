@@ -21,11 +21,13 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+/*
   @override
   void dispose() {
     test();
     super.dispose();
   }
+*/
 
   Future<dynamic> test() async {
     String authority = Get.arguments[0];

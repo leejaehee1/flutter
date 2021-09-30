@@ -16,18 +16,18 @@ class _ListFileState extends State<ListFile> {
   List reqList = Get.arguments[2];
   List closeList = Get.arguments[3];
 
+  String id = Get.arguments[4];
+  String password = Get.arguments[5];
+  String userName = Get.arguments[6];
+  String email = Get.arguments[7];
+  String company = Get.arguments[8];
+  String authority = Get.arguments[9];
   // List data =
   //     Get.arguments[0] + Get.arguments[1] + Get.arguments[2] + Get.arguments[3];
 
   @override
   Widget build(BuildContext context) {
     List data = (draftList + openList + reqList + closeList);
-    String id = Get.arguments[4];
-    String password = Get.arguments[5];
-    String userName = Get.arguments[6];
-    String email = Get.arguments[7];
-    String company = Get.arguments[8];
-    String authority = Get.arguments[9];
 
     // FutureBuilder listview
     return Container(

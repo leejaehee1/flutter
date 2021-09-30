@@ -3,15 +3,26 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ListOpen extends StatelessWidget {
+class ListOpen extends StatefulWidget {
   ListOpen({Key? key}) : super(key: key);
 
+  @override
+  _ListOpenState createState() => _ListOpenState();
+}
+
+class _ListOpenState extends State<ListOpen> {
   final List data = Get.arguments[1];
+
   String id = Get.arguments[4];
+
   String password = Get.arguments[5];
+
   String userName = Get.arguments[6];
+
   String email = Get.arguments[7];
+
   String company = Get.arguments[8];
+
   String authority = Get.arguments[9];
 
   @override
