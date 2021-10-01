@@ -153,10 +153,10 @@ class _LoginPageState extends State<LoginPage> {
           print("response: ${response.body}");
           Map<String, dynamic> jsonData = jsonDecode(response.body);
           print("jsonData: $jsonData");
-          print('시발');
           print(jsonData['authority']);
           print(jsonData['password']);
-
+          print(jsonData['personalID']);
+          print(jsonData['department']);
           if (jsonData['result'] == false) {
             _showDialog();
           }
