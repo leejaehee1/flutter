@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_painter/image_painter.dart';
 
 import 'package:plms_start/pages/utils/title_text.dart';
 import 'package:group_radio_button/group_radio_button.dart';
@@ -23,14 +24,22 @@ class PageOne extends StatefulWidget {
 }
 
 class _PageOneState extends State<PageOne> {
-  List category = Get.arguments[0];
-  List system = Get.arguments[1];
-  List subsystem = Get.arguments[2];
+  List<String> category = Get.arguments[0];
+  List<String> system = Get.arguments[1];
+  List<String> subsystem = Get.arguments[2];
 
   String _horizonGroupValue = "Tag Number";
   List<String> _status = ['Tag Number', "Bulk Item"];
   bool _isTag = true;
   bool _isBulk = false;
+
+  @override
+  void initState() {
+    globals.punch_issue_Category = [category[0]];
+    globals.punch_issue_System = [system[0]];
+    globals.punch_issue_Sub_System = [subsystem[0]];
+    super.initState();
+  }
 
   Widget _size15() {
     return SizedBox(
@@ -117,14 +126,16 @@ class _PageOneState extends State<PageOne> {
                         _dropdownButton('Sub-System', subsystem),
                         _size15(),
                         // _size15(),
-                        _textField('Unit', 'Create or Add'),
+                        _textField(
+                            'Unit', 'Create or Add', globals.punch_issue_Unit),
                         _size15(),
-                        _textField('Area', 'Create or Add'),
+                        _textField(
+                            'Area', 'Create or Add', globals.punch_issue_Area),
                         _size15(),
-                        _textField('Punch ID', 'Add'),
+                        _textFormField('Punch ID', 'Add'),
                         _size15(),
 
-                        _description(),
+                        _description(globals.punch_issue_Description),
                       ],
                     ),
                   ],
@@ -163,7 +174,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // description
-  Widget _description() {
+  Widget _description(var globaldata) {
     return Column(
       children: [
         Row(
@@ -174,6 +185,18 @@ class _PageOneState extends State<PageOne> {
         Container(
           // height: 100,
           child: TextField(
+              onChanged: (String str) {
+                setState(() {
+                  if (globaldata.length == 0) {
+                    globaldata.add(str);
+                  } else {
+                    globaldata.removeAt(0);
+                    globaldata.add(str);
+                  }
+                  print('globaldata!!!!!!!!!!');
+                  print(globaldata);
+                });
+              },
               keyboardType: TextInputType.multiline,
               maxLines: 7,
               maxLength: 100,
@@ -203,7 +226,7 @@ class _PageOneState extends State<PageOne> {
             dropdownSearchDecoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
               border: OutlineInputBorder(),
-              isDense: true,
+              // isDense: true,
               // isCollapsed: true,
               suffixIcon: Icon(Icons.arrow_drop_down),
             ),
@@ -221,14 +244,17 @@ class _PageOneState extends State<PageOne> {
               print("confirm : " + value.toString());
 
               if (text == "Category") {
-                globals.punch_issue_Category = value.toString();
+                globals.punch_issue_Category.removeAt(0);
+                globals.punch_issue_Category.add(value.toString());
               } else if (text == "System") {
-                globals.punch_issue_System = value.toString();
+                globals.punch_issue_System.removeAt(0);
+                globals.punch_issue_System.add(value.toString());
               } else if (text == "Sub-System") {
-                globals.punch_issue_Sub_System = value.toString();
+                globals.punch_issue_Sub_System.removeAt(0);
+                globals.punch_issue_Sub_System.add(value.toString());
               }
-              ;
               print("global 테스트");
+              // print(value.);
               print(globals.punch_issue_Category);
               print(globals.punch_issue_System);
               print(globals.punch_issue_Sub_System);
@@ -241,7 +267,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // textfield
-  Widget _textField(String text, String hint) {
+  Widget _textField(String text, String hint, var globaldata) {
     return Row(
       children: [
         SizedBox(width: 100, child: Text(text)),
@@ -249,12 +275,26 @@ class _PageOneState extends State<PageOne> {
           width: 160,
           height: 30,
           child: TextField(
+              maxLines: 1,
+              onChanged: (String str) {
+                setState(() {
+                  if (globaldata.length == 0) {
+                    globaldata.add(str);
+                  } else {
+                    globaldata.removeAt(0);
+                    globaldata.add(str);
+                  }
+                  print('globaldata!!!!!!!!!!');
+                  print(globaldata);
+                });
+              },
+              // controller: controller,
               decoration: InputDecoration(
-            isDense: true,
-            border: OutlineInputBorder(),
-            hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
-            hintText: hint,
-          )),
+                isDense: true,
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                hintText: hint,
+              )),
         ),
         SizedBox(
           width: 5,
@@ -270,11 +310,33 @@ class _PageOneState extends State<PageOne> {
                 //   vertical: 2.5,
                 //   horizontal: 2.5,
                 // ),
-                onPressed: () {},
+                onPressed: () {
+                  print(globals.punch_issue_Unit);
+                },
                 icon: const Icon(
                   Icons.search,
                   color: Colors.white,
                 ))),
+      ],
+    );
+  }
+
+  Widget _textFormField(String text, String hint) {
+    return Row(
+      children: [
+        SizedBox(width: 100, child: Text(text)),
+        SizedBox(
+          width: 195,
+          height: 30,
+          child: TextFormField(
+              enabled: _isTag,
+              decoration: InputDecoration(
+                isDense: true,
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                hintText: hint,
+              )),
+        ),
       ],
     );
   }
