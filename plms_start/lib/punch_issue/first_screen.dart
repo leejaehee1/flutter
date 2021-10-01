@@ -1,11 +1,10 @@
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_painter/image_painter.dart';
 
-import 'package:plms_start/pages/utils/title_text.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 
+import 'package:plms_start/pages/utils/title_text.dart';
 import '../globals.dart' as globals;
 
 /*
