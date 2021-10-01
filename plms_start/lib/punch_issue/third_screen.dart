@@ -7,6 +7,7 @@ import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 import '../pages/utils/title_text.dart';
+import '../globals.dart' as globals;
 
 /*
 * name : PageThree
@@ -72,58 +73,7 @@ class _PageThreeState extends State<PageThree> {
                       height: 20,
                     ),
                     _imagePicker(),
-                    Expanded(
-                      child: Container(
-                        height: MediaQuery.of(context).size.height - 305,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(color: Colors.white),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('View drawing'),
-                                Container(
-                                  width: Get.width * 1 / 4.1,
-                                  height: Get.height * 1 / 30,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Color(0xff8ab898)),
-                                    onPressed: () {
-                                      // FileImage();
-                                    },
-                                    child: Text(
-                                      "Location",
-                                      style: TextStyle(fontSize: 13),
-                                    ),
-                                  ),
-                                ),
-                                // Text(pixelList),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            InkWell(
-                              onDoubleTap: () {
-                                setState(() {
-                                  Get.toNamed("/draft");
-                                });
-                              },
-                              child: Container(
-                                height: MediaQuery.of(context).size.width - 90,
-                                decoration: BoxDecoration(
-                                  border: Border.all(),
-                                ),
-                                child: Image.asset(
-                                    "assets/images/punch_draft_sample.jpg"),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    _draftView(),
                   ],
                 ),
               ),
@@ -134,7 +84,7 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
-  // image picker
+  // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
   // List<XFile> _imageList = [];
   List _imageData = [];
@@ -342,6 +292,8 @@ class _PageThreeState extends State<PageThree> {
                   child: new Text("Yes"),
                   onPressed: () {
                     _imageData.removeAt(index);
+                    globals.punch_issue_Photo = _imageData;
+                    print(globals.punch_issue_Photo);
                     setState(() {});
                     Get.back();
                   },
@@ -362,9 +314,14 @@ class _PageThreeState extends State<PageThree> {
       if (selectedImage!.path.isNotEmpty) {
         final imageData =
             await Get.to(() => ImagePainters(), arguments: selectedImage.path);
-        setState(() {
-          _imageData.add(imageData);
-        });
+        if (imageData != null) {
+          setState(() {
+            _imageData.add(imageData);
+            globals.punch_issue_Photo = _imageData;
+            print(globals.punch_issue_Photo);
+          });
+        }
+
         // Get.to(ImagePainters());
         // _imageList.add(selectedImage);
         // print(selectedImage.runtimeType);
@@ -384,12 +341,69 @@ class _PageThreeState extends State<PageThree> {
         // _imageList.add(takenImage);
         final imageData =
             await Get.to(() => ImagePainters(), arguments: takenImage.path);
-        setState(() {
-          _imageData.add(imageData);
-        });
+        if (imageData != null) {
+          setState(() {
+            _imageData.add(imageData);
+            globals.punch_issue_Photo = _imageData;
+            print(globals.punch_issue_Photo);
+          });
+        }
       }
 
       setState(() {});
     } catch (e) {}
+  }
+
+  Widget _draftView() {
+    return Expanded(
+      child: Container(
+        height: MediaQuery.of(context).size.height - 305,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(color: Colors.white),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('View drawing'),
+                Container(
+                  width: Get.width * 1 / 4.1,
+                  height: Get.height * 1 / 30,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
+                    onPressed: () {
+                      // FileImage();
+                    },
+                    child: Text(
+                      "Location",
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                ),
+                // Text(pixelList),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            InkWell(
+              onDoubleTap: () {
+                setState(() {
+                  Get.toNamed("/draft");
+                });
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.width - 90,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                ),
+                child: Image.asset("assets/images/punch_draft_sample.jpg"),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

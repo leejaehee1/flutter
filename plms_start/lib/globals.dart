@@ -28,5 +28,6 @@ List punch_issue_Keyword = [];
 List punch_issue_Design = [];
 List punch_issue_Material = [];
 
-
 // third page
+List punch_issue_Photo = [];
+// List punch_issue_Material = [];
