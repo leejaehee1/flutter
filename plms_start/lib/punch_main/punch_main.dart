@@ -82,14 +82,14 @@ class _ScreenListState extends State<ScreenList>
               IconButton(
                 onPressed: () {
                   Get.toNamed('/popup', arguments: [
-                    Get.arguments[4],
-                    Get.arguments[5],
-                    Get.arguments[6],
-                    Get.arguments[7],
-                    Get.arguments[8],
-                    Get.arguments[10],
-                    Get.arguments[10],
-                    Get.arguments[11],
+                    Get.arguments[4], //id
+                    Get.arguments[5], //password
+                    Get.arguments[6], //userName
+                    Get.arguments[7], //email
+                    Get.arguments[8], //company
+                    Get.arguments[10], //department
+                    Get.arguments[11], //personalID
+                    Get.arguments[9], //authority
                   ]);
                   // Get.to(PopUpPage(), opaque: false);
                 },

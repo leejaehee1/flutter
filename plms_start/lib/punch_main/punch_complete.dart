@@ -39,7 +39,8 @@ class _PunchCompleteState extends State<PunchComplete> {
   var email = Get.arguments[4];
   var company = Get.arguments[5];
   var authority = Get.arguments[6];
-
+  var personalID = '';
+  var department = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -163,7 +164,9 @@ class _PunchCompleteState extends State<PunchComplete> {
                     password,
                     userName,
                     email,
-                    company
+                    company,
+                    personalID,
+                    department
                   ]);
                 },
                 child: Text(AppLocalizations.of(context)!.completePageButton2),

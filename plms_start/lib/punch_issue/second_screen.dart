@@ -25,7 +25,7 @@ class PageTwo extends StatefulWidget {
 
 class _PageTwoState extends State<PageTwo> {
   List actionon = Get.arguments[3];
-  List discipline = Get.arguments[2];
+  List discipline = Get.arguments[3];
   List raisedon = Get.arguments[1];
 
   bool isSwitch1 = false;
