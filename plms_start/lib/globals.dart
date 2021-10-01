@@ -9,15 +9,16 @@
 library plms.globals;
 
 // first page
-String punch_issue_Tag_Number = "";
-String punch_issue_Bulk_Item = "";
-String punch_issue_Unit = "";
-String punch_issue_Area = "";
-String punch_issue_Punch_ID = "";
-String punch_issue_Description = "";
-String punch_issue_Category = "";
-String punch_issue_System = "";
-String punch_issue_Sub_System = "";
+List punch_issue_Tag_Number = [];
+List punch_issue_Bulk_Item = [];
+List punch_issue_Category = [];
+List punch_issue_System = [];
+List punch_issue_Sub_System = [];
+List punch_issue_Unit = [];
+List punch_issue_Area = [];
+List punch_issue_Punch_ID = [];
+List punch_issue_Description = [];
+
 
 // second page
 
