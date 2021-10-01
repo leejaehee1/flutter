@@ -40,11 +40,11 @@ class _IssueButtonState extends State<IssueButton> {
           SizedBox(
             width: 30,
           ),
-          ElevatedButton(
+          IconButton(
             onPressed: () {
               Get.toNamed(widget.name2);
             },
-            child: Image.asset('assets/images/upload_photo.png'),
+            icon: Image.asset('assets/images/upload_photo.png'),
           ),
         ],
       ),
