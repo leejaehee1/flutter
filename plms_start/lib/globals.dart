@@ -19,8 +19,14 @@ List punch_issue_Area = [];
 List punch_issue_Punch_ID = [];
 List punch_issue_Description = [];
 
-
 // second page
+List punch_issue_Action_On = [];
+List punch_issue_Discipline = [];
+List punch_issue_Raised_On = [];
+List punch_issue_Date = [];
+List punch_issue_Keyword = [];
+List punch_issue_Design = [];
+List punch_issue_Material = [];
 
 
 // third page

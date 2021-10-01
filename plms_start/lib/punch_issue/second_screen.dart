@@ -8,6 +8,8 @@ import 'package:simple_tags/simple_tags.dart';
 
 import '../pages/utils/title_text.dart';
 
+import '../globals.dart' as globals;
+
 /*
 * name : PageTwo
 * description : punch issue two page
@@ -27,6 +29,18 @@ class _PageTwoState extends State<PageTwo> {
   List actionon = Get.arguments[3];
   List discipline = Get.arguments[3];
   List raisedon = Get.arguments[1];
+
+  @override
+  void initState() {
+    globals.punch_issue_Action_On = [actionon[0]];
+    globals.punch_issue_Discipline = [discipline[0]];
+    globals.punch_issue_Raised_On = [raisedon[0]];
+    globals.punch_issue_Date = [];
+    globals.punch_issue_Keyword = [];
+    globals.punch_issue_Design = [];
+    globals.punch_issue_Material = [];
+    super.initState();
+  }
 
   bool isSwitch1 = false;
   bool isSwitch2 = false;
@@ -153,19 +167,25 @@ class _PageTwoState extends State<PageTwo> {
             firstDate: DateTime.now(),
             lastDate: DateTime(2100),
             // dateLabelText: 'Date',
-            onChanged: (val) => print(val),
-            validator: (val) {
-              print(val);
-              return null;
+            onChanged: (val) {
+              setState(() {
+                if (globals.punch_issue_Date.length == 0) {
+                  globals.punch_issue_Date.add(val);
+                } else {
+                  globals.punch_issue_Date.removeAt(0);
+                  globals.punch_issue_Date.add(val);
+                }
+                print('globaldata!!!!!!!!!!');
+                print(globals.punch_issue_Date);
+              });
             },
-            onSaved: (val) => print(val),
           ),
         ),
       ],
     );
   }
 
-  //button row
+  // 드롭다운버튼 Row
   Widget _dropdownButton(String text, var data) {
     return Row(
       children: [
@@ -177,30 +197,47 @@ class _PageTwoState extends State<PageTwo> {
           width: Get.width * 2.7 / 5,
           height: Get.height * 1.1 / 25,
           // child: Newbutton(),
-          child: _newButton(data),
+          child: DropdownSearch<String>(
+            dropdownSearchDecoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              border: OutlineInputBorder(),
+              isDense: true,
+              // isCollapsed: true,
+              suffixIcon: Icon(Icons.arrow_drop_down),
+            ),
+            dropDownButton: Icon(null),
+            showSearchBox: true,
+            mode: Mode.MENU,
+            showSelectedItem: true,
+            items: data,
+            hint: "Menu mode",
+            onChanged: (value) {
+              // 1. global first, second, third 값을 모두 한방에 관리하는 방법
+              // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
+              // 3. 결론 : flutter 에 global key 활용
+
+              print("confirm : " + value.toString());
+
+              if (text == "Action On") {
+                globals.punch_issue_Action_On.removeAt(0);
+                globals.punch_issue_Action_On.add(value.toString());
+              } else if (text == "Discipline") {
+                globals.punch_issue_Discipline.removeAt(0);
+                globals.punch_issue_Discipline.add(value.toString());
+              } else if (text == "Raised On") {
+                globals.punch_issue_Raised_On.removeAt(0);
+                globals.punch_issue_Raised_On.add(value.toString());
+              }
+              print("global 테스트");
+              // print(value.);
+              print(globals.punch_issue_Action_On);
+              print(globals.punch_issue_Discipline);
+              print(globals.punch_issue_Raised_On);
+            },
+            selectedItem: data[0],
+          ),
         ),
       ],
-    );
-  }
-
-  // 드롭다운 버튼
-  Widget _newButton(var data) {
-    return DropdownSearch<String>(
-      dropdownSearchDecoration: InputDecoration(
-        contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-        border: OutlineInputBorder(),
-        isDense: true,
-        // isCollapsed: true,
-        suffixIcon: Icon(Icons.arrow_drop_down),
-      ),
-      dropDownButton: Icon(null),
-      showSearchBox: true,
-      mode: Mode.MENU,
-      showSelectedItem: true,
-      items: data,
-      hint: "Menu mode",
-      onChanged: print,
-      selectedItem: data[0],
     );
   }
 
@@ -219,7 +256,22 @@ class _PageTwoState extends State<PageTwo> {
             setState(() {
               isSwitch1 = valued!;
               print(isSwitch1);
+              if (globals.punch_issue_Design.length == 0) {
+                if (isSwitch1 == true) {
+                  globals.punch_issue_Design.add('1');
+                } else {
+                  globals.punch_issue_Design.add('0');
+                }
+              } else {
+                globals.punch_issue_Design.removeAt(0);
+                if (isSwitch1 == true) {
+                  globals.punch_issue_Design.add('1');
+                } else {
+                  globals.punch_issue_Design.add('0');
+                }
+              }
             });
+            print(globals.punch_issue_Design);
           },
           // activeTrackColor: Colors.yellow,
           activeColor: Colors.green,
@@ -243,7 +295,22 @@ class _PageTwoState extends State<PageTwo> {
             setState(() {
               isSwitch2 = valued!;
               print(isSwitch2);
+              if (globals.punch_issue_Material.length == 0) {
+                if (isSwitch2 == true) {
+                  globals.punch_issue_Material.add('1');
+                } else {
+                  globals.punch_issue_Material.add('0');
+                }
+              } else {
+                globals.punch_issue_Material.removeAt(0);
+                if (isSwitch2 == true) {
+                  globals.punch_issue_Material.add('1');
+                } else {
+                  globals.punch_issue_Material.add('0');
+                }
+              }
             });
+            print(globals.punch_issue_Material);
           },
           // activeTrackColor: Colors.yellow,
           activeColor: Colors.green,
@@ -289,9 +356,21 @@ class _PageTwoState extends State<PageTwo> {
             padding: EdgeInsets.all(2),
             icon: Icon(Icons.add),
             onPressed: () {
-              contentList.add(controller.text);
-              controller.clear();
-              setState(() {});
+              if (contentList.length > 3) {
+                contentList.removeAt(0);
+                contentList.add(controller.text);
+                controller.clear();
+              } else {
+                contentList.add(controller.text);
+                controller.clear();
+              }
+
+              globals.punch_issue_Keyword = [];
+              globals.punch_issue_Keyword = contentList;
+
+              setState(() {
+                print(globals.punch_issue_Keyword);
+              });
             },
           ),
         )
@@ -319,7 +398,10 @@ class _PageTwoState extends State<PageTwo> {
               onTagPress: (tag) {
                 setState(() {});
                 contentList.remove(tag);
+                globals.punch_issue_Keyword = [];
+                globals.punch_issue_Keyword = contentList;
                 print('pressed $tag');
+                print(globals.punch_issue_Keyword);
               },
               tagContainerPadding: EdgeInsets.all(6),
               tagTextStyle: TextStyle(color: Colors.black),
