@@ -34,83 +34,162 @@ class _LoadingState extends State<Loading> {
 
   // get data
   Future<dynamic> test() async {
-    List<String> category = [];
-    List<String> systems = [];
-    List<String> subsystem = [];
-    List<String> discipline = [];
-    var uriResponse = await http.get(
+    List<String> categoryList = [];
+    List<String> systemsList = [];
+    List<String> subsystemList = [];
+    List<String> disciplineList = [];
+    List<String> unitList = [];
+    List<String> areaList = [];
+    List<String> deptList = [];
+    List<String> categoryNameList = [];
+    List<String> systemsNameList = [];
+    List<String> subsystemNameList = [];
+    List<String> disciplineNameList = [];
+    List<String> unitNameList = [];
+    List<String> areaNameList = [];
+    List<String> deptNameList = [];
+    var categoryResponse = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/category/',
           "$api/summury/category/"),
     );
 
-    var json = jsonDecode(uriResponse.body);
-    print(json.runtimeType);
-    print(json[0]['category']);
-    int len = json.length;
+    var category = jsonDecode(categoryResponse.body);
+    print(category.runtimeType);
+    print(category[0]['category']);
+    int len = category.length;
     // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len; i++) {
-          category += [json[i]['category']];
+          categoryList += [category[i]['category']];
+          categoryNameList += [category[i]['categoryName']];
         }
       });
 ///////////////////////////////
-    var uriResponse2 = await http.get(
+    var systemsResponse = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/systems/',
           "$api/summury/systems/"),
     );
 
-    var json2 = jsonDecode(uriResponse2.body);
-    print(json2[0]['systems']);
-    int len2 = json2.length;
+    var systems = jsonDecode(systemsResponse.body);
+    print(systems[0]['systems']);
+    int len2 = systems.length;
     // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len2; i++) {
-          systems += [json2[i]['systemID']];
+          systemsList += [systems[i]['systemID']];
+          systemsNameList += [systems[i]['systemName']];
         }
       });
 /////////////////////////////
-    var uriResponse3 = await http.get(
+    var subsystemResponse = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/subsystem/',
           "$api/summury/subsystem/"),
     );
 
-    var json3 = jsonDecode(uriResponse3.body);
-    print(json3[0]['subsystem']);
-    int len3 = json3.length;
+    var subsystem = jsonDecode(subsystemResponse.body);
+    print(subsystem[0]['subsystem']);
+    int len3 = subsystem.length;
     // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len3; i++) {
-          subsystem += [json3[i]['subsystem']];
+          subsystemList += [subsystem[i]['subsystem']];
+          subsystemNameList += [subsystem[i]['subsystemName']];
         }
       });
 ////////////////////////
-    var uriResponse4 = await http.get(
+    var disciplineResponse = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/discipline/',
           "$api/summury/discipline/"),
     );
 
-    var json4 = jsonDecode(uriResponse4.body);
-    print(json4[0]['discipline']);
-    int len4 = json4.length;
+    var discipline = jsonDecode(disciplineResponse.body);
+    print(discipline[0]['discipline']);
+    int len4 = discipline.length;
     // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len4; i++) {
-          discipline += [json4[i]['discipline']];
+          disciplineList += [discipline[i]['discipline']];
+          disciplineNameList += [discipline[i]['disciplineName']];
         }
       });
+
+    var unitResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/unit/"),
+    );
+
+    var unit = jsonDecode(unitResponse.body);
+    print(unit[0]['unit']);
+    int len5 = unit.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len5; i++) {
+          unitList += [unit[i]['unit']];
+          unitNameList += [unit[i]['unitName']];
+        }
+      });
+
+    var areaResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/area/"),
+    );
+
+    var area = jsonDecode(areaResponse.body);
+    print(unit[0]['area']);
+    int len6 = area.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len6; i++) {
+          areaList += [area[i]['area']];
+          areaNameList += [area[i]['areaName']];
+        }
+      });
+
+    var departmentResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/department/"),
+    );
+
+    var department = jsonDecode(departmentResponse.body);
+    print(department[0]['department']);
+    int len7 = department.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len7; i++) {
+          deptList += [department[i]['department']];
+          deptNameList += [department[i]['deptName']];
+        }
+      });
+    print(categoryList);
     Get.off(PunchScreen(), arguments: [
-      category,
-      systems,
-      subsystem,
-      discipline,
+      categoryList,
+      systemsList,
+      subsystemList,
+      disciplineList,
+      unitList,
+      areaList,
+      deptList,
+      // categoryNameList,
+      // systemsNameList,
+      // subsystemNameList,
+      // disciplineNameList,
+      // unitNameList,
+      // areaNameList,
+      // deptNameList,
     ]);
   }
 
