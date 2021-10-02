@@ -4,7 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../login.dart' as login;
+import '../globals/login.dart' as login;
+import '../globals/issue.dart' as issue;
 
 import 'package:plms_start/punch_main/punch_main.dart';
 
@@ -45,22 +46,137 @@ class _HomeState extends State<Home> {
   // get punchList data
   Future<dynamic> test() async {
     String authority = login.authority[0];
-    // String id = Get.arguments[1];
-    // String password = Get.arguments[2];
-    // String userName = Get.arguments[3];
-    // String email = Get.arguments[4];
-    // String company = Get.arguments[5];
-    // String personalID = Get.arguments[6] == null ? "" : Get.arguments[6];
-    // String department = Get.arguments[7] == null ? "" : Get.arguments[7];
-
-    // var draftList = [];
-    // var openList = [];
-    // var reqList = [];
-    // var closeList = [];
-
     // var api = dotenv.env['PHONE_IP'];
     var api = dotenv.env['EMUL_IP'];
 
+    var categoryResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/category/',
+          "$api/summury/category/"),
+    );
+
+    var category = jsonDecode(categoryResponse.body);
+    print(category.runtimeType);
+    print(category[0]['category']);
+    int len = category.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len; i++) {
+          issue.categoryList += [category[i]['category']];
+          issue.categoryNameList += [category[i]['categoryName']];
+        }
+      });
+///////////////////////////////
+    var systemsResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/systems/',
+          "$api/summury/systems/"),
+    );
+
+    var systems = jsonDecode(systemsResponse.body);
+    print(systems[0]['systems']);
+    int len2 = systems.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len2; i++) {
+          issue.systemsList += [systems[i]['systemID']];
+          issue.systemsNameList += [systems[i]['systemName']];
+        }
+      });
+/////////////////////////////
+    var subsystemResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/subsystem/',
+          "$api/summury/subsystem/"),
+    );
+
+    var subsystem = jsonDecode(subsystemResponse.body);
+    print(subsystem[0]['subsystem']);
+    int len3 = subsystem.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len3; i++) {
+          issue.subsystemList += [subsystem[i]['subsystem']];
+          issue.subsystemNameList += [subsystem[i]['subsystemName']];
+        }
+      });
+////////////////////////
+    var disciplineResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/discipline/"),
+    );
+
+    var discipline = jsonDecode(disciplineResponse.body);
+    print(discipline[0]['discipline']);
+    int len4 = discipline.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len4; i++) {
+          issue.disciplineList += [discipline[i]['discipline']];
+          issue.disciplineNameList += [discipline[i]['disciplineName']];
+        }
+      });
+
+    var unitResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/unit/"),
+    );
+
+    var unit = jsonDecode(unitResponse.body);
+    print(unit[0]['unit']);
+    int len5 = unit.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len5; i++) {
+          issue.unitList += [unit[i]['unit']];
+          issue.unitNameList += [unit[i]['unitName']];
+        }
+      });
+
+    var areaResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/area/"),
+    );
+
+    var area = jsonDecode(areaResponse.body);
+    print(unit[0]['area']);
+    int len6 = area.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len6; i++) {
+          issue.areaList += [area[i]['area']];
+          issue.areaNameList += [area[i]['areaName']];
+        }
+      });
+
+    var departmentResponse = await http.get(
+      Uri.parse(
+          // 'http://10.0.2.2:5000/summury/discipline/',
+          "$api/summury/department/"),
+    );
+
+    var department = jsonDecode(departmentResponse.body);
+    print(department[0]['department']);
+    int len7 = department.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len7; i++) {
+          issue.deptList += [department[i]['department']];
+          issue.deptNameList += [department[i]['deptName']];
+        }
+      });
+    print(issue.categoryList);
+    print('중간!!!!!!!!!!!!!!');
     if (authority == "3") {
       var uriResponse = await http.get(
         Uri.parse("$api/summury/sqlall/"),
@@ -198,24 +314,9 @@ class _HomeState extends State<Home> {
           }
         });
 
-      Get.offAll(
-        () => ScreenList(),
-        // arguments: [
-        //   draftList,
-        //   openList,
-        //   reqList,
-        //   closeList,
-        //   id,
-        //   password,
-        //   userName,
-        //   email,
-        //   company,
-        //   authority,
-        //   personalID,
-        //   department,
-        // ]
-      );
+      Get.offAll(() => ScreenList());
     }
+    print('끝!!!!!!!!!!!!!!!!!!');
   }
 
   @override
