@@ -9,7 +9,8 @@ import 'package:group_radio_button/group_radio_button.dart';
 import 'package:plms_start/pages/components/registrations/validate.dart';
 
 import 'package:http/http.dart' as http;
-import '../login.dart' as login;
+import '../globals/login.dart' as login;
+import '../globals/issue.dart' as issue;
 /*
 * name : ModifyPage
 * description : modify page
@@ -41,35 +42,35 @@ class _ModifyPageState extends State<ModifyPage> {
   // var api = dotenv.env['PHONE_IP'];
   var api = dotenv.env['EMUL_IP'];
 
-  @override
-  void initState() {
-    test();
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   test();
+  //   super.initState();
+  // }
 
-  Future<dynamic> test() async {
-    var uriResponse = await http.get(
-      Uri.parse(
-        // 'http://10.0.2.2:5000/api/department/',
+  // Future<dynamic> test() async {
+  //   var uriResponse = await http.get(
+  //     Uri.parse(
+  //       // 'http://10.0.2.2:5000/api/department/',
 
-        '$api/summury/department/',
-      ),
-    );
+  //       '$api/summury/department/',
+  //     ),
+  //   );
 
-    var json = jsonDecode(uriResponse.body);
-    // print(json.runtimeType);
-    print(json[0]['deptName']);
-    // _items += json;
-    int len = json.length;
-    // dispose();
-    if (mounted)
-      this.setState(() {
-        for (int i = 0; i < len; i++) {
-          deptName += [json[i]['deptName']];
-          department += [json[i]['department']];
-        }
-      });
-  }
+  //   var json = jsonDecode(uriResponse.body);
+  //   // print(json.runtimeType);
+  //   print(json[0]['deptName']);
+  //   // _items += json;
+  //   int len = json.length;
+  //   // dispose();
+  //   if (mounted)
+  //     this.setState(() {
+  //       for (int i = 0; i < len; i++) {
+  //         deptName += [json[i]['deptName']];
+  //         department += [json[i]['department']];
+  //       }
+  //     });
+  // }
 
   bool isSwitched = false;
   bool isSwitched2 = false;
@@ -84,8 +85,8 @@ class _ModifyPageState extends State<ModifyPage> {
   List<String> _status = ["Assignee", "QC", "Manager"];
   String dropdownValue = '';
   // var _items = [];
-  List<String> deptName = [];
-  List<String> department = [];
+  List<String> deptName = issue.deptNameList;
+  List<String> department = issue.deptList;
   List<String> depList = [];
   List<String> authorityList = ['1'];
   // int authoritylen = (authorityList.length - 1);
@@ -178,77 +179,92 @@ class _ModifyPageState extends State<ModifyPage> {
         color: Color(0xFFE6E6E6),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Container(
-            // height: MediaQuery.of(context).size.height,
-            width: Get.width - Get.width * 0.83 / 8,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
                   color: Color(0xffB7C5B9),
-                  offset: Offset(-7, 0),
+                  borderRadius:
+                      BorderRadius.only(topLeft: radius, bottomLeft: radius),
                 ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  _radioButton(),
-                  Container(
-                    width: Get.width,
-                    decoration: BoxDecoration(border: Border.all(width: 0.3)),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      children: [
-                        _textField(AppLocalizations.of(context)!.signUpID,
-                            _idTextEditController, 'ID를'),
-                        _size15(),
-                        _pwFormField(
-                          AppLocalizations.of(context)!.signUpPW,
-                          _pwTextEditController,
-                        ),
-                        _size15(),
-                        _newpwFormField(
-                          'New Password',
-                          _newpwTextEditController,
-                        ),
-                        _size15(),
-                        _repwtextField(
-                          "New ${AppLocalizations.of(context)!.signUprepw}",
-                          _repwTextEditController,
-                        ),
-                        _size15(),
-                        _emailFormField(
-                          AppLocalizations.of(context)!.signUpmail,
-                          _emailTextEditController,
-                        ),
-                        _size15(),
-                        _textField(AppLocalizations.of(context)!.signUpcom,
-                            _comTextEditController, '회사를'),
-                        _size15(),
-                        _textField(AppLocalizations.of(context)!.signUpname,
-                            _nameTextEditController, '이름을'),
-                        _size15(),
-                        _enabletextField(
-                            AppLocalizations.of(context)!.signUppersonal,
-                            _personTextEditController,
-                            '개인ID를'),
-                        _size15(),
-                        _dropdownButton(),
-                        _size15(),
-                      ],
-                    ),
-                  ),
-                ],
+                height: MediaQuery.of(context).size.height * 8 / 9,
+                width: Get.width * 1 / 50,
               ),
-            ),
+              Container(
+                height: MediaQuery.of(context).size.height * 8 / 9,
+                width: Get.width - Get.width * 0.83 / 8,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.only(topRight: radius, bottomRight: radius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xffB7C5B9),
+                      offset: Offset(0, 0.3),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      _radioButton(),
+                      Container(
+                        width: Get.width,
+                        decoration:
+                            BoxDecoration(border: Border.all(width: 0.3)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Column(
+                          children: [
+                            _textField(AppLocalizations.of(context)!.signUpID,
+                                _idTextEditController, 'ID를'),
+                            _size15(),
+                            _pwFormField(
+                              AppLocalizations.of(context)!.signUpPW,
+                              _pwTextEditController,
+                            ),
+                            _size15(),
+                            _newpwFormField(
+                              'New Password',
+                              _newpwTextEditController,
+                            ),
+                            _size15(),
+                            _repwtextField(
+                              "New ${AppLocalizations.of(context)!.signUprepw}",
+                              _repwTextEditController,
+                            ),
+                            _size15(),
+                            _emailFormField(
+                              AppLocalizations.of(context)!.signUpmail,
+                              _emailTextEditController,
+                            ),
+                            _size15(),
+                            _textField(AppLocalizations.of(context)!.signUpcom,
+                                _comTextEditController, '회사를'),
+                            _size15(),
+                            _textField(AppLocalizations.of(context)!.signUpname,
+                                _nameTextEditController, '이름을'),
+                            _size15(),
+                            _enabletextField(
+                                AppLocalizations.of(context)!.signUppersonal,
+                                _personTextEditController,
+                                '개인ID를'),
+                            _size15(),
+                            _dropdownButton(),
+                            _size15(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

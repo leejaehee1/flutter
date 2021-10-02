@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../login.dart' as login;
+import '../globals/login.dart' as login;
 /*
 * name : ListClose Page
 * description : close data page

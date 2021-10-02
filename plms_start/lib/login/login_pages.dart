@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../login.dart' as login;
+import '../globals/login.dart' as login;
 
 // import 'package:google_fonts/google_fonts.dart';
 

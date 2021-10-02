@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/pages/utils/title_text.dart';
-import '../login.dart' as login;
+import '../globals/login.dart' as login;
 /*
 * name : PunchComplete Page
 * description : complete page

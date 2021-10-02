@@ -7,7 +7,7 @@ import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 
 import '../pages/utils/title_text.dart';
-import '../globals.dart' as globals;
+import '../globals/globals.dart' as globals;
 
 /*
 * name : PageThree

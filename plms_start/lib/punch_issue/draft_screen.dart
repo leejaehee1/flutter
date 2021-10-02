@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
-import '../globals.dart' as globals;
+import '../globals/globals.dart' as globals;
 
 // https://www.youtube.com/watch?v=eWhnXGjppHw
 

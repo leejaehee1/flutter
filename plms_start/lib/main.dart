@@ -20,7 +20,8 @@ import 'punch_success/success_page.dart';
 import 'modify/popup_page.dart';
 import 'punch_issue/draft_screen.dart';
 
-import 'globals.dart' as globals;
+import 'globals/globals.dart' as globals;
+
 /*
 * name : main
 * description : This is a start page.

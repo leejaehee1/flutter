@@ -11,7 +11,7 @@ import 'package:plms_start/punch_main/list_file.dart';
 import 'package:plms_start/punch_main/list_open.dart';
 import 'package:plms_start/punch_main/list_req.dart';
 
-import '../login.dart' as login;
+import '../globals/login.dart' as login;
 // import 'package:plms_start/pages/utils/header_issue.dart';
 
 // import 'screen_punch.dart';
@@ -160,7 +160,7 @@ class _ScreenListState extends State<ScreenList>
           ),
         ),
         bottomNavigationBar: IssueButton(
-            name: '/loading',
+            name: '/punchList',
             name2: '/photoList',
             buttonname1: AppLocalizations.of(context)!.pListbutton1,
             buttonname2: AppLocalizations.of(context)!.pListbutton2));
