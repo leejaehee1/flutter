@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
+import '../globals.dart' as globals;
+
 // https://www.youtube.com/watch?v=eWhnXGjppHw
 
 /*
@@ -12,26 +14,26 @@ import 'package:plms_start/pages/utils/header_issue.dart';
 * last update : 2021-09-30
 * */
 
-class DraftPage extends StatelessWidget {
-  // This widget is the root of your application.
+// class DraftPage extends StatelessWidget {
+//   // This widget is the root of your application.
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       title: 'Flutter Demo',
+//       theme: ThemeData(
+//         primarySwatch: Colors.blue,
+//       ),
+//       home: MyHomePage(),
+//     );
+//   }
+// }
+
+class DraftPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
+  _DraftPageState createState() => _DraftPageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _DraftPageState extends State<DraftPage> {
   double _cdx = 0;
   double _cdy = 0;
 
@@ -49,113 +51,156 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     Future.microtask(() {
-      _cdx = MediaQuery.of(context).size.width / 2 - (this.boxWidth / 2);
-      _cdy = MediaQuery.of(context).size.height / 2 - (this.boxHeight / 2);
+      _cdx = 0;
+      _cdy = 0;
     }).then((_) => setState(() {}));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var radius = Radius.circular(10);
+    var buttonWidth = Get.width * 1 / 3.5;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xff2B3745),
-        automaticallyImplyLeading: false,
-        title: Header(
-          title: "title",
-        ),
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 1.5 / 7,
-            width: MediaQuery.of(context).size.width,
+
+        // appBar: AppBar(
+        //   backgroundColor: Color(0xff2B3745),
+        //   automaticallyImplyLeading: false,
+        //   title:
+        // ),
+        body: SafeArea(
+          child: Container(
             color: Color(0xFFE6E6E6),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0xffB7C5B9),
-                      offset: Offset(-7, 0),
-                    ),
-                  ],
+            child: Column(
+              children: [
+                Header(
+                  title: "Select Location",
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        children: [
-                          Text('Category: A'),
-                          Text('Category: A'),
-                          Text('Category: A')
-                        ],
-                      ),
-                    ],
+                Container(
+                  height: MediaQuery.of(context).size.height * 1.4 / 9,
+                  width: MediaQuery.of(context).size.width,
+                  color: Color(0xFFE6E6E6),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color(0xffB7C5B9),
+                            borderRadius: BorderRadius.only(
+                                topLeft: radius, bottomLeft: radius),
+                          ),
+                          height: MediaQuery.of(context).size.height * 1.4 / 9,
+                          width: Get.width * 1 / 50,
+                        ),
+                        Container(
+                          width: Get.width - Get.width * 0.83 / 8,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                                topRight: radius, bottomRight: radius),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0xffB7C5B9),
+                                offset: Offset(0, 0.3),
+                              ),
+                            ],
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        'Category : ${globals.punch_issue_Category[0]}'),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                        'System : ${globals.punch_issue_System[0]}'),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                        'Subsystem : ${globals.punch_issue_Sub_System[0]}')
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height * 4 / 7,
-            color: Color(0xFFE6E6E6),
-            child: GestureDetector(
-              onTapDown: (TapDownDetails td) {
-                setState(() {
-                  this.cdx = td.globalPosition.dx - (this.boxWidth * 0.33);
-                  this.cdy = td.globalPosition.dy - (this.boxHeight * 2.75);
-                  // this.cdx = td.globalPosition.dx;
-                  // this.cdy = td.globalPosition.dy;
-                  // print([this.cdx, this.cdy]);
-                  // print();
-                });
-              },
-              child: Container(
-                padding: EdgeInsets.all(15),
-                child: Stack(
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/punch_draft_sample.jpg',
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      fit: BoxFit.fill,
-                    ),
-                    Transform.translate(
-                      offset: Offset(cdx, cdy),
-                      child: Container(
-                        // child: Icon(Icons.add_location_sharp, color: Colors.white,),
-                        child: TextButton.icon(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.add_location_sharp,
-                              color: Colors.black,
+                Container(
+                  height: MediaQuery.of(context).size.height * 4 / 7,
+                  color: Color(0xFFE6E6E6),
+                  child: GestureDetector(
+                    onTapDown: (TapDownDetails td) {
+                      setState(() {
+                        this.cdx =
+                            td.globalPosition.dx - (this.boxWidth * 0.26);
+                        this.cdy =
+                            td.globalPosition.dy - (this.boxHeight * 2.63);
+                        // this.cdx = td.globalPosition.dx;
+                        // this.cdy = td.globalPosition.dy;
+                        print(td.globalPosition.dx);
+                        print([
+                          double.parse(((this.cdx) / td.globalPosition.dx)
+                              .toStringAsFixed(2)),
+                          ((this.cdy) / td.globalPosition.dy)
+                              .toStringAsFixed(2),
+                        ]);
+                        // print();
+                      });
+                    },
+                    child: Container(
+                      color: Color(0xFFE6E6E6),
+                      // padding: EdgeInsets.all(15),
+                      child: Stack(
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/punch_draft_sample.jpg',
+                            width: MediaQuery.of(context).size.width * 90 / 99,
+                            height: MediaQuery.of(context).size.height,
+                            fit: BoxFit.fill,
+                          ),
+                          Transform.translate(
+                            offset: Offset(cdx, cdy),
+                            child: Container(
+                              // child: Icon(Icons.add_location_sharp, color: Colors.white,),
+                              child: Icon(
+                                Icons.add_location_sharp,
+                                color: Colors.black,
+                              ),
                             ),
-                            label: Text(
-                              'map',
-                              style: TextStyle(color: Colors.black),
-                            )),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
-          Container(
-            color: Color(0xFFE6E6E6),
-            height: 66,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
+        ),
+        bottomNavigationBar: Container(
+          padding: EdgeInsets.only(bottom: 20),
+          color: Color(0xFFE6E6E6),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                width: buttonWidth,
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(0),
                     primary: Color(0xff71838D), // background
                     // onPrimary: Colors.white, // foreground
                   ),
@@ -164,31 +209,52 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   child: Text("Cancel"),
                 ),
-                ElevatedButton(
+              ),
+              // Container(
+              //   width: buttonWidth,
+              //   child: ElevatedButton(
+              //     style: ElevatedButton.styleFrom(
+              //       padding: EdgeInsets.all(0),
+              //       primary: Color(0xff5D8595), // background
+              //       // onPrimary: Colors.white, // foreground
+              //     ),
+              //     onPressed: () {},
+              //     child: Text("Clear Location"),
+              //   ),
+              // ),
+              Container(
+                width: buttonWidth,
+                child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xff5D8595), // background
-                    // onPrimary: Colors.white, // foreground
-                  ),
-                  onPressed: () {},
-                  child: Text("Clear Location"),
-                ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.all(0),
                     primary: Color(0xff2F4C5A), // background
                     // onPrimary: Colors.white, // foreground
                   ),
                   onPressed: () {
-                    pixelList.add([this.cdx, this.cdy]);
-                    print("pixelList");
+                    if (pixelList.length == 0) {
+                      pixelList.add([this.cdx, this.cdy]);
+                    } else {
+                      pixelList.removeAt(0);
+                      pixelList.add([this.cdx, this.cdy]);
+                    }
+                    print("pixelList: ${pixelList}");
+
+                    print("pixelList: ${pixelList[0][1]}");
+                    globals.punch_issue_Pixel_X = [];
+                    globals.punch_issue_Pixel_Y = [];
+                    globals.punch_issue_Pixel_X.add(pixelList[0][0]);
+                    globals.punch_issue_Pixel_Y.add(pixelList[0][1]);
+                    print(
+                        "globals.punch_issue_Pixel: ${globals.punch_issue_Pixel_X}");
+                    print(
+                        "globals.punch_issue_Pixel: ${globals.punch_issue_Pixel_Y}");
                     // print(pixelList);
                   },
                   child: Text("Save Location"),
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+              ),
+            ],
+          ),
+        ));
   }
 }
