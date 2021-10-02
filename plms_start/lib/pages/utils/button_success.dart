@@ -21,33 +21,36 @@ class SuccessButton extends StatefulWidget {
 class _SuccessButtonState extends State<SuccessButton> {
   @override
   Widget build(BuildContext context) {
+    var buttonWidth = Get.width * 1 / 3.0;
     return Container(
       color: Color(0xFFffffff),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xff71838D),
+          Container(
+            width: buttonWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xff71838D),
+              ),
+              onPressed: () {
+                Get.offAllNamed('/home');
+              },
+              child: Text(widget.buttonname1),
             ),
-            onPressed: () {
-              Get.offAllNamed('/home');
-            },
-            child: Text(widget.buttonname1),
           ),
-          SizedBox(
-            width: 30,
-          ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: Color(0xff2F4C5A), // background
-              // onPrimary: Colors.white, // foreground
+          Container(
+            width: buttonWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Color(0xff2F4C5A), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                // Get.offAllNamed('/punchList');
+              },
+              child: Text(widget.buttonname2),
             ),
-            onPressed: () {
-              Get.offAllNamed('/punchList');
-            },
-            child: Text(widget.buttonname2),
           ),
         ],
       ),
