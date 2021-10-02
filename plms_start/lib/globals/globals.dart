@@ -33,4 +33,5 @@ List punch_issue_Photo = [];
 List punch_issue_Pixel_X = [];
 List punch_issue_Pixel_Y = [];
 
-// List punch_issue_Material = [];
+// status
+List punch_issue_Status = [];
