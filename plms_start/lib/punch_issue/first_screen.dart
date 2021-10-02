@@ -5,8 +5,8 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 
 import 'package:plms_start/pages/utils/title_text.dart';
-import '../globals.dart' as globals;
-
+import '../globals/globals.dart' as globals;
+import '../globals/issue.dart' as issue;
 /*
 * name : PageOne
 * description : punch issue first page
@@ -23,9 +23,9 @@ class PageOne extends StatefulWidget {
 }
 
 class _PageOneState extends State<PageOne> {
-  List<String> category = Get.arguments[0];
-  List<String> system = Get.arguments[1];
-  List<String> subsystem = Get.arguments[2];
+  List<String> category = issue.categoryList;
+  List<String> system = issue.systemsList;
+  List<String> subsystem = issue.subsystemList;
 
   String _horizonGroupValue = "Tag Number";
   List<String> _status = ['Tag Number', "Bulk Item"];

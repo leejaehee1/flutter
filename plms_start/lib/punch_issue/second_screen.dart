@@ -8,8 +8,8 @@ import 'package:simple_tags/simple_tags.dart';
 
 import '../pages/utils/title_text.dart';
 
-import '../globals.dart' as globals;
-
+import '../globals/globals.dart' as globals;
+import '../globals/issue.dart' as issue;
 /*
 * name : PageTwo
 * description : punch issue two page
@@ -26,9 +26,9 @@ class PageTwo extends StatefulWidget {
 }
 
 class _PageTwoState extends State<PageTwo> {
-  List actionon = Get.arguments[3];
-  List discipline = Get.arguments[3];
-  List raisedon = Get.arguments[1];
+  List actionon = issue.areaList;
+  List discipline = issue.disciplineList;
+  List raisedon = issue.deptList;
 
   @override
   void initState() {

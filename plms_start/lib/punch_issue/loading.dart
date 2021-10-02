@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:plms_start/punch_issue/punch_issue.dart';
-
+import '../globals/issue.dart' as issue;
 /*
 * name : Loading
 * description : Loading page
@@ -28,26 +28,20 @@ class _LoadingState extends State<Loading> {
 
   @override
   void initState() {
+    issue.categoryList = [];
+    issue.systemsList = [];
+    issue.subsystemList = [];
+    issue.disciplineList = [];
+    issue.unitList = [];
+    issue.areaList = [];
+    issue.deptList = [];
+
     test();
     super.initState();
   }
 
   // get data
   Future<dynamic> test() async {
-    List<String> categoryList = [];
-    List<String> systemsList = [];
-    List<String> subsystemList = [];
-    List<String> disciplineList = [];
-    List<String> unitList = [];
-    List<String> areaList = [];
-    List<String> deptList = [];
-    List<String> categoryNameList = [];
-    List<String> systemsNameList = [];
-    List<String> subsystemNameList = [];
-    List<String> disciplineNameList = [];
-    List<String> unitNameList = [];
-    List<String> areaNameList = [];
-    List<String> deptNameList = [];
     var categoryResponse = await http.get(
       Uri.parse(
           // 'http://10.0.2.2:5000/summury/category/',
@@ -62,8 +56,8 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len; i++) {
-          categoryList += [category[i]['category']];
-          categoryNameList += [category[i]['categoryName']];
+          issue.categoryList += [category[i]['category']];
+          // categoryNameList += [category[i]['categoryName']];
         }
       });
 ///////////////////////////////
@@ -80,8 +74,8 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len2; i++) {
-          systemsList += [systems[i]['systemID']];
-          systemsNameList += [systems[i]['systemName']];
+          issue.systemsList += [systems[i]['systemID']];
+          // systemsNameList += [systems[i]['systemName']];
         }
       });
 /////////////////////////////
@@ -98,8 +92,8 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len3; i++) {
-          subsystemList += [subsystem[i]['subsystem']];
-          subsystemNameList += [subsystem[i]['subsystemName']];
+          issue.subsystemList += [subsystem[i]['subsystem']];
+          // subsystemNameList += [subsystem[i]['subsystemName']];
         }
       });
 ////////////////////////
@@ -116,8 +110,8 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len4; i++) {
-          disciplineList += [discipline[i]['discipline']];
-          disciplineNameList += [discipline[i]['disciplineName']];
+          issue.disciplineList += [discipline[i]['discipline']];
+          // disciplineNameList += [discipline[i]['disciplineName']];
         }
       });
 
@@ -134,8 +128,8 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len5; i++) {
-          unitList += [unit[i]['unit']];
-          unitNameList += [unit[i]['unitName']];
+          issue.unitList += [unit[i]['unit']];
+          // unitNameList += [unit[i]['unitName']];
         }
       });
 
@@ -152,8 +146,8 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len6; i++) {
-          areaList += [area[i]['area']];
-          areaNameList += [area[i]['areaName']];
+          issue.areaList += [area[i]['area']];
+          // areaNameList += [area[i]['areaName']];
         }
       });
 
@@ -170,27 +164,14 @@ class _LoadingState extends State<Loading> {
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len7; i++) {
-          deptList += [department[i]['department']];
-          deptNameList += [department[i]['deptName']];
+          issue.deptList += [department[i]['department']];
+          // deptNameList += [department[i]['deptName']];
         }
       });
-    print(categoryList);
-    Get.off(() => PunchScreen(), arguments: [
-      categoryList,
-      systemsList,
-      subsystemList,
-      disciplineList,
-      unitList,
-      areaList,
-      deptList,
-      // categoryNameList,
-      // systemsNameList,
-      // subsystemNameList,
-      // disciplineNameList,
-      // unitNameList,
-      // areaNameList,
-      // deptNameList,
-    ]);
+    print(issue.categoryList);
+    Get.off(
+      () => PunchScreen(),
+    );
   }
 
   @override
