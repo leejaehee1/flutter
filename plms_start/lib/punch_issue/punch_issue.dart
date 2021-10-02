@@ -237,7 +237,13 @@ class _PunchScreenState extends State<PunchScreen>
                 // onPrimary: Colors.white, // foreground
               ),
               onPressed: () {
-                globals.punch_issue_Status.add('1');
+                if (globals.punch_issue_Status.length == 0) {
+                  globals.punch_issue_Status.add('1');
+                } else {
+                  globals.punch_issue_Status.removeAt(0);
+                  globals.punch_issue_Status.add('1');
+                }
+
                 print('global!!!!!!!!!!!');
                 print(globals.punch_issue_Status);
                 Get.toNamed('/confirm');
@@ -255,7 +261,12 @@ class _PunchScreenState extends State<PunchScreen>
               ),
               onPressed: () {
                 print('global!!!!!!!!!!!');
-                globals.punch_issue_Status.add('2');
+                if (globals.punch_issue_Status.length == 0) {
+                  globals.punch_issue_Status.add('2');
+                } else {
+                  globals.punch_issue_Status.removeAt(0);
+                  globals.punch_issue_Status.add('2');
+                }
                 Get.toNamed('/confirm');
               },
               child: Text("Create Issue"),
