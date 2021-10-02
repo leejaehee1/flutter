@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
@@ -9,7 +10,7 @@ import 'package:plms_start/punch_issue/tabbar_screen.dart';
 import 'package:plms_start/punch_issue/third_screen.dart';
 
 import 'package:http/http.dart' as http;
-import '../globals.dart' as globals;
+import '../globals/globals.dart' as globals;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /*
@@ -101,10 +102,7 @@ class _PunchScreenState extends State<PunchScreen>
                   PageThree(
                     key: page3Key,
                   ),
-                  // PunchButton(
-                  //     name: '/confirm',
-                  //     buttonName1: "Save Draft",
-                  //     buttonName2: "Create Issue"),
+                  _bottonButton(),
                   //todo 버튼 만들고, 이벤트 연결(put)
                   // Create post insert
                   // Read get select
@@ -206,5 +204,65 @@ class _PunchScreenState extends State<PunchScreen>
       }
     }
     isTapToScroll = false;
+  }
+
+  _bottonButton() {
+    var buttonWidth = Get.width * 1 / 3.5;
+    return Container(
+      padding: EdgeInsets.only(bottom: 20),
+      color: Color(0xFFE6E6E6),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: buttonWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(0),
+                primary: Color(0xff71838D), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                Get.back();
+              },
+              child: Text("Delete Draft"),
+            ),
+          ),
+          Container(
+            width: buttonWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(0),
+                primary: Color(0xff5D8595), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                globals.punch_issue_Status.add('1');
+                print('global!!!!!!!!!!!');
+                print(globals.punch_issue_Status);
+                Get.toNamed('/confirm');
+              },
+              child: Text("Save Draft"),
+            ),
+          ),
+          Container(
+            width: buttonWidth,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(0),
+                primary: Color(0xff2F4C5A), // background
+                // onPrimary: Colors.white, // foreground
+              ),
+              onPressed: () {
+                print('global!!!!!!!!!!!');
+                globals.punch_issue_Status.add('2');
+                Get.toNamed('/confirm');
+              },
+              child: Text("Create Issue"),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
