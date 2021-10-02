@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,8 +29,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
 
   @override
   void initState() {
@@ -250,6 +248,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   // first page
   Widget _firstPage() {
+    var radius = Radius.circular(10);
     return Form(
       key: formKey,
       child: Container(
@@ -258,70 +257,87 @@ class _SignUpPageState extends State<SignUpPage> {
         color: Color(0xFFE6E6E6),
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
+          child: Row(
+            children: [
+              Container(
+                decoration: BoxDecoration(
                   color: Color(0xffB7C5B9),
-                  offset: Offset(-7, 0),
+                  borderRadius:
+                      BorderRadius.only(topLeft: radius, bottomLeft: radius),
                 ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: Column(
-                children: [
-                  _radioButton(),
-                  Container(
-                    width: Get.width,
-                    decoration: BoxDecoration(border: Border.all(width: 0.3)),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8),
-                    child: Column(
-                      children: [
-                        _textField(AppLocalizations.of(context)!.signUpID,
-                            _idTextEditController, 'ID를'),
-                        _size15(),
-                        _pwFormField(
-                          AppLocalizations.of(context)!.signUpPW,
-                          _pwTextEditController,
-                        ),
-                        _size15(),
-                        _repwtextField(
-                          AppLocalizations.of(context)!.signUprepw,
-                          _repwTextEditController,
-                        ),
-                        _size15(),
-                        _emailFormField(
-                          AppLocalizations.of(context)!.signUpmail,
-                          _emailTextEditController,
-                        ),
-                        _size15(),
-                        _textField(AppLocalizations.of(context)!.signUpcom,
-                            _comTextEditController, '회사를'),
-                        _size15(),
-                        _textField(AppLocalizations.of(context)!.signUpname,
-                            _nameTextEditController, '이름을'),
-                        _size15(),
-                        _enabletextField(
-                            AppLocalizations.of(context)!.signUppersonal,
-                            _personalTextEditController,
-                            '개인ID를'),
-                        _size15(),
-                        _dropdownButton(),
-                        _size15(),
-                      ],
-                    ),
-                  ),
-                ],
+                height: MediaQuery.of(context).size.height * 7.5 / 9,
+                width: Get.width * 1 / 50,
               ),
-            ),
+              Container(
+                height: MediaQuery.of(context).size.height * 7.5 / 9,
+                width: Get.width - Get.width * 0.83 / 8,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.only(topRight: radius, bottomRight: radius),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color(0xffB7C5B9),
+                      offset: Offset(0, 0.3),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Column(
+                    children: [
+                      _radioButton(),
+                      Container(
+                        width: Get.width,
+                        decoration:
+                            BoxDecoration(border: Border.all(width: 0.3)),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Column(
+                          children: [
+                            _textField(AppLocalizations.of(context)!.signUpID,
+                                _idTextEditController, 'ID를'),
+                            _size15(),
+                            _pwFormField(
+                              AppLocalizations.of(context)!.signUpPW,
+                              _pwTextEditController,
+                            ),
+                            _size15(),
+                            _repwtextField(
+                              AppLocalizations.of(context)!.signUprepw,
+                              _repwTextEditController,
+                            ),
+                            _size15(),
+                            _emailFormField(
+                              AppLocalizations.of(context)!.signUpmail,
+                              _emailTextEditController,
+                            ),
+                            _size15(),
+                            _textField(AppLocalizations.of(context)!.signUpcom,
+                                _comTextEditController, '회사를'),
+                            _size15(),
+                            _textField(AppLocalizations.of(context)!.signUpname,
+                                _nameTextEditController, '이름을'),
+                            _size15(),
+                            _enabletextField(
+                                AppLocalizations.of(context)!.signUppersonal,
+                                _personalTextEditController,
+                                '개인ID를'),
+                            _size15(),
+                            _dropdownButton(),
+                            _size15(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -342,7 +358,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         Container(
-          width: Get.width * 2.9 / 5,
+          width: Get.width * 2.8 / 5,
           height: Get.height * 1.3 / 25,
           child: DropdownSearch<String>(
             // maxHeight: 100,
@@ -385,7 +401,7 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Text(title),
         ),
         SizedBox(
-          width: Get.width * 2.9 / 5,
+          width: Get.width * 2.8 / 5,
           height: Get.height * 2.1 / 25,
           child: TextFormField(
             style: TextStyle(fontSize: 17),
@@ -419,7 +435,7 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         SizedBox(
-          width: Get.width * 2.9 / 5,
+          width: Get.width * 2.8 / 5,
           height: Get.height * 2.1 / 25,
           child: TextFormField(
             enabled: isManager,
@@ -451,7 +467,7 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
-          width: Get.width * 2.9 / 5,
+          width: Get.width * 2.8 / 5,
           height: Get.height * 2.1 / 25,
           child: TextFormField(
             maxLength: 10,
@@ -477,7 +493,7 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         SizedBox(
-          width: Get.width * 2.9 / 5,
+          width: Get.width * 2.8 / 5,
           height: Get.height * 2.1 / 25,
           child: TextFormField(
             maxLength: 10,
@@ -504,7 +520,7 @@ class _SignUpPageState extends State<SignUpPage> {
       children: [
         SizedBox(width: Get.width * 1 / 3.9, child: Text(title)),
         Container(
-          width: Get.width * 2.9 / 5,
+          width: Get.width * 2.8 / 5,
           height: Get.height * 2.1 / 25,
           child: TextFormField(
             style: TextStyle(fontSize: 17),
@@ -580,51 +596,67 @@ class _SignUpPageState extends State<SignUpPage> {
   // agreement page one
   Widget _checkPage1(String title, String data) {
     // bool isSwitched1 = false;
-
+    var radius = Radius.circular(10);
     return Container(
       // height: MediaQuery.of(context).size.height,
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
                 color: Color(0xffB7C5B9),
-                offset: Offset(-7, 0),
+                borderRadius:
+                    BorderRadius.only(topLeft: radius, bottomLeft: radius),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Column(
+              height: MediaQuery.of(context).size.height * 3.9 / 9,
+              width: Get.width * 1 / 50,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 3.9 / 9,
+              width: Get.width - Get.width * 0.83 / 8,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.only(topRight: radius, bottomRight: radius),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffB7C5B9),
+                    offset: Offset(0, 0.3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    Text(title),
-                    SizedBox(
-                      height: 10,
+                    Column(
+                      children: [
+                        Text(title),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          color: Color(0xffeeeeee),
+                          height: 200,
+                          child: ListView(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(data),
+                              )
+                            ],
+                          ),
+                        ),
+                        _swichs()
+                      ],
                     ),
-                    Container(
-                      color: Color(0xffeeeeee),
-                      height: 200,
-                      child: ListView(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(data),
-                          )
-                        ],
-                      ),
-                    ),
-                    _swichs()
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -633,51 +665,67 @@ class _SignUpPageState extends State<SignUpPage> {
   // agreement page two
   Widget _checkPage2(String title, String data) {
     // bool isSwitched1 = false;
-
+    var radius = Radius.circular(10);
     return Container(
       // height: MediaQuery.of(context).size.height,
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
                 color: Color(0xffB7C5B9),
-                offset: Offset(-7, 0),
+                borderRadius:
+                    BorderRadius.only(topLeft: radius, bottomLeft: radius),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Column(
+              height: MediaQuery.of(context).size.height * 3.9 / 9,
+              width: Get.width * 1 / 50,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 3.9 / 9,
+              width: Get.width - Get.width * 0.83 / 8,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.only(topRight: radius, bottomRight: radius),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffB7C5B9),
+                    offset: Offset(0, 0.3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    Text(title),
-                    SizedBox(
-                      height: 10,
+                    Column(
+                      children: [
+                        Text(title),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          color: Color(0xffeeeeee),
+                          height: 200,
+                          child: ListView(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(data),
+                              )
+                            ],
+                          ),
+                        ),
+                        _swichs2()
+                      ],
                     ),
-                    Container(
-                      color: Color(0xffeeeeee),
-                      height: 200,
-                      child: ListView(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(data),
-                          )
-                        ],
-                      ),
-                    ),
-                    _swichs2()
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -686,43 +734,59 @@ class _SignUpPageState extends State<SignUpPage> {
   // all agreement check button
   Widget _checkPage3() {
     // bool isSwitched1 = false;
-
+    var radius = Radius.circular(10);
     return Container(
       // height: MediaQuery.of(context).size.height,
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
+        child: Row(
+          children: [
+            Container(
+              decoration: BoxDecoration(
                 color: Color(0xffB7C5B9),
-                offset: Offset(-7, 0),
+                borderRadius:
+                    BorderRadius.only(topLeft: radius, bottomLeft: radius),
               ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Column(
+              height: MediaQuery.of(context).size.height * 1 / 10.5,
+              width: Get.width * 1 / 50,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height * 1 / 10.5,
+              width: Get.width - Get.width * 0.83 / 8,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius:
+                    BorderRadius.only(topRight: radius, bottomRight: radius),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xffB7C5B9),
+                    offset: Offset(0, 0.3),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
                   children: [
-                    // Text(title),
-                    // Container(
-                    //   color: Color(0xffeeeeee),
-                    //   height: 200,
-                    //   child: ListView(
-                    //     children: [Text(data)],
-                    //   ),
-                    // ),
-                    _swichs3()
+                    Column(
+                      children: [
+                        // Text(title),
+                        // Container(
+                        //   color: Color(0xffeeeeee),
+                        //   height: 200,
+                        //   child: ListView(
+                        //     children: [Text(data)],
+                        //   ),
+                        // ),
+                        _swichs3()
+                      ],
+                    ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
