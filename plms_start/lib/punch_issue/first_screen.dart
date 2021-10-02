@@ -108,10 +108,11 @@ class _PageOneState extends State<PageOne> {
                                       left: 10, right: 10, bottom: 10),
                                   child: Column(
                                     children: [
-                                      _textField2(
-                                          'Tag Number', 'Create or Add'),
+                                      _textField2('Tag Number', 'Create or Add',
+                                          globals.punch_issue_Tag_Number),
                                       _size15(),
-                                      _textField3('Bulk Item', ''),
+                                      _textField3('Bulk Item', '',
+                                          globals.punch_issue_Bulk_Item),
                                     ],
                                   ),
                                 ),
@@ -131,7 +132,8 @@ class _PageOneState extends State<PageOne> {
                         _textField(
                             'Area', 'Create or Add', globals.punch_issue_Area),
                         _size15(),
-                        _textFormField('Punch ID', 'Add'),
+                        _textFormField(
+                            'Punch ID', 'Add', globals.punch_issue_Punch_ID),
                         _size15(),
 
                         _description(globals.punch_issue_Description),
@@ -320,7 +322,7 @@ class _PageOneState extends State<PageOne> {
     );
   }
 
-  Widget _textFormField(String text, String hint) {
+  Widget _textFormField(String text, String hint, var globaldata) {
     return Row(
       children: [
         SizedBox(width: 100, child: Text(text)),
@@ -328,6 +330,18 @@ class _PageOneState extends State<PageOne> {
           width: 195,
           height: 30,
           child: TextFormField(
+              onChanged: (String str) {
+                setState(() {
+                  if (globaldata.length == 0) {
+                    globaldata.add(str);
+                  } else {
+                    globaldata.removeAt(0);
+                    globaldata.add(str);
+                  }
+                  print('globaldata!!!!!!!!!!');
+                  print(globaldata);
+                });
+              },
               enabled: _isTag,
               decoration: InputDecoration(
                 isDense: true,
@@ -341,7 +355,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // textfield tag number
-  Widget _textField2(String text, String hint) {
+  Widget _textField2(String text, String hint, var globaldata) {
     return Row(
       children: [
         SizedBox(width: 100, child: Text(text)),
@@ -349,6 +363,18 @@ class _PageOneState extends State<PageOne> {
           width: 122,
           height: 30,
           child: TextField(
+              onChanged: (String str) {
+                setState(() {
+                  if (globaldata.length == 0) {
+                    globaldata.add(str);
+                  } else {
+                    globaldata.removeAt(0);
+                    globaldata.add(str);
+                  }
+                  print('globaldata!!!!!!!!!!');
+                  print(globaldata);
+                });
+              },
               enabled: _isTag,
               decoration: InputDecoration(
                 isDense: true,
@@ -381,7 +407,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // textfield bulk
-  Widget _textField3(String text, String hint) {
+  Widget _textField3(String text, String hint, var globaldata) {
     return Row(
       children: [
         SizedBox(width: 100, child: Text(text)),
@@ -389,6 +415,18 @@ class _PageOneState extends State<PageOne> {
           width: 157,
           height: 30,
           child: TextField(
+              onChanged: (String str) {
+                setState(() {
+                  if (globaldata.length == 0) {
+                    globaldata.add(str);
+                  } else {
+                    globaldata.removeAt(0);
+                    globaldata.add(str);
+                  }
+                  print('globaldata!!!!!!!!!!');
+                  print(globaldata);
+                });
+              },
               enabled: _isBulk,
               decoration: InputDecoration(
                 isDense: true,
