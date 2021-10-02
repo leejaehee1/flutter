@@ -23,8 +23,8 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
 
   @override
   void initState() {
@@ -175,7 +175,7 @@ class _LoadingState extends State<Loading> {
         }
       });
     print(categoryList);
-    Get.off(PunchScreen(), arguments: [
+    Get.off(() => PunchScreen(), arguments: [
       categoryList,
       systemsList,
       subsystemList,

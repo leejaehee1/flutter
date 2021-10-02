@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../login.dart' as login;
 /*
 * name : ListClose Page
 * description : close data page
@@ -20,7 +21,7 @@ class ListClose extends StatefulWidget {
 }
 
 class _ListCloseState extends State<ListClose> {
-  final List data = Get.arguments[3];
+  final List data = login.closeList;
 
   @override
   Widget build(BuildContext context) {

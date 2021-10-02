@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import '../login.dart' as login;
 /*
 * name : ListFile Page
 * description : all data page
@@ -19,17 +19,17 @@ class ListFile extends StatefulWidget {
 }
 
 class _ListFileState extends State<ListFile> {
-  List draftList = Get.arguments[0];
-  List openList = Get.arguments[1];
-  List reqList = Get.arguments[2];
-  List closeList = Get.arguments[3];
+  List draftList = login.draftList;
+  List openList = login.openList;
+  List reqList = login.reqList;
+  List closeList = login.closeList;
 
-  String id = Get.arguments[4];
-  String password = Get.arguments[5];
-  String userName = Get.arguments[6];
-  String email = Get.arguments[7];
-  String company = Get.arguments[8];
-  String authority = Get.arguments[9];
+  // String id = Get.arguments[4];
+  // String password = Get.arguments[5];
+  // String userName = Get.arguments[6];
+  // String email = Get.arguments[7];
+  // String company = Get.arguments[8];
+  // String authority = Get.arguments[9];
   // List data =
   //     Get.arguments[0] + Get.arguments[1] + Get.arguments[2] + Get.arguments[3];
 
@@ -77,12 +77,12 @@ class _ListFileState extends State<ListFile> {
                         print(data[index]);
                         Get.toNamed('/complete', arguments: [
                           data[index],
-                          id,
-                          password,
-                          userName,
-                          email,
-                          company,
-                          authority,
+                          //   id,
+                          //   password,
+                          //   userName,
+                          //   email,
+                          //   company,
+                          //   authority,
                         ]);
                       },
                       child: Text(

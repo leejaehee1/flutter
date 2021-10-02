@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 // import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import '../login.dart' as login;
 /*
 * name : Listreq Page
 * description : req data page
@@ -20,7 +20,7 @@ class ListReq extends StatefulWidget {
 }
 
 class _ListReqState extends State<ListReq> {
-  final List data = Get.arguments[2];
+  final List data = login.reqList;
 
   @override
   Widget build(BuildContext context) {

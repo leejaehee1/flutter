@@ -11,7 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/pages/utils/title_text.dart';
-
+import '../login.dart' as login;
 /*
 * name : PunchComplete Page
 * description : complete page
@@ -28,19 +28,18 @@ class PunchComplete extends StatefulWidget {
 }
 
 class _PunchCompleteState extends State<PunchComplete> {
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
 
   var data = Get.arguments[0];
-
-  var id = Get.arguments[1];
-  var password = Get.arguments[2];
-  var userName = Get.arguments[3];
-  var email = Get.arguments[4];
-  var company = Get.arguments[5];
-  var authority = Get.arguments[6];
-  var personalID = '';
-  var department = '';
+  var id = login.userID[0];
+  var password = login.password[0];
+  var userName = login.userName[0];
+  var email = login.email[0];
+  var company = login.company[0];
+  var authority = login.authority[0];
+  var personalID = login.personalID[0];
+  var department = login.department[0];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,16 +157,19 @@ class _PunchCompleteState extends State<PunchComplete> {
                   });
                   print('성공이욤');
 
-                  Get.offAllNamed('/home', arguments: [
-                    authority,
-                    id,
-                    password,
-                    userName,
-                    email,
-                    company,
-                    personalID,
-                    department
-                  ]);
+                  Get.offAllNamed(
+                    '/home',
+                    //  arguments: [
+                    //   authority,
+                    //   id,
+                    //   password,
+                    //   userName,
+                    //   email,
+                    //   company,
+                    //   personalID,
+                    //   department
+                    // ]
+                  );
                 },
                 child: Text(AppLocalizations.of(context)!.completePageButton2),
               ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+import '../login.dart' as login;
 /*
 * name : ListDraft Page
 * description : draft data page
@@ -19,7 +19,7 @@ class ListDraft extends StatefulWidget {
 }
 
 class _ListDraftState extends State<ListDraft> {
-  List data = Get.arguments[0];
+  List data = login.draftList;
   List categoryData = [];
   List disciplineData = [];
   List unitData = [];

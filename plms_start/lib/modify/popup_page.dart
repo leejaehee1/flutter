@@ -17,13 +17,13 @@ class PopUpPage extends StatefulWidget {
 }
 
 class _PopUpPageState extends State<PopUpPage> {
-  String id = Get.arguments[0];
-  String password = Get.arguments[1];
-  String userName = Get.arguments[2];
-  String email = Get.arguments[3];
-  String company = Get.arguments[4];
-  String personalID = Get.arguments[5];
-  String department = Get.arguments[6];
+  // String id = Get.arguments[0];
+  // String password = Get.arguments[1];
+  // String userName = Get.arguments[2];
+  // String email = Get.arguments[3];
+  // String company = Get.arguments[4];
+  // String personalID = Get.arguments[5];
+  // String department = Get.arguments[6];
 
   Widget build(BuildContext context) {
     return Container(
@@ -42,14 +42,14 @@ class _PopUpPageState extends State<PopUpPage> {
                     style: ElevatedButton.styleFrom(primary: Color(0xff304d5c)),
                     onPressed: () {
                       Get.offNamed('/modify', arguments: [
-                        id,
-                        password,
-                        userName,
-                        email,
-                        company,
-                        personalID,
-                        department,
-                        Get.arguments[7]
+                        // id,
+                        // password,
+                        // userName,
+                        // email,
+                        // company,
+                        // personalID,
+                        // department,
+                        // Get.arguments[7]
                       ]);
                     },
                     child: Text('Modify User Info'))),

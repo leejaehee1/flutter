@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../login.dart' as login;
+
 // import 'package:google_fonts/google_fonts.dart';
 
 /*
@@ -28,8 +30,22 @@ class _LoginPageState extends State<LoginPage> {
 
   late double headerTopZone;
 
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
+
+  @override
+  void initState() {
+    login.authority = [];
+    login.userID = [];
+    login.password = [];
+    login.userName = [];
+    login.email = [];
+    login.company = [];
+    login.personalID = [];
+    login.department = [];
+    super.initState();
+  }
+
   @override
   void dispose() {
     _idTextEditController.dispose();
@@ -160,17 +176,19 @@ class _LoginPageState extends State<LoginPage> {
           if (jsonData['result'] == false) {
             _showDialog();
           }
+
           if (jsonData['userID'] == _idTextEditController.text) {
-            Get.toNamed('/home', arguments: [
-              jsonData['authority'],
-              jsonData['userID'],
-              _pwTextEditController.text,
-              jsonData['userName'],
-              jsonData['email'],
-              jsonData['company'],
-              jsonData['personalID'] == null ? ' ' : jsonData['personalID'],
-              jsonData['department'] == null ? ' ' : jsonData['department'],
-            ]);
+            login.authority.add(jsonData['authority']);
+            login.userID.add(jsonData['userID']);
+            login.password.add(_pwTextEditController.text);
+            login.userName.add(jsonData['userName']);
+            login.email.add(jsonData['email']);
+            login.company.add(jsonData['company']);
+            login.personalID.add(
+                jsonData['personalID'] == null ? ' ' : jsonData['personalID']);
+            login.department.add(
+                jsonData['department'] == null ? ' ' : jsonData['department']);
+            Get.toNamed('/home');
           } else {
             _showDialog();
           }

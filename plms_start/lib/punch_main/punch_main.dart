@@ -10,6 +10,8 @@ import 'package:plms_start/punch_main/list_draft.dart';
 import 'package:plms_start/punch_main/list_file.dart';
 import 'package:plms_start/punch_main/list_open.dart';
 import 'package:plms_start/punch_main/list_req.dart';
+
+import '../login.dart' as login;
 // import 'package:plms_start/pages/utils/header_issue.dart';
 
 // import 'screen_punch.dart';
@@ -34,10 +36,10 @@ class _ScreenListState extends State<ScreenList>
   late TabController _tabController;
   int _currentIndex = 0;
 
-  List draftList = Get.arguments[0];
-  List openList = Get.arguments[1];
-  List reqList = Get.arguments[2];
-  List closeList = Get.arguments[3];
+  // List draftList = Get.arguments[0];
+  // List openList = Get.arguments[1];
+  // List reqList = Get.arguments[2];
+  // List closeList = Get.arguments[3];
   // String id = Get.arguments[4];
   // String password = Get.arguments[5];
   // String userName = Get.arguments[6];
@@ -67,10 +69,10 @@ class _ScreenListState extends State<ScreenList>
 
   @override
   Widget build(BuildContext context) {
-    int len = (draftList.length +
-        openList.length +
-        reqList.length +
-        closeList.length);
+    int len = (login.draftList.length +
+        login.openList.length +
+        login.reqList.length +
+        login.closeList.length);
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color(0xff2b3645),
@@ -81,16 +83,19 @@ class _ScreenListState extends State<ScreenList>
               Text(AppLocalizations.of(context)!.appTitle),
               IconButton(
                 onPressed: () {
-                  Get.toNamed('/popup', arguments: [
-                    Get.arguments[4], //id
-                    Get.arguments[5], //password
-                    Get.arguments[6], //userName
-                    Get.arguments[7], //email
-                    Get.arguments[8], //company
-                    Get.arguments[10], //department
-                    Get.arguments[11], //personalID
-                    Get.arguments[9], //authority
-                  ]);
+                  Get.toNamed(
+                    '/popup',
+                    // arguments: [
+                    //   Get.arguments[4], //id
+                    //   Get.arguments[5], //password
+                    //   Get.arguments[6], //userName
+                    //   Get.arguments[7], //email
+                    //   Get.arguments[8], //company
+                    //   Get.arguments[10], //department
+                    //   Get.arguments[11], //personalID
+                    //   Get.arguments[9], //authority
+                    // ]
+                  );
                   // Get.to(PopUpPage(), opaque: false);
                 },
                 icon: Icon(Icons.settings),
@@ -128,13 +133,13 @@ class _ScreenListState extends State<ScreenList>
                       _tabBars(0xff959595, AppLocalizations.of(context)!.tile1,
                           '$len', 0),
                       _tabBars(0xff7c4141, AppLocalizations.of(context)!.tile2,
-                          '${draftList.length}', 1),
+                          '${login.draftList.length}', 1),
                       _tabBars(0xffb88d6a, AppLocalizations.of(context)!.tile3,
-                          '${openList.length}', 2),
+                          '${login.openList.length}', 2),
                       _tabBars(0xff987ca1, AppLocalizations.of(context)!.tile4,
-                          '${reqList.length}', 3),
+                          '${login.reqList.length}', 3),
                       _tabBars(0xff637a8f, AppLocalizations.of(context)!.tile5,
-                          '${closeList.length}', 4),
+                          '${login.closeList.length}', 4),
                     ],
                   ),
                 ),

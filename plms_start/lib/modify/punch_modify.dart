@@ -9,7 +9,7 @@ import 'package:group_radio_button/group_radio_button.dart';
 import 'package:plms_start/pages/components/registrations/validate.dart';
 
 import 'package:http/http.dart' as http;
-
+import '../login.dart' as login;
 /*
 * name : ModifyPage
 * description : modify page
@@ -26,20 +26,20 @@ class ModifyPage extends StatefulWidget {
 }
 
 class _ModifyPageState extends State<ModifyPage> {
-  final _idTextEditController = TextEditingController(text: Get.arguments[0]);
+  final _idTextEditController = TextEditingController(text: login.userID[0]);
   final _pwTextEditController = TextEditingController();
   final _newpwTextEditController = TextEditingController();
   final _repwTextEditController = TextEditingController();
-  final _emailTextEditController =
-      TextEditingController(text: Get.arguments[3]);
-  final _comTextEditController = TextEditingController(text: Get.arguments[4]);
-  final _nameTextEditController = TextEditingController(text: Get.arguments[2]);
+  final _emailTextEditController = TextEditingController(text: login.email[0]);
+  final _comTextEditController = TextEditingController(text: login.company[0]);
+  final _nameTextEditController =
+      TextEditingController(text: login.userName[0]);
   final _personTextEditController =
-      TextEditingController(text: Get.arguments[5]);
+      TextEditingController(text: login.personalID[0]);
   // final _deptTextEditController = TextEditingController(text: Get.arguments[6]);
   // final _personalTextEditController = TextEditingController(text: 'hi');
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  var api = dotenv.env['EMUL_IP'];
 
   @override
   void initState() {
@@ -75,9 +75,9 @@ class _ModifyPageState extends State<ModifyPage> {
   bool isSwitched2 = false;
   bool isManager = false;
 
-  String _horizonGroupValue = Get.arguments[7] == '3'
+  String _horizonGroupValue = login.authority[0] == '3'
       ? 'Manager'
-      : Get.arguments[7] == '4'
+      : login.authority[0] == '4'
           ? 'QC'
           : 'Assignee';
 
@@ -95,7 +95,7 @@ class _ModifyPageState extends State<ModifyPage> {
   FocusNode _passwordFocus = new FocusNode();
   FocusNode _newpasswordFocus = new FocusNode();
 
-  String pwData = Get.arguments[1];
+  String pwData = login.password[0];
 
   final formKey = GlobalKey<FormState>();
 
@@ -144,7 +144,7 @@ class _ModifyPageState extends State<ModifyPage> {
                     var url = Uri.parse('$api/summury/update');
 
                     await http.post(url, body: {
-                      'userID': Get.arguments[0],
+                      'userID': login.userID[0],
                       'password': _newpwTextEditController.text,
                       "email": _emailTextEditController.text,
                       "company": _comTextEditController.text,
@@ -321,7 +321,7 @@ class _ModifyPageState extends State<ModifyPage> {
             enabled: isManager,
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
-            selectedItem: Get.arguments[6],
+            selectedItem: login.department[0],
             mode: Mode.MENU,
             items: deptName,
             showSelectedItem: true,
