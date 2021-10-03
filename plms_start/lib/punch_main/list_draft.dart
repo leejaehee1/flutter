@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../globals/login.dart' as login;
+import 'list_ontap.dart';
 /*
 * name : ListDraft Page
 * description : draft data page
@@ -20,17 +21,6 @@ class ListDraft extends StatefulWidget {
 
 class _ListDraftState extends State<ListDraft> {
   List data = login.draftList;
-  List categoryData = [];
-  List disciplineData = [];
-  List unitData = [];
-  List areaData = [];
-  List systemData = [];
-
-  List category = [];
-  List discipline = [];
-  List unit = [];
-  List area = [];
-  List system = [];
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +30,17 @@ class _ListDraftState extends State<ListDraft> {
       child: ListView.builder(
         itemCount: data.length,
         itemBuilder: (BuildContext context, var index) {
-          return ListComponent(
-              title: AppLocalizations.of(context)!.tile2,
-              data1:
-                  "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-              data2: data[index]['systemName'],
-              colors: 0xff7c4141);
+          return GestureDetector(
+            onTap: () {
+              Get.to(OntapPage(), arguments: index);
+            },
+            child: ListComponent(
+                title: AppLocalizations.of(context)!.tile2,
+                data1:
+                    "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+                data2: data[index]['systemName'],
+                colors: 0xff7c4141),
+          );
         },
       ),
     );
