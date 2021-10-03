@@ -35,14 +35,6 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
-/*
-  @override
-  void dispose() {
-    test();
-    super.dispose();
-  }
-*/
-
   // get punchList data
   Future<dynamic> test() async {
     String authority = login.authority[0];
@@ -50,16 +42,13 @@ class _HomeState extends State<Home> {
     var api = dotenv.env['EMUL_IP'];
 
     var categoryResponse = await http.get(
-      Uri.parse(
-          // 'http://10.0.2.2:5000/summury/category/',
-          "$api/summury/category/"),
+      Uri.parse("$api/summury/category/"),
     );
 
     var category = jsonDecode(categoryResponse.body);
     print(category.runtimeType);
     print(category[0]['category']);
     int len = category.length;
-    // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len; i++) {
@@ -69,9 +58,7 @@ class _HomeState extends State<Home> {
       });
 ///////////////////////////////
     var systemsResponse = await http.get(
-      Uri.parse(
-          // 'http://10.0.2.2:5000/summury/systems/',
-          "$api/summury/systems/"),
+      Uri.parse("$api/summury/systems/"),
     );
 
     var systems = jsonDecode(systemsResponse.body);
@@ -87,9 +74,7 @@ class _HomeState extends State<Home> {
       });
 /////////////////////////////
     var subsystemResponse = await http.get(
-      Uri.parse(
-          // 'http://10.0.2.2:5000/summury/subsystem/',
-          "$api/summury/subsystem/"),
+      Uri.parse("$api/summury/subsystem/"),
     );
 
     var subsystem = jsonDecode(subsystemResponse.body);
@@ -105,15 +90,12 @@ class _HomeState extends State<Home> {
       });
 ////////////////////////
     var disciplineResponse = await http.get(
-      Uri.parse(
-          // 'http://10.0.2.2:5000/summury/discipline/',
-          "$api/summury/discipline/"),
+      Uri.parse("$api/summury/discipline/"),
     );
 
     var discipline = jsonDecode(disciplineResponse.body);
     print(discipline[0]['discipline']);
     int len4 = discipline.length;
-    // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len4; i++) {
@@ -123,15 +105,12 @@ class _HomeState extends State<Home> {
       });
 
     var unitResponse = await http.get(
-      Uri.parse(
-          // 'http://10.0.2.2:5000/summury/discipline/',
-          "$api/summury/unit/"),
+      Uri.parse("$api/summury/unit/"),
     );
 
     var unit = jsonDecode(unitResponse.body);
     print(unit[0]['unit']);
     int len5 = unit.length;
-    // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len5; i++) {
@@ -141,15 +120,12 @@ class _HomeState extends State<Home> {
       });
 
     var areaResponse = await http.get(
-      Uri.parse(
-          // 'http://10.0.2.2:5000/summury/discipline/',
-          "$api/summury/area/"),
+      Uri.parse("$api/summury/area/"),
     );
 
     var area = jsonDecode(areaResponse.body);
     print(unit[0]['area']);
     int len6 = area.length;
-    // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len6; i++) {
@@ -167,7 +143,6 @@ class _HomeState extends State<Home> {
     var department = jsonDecode(departmentResponse.body);
     print(department[0]['department']);
     int len7 = department.length;
-    // dispose();
     if (mounted)
       this.setState(() {
         for (int i = 0; i < len7; i++) {
@@ -211,26 +186,8 @@ class _HomeState extends State<Home> {
           }
         });
 
-      Get.offAll(
-        () => ScreenList(),
-        // arguments: [
-        //   draftList,
-        //   openList,
-        //   reqList,
-        //   closeList,
-        //   id,
-        //   password,
-        //   userName,
-        //   email,
-        //   company,
-        //   authority,
-        //   personalID,
-        //   department,
-        // ]
-      );
+      Get.offAll(() => ScreenList());
     } else if (authority == "1") {
-      // var url = Uri.parse('http://172.30.1.42:5000/summury/sqlassi/');
-
       var url = Uri.parse('$api/summury/sqlassi/');
       var response = await http.post(url, body: {
         'userID': login.userID[0],
@@ -265,23 +222,7 @@ class _HomeState extends State<Home> {
           }
         });
 
-      Get.offAll(
-        () => ScreenList(),
-        // arguments: [
-        //   draftList,
-        //   openList,
-        //   reqList,
-        //   closeList,
-        //   id,
-        //   password,
-        //   userName,
-        //   email,
-        //   company,
-        //   authority,
-        //   personalID,
-        //   department,
-        // ]
-      );
+      Get.offAll(() => ScreenList());
     } else {
       var url = Uri.parse('$api/summury/sqlqc/');
       var response = await http.post(url, body: {
