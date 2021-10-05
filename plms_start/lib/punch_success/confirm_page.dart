@@ -15,6 +15,17 @@ class ConfirmPage extends StatefulWidget {
 }
 
 class _ConfirmPageState extends State<ConfirmPage> {
+  // String punchID = 'punchID';
+
+  // String date = 'date';
+
+  // String issuedBy = 'issuedBy';
+  // String unit = 'unit';
+  // String area = 'area';
+  // String system = 'system';
+  // String subsystem = 'subsystem';
+  // String tagnumber = 'tagnumber';
+  // String category = 'category';
   String punchID = globals.punch_issue_Punch_ID.length == 0
       ? 'punchID'
       : globals.punch_issue_Punch_ID[0];

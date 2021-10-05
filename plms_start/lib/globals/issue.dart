@@ -8,7 +8,7 @@
 
 library plms.issue;
 
-// user data
+// issue data
 List<String> categoryList = [];
 List<String> systemsList = [];
 List<String> subsystemList = [];
@@ -16,6 +16,7 @@ List<String> disciplineList = [];
 List<String> unitList = [];
 List<String> areaList = [];
 List<String> deptList = [];
+List<String> qcList = [];
 
 List<String> categoryNameList = [];
 List<String> systemsNameList = [];
@@ -24,4 +25,12 @@ List<String> disciplineNameList = [];
 List<String> unitNameList = [];
 List<String> areaNameList = [];
 List<String> deptNameList = [];
+
+List<String> categoryDataList = [];
+List<String> systemsDataList = [];
+List<String> subsystemDataList = [];
+List<String> disciplineDataList = [];
+List<String> unitDataList = [];
+List<String> areaDataList = [];
+List<String> deptDataList = [];
 // List punch_issue_Material = [];

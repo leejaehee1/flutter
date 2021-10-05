@@ -26,8 +26,8 @@ class ConfirmButton extends StatefulWidget {
 }
 
 class _ConfirmButtonState extends State<ConfirmButton> {
-  // var api = dotenv.env['PHONE_IP'];
-  var api = dotenv.env['EMUL_IP'];
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
   var buttonWidth = Get.width * 1 / 3.5;
   @override
   Widget build(BuildContext context) {

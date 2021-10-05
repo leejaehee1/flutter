@@ -39,42 +39,12 @@ class _ModifyPageState extends State<ModifyPage> {
       TextEditingController(text: login.personalID[0]);
   // final _deptTextEditController = TextEditingController(text: Get.arguments[6]);
   // final _personalTextEditController = TextEditingController(text: 'hi');
-  // var api = dotenv.env['PHONE_IP'];
-  var api = dotenv.env['EMUL_IP'];
-
-  // @override
-  // void initState() {
-  //   test();
-  //   super.initState();
-  // }
-
-  // Future<dynamic> test() async {
-  //   var uriResponse = await http.get(
-  //     Uri.parse(
-  //       // 'http://10.0.2.2:5000/api/department/',
-
-  //       '$api/summury/department/',
-  //     ),
-  //   );
-
-  //   var json = jsonDecode(uriResponse.body);
-  //   // print(json.runtimeType);
-  //   print(json[0]['deptName']);
-  //   // _items += json;
-  //   int len = json.length;
-  //   // dispose();
-  //   if (mounted)
-  //     this.setState(() {
-  //       for (int i = 0; i < len; i++) {
-  //         deptName += [json[i]['deptName']];
-  //         department += [json[i]['department']];
-  //       }
-  //     });
-  // }
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
 
   bool isSwitched = false;
   bool isSwitched2 = false;
-  bool isManager = false;
+  bool isManager = login.authority[0] == '3' ? true : false;
 
   String _horizonGroupValue = login.authority[0] == '3'
       ? 'Manager'
@@ -205,7 +175,7 @@ class _ModifyPageState extends State<ModifyPage> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(6),
                   child: Column(
                     children: [
                       _radioButton(),
@@ -337,10 +307,11 @@ class _ModifyPageState extends State<ModifyPage> {
             enabled: isManager,
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
-            selectedItem: login.department[0],
+            selectedItem: isManager == false ? '' : login.department[0],
             mode: Mode.MENU,
             items: deptName,
             showSelectedItem: true,
+
             // hint: AppLocalizations.of(context)!.signUpdeptselect,
             onChanged: (valued) {
               setState(() {

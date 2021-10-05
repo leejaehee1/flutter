@@ -33,12 +33,12 @@ class SuccessPage extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               topLeft: radius, bottomLeft: radius),
                         ),
-                        height: MediaQuery.of(context).size.height * 2.45 / 9,
+                        height: MediaQuery.of(context).size.height * 2.3 / 7,
                         width: Get.width * 1 / 50,
                       ),
                       Container(
                         padding: EdgeInsets.all(10),
-                        height: MediaQuery.of(context).size.height * 2.45 / 9,
+                        height: MediaQuery.of(context).size.height * 2.3 / 7,
                         width: Get.width - Get.width * 0.83 / 8,
                         decoration: BoxDecoration(
                           color: Colors.white,

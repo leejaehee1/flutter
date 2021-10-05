@@ -29,8 +29,8 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  // var api = dotenv.env['PHONE_IP'];
-  var api = dotenv.env['EMUL_IP'];
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
 
   @override
   void initState() {
@@ -283,7 +283,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(9.0),
+                  padding: const EdgeInsets.all(6.0),
                   child: Column(
                     children: [
                       _radioButton(),
@@ -373,9 +373,10 @@ class _SignUpPageState extends State<SignUpPage> {
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
 
-            mode: Mode.MENU,
+            mode: Mode.BOTTOM_SHEET,
             items: deptName,
             showSelectedItem: true,
+            selectedItem: isManager == false ? '' : deptName[0],
             // hint: AppLocalizations.of(context)!.signUpdeptselect,
             onChanged: (valued) {
               setState(() {
