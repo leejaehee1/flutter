@@ -38,8 +38,8 @@ class _HomeState extends State<Home> {
   // get punchList data
   Future<dynamic> test() async {
     String authority = login.authority[0];
-    // var api = dotenv.env['PHONE_IP'];
-    var api = dotenv.env['EMUL_IP'];
+    var api = dotenv.env['PHONE_IP'];
+    // var api = dotenv.env['EMUL_IP'];
 
     var categoryResponse = await http.get(
       Uri.parse("$api/summury/category/"),
@@ -54,6 +54,8 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len; i++) {
           issue.categoryList += [category[i]['category']];
           issue.categoryNameList += [category[i]['categoryName']];
+          issue.categoryDataList.add(
+              "${category[i]['category'].toString()}\n${category[i]['categoryName'].toString()}");
         }
       });
 ///////////////////////////////
@@ -70,6 +72,8 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len2; i++) {
           issue.systemsList += [systems[i]['systemID']];
           issue.systemsNameList += [systems[i]['systemName']];
+          issue.systemsDataList.add(
+              "${systems[i]['systemID'].toString()}\n${systems[i]['systemName'].toString()}");
         }
       });
 /////////////////////////////
@@ -86,6 +90,8 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len3; i++) {
           issue.subsystemList += [subsystem[i]['subsystem']];
           issue.subsystemNameList += [subsystem[i]['subsystemName']];
+          issue.subsystemDataList.add(
+              "${subsystem[i]['subsystem'].toString()}\n${subsystem[i]['subsystemName'].toString()}");
         }
       });
 ////////////////////////
@@ -101,6 +107,8 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len4; i++) {
           issue.disciplineList += [discipline[i]['discipline']];
           issue.disciplineNameList += [discipline[i]['disciplineName']];
+          issue.disciplineDataList.add(
+              "${discipline[i]['discipline'].toString()}\n${discipline[i]['disciplineName'].toString()}");
         }
       });
 
@@ -116,6 +124,8 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len5; i++) {
           issue.unitList += [unit[i]['unit']];
           issue.unitNameList += [unit[i]['unitName']];
+          issue.unitDataList.add(
+              "${unit[i]['unit'].toString()}\n${unit[i]['unitName'].toString()}");
         }
       });
 
@@ -131,6 +141,8 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len6; i++) {
           issue.areaList += [area[i]['area']];
           issue.areaNameList += [area[i]['areaName']];
+          issue.areaDataList.add(
+              "${area[i]['area'].toString()}\n${area[i]['areaName'].toString()}");
         }
       });
 
@@ -148,8 +160,29 @@ class _HomeState extends State<Home> {
         for (int i = 0; i < len7; i++) {
           issue.deptList += [department[i]['department']];
           issue.deptNameList += [department[i]['deptName']];
+          issue.deptDataList.add(
+              "${department[i]['department'].toString()}\n${department[i]['deptName'].toString()}");
         }
       });
+
+    var qcResponse = await http.get(
+      Uri.parse("$api/summury/userqc/"),
+    );
+
+    var qc = jsonDecode(qcResponse.body);
+    print(qc[0]['userName']);
+    int len8 = qc.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len8; i++) {
+          issue.qcList += [qc[i]['userName']];
+          // issue.systemsNameList += [qc[i]['systemName']];
+          // issue.systemsDataList.add(
+          //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
+        }
+      });
+
     print(issue.categoryList);
     print('중간!!!!!!!!!!!!!!');
     if (authority == "3") {

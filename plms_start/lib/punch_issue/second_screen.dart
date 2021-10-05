@@ -10,6 +10,7 @@ import '../pages/utils/title_text.dart';
 
 import '../globals/globals.dart' as globals;
 import '../globals/issue.dart' as issue;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
 * name : PageTwo
 * description : punch issue two page
@@ -26,15 +27,15 @@ class PageTwo extends StatefulWidget {
 }
 
 class _PageTwoState extends State<PageTwo> {
-  List actionon = issue.areaList;
-  List discipline = issue.disciplineList;
-  List raisedon = issue.deptList;
+  List actionon = issue.deptNameList;
+  List discipline = issue.disciplineNameList;
+  List raisedon = issue.qcList;
 
   @override
   void initState() {
-    globals.punch_issue_Action_On = [actionon[0]];
-    globals.punch_issue_Discipline = [discipline[0]];
-    globals.punch_issue_Raised_On = [raisedon[0]];
+    globals.punch_issue_Action_On = [issue.deptList[0]];
+    globals.punch_issue_Discipline = [issue.disciplineList[0]];
+    globals.punch_issue_Raised_On = [issue.qcList[0]];
     globals.punch_issue_Date = [];
     globals.punch_issue_Keyword = [];
     globals.punch_issue_Design = [];
@@ -52,22 +53,28 @@ class _PageTwoState extends State<PageTwo> {
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
+    // final containerSize = _getSize(_heightKey);
+    // double conHeight = containerSize.height;
     return Container(
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Row(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xffB7C5B9),
-                borderRadius:
-                    BorderRadius.only(topLeft: radius, bottomLeft: radius),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xffB7C5B9),
+                  borderRadius:
+                      BorderRadius.only(topLeft: radius, bottomLeft: radius),
+                ),
+                height: MediaQuery.of(context).size.height * 2.1 / 3,
+                width: Get.width * 1 / 50,
               ),
-              height: MediaQuery.of(context).size.height * 2.1 / 3,
-              width: Get.width * 1 / 50,
             ),
             Container(
+              // key: _heightKey,
+              // height: 500,
               height: MediaQuery.of(context).size.height * 2.1 / 3,
               width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
@@ -98,11 +105,12 @@ class _PageTwoState extends State<PageTwo> {
                     ),
                     Column(
                       children: [
-                        _dropdownButton('Action On', actionon),
+                        _dropdownButton('Action On', actionon, issue.deptList),
                         _size15(),
-                        _dropdownButton('Discipline', discipline),
+                        _dropdownButton(
+                            'Discipline', discipline, issue.disciplineList),
                         _size15(),
-                        _dropdownButton('Raised On', raisedon),
+                        _dropdownButton('Raised On', raisedon, issue.qcList),
                         _size15(),
                         _dataTime('Target Date'),
                         _size15(),
@@ -158,7 +166,7 @@ class _PageTwoState extends State<PageTwo> {
           child: DateTimePicker(
             dateMask: 'yyyy.MM.dd',
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.arrow_drop_down),
               isDense: true,
@@ -186,7 +194,7 @@ class _PageTwoState extends State<PageTwo> {
   }
 
   // 드롭다운버튼 Row
-  Widget _dropdownButton(String text, var data) {
+  Widget _dropdownButton(String text, var data1, var data2) {
     return Row(
       children: [
         SizedBox(
@@ -199,7 +207,7 @@ class _PageTwoState extends State<PageTwo> {
           // child: Newbutton(),
           child: DropdownSearch<String>(
             dropdownSearchDecoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              contentPadding: EdgeInsets.fromLTRB(5, 10, 0, 0),
               border: OutlineInputBorder(),
               isDense: true,
               // isCollapsed: true,
@@ -207,9 +215,9 @@ class _PageTwoState extends State<PageTwo> {
             ),
             dropDownButton: Icon(null),
             showSearchBox: true,
-            mode: Mode.MENU,
+            mode: Mode.BOTTOM_SHEET,
             showSelectedItem: true,
-            items: data,
+            items: data1,
             hint: "Menu mode",
             onChanged: (value) {
               // 1. global first, second, third 값을 모두 한방에 관리하는 방법
@@ -217,7 +225,14 @@ class _PageTwoState extends State<PageTwo> {
               // 3. 결론 : flutter 에 global key 활용
 
               print("confirm : " + value.toString());
-
+              print("confirm : " + value.toString());
+              for (var i = 0; i < data1.length; i++) {
+                if (value == data1[i]) {
+                  setState(() {
+                    value = data2[i];
+                  });
+                }
+              }
               if (text == "Action On") {
                 globals.punch_issue_Action_On.removeAt(0);
                 globals.punch_issue_Action_On.add(value.toString());
@@ -234,7 +249,7 @@ class _PageTwoState extends State<PageTwo> {
               print(globals.punch_issue_Discipline);
               print(globals.punch_issue_Raised_On);
             },
-            selectedItem: data[0],
+            selectedItem: data1[0],
           ),
         ),
       ],
@@ -334,7 +349,7 @@ class _PageTwoState extends State<PageTwo> {
             style: TextStyle(fontSize: 17),
             controller: controller,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
+              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
               border: OutlineInputBorder(),
 
               // helperText: helperText,
@@ -357,9 +372,7 @@ class _PageTwoState extends State<PageTwo> {
             icon: Icon(Icons.add),
             onPressed: () {
               if (contentList.length > 3) {
-                contentList.removeAt(0);
-                contentList.add(controller.text);
-                controller.clear();
+                _showDialog();
               } else {
                 contentList.add(controller.text);
                 controller.clear();
@@ -378,6 +391,36 @@ class _PageTwoState extends State<PageTwo> {
     );
   }
 
+// keyword 4개이상 에러 문구
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: new Text("You can't use more than 4 keywords."),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                new ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff71838D),
+                  ),
+                  child:
+                      new Text(AppLocalizations.of(context)!.loginDialogButton),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 // tagwidget
   Widget _tagWidget(String text, var controller) {
     return Column(
@@ -391,24 +434,28 @@ class _PageTwoState extends State<PageTwo> {
             SizedBox(
               width: Get.width * 1 / 3.6,
             ),
-            SimpleTags(
-              content: contentList,
-              // wrapSpacing: 4,
-              // wrapRunSpacing: 4,
-              onTagPress: (tag) {
-                setState(() {});
-                contentList.remove(tag);
-                globals.punch_issue_Keyword = [];
-                globals.punch_issue_Keyword = contentList;
-                print('pressed $tag');
-                print(globals.punch_issue_Keyword);
-              },
-              tagContainerPadding: EdgeInsets.all(6),
-              tagTextStyle: TextStyle(color: Colors.black),
-              tagIcon: Icon(Icons.clear, size: 12),
-              tagContainerDecoration: BoxDecoration(
-                color: Colors.grey[300],
-                border: Border.all(color: Colors.white),
+            Expanded(
+              child: SimpleTags(
+                // wrapDirection: Axis.vertical,
+                // tagTextOverflow: TextOverflow.fade,
+                content: contentList,
+                // wrapSpacing: 4,
+                // wrapRunSpacing: 4,
+                onTagPress: (tag) {
+                  setState(() {});
+                  contentList.remove(tag);
+                  globals.punch_issue_Keyword = [];
+                  globals.punch_issue_Keyword = contentList;
+                  print('pressed $tag');
+                  print(globals.punch_issue_Keyword);
+                },
+                tagContainerPadding: EdgeInsets.all(6),
+                tagTextStyle: TextStyle(color: Colors.black),
+                tagIcon: Icon(Icons.clear, size: 12),
+                tagContainerDecoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  border: Border.all(color: Colors.white),
+                ),
               ),
             ),
           ],

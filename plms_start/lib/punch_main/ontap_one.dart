@@ -253,7 +253,8 @@ class _OntapOneState extends State<OntapOne> {
             ),
             dropDownButton: Icon(null),
             showSearchBox: true,
-            mode: Mode.MENU,
+            mode: Mode.BOTTOM_SHEET,
+            maxHeight: Get.height * 1 / 3,
             showSelectedItem: true,
             items: data,
             hint: "Menu mode",
@@ -365,7 +366,6 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: _isTag,
               decoration: InputDecoration(
                 isDense: true,
                 border: OutlineInputBorder(),

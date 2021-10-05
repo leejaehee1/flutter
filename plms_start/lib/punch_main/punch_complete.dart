@@ -208,15 +208,15 @@ class _PunchCompleteState extends State<PunchComplete> {
                     });
                   },
                   icon: Icon(Icons.add_a_photo)),
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      print("value다!!!!!!!: $value");
-                      _imageList.add(value);
-                      print("된다");
-                    });
-                  },
-                  icon: Icon(Icons.check)),
+              // IconButton(
+              //     onPressed: () {
+              //       setState(() {
+              //         print("value다!!!!!!!: $value");
+              //         _imageList.add(value);
+              //         print("된다");
+              //       });
+              //     },
+              //     icon: Icon(Icons.check)),
             ],
           ),
 
