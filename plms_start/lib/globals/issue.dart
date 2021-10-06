@@ -9,6 +9,7 @@
 library plms.issue;
 
 // issue data
+List<String> projectList = [];
 List<String> categoryList = [];
 List<String> systemsList = [];
 List<String> subsystemList = [];
@@ -18,6 +19,7 @@ List<String> areaList = [];
 List<String> deptList = [];
 List<String> qcList = [];
 
+List<String> projectNameList = [];
 List<String> categoryNameList = [];
 List<String> systemsNameList = [];
 List<String> subsystemNameList = [];

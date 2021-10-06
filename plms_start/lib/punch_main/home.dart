@@ -31,6 +31,33 @@ class _HomeState extends State<Home> {
     login.reqList = [];
     login.closeList = [];
 
+    issue.projectList = [];
+    issue.categoryList = [];
+    issue.systemsList = [];
+    issue.subsystemList = [];
+    issue.disciplineList = [];
+    issue.unitList = [];
+    issue.areaList = [];
+    issue.deptList = [];
+    issue.qcList = [];
+
+    issue.projectNameList = [];
+    issue.categoryNameList = [];
+    issue.systemsNameList = [];
+    issue.subsystemNameList = [];
+    issue.disciplineNameList = [];
+    issue.unitNameList = [];
+    issue.areaNameList = [];
+    issue.deptNameList = [];
+
+    issue.categoryDataList = [];
+    issue.systemsDataList = [];
+    issue.subsystemDataList = [];
+    issue.disciplineDataList = [];
+    issue.unitDataList = [];
+    issue.areaDataList = [];
+    issue.deptDataList = [];
+
     test();
     super.initState();
   }
@@ -182,7 +209,25 @@ class _HomeState extends State<Home> {
           //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
         }
       });
+    String userIDs = login.userID[0];
+    var pjResponse = await http
+        .get(Uri.parse("$api/summury/project/"), headers: {'userID': userIDs});
 
+    var pj = jsonDecode(pjResponse.body);
+    print('pj!!!!!!!!!!!!!$pj');
+    int len9 = pj.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len9; i++) {
+          issue.projectList += [pj[i]['projectID']];
+          issue.projectNameList += [pj[i]['projectName']];
+          // issue.systemsDataList.add(
+          //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
+        }
+      });
+    print('되냐!!!!!!!!!!!!!!!!!!');
+    print(issue.projectList);
     print(issue.categoryList);
     print('중간!!!!!!!!!!!!!!');
     if (authority == "3") {
@@ -223,6 +268,7 @@ class _HomeState extends State<Home> {
     } else if (authority == "1") {
       var url = Uri.parse('$api/summury/sqlassi/');
       var response = await http.post(url, body: {
+        'projectID': issue.projectList[0],
         'userID': login.userID[0],
       });
 
