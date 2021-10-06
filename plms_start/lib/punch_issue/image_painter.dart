@@ -26,12 +26,42 @@ class _ImagePaintersState extends State<ImagePainters> {
 
   String imageData = Get.arguments;
   List _imageList = [];
-
+  // double _loadingcount = 0;
   //이미지 저장
+//   void saveImage() async {
+//     final image = await _imageKey.currentState!.exportImage();
+//     final directory = (await getApplicationSupportDirectory()).path;
+//     await Directory('$directory/sample').create(recursive: true);
+//     final fullPath =
+//         '$directory/sample/${DateTime.now().millisecondsSinceEpoch}.png';
+//     final imgFile = File('$fullPath');
+//     imgFile.writeAsBytesSync(image!);
+//     print(fullPath.runtimeType);
+//     print(imgFile);
+//     _imageList.add(imgFile);
+//     Get.back();
+
+//     print('간다!');
+// // 저장 알림 스낵바
+//     // ScaffoldMessenger.of(context).showSnackBar(
+//     //   SnackBar(
+//     //     backgroundColor: Colors.grey[700],
+//     //     padding: const EdgeInsets.only(left: 10),
+//     //     content: Row(
+//     //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//     //       children: [
+//     //         const Text("Image Exported successfully.",
+//     //             style: TextStyle(color: Colors.white)),
+//     //       ],
+//     //     ),
+//     //   ),
+//     // );
+//     Get.back(result: _imageList[0]);
+//   }
 
   void saveImage() async {
     final image = await _imageKey.currentState!.exportImage();
-    final directory = (await getApplicationDocumentsDirectory()).path;
+    final directory = (await getExternalStorageDirectory())!.path;
     await Directory('$directory/sample').create(recursive: true);
     final fullPath =
         '$directory/sample/${DateTime.now().millisecondsSinceEpoch}.png';
@@ -40,27 +70,48 @@ class _ImagePaintersState extends State<ImagePainters> {
     print(fullPath.runtimeType);
     print(imgFile);
     _imageList.add(imgFile);
-    // print(_imageList);
-    print('간다!');
-    // Get.back(result: _imageList[0].toString());
+    Get.back();
 
-    // 저장 알림 스낵바
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        backgroundColor: Colors.grey[700],
-        padding: const EdgeInsets.only(left: 10),
-        content: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text("Image Exported successfully.",
-                style: TextStyle(color: Colors.white)),
-            TextButton(
-                onPressed: () => OpenFile.open("$fullPath"),
-                child: Text("Open", style: TextStyle(color: Colors.blue[200])))
-          ],
-        ),
-      ),
+    print('간다!');
+// 저장 알림 스낵바
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     backgroundColor: Colors.grey[700],
+    //     padding: const EdgeInsets.only(left: 10),
+    //     content: Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //       children: [
+    //         const Text("Image Exported successfully.",
+    //             style: TextStyle(color: Colors.white)),
+    //       ],
+    //     ),
+    //   ),
+    // );
+    Get.back(result: _imageList[0]);
+  }
+
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: new Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              new CircularProgressIndicator(),
+              new Text("Loading"),
+            ],
+          ),
+        );
+      },
     );
+  }
+
+  void _printText() async {
+    // final directory = (await getApplicationSupportDirectory()).path;
+    final directory = (await getExternalStorageDirectory())!.path;
+    print(directory);
   }
 
   @override
@@ -74,12 +125,15 @@ class _ImagePaintersState extends State<ImagePainters> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.save_alt),
-                  onPressed: saveImage,
+                  onPressed: () {
+                    _onLoading();
+                    saveImage();
+                  },
                 ),
                 IconButton(
                   icon: const Icon(Icons.save),
                   onPressed: () {
-                    Get.back(result: _imageList[0]);
+                    _printText();
                   },
                 ),
               ],

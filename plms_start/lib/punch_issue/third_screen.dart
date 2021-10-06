@@ -87,7 +87,7 @@ class _PageThreeState extends State<PageThree> {
   // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
   // List<XFile> _imageList = [];
-  List _imageData = [];
+  List _imageData = globals.punch_issue_Photo;
   // late XFile value = Get.to(ImagePainters()) as XFile;
   bool status = false;
   // double len = [].length as double;
