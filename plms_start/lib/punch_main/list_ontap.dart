@@ -4,15 +4,15 @@ import 'package:get/get.dart';
 
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
-import 'package:plms_start/punch_issue/first_screen.dart';
-import 'package:plms_start/punch_issue/second_screen.dart';
-import 'package:plms_start/punch_issue/tabbar_screen.dart';
-import 'package:plms_start/punch_issue/third_screen.dart';
+// import 'package:plms_start/punch_issue/first_screen.dart';
+// import 'package:plms_start/punch_issue/second_screen.dart';
+// import 'package:plms_start/punch_issue/tabbar_screen.dart';
+// import 'package:plms_start/punch_issue/third_screen.dart';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import 'package:plms_start/punch_main/ontap_one.dart';
 import '../globals/globals.dart' as globals;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'ontap_three.dart';
 import 'ontap_two.dart';

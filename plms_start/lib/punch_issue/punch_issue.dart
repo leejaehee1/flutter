@@ -9,7 +9,7 @@ import 'package:plms_start/punch_issue/second_screen.dart';
 import 'package:plms_start/punch_issue/tabbar_screen.dart';
 import 'package:plms_start/punch_issue/third_screen.dart';
 
-import 'package:http/http.dart' as http;
+// import 'package:http/http.dart' as http;
 import '../globals/globals.dart' as globals;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -51,7 +51,7 @@ class _PunchScreenState extends State<PunchScreen>
     _scrollController.addListener(() {
       _onScroll();
     });
-
+    globals.punch_issue_Photo = [];
     super.initState();
   }
 
@@ -120,20 +120,20 @@ class _PunchScreenState extends State<PunchScreen>
   var api = dotenv.env['PHONE_IP'];
 
   // data send to server
-  void _updateGlobal() async {
-    var url = Uri.parse('$api/api/register');
-    await http.post(url, body: {
-      "punch_issue_Tag_Number": globals.punch_issue_Tag_Number,
-      "punch_issue_Bulk_Item": globals.punch_issue_Bulk_Item,
-      "punch_issue_Unit": globals.punch_issue_Unit,
-      "punch_issue_Area": globals.punch_issue_Area,
-      "punch_issue_Punch_ID": globals.punch_issue_Punch_ID,
-      "punch_issue_Description": globals.punch_issue_Description,
-      "punch_issue_Category": globals.punch_issue_Category,
-      "punch_issue_System": globals.punch_issue_System,
-      "punch_issue_Sub_System": globals.punch_issue_Sub_System
-    });
-  }
+  // void _updateGlobal() async {
+  //   var url = Uri.parse('$api/api/register');
+  //   await http.post(url, body: {
+  //     "punch_issue_Tag_Number": globals.punch_issue_Tag_Number,
+  //     "punch_issue_Bulk_Item": globals.punch_issue_Bulk_Item,
+  //     "punch_issue_Unit": globals.punch_issue_Unit,
+  //     "punch_issue_Area": globals.punch_issue_Area,
+  //     "punch_issue_Punch_ID": globals.punch_issue_Punch_ID,
+  //     "punch_issue_Description": globals.punch_issue_Description,
+  //     "punch_issue_Category": globals.punch_issue_Category,
+  //     "punch_issue_System": globals.punch_issue_System,
+  //     "punch_issue_Sub_System": globals.punch_issue_Sub_System
+  //   });
+  // }
 
   // 스크롤 알고리즘
   void _onScroll() {

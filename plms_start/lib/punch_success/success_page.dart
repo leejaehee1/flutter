@@ -8,9 +8,9 @@ import 'package:plms_start/pages/utils/header_issue.dart';
 // import 'components/screenList.dart';
 
 class SuccessPage extends StatelessWidget {
-  var radius = Radius.circular(10);
   @override
   Widget build(BuildContext context) {
+    var radius = Radius.circular(10);
     return Scaffold(
       body: Column(
         children: [
