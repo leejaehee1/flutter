@@ -52,6 +52,8 @@ class _PunchScreenState extends State<PunchScreen>
       _onScroll();
     });
     globals.punch_issue_Photo = [];
+    globals.punch_issue_Photo_Path = [];
+    globals.punch_issue_Photo_Name = [];
     super.initState();
   }
 
@@ -68,7 +70,9 @@ class _PunchScreenState extends State<PunchScreen>
               floating: true,
               // pinned: true,
               backgroundColor: Color(0xff2B3745),
-              title: CatalogAppBar(),
+              title: CatalogAppBar(
+                title: 'Punch Issue',
+              ),
             ),
             SliverAppBar(
               toolbarHeight: 90,

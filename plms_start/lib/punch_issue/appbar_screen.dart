@@ -10,6 +10,9 @@ import 'package:get/get.dart';
 * */
 
 class CatalogAppBar extends StatelessWidget {
+  CatalogAppBar({Key? key, required this.title}) : super(key: key);
+
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,7 +30,7 @@ class CatalogAppBar extends StatelessWidget {
                 icon: const Icon(Icons.arrow_back_ios_new_sharp),
               ),
               Text(
-                'Punch Issue',
+                title,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

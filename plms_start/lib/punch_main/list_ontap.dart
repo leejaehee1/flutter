@@ -47,7 +47,7 @@ class _OntapPageState extends State<OntapPage> with TickerProviderStateMixin {
               floating: true,
               // pinned: true,
               backgroundColor: Color(0xff2B3745),
-              title: CatalogAppBar(),
+              // title: CatalogAppBar(),
             ),
             SliverList(
               delegate: SliverChildListDelegate.fixed(
