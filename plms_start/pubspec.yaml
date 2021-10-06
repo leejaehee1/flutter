@@ -30,7 +30,8 @@ dependencies:
   image_painter: ^0.4.0
   open_file: ^3.2.1
   path_provider: ^2.0.4
-  
+  syncfusion_flutter_pdfviewer: ^19.3.44-beta
+  native_pdf_view: ^4.2.0
 
 dev_dependencies:
   flutter_test:
@@ -44,6 +45,7 @@ flutter:
     - assets/images/
     - assets/config/
     - assets/text/
+    - assets/pdf/
     # - .env
 
   # To add custom fonts to your application, add a fonts section here,

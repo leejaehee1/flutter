@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:plms_start/pages/utils/header_issue.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../globals/globals.dart' as globals;
 
@@ -56,6 +59,10 @@ class _DraftPageState extends State<DraftPage> {
     }).then((_) => setState(() {}));
     super.initState();
   }
+
+  final _pdfController = PdfController(
+    document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -165,12 +172,19 @@ class _DraftPageState extends State<DraftPage> {
                       // padding: EdgeInsets.all(15),
                       child: Stack(
                         children: <Widget>[
-                          Image.asset(
-                            'assets/images/punch_draft_sample.jpg',
+                          Container(
                             width: MediaQuery.of(context).size.width * 90 / 99,
                             height: MediaQuery.of(context).size.height,
-                            fit: BoxFit.fill,
+                            child: PdfView(
+                              controller: _pdfController,
+                            ),
                           ),
+                          // Image.asset(
+                          //   'assets/images/punch_draft_sample.jpg',
+                          //   width: MediaQuery.of(context).size.width * 90 / 99,
+                          //   height: MediaQuery.of(context).size.height,
+                          //   fit: BoxFit.fill,
+                          // ),
                           Transform.translate(
                             offset: Offset(cdx, cdy),
                             child: Container(
@@ -237,7 +251,7 @@ class _DraftPageState extends State<DraftPage> {
                       pixelList.removeAt(0);
                       pixelList.add([this.cdx, this.cdy]);
                     }
-                    print("pixelList: ${pixelList}");
+                    print("pixelList: $pixelList");
 
                     print("pixelList: ${pixelList[0][1]}");
                     globals.punch_issue_Pixel_X = [];
