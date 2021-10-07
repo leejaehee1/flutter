@@ -29,7 +29,9 @@ class _ImagePaintersState extends State<ImagePainters> {
   String imageData = Get.arguments;
   List _imageList = [];
   String projectID = issue.projectList[0];
-  String punchID = globals.punch_issue_Punch_ID[0];
+  String punchID = globals.punch_issue_Punch_ID.length == 0
+      ? 'PunchID'
+      : globals.punch_issue_Punch_ID[0];
   String userID = login.userID[0];
 
   // 이미지 저장 함수

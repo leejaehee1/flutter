@@ -355,7 +355,7 @@ class _PageThreeState extends State<PageThree> {
   }
 
   final _pdfController = PdfController(
-    document: PdfDocument.openAsset('assets/sample.pdf'),
+    document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
   );
 
   Widget _draftView() {
