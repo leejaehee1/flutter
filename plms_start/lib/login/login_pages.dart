@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     login.company = [];
     login.personalID = [];
     login.department = [];
+    print('login start!!!!!!!!!!!');
     super.initState();
   }
 

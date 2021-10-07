@@ -29,7 +29,9 @@ import 'punch_issue/draft_screen.dart';
 * */
 Future<void> main() async {
   await dotenv.load(fileName: 'assets/config/.env');
+  print('test run app!!!!!!!!!!!!!');
   runApp(MyApp());
+  print('Main end!!!!!!!!!!!!!');
 }
 
 class MyApp extends StatefulWidget {
