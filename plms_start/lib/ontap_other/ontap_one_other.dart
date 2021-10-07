@@ -17,66 +17,64 @@ import '../globals/punch_draft.dart' as draft;
 * last update : 2021-09-30
 * */
 
-class OntapOne extends StatefulWidget {
-  OntapOne({Key? key}) : super(key: key);
+class OntapFirst extends StatefulWidget {
+  OntapFirst({Key? key}) : super(key: key);
 
   @override
-  _OntapOneState createState() => _OntapOneState();
+  _OntapFirstState createState() => _OntapFirstState();
 }
 
-class _OntapOneState extends State<OntapOne> {
+class _OntapFirstState extends State<OntapFirst> {
   List<String> category = issue.categoryDataList;
   List<String> system = issue.systemsDataList;
   List<String> subsystem = issue.subsystemDataList;
 
-  int idx = Get.arguments;
+  int idx = Get.arguments[0];
 
-  List datas = login.draftList;
+  List datas = Get.arguments[1];
 
   String _horizonGroupValue = "Tag Number";
   List<String> _status = ['Tag Number', "Bulk Item"];
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
   var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
 
-  final _tagTextEditController = draft.punch_issue_Tag_Number.length == 1
-      ? TextEditingController(text: draft.punch_issue_Tag_Number[0])
-      : login.draftList[Get.arguments]['tagNumber'] == null
+  final _tagTextEditController =
+      Get.arguments[1][Get.arguments[0]]['tagNumber'] == null
           ? TextEditingController()
           : TextEditingController(
-              text: login.draftList[Get.arguments]['tagNumber']);
-  final _bulkTextEditController = draft.punch_issue_Bulk_Item.length == 1
-      ? TextEditingController(text: draft.punch_issue_Bulk_Item[0])
-      : login.draftList[Get.arguments]['bulkItem'] == null
+              text: Get.arguments[1][Get.arguments[0]]['tagNumber']);
+  final _bulkTextEditController =
+      Get.arguments[1][Get.arguments[0]]['bulkItem'] == null
           ? TextEditingController()
           : TextEditingController(
-              text: login.draftList[Get.arguments]['bulkItem']);
+              text: Get.arguments[1][Get.arguments[0]]['bulkItem']);
 
-  final _unitTextEditController = draft.punch_issue_Unit.length == 1
-      ? TextEditingController(text: draft.punch_issue_Unit[0])
-      : login.draftList[Get.arguments]['unit'] == null
-          ? TextEditingController()
-          : TextEditingController(text: login.draftList[Get.arguments]['unit']);
+  final _unitTextEditController = Get.arguments[1][Get.arguments[0]]['unit'] ==
+          null
+      ? TextEditingController()
+      : TextEditingController(text: Get.arguments[1][Get.arguments[0]]['unit']);
 
-  final _areaTextEditController = draft.punch_issue_Area.length == 1
-      ? TextEditingController(text: draft.punch_issue_Area[0])
-      : login.draftList[Get.arguments]['area'] == null
-          ? TextEditingController()
-          : TextEditingController(text: login.draftList[Get.arguments]['area']);
+  final _areaTextEditController = Get.arguments[1][Get.arguments[0]]['area'] ==
+          null
+      ? TextEditingController()
+      : TextEditingController(text: Get.arguments[1][Get.arguments[0]]['area']);
 
-  final _punchTextEditController = draft.punch_issue_Punch_ID.length == 1
-      ? TextEditingController(text: draft.punch_issue_Punch_ID[0])
-      : login.draftList[Get.arguments]['punchID'] == null
+  final _punchTextEditController =
+      Get.arguments[1][Get.arguments[0]]['punchID'] == null
           ? TextEditingController()
           : TextEditingController(
-              text: login.draftList[Get.arguments]['punchID']);
+              text: Get.arguments[1][Get.arguments[0]]['punchID']);
 
   final _descrpitionTextEditController =
-      draft.punch_issue_Description.length == 1
-          ? TextEditingController(text: draft.punch_issue_Description[0])
-          : login.draftList[Get.arguments]['issueDescription'] == null
-              ? TextEditingController()
-              : TextEditingController(
-                  text: login.draftList[Get.arguments]['issueDescription']);
+      Get.arguments[1][Get.arguments[0]]['issueDescription'] == null
+          ? TextEditingController()
+          : TextEditingController(
+              text: Get.arguments[1][Get.arguments[0]]['issueDescription']);
 
   Widget _size15() {
     return SizedBox(
@@ -140,7 +138,7 @@ class _OntapOneState extends State<OntapOne> {
                             color: Colors.grey[100],
                             child: Column(
                               children: [
-                                _radioButton(),
+                                // _radioButton(),
                                 Container(
                                   padding: EdgeInsets.only(
                                       left: 10, right: 10, bottom: 10),
@@ -164,13 +162,13 @@ class _OntapOneState extends State<OntapOne> {
                             )),
                         _size15(),
                         _dropdownButton('Category', category,
-                            issue.categoryList, draft.punch_issue_Category),
+                            issue.categoryList, 'category'),
                         _size15(),
-                        _dropdownButton('System', system, issue.systemsList,
-                            draft.punch_issue_System),
+                        _dropdownButton(
+                            'System', system, issue.systemsList, 'systemID'),
                         _size15(),
                         _dropdownButton('Sub-System', subsystem,
-                            issue.subsystemList, draft.punch_issue_Sub_System),
+                            issue.subsystemList, 'subsystem'),
                         _size15(),
                         // _size15(),
                         _unittextField('Unit', 'Create or Add',
@@ -246,6 +244,7 @@ class _OntapOneState extends State<OntapOne> {
         Container(
           // height: 100,
           child: TextField(
+              enabled: false,
               controller: controller,
               onChanged: (String str) {
                 setState(() {
@@ -273,7 +272,7 @@ class _OntapOneState extends State<OntapOne> {
   }
 
 // dropdown button
-  Widget _dropdownButton(String text, var data1, var data2, var data3) {
+  Widget _dropdownButton(String text, var data1, var data2, String text2) {
     return Row(
       children: [
         SizedBox(
@@ -285,6 +284,7 @@ class _OntapOneState extends State<OntapOne> {
           height: Get.height * 1.1 / 25,
           // child: Newbutton(),
           child: DropdownSearch<String>(
+            enabled: false,
             dropdownSearchDecoration: InputDecoration(
               contentPadding: edge,
 
@@ -329,7 +329,7 @@ class _OntapOneState extends State<OntapOne> {
               print(draft.punch_issue_System);
               print(draft.punch_issue_Sub_System);
             },
-            selectedItem: data3.length == 0 ? data2[0] : data3[0],
+            selectedItem: datas[idx][text2] != null ? datas[idx][text2] : '',
           ),
         ),
       ],
@@ -346,6 +346,7 @@ class _OntapOneState extends State<OntapOne> {
           width: Get.width * 2.2 / 5,
           height: Get.height * 1.1 / 25,
           child: TextField(
+              enabled: false,
               controller: controller,
               maxLines: 1,
               onChanged: (String str) {
@@ -384,13 +385,13 @@ class _OntapOneState extends State<OntapOne> {
                 //   horizontal: 2.5,
                 // ),
                 onPressed: () {
-                  setState(() {
-                    showModalBottomSheet(
-                      // isScrollControlled: true,
-                      context: context,
-                      builder: _bottomSheetUnit,
-                    );
-                  });
+                  // setState(() {
+                  //   showModalBottomSheet(
+                  //     // isScrollControlled: true,
+                  //     context: context,
+                  //     builder: _bottomSheetUnit,
+                  //   );
+                  // });
 
                   print(draft.punch_issue_Unit);
                 },
@@ -448,6 +449,7 @@ class _OntapOneState extends State<OntapOne> {
           width: Get.width * 2.2 / 5,
           height: Get.height * 1.1 / 25,
           child: TextField(
+              enabled: false,
               controller: controller,
               maxLines: 1,
               onChanged: (String str) {
@@ -486,15 +488,15 @@ class _OntapOneState extends State<OntapOne> {
                 //   horizontal: 2.5,
                 // ),
                 onPressed: () {
-                  setState(() {
-                    showModalBottomSheet(
-                      // isScrollControlled: true,
-                      context: context,
-                      builder: _bottomSheetArea,
-                    );
-                  });
+                  // setState(() {
+                  //   showModalBottomSheet(
+                  //     // isScrollControlled: true,
+                  //     context: context,
+                  //     builder: _bottomSheetArea,
+                  //   );
+                  // });
 
-                  print(draft.punch_issue_Area);
+                  // print(draft.punch_issue_Area);
                 },
                 icon: const Icon(
                   Icons.search,
@@ -557,6 +559,7 @@ class _OntapOneState extends State<OntapOne> {
               width: Get.width * 4 / 5,
               height: Get.height * 1.1 / 25,
               child: TextFormField(
+                  enabled: false,
                   controller: controller,
                   onChanged: (String str) {
                     setState(() {
@@ -593,6 +596,7 @@ class _OntapOneState extends State<OntapOne> {
           width: Get.width * 2.2 / 5,
           height: Get.height * 1.1 / 25,
           child: TextField(
+              enabled: false,
               controller: controller,
               onChanged: (String str) {
                 setState(() {
@@ -606,7 +610,7 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: globals.punch_issue_isTag,
+              // enabled: globals.punch_issue_isTag,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
@@ -641,7 +645,8 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: globals.punch_issue_isBulk,
+              enabled: false,
+              // enabled: globals.punch_issue_isBulk,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,

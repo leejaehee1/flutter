@@ -21,26 +21,26 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 * last update : 2021-09-30
 * */
 
-class OntapTwo extends StatefulWidget {
-  const OntapTwo({Key? key}) : super(key: key);
+class OntapSecond extends StatefulWidget {
+  const OntapSecond({Key? key}) : super(key: key);
 
   @override
-  _OntapTwoState createState() => _OntapTwoState();
+  _OntapSecondState createState() => _OntapSecondState();
 }
 
-class _OntapTwoState extends State<OntapTwo> {
+class _OntapSecondState extends State<OntapSecond> {
   List actionon = issue.deptNameList;
   List discipline = issue.disciplineNameList;
   List raisedon = issue.qcList;
 
   bool isSwitch1 =
-      login.draftList[Get.arguments]['designChgReq'] == 1 ? true : false;
+      login.draftList[Get.arguments[0]]['designChgReq'] == 1 ? true : false;
   bool isSwitch2 =
-      login.draftList[Get.arguments]['materialReq'] == 1 ? true : false;
+      login.draftList[Get.arguments[0]]['materialReq'] == 1 ? true : false;
 
-  int idx = Get.arguments;
+  int idx = Get.arguments[0];
 
-  List datas = login.draftList;
+  List datas = Get.arguments[1];
 
   List<String> contentList = [];
 
@@ -51,20 +51,19 @@ class _OntapTwoState extends State<OntapTwo> {
   void initState() {
     print('strat');
     for (var i = 0; i < 4; i++) {
-      if (datas[Get.arguments]['keyword${i + 1}'] != null) {
-        contentList.add(datas[Get.arguments]['keyword${i + 1}']);
+      if (datas[idx]['keyword${i + 1}'] != null) {
+        contentList.add(datas[idx]['keyword${i + 1}']);
       }
     }
     for (var i = 0; i < issue.deptList.length; i++) {
-      if (datas[Get.arguments]['department'] != null &&
-          datas[Get.arguments]['department'] == issue.deptList[i]) {
+      if (datas[idx]['department'] != null &&
+          datas[idx]['department'] == issue.deptList[i]) {
         departmentDraft.add(issue.deptNameList[i]);
       }
     }
     for (var i = 0; i < issue.disciplineList.length; i++) {
-      if (datas[Get.arguments]['discipline'] != null &&
-          datas[Get.arguments]['discipline'] ==
-              issue.disciplineList[i].toString()) {
+      if (datas[idx]['discipline'] != null &&
+          datas[idx]['discipline'] == issue.disciplineList[i].toString()) {
         disciplineDraft.add(issue.disciplineNameList[i]);
       }
       print(disciplineDraft);
@@ -191,6 +190,7 @@ class _OntapTwoState extends State<OntapTwo> {
           height: Get.height * 1.1 / 25,
           // child: Newbutton(),
           child: DateTimePicker(
+            enabled: false,
             dateMask: 'yyyy.MM.dd',
             decoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
@@ -233,6 +233,7 @@ class _OntapTwoState extends State<OntapTwo> {
           height: Get.height * 1.1 / 25,
           // child: Newbutton(),
           child: DropdownSearch<String>(
+              enabled: false,
               dropdownSearchDecoration: InputDecoration(
                 contentPadding: EdgeInsets.fromLTRB(5, 10, 0, 0),
                 border: OutlineInputBorder(),
@@ -277,12 +278,14 @@ class _OntapTwoState extends State<OntapTwo> {
                 print(draft.punch_issue_Raised_On);
               },
               selectedItem: text == "Action On" &&
-                      datas[Get.arguments]['department'] != null
+                      datas[idx]['department'] != null
                   ? departmentDraft[0]
-                  : text == "Discipline" &&
-                          datas[Get.arguments]['discipline'] != null
+                  : text == "Discipline" && datas[idx]['discipline'] != null
                       ? disciplineDraft[0]
-                      : ''
+                      : text == "Raised On" && datas[idx]['raisedBy'] != null
+                          ? datas[idx]['raisedBy']
+                          : ''
+
               // datas[idx][text2],
               ),
         ),
@@ -302,24 +305,25 @@ class _OntapTwoState extends State<OntapTwo> {
         Checkbox(
           value: isSwitch1,
           onChanged: (valued) {
-            setState(() {
-              isSwitch1 = valued!;
-              print(isSwitch1);
-              if (draft.punch_issue_Design.length == 0) {
-                if (isSwitch1 == true) {
-                  draft.punch_issue_Design.add('1');
-                } else {
-                  draft.punch_issue_Design.add('0');
-                }
-              } else {
-                draft.punch_issue_Design.removeAt(0);
-                if (isSwitch1 == true) {
-                  draft.punch_issue_Design.add('1');
-                } else {
-                  draft.punch_issue_Design.add('0');
-                }
-              }
-            });
+            // setState(() {
+            //   isSwitch1 = valued!;
+            //   print(isSwitch1);
+            //   if (draft.punch_issue_Design.length == 0) {
+            //     if (isSwitch1 == true) {
+            //       draft.punch_issue_Design.add('1');
+            //     } else {
+            //       draft.punch_issue_Design.add('0');
+            //     }
+            //   } else {
+            //     draft.punch_issue_Design.removeAt(0);
+            //     if (isSwitch1 == true) {
+            //       draft.punch_issue_Design.add('1');
+            //     } else {
+            //       draft.punch_issue_Design.add('0');
+            //     }
+            //   }
+            // }
+            // );
             print(draft.punch_issue_Design);
           },
           // activeTrackColor: Colors.yellow,
@@ -341,25 +345,25 @@ class _OntapTwoState extends State<OntapTwo> {
         Checkbox(
           value: isSwitch2,
           onChanged: (valued) {
-            setState(() {
-              isSwitch2 = valued!;
-              print(isSwitch2);
-              if (draft.punch_issue_Material.length == 0) {
-                if (isSwitch2 == true) {
-                  draft.punch_issue_Material.add('1');
-                } else {
-                  draft.punch_issue_Material.add('0');
-                }
-              } else {
-                draft.punch_issue_Material.removeAt(0);
-                if (isSwitch2 == true) {
-                  draft.punch_issue_Material.add('1');
-                } else {
-                  draft.punch_issue_Material.add('0');
-                }
-              }
-            });
-            print(draft.punch_issue_Material);
+            // setState(() {
+            //   isSwitch2 = valued!;
+            //   print(isSwitch2);
+            //   if (draft.punch_issue_Material.length == 0) {
+            //     if (isSwitch2 == true) {
+            //       draft.punch_issue_Material.add('1');
+            //     } else {
+            //       draft.punch_issue_Material.add('0');
+            //     }
+            //   } else {
+            //     draft.punch_issue_Material.removeAt(0);
+            //     if (isSwitch2 == true) {
+            //       draft.punch_issue_Material.add('1');
+            //     } else {
+            //       draft.punch_issue_Material.add('0');
+            //     }
+            //   }
+            // });
+            // print(draft.punch_issue_Material);
           },
           // activeTrackColor: Colors.yellow,
           activeColor: Colors.green,
@@ -380,6 +384,7 @@ class _OntapTwoState extends State<OntapTwo> {
           width: Get.width * 2.22 / 5,
           height: Get.height * 1.1 / 25,
           child: TextFormField(
+            enabled: false,
             style: TextStyle(fontSize: 17),
             controller: controller,
             decoration: InputDecoration(
@@ -405,19 +410,19 @@ class _OntapTwoState extends State<OntapTwo> {
             padding: EdgeInsets.all(2),
             icon: Icon(Icons.add),
             onPressed: () {
-              if (contentList.length > 3) {
-                _showDialog();
-              } else {
-                contentList.add(controller.text);
-                controller.clear();
-              }
+              // if (contentList.length > 3) {
+              //   _showDialog();
+              // } else {
+              //   contentList.add(controller.text);
+              //   controller.clear();
+              // }
 
-              draft.punch_issue_Keyword = [];
-              draft.punch_issue_Keyword = contentList;
+              // draft.punch_issue_Keyword = [];
+              // draft.punch_issue_Keyword = contentList;
 
-              setState(() {
-                print(draft.punch_issue_Keyword);
-              });
+              // setState(() {
+              //   print(draft.punch_issue_Keyword);
+              // });
             },
           ),
         )
@@ -475,17 +480,17 @@ class _OntapTwoState extends State<OntapTwo> {
                 content: contentList,
                 // wrapSpacing: 4,
                 // wrapRunSpacing: 4,
-                onTagPress: (tag) {
-                  setState(() {});
-                  contentList.remove(tag);
-                  draft.punch_issue_Keyword = [];
-                  draft.punch_issue_Keyword = contentList;
-                  print('pressed $tag');
-                  print(draft.punch_issue_Keyword);
-                },
+                // onTagPress: (tag) {
+                //   setState(() {});
+                //   contentList.remove(tag);
+                //   draft.punch_issue_Keyword = [];
+                //   draft.punch_issue_Keyword = contentList;
+                //   print('pressed $tag');
+                //   print(draft.punch_issue_Keyword);
+                // },
                 tagContainerPadding: EdgeInsets.all(6),
                 tagTextStyle: TextStyle(color: Colors.black),
-                tagIcon: Icon(Icons.clear, size: 12),
+                // tagIcon: Icon(Icons.clear, size: 12),
                 tagContainerDecoration: BoxDecoration(
                   color: Colors.grey[300],
                   border: Border.all(color: Colors.white),
