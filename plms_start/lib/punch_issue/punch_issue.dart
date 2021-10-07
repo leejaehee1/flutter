@@ -64,14 +64,15 @@ class _PunchScreenState extends State<PunchScreen>
     globals.punch_issue_Punch_ID = [];
     globals.punch_issue_Description = [];
 
-    globals.punch_issue_Action_On = [issue.deptList[0]];
-    globals.punch_issue_Discipline = [issue.disciplineList[0]];
-    globals.punch_issue_Raised_On = [issue.qcList[0]];
+    globals.punch_issue_Action_On = [];
+    globals.punch_issue_Discipline = [];
+    globals.punch_issue_Raised_On = [];
     globals.punch_issue_Date = [];
     globals.punch_issue_Keyword = [];
-    globals.punch_issue_Design = [];
-    globals.punch_issue_Material = [];
+    globals.punch_issue_Design = ['0'];
+    globals.punch_issue_Material = ['0'];
 
+    globals.punch_issue_Switch = true;
     globals.punch_issue_Photo = [];
     globals.punch_issue_Photo_Path = [];
     globals.punch_issue_Photo_Name = [];

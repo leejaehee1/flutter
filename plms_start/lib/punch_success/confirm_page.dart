@@ -26,33 +26,28 @@ class _ConfirmPageState extends State<ConfirmPage> {
   // String subsystem = 'subsystem';
   // String tagnumber = 'tagnumber';
   // String category = 'category';
-  String punchID = globals.punch_issue_Punch_ID.length == 0
-      ? 'punchID'
-      : globals.punch_issue_Punch_ID[0];
+  String punchID = globals.punch_issue_Punch_ID[0];
   String date = globals.punch_issue_Date.length == 0
       ? 'date'
       : globals.punch_issue_Date[0];
-  String issuedBy = globals.punch_issue_Action_On.length == 0
+  String issuedBy = globals.punch_issue_Raised_On.length == 0
       ? 'issuedBy'
-      : globals.punch_issue_Action_On[0];
+      : globals.punch_issue_Raised_On[0];
   String unit = globals.punch_issue_Unit.length == 0
       ? 'unit'
       : globals.punch_issue_Unit[0];
   String area = globals.punch_issue_Area.length == 0
       ? 'area'
       : globals.punch_issue_Area[0];
-  String system = globals.punch_issue_System.length == 0
-      ? 'system'
-      : globals.punch_issue_System[0];
-  String subsystem = globals.punch_issue_Sub_System.length == 0
-      ? 'subsystem'
-      : globals.punch_issue_Sub_System[0];
+  String system = globals.punch_issue_System[0];
+
+  String subsystem = globals.punch_issue_Sub_System[0];
+
   String tagnumber = globals.punch_issue_Tag_Number.length == 0
       ? 'tagnumber'
       : globals.punch_issue_Tag_Number[0];
-  String category = globals.punch_issue_Category.length == 0
-      ? 'category'
-      : globals.punch_issue_Category[0];
+
+  String category = globals.punch_issue_Category[0];
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
@@ -128,22 +123,38 @@ class _ConfirmPageState extends State<ConfirmPage> {
                                   ),
                                   Container(
                                     padding: EdgeInsets.all(10),
-                                    height: Get.height * 2.3 / 9,
+                                    // height: Get.height * 2.3 / 9,
                                     decoration: BoxDecoration(
                                         border: Border.all(color: Colors.grey)),
                                     child: Column(
                                       children: [
-                                        _rowData2('Unit', unit, 'Area', area),
+                                        _rowData2('Unit', unit),
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        _rowData2('System', system,
-                                            'Sub-system', subsystem),
+                                        _rowData2('Area', area),
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        _rowData2('Tag Number', tagnumber,
-                                            'Category', category),
+                                        _rowData2(
+                                          'System',
+                                          system,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        _rowData2('Sub-system', subsystem),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        _rowData2(
+                                          'Tag Number',
+                                          tagnumber,
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        _rowData2('Category', category),
                                       ],
                                     ),
                                   )
@@ -192,7 +203,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
     );
   }
 
-  Widget _rowData2(var title1, var data1, var title2, var data2) {
+  Widget _rowData2(var title1, var data1) {
     return Row(
       children: [
         Column(
@@ -206,19 +217,6 @@ class _ConfirmPageState extends State<ConfirmPage> {
                 )),
             Text(
               data1,
-              style: TextStyle(color: Colors.grey),
-            ),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title2,
-              style: TextStyle(color: Colors.grey),
-            ),
-            Text(
-              data2,
               style: TextStyle(color: Colors.grey),
             ),
           ],

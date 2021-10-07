@@ -159,7 +159,7 @@ class _PageTwoState extends State<PageTwo> {
               suffixIcon: Icon(Icons.arrow_drop_down),
               isDense: true,
             ),
-            initialValue: DateTime.now().toString(),
+            initialValue: '',
             firstDate: DateTime.now(),
             lastDate: DateTime(2100),
             // dateLabelText: 'Date',
@@ -222,14 +222,26 @@ class _PageTwoState extends State<PageTwo> {
                 }
               }
               if (text == "Action On") {
-                globals.punch_issue_Action_On.removeAt(0);
-                globals.punch_issue_Action_On.add(value.toString());
+                if (globals.punch_issue_Action_On.length == 1) {
+                  globals.punch_issue_Action_On.removeAt(0);
+                  globals.punch_issue_Action_On.add(value.toString());
+                } else {
+                  globals.punch_issue_Action_On.add(value.toString());
+                }
               } else if (text == "Discipline") {
-                globals.punch_issue_Discipline.removeAt(0);
-                globals.punch_issue_Discipline.add(value.toString());
-              } else if (text == "Raised On") {
-                globals.punch_issue_Raised_On.removeAt(0);
-                globals.punch_issue_Raised_On.add(value.toString());
+                if (globals.punch_issue_Discipline.length == 1) {
+                  globals.punch_issue_Discipline.removeAt(0);
+                  globals.punch_issue_Discipline.add(value.toString());
+                } else {
+                  globals.punch_issue_Discipline.add(value.toString());
+                }
+              } else if (text == 'Raised On') {
+                if (globals.punch_issue_Raised_On.length == 1) {
+                  globals.punch_issue_Raised_On.removeAt(0);
+                  globals.punch_issue_Raised_On.add(value.toString());
+                } else {
+                  globals.punch_issue_Raised_On.add(value.toString());
+                }
               }
               print("global 테스트");
               // print(value.);
@@ -237,7 +249,7 @@ class _PageTwoState extends State<PageTwo> {
               print(globals.punch_issue_Discipline);
               print(globals.punch_issue_Raised_On);
             },
-            selectedItem: data1[0],
+            selectedItem: '',
           ),
         ),
       ],
@@ -361,7 +373,7 @@ class _PageTwoState extends State<PageTwo> {
             onPressed: () {
               if (contentList.length > 3) {
                 _showDialog();
-              } else {
+              } else if (_tagTextEditController.text != '') {
                 contentList.add(controller.text);
                 controller.clear();
               }
