@@ -31,18 +31,6 @@ class _PageTwoState extends State<PageTwo> {
   List discipline = issue.disciplineNameList;
   List raisedon = issue.qcList;
 
-  @override
-  void initState() {
-    globals.punch_issue_Action_On = [issue.deptList[0]];
-    globals.punch_issue_Discipline = [issue.disciplineList[0]];
-    globals.punch_issue_Raised_On = [issue.qcList[0]];
-    globals.punch_issue_Date = [];
-    globals.punch_issue_Keyword = [];
-    globals.punch_issue_Design = [];
-    globals.punch_issue_Material = [];
-    super.initState();
-  }
-
   bool isSwitch1 = false;
   bool isSwitch2 = false;
 

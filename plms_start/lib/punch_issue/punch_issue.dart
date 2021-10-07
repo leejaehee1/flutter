@@ -11,6 +11,7 @@ import 'package:plms_start/punch_issue/third_screen.dart';
 
 // import 'package:http/http.dart' as http;
 import '../globals/globals.dart' as globals;
+import '../globals/issue.dart' as issue;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /*
@@ -51,6 +52,26 @@ class _PunchScreenState extends State<PunchScreen>
     _scrollController.addListener(() {
       _onScroll();
     });
+    globals.punch_issue_isTag = true;
+    globals.punch_issue_isBulk = false;
+    globals.punch_issue_Tag_Number = [];
+    globals.punch_issue_Bulk_Item = [];
+    globals.punch_issue_Category = [issue.categoryList[0]];
+    globals.punch_issue_System = [issue.systemsList[0]];
+    globals.punch_issue_Sub_System = [issue.subsystemList[0]];
+    globals.punch_issue_Unit = [];
+    globals.punch_issue_Area = [];
+    globals.punch_issue_Punch_ID = [];
+    globals.punch_issue_Description = [];
+
+    globals.punch_issue_Action_On = [issue.deptList[0]];
+    globals.punch_issue_Discipline = [issue.disciplineList[0]];
+    globals.punch_issue_Raised_On = [issue.qcList[0]];
+    globals.punch_issue_Date = [];
+    globals.punch_issue_Keyword = [];
+    globals.punch_issue_Design = [];
+    globals.punch_issue_Material = [];
+
     globals.punch_issue_Photo = [];
     globals.punch_issue_Photo_Path = [];
     globals.punch_issue_Photo_Name = [];
@@ -122,22 +143,6 @@ class _PunchScreenState extends State<PunchScreen>
   }
 
   var api = dotenv.env['PHONE_IP'];
-
-  // data send to server
-  // void _updateGlobal() async {
-  //   var url = Uri.parse('$api/api/register');
-  //   await http.post(url, body: {
-  //     "punch_issue_Tag_Number": globals.punch_issue_Tag_Number,
-  //     "punch_issue_Bulk_Item": globals.punch_issue_Bulk_Item,
-  //     "punch_issue_Unit": globals.punch_issue_Unit,
-  //     "punch_issue_Area": globals.punch_issue_Area,
-  //     "punch_issue_Punch_ID": globals.punch_issue_Punch_ID,
-  //     "punch_issue_Description": globals.punch_issue_Description,
-  //     "punch_issue_Category": globals.punch_issue_Category,
-  //     "punch_issue_System": globals.punch_issue_System,
-  //     "punch_issue_Sub_System": globals.punch_issue_Sub_System
-  //   });
-  // }
 
   // 스크롤 알고리즘
   void _onScroll() {

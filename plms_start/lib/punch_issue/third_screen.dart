@@ -292,6 +292,8 @@ class _PageThreeState extends State<PageThree> {
                   child: new Text("Yes"),
                   onPressed: () {
                     _imageData.removeAt(index);
+                    globals.punch_issue_Photo_Name.removeAt(index);
+                    globals.punch_issue_Photo_Path.removeAt(index);
                     globals.punch_issue_Photo = _imageData;
                     print(globals.punch_issue_Photo);
                     setState(() {});
@@ -337,8 +339,6 @@ class _PageThreeState extends State<PageThree> {
         await _picker.pickImage(source: ImageSource.camera);
     try {
       if (takenImage!.path.isNotEmpty) {
-        // Get.to(ImagePainters(), arguments: takenImage.path);
-        // _imageList.add(takenImage);
         final imageData =
             await Get.to(() => ImagePainters(), arguments: takenImage.path);
         if (imageData != null) {

@@ -29,22 +29,29 @@ class _PageOneState extends State<PageOne> {
 
   String _horizonGroupValue = "Tag Number";
   List<String> _status = ['Tag Number', "Bulk Item"];
-  bool _isTag = true;
-  bool _isBulk = false;
+
   var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
 
-  final _unitTextEditController = TextEditingController();
-  final _areaTextEditController = TextEditingController();
-  final _tagTextEditController = TextEditingController();
-  final _bulkTextEditController = TextEditingController();
+  final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
+      ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
+      : TextEditingController();
+  final _bulkTextEditController = globals.punch_issue_Bulk_Item.length == 1
+      ? TextEditingController(text: globals.punch_issue_Bulk_Item[0])
+      : TextEditingController();
 
-  @override
-  void initState() {
-    globals.punch_issue_Category = [issue.categoryList[0]];
-    globals.punch_issue_System = [issue.systemsList[0]];
-    globals.punch_issue_Sub_System = [issue.subsystemList[0]];
-    super.initState();
-  }
+  final _unitTextEditController = globals.punch_issue_Unit.length == 1
+      ? TextEditingController(text: globals.punch_issue_Unit[0])
+      : TextEditingController();
+  final _areaTextEditController = globals.punch_issue_Area.length == 1
+      ? TextEditingController(text: globals.punch_issue_Area[0])
+      : TextEditingController();
+  final _punchTextEditController = globals.punch_issue_Punch_ID.length == 1
+      ? TextEditingController(text: globals.punch_issue_Punch_ID[0])
+      : TextEditingController();
+  final _descrpitionTextEditController =
+      globals.punch_issue_Description.length == 1
+          ? TextEditingController(text: globals.punch_issue_Description[0])
+          : TextEditingController();
 
   Widget _size15() {
     return SizedBox(
@@ -131,13 +138,17 @@ class _PageOneState extends State<PageOne> {
                               ],
                             )),
                         _size15(),
-                        _dropdownButton(
-                            'Category', category, issue.categoryList),
+                        _dropdownButton('Category', category,
+                            issue.categoryList, globals.punch_issue_Category),
                         _size15(),
-                        _dropdownButton('System', system, issue.systemsList),
+                        _dropdownButton('System', system, issue.systemsList,
+                            globals.punch_issue_System),
                         _size15(),
                         _dropdownButton(
-                            'Sub-System', subsystem, issue.subsystemList),
+                            'Sub-System',
+                            subsystem,
+                            issue.subsystemList,
+                            globals.punch_issue_Sub_System),
                         _size15(),
                         // _size15(),
                         _unittextField('Unit', 'Create or Add',
@@ -147,10 +158,14 @@ class _PageOneState extends State<PageOne> {
                             globals.punch_issue_Area, _areaTextEditController),
                         _size15(),
                         _textFormField(
-                            'Punch ID', 'Add', globals.punch_issue_Punch_ID),
+                            'Punch ID',
+                            'Add',
+                            globals.punch_issue_Punch_ID,
+                            _punchTextEditController),
                         _size15(),
 
-                        _description(globals.punch_issue_Description),
+                        _description(globals.punch_issue_Description,
+                            _descrpitionTextEditController),
                       ],
                     ),
                   ],
@@ -171,15 +186,22 @@ class _PageOneState extends State<PageOne> {
       groupValue: _horizonGroupValue,
       onChanged: (value) => setState(() {
         _horizonGroupValue = value!;
-
+        print(value);
         if (value == _status[0]) {
-          _isTag = true;
-          _isBulk = false;
+          if (globals.punch_issue_Bulk_Item.length == 1) {
+            globals.punch_issue_Bulk_Item.removeAt(0);
+          }
+
           _bulkTextEditController.clear();
-        } else {
-          _isTag = false;
-          _isBulk = true;
+          globals.punch_issue_isTag = true;
+          globals.punch_issue_isBulk = false;
+        } else if (value == _status[1]) {
+          if (globals.punch_issue_Tag_Number.length == 1) {
+            globals.punch_issue_Tag_Number.removeAt(0);
+          }
           _tagTextEditController.clear();
+          globals.punch_issue_isTag = false;
+          globals.punch_issue_isBulk = true;
         }
       }),
       items: _status,
@@ -191,7 +213,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // description
-  Widget _description(var globaldata) {
+  Widget _description(var globaldata, var controller) {
     return Column(
       children: [
         Row(
@@ -202,6 +224,7 @@ class _PageOneState extends State<PageOne> {
         Container(
           // height: 100,
           child: TextField(
+              controller: controller,
               onChanged: (String str) {
                 setState(() {
                   if (globaldata.length == 0) {
@@ -228,7 +251,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // dropdown button
-  Widget _dropdownButton(String text, var data1, var data2) {
+  Widget _dropdownButton(String text, var data1, var data2, var data3) {
     return Row(
       children: [
         SizedBox(
@@ -284,7 +307,7 @@ class _PageOneState extends State<PageOne> {
               print(globals.punch_issue_System);
               print(globals.punch_issue_Sub_System);
             },
-            selectedItem: data2[0],
+            selectedItem: data3.length == 0 ? data2[0] : data3[0],
           ),
         ),
       ],
@@ -371,6 +394,13 @@ class _PageOneState extends State<PageOne> {
               onTap: () {
                 setState(() {
                   _unitTextEditController.text = issue.unitList[index];
+                  if (globals.punch_issue_Unit.length == 1) {
+                    globals.punch_issue_Unit.removeAt(0);
+                    globals.punch_issue_Unit.add(_unitTextEditController.text);
+                  } else {
+                    globals.punch_issue_Unit.add(_unitTextEditController.text);
+                  }
+
                   Get.back();
                 });
               },
@@ -442,7 +472,7 @@ class _PageOneState extends State<PageOne> {
                     );
                   });
 
-                  print(globals.punch_issue_Unit);
+                  print(globals.punch_issue_Area);
                 },
                 icon: const Icon(
                   Icons.search,
@@ -466,6 +496,13 @@ class _PageOneState extends State<PageOne> {
               onTap: () {
                 setState(() {
                   _areaTextEditController.text = issue.areaList[index];
+                  if (globals.punch_issue_Area.length == 1) {
+                    globals.punch_issue_Area.removeAt(0);
+                    globals.punch_issue_Area.add(_areaTextEditController.text);
+                  } else {
+                    globals.punch_issue_Area.add(_areaTextEditController.text);
+                  }
+
                   Get.back();
                 });
               },
@@ -484,7 +521,8 @@ class _PageOneState extends State<PageOne> {
   }
 
   // punchID text field
-  Widget _textFormField(String text, String hint, var globaldata) {
+  Widget _textFormField(
+      String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
         Column(
@@ -497,6 +535,7 @@ class _PageOneState extends State<PageOne> {
               width: Get.width * 4 / 5,
               height: Get.height * 1.1 / 25,
               child: TextFormField(
+                  controller: controller,
                   onChanged: (String str) {
                     setState(() {
                       if (globaldata.length == 0) {
@@ -545,7 +584,7 @@ class _PageOneState extends State<PageOne> {
                   print(globaldata);
                 });
               },
-              enabled: _isTag,
+              enabled: globals.punch_issue_isTag,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
@@ -580,7 +619,7 @@ class _PageOneState extends State<PageOne> {
                   print(globaldata);
                 });
               },
-              enabled: _isBulk,
+              enabled: globals.punch_issue_isBulk,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
