@@ -8,9 +8,11 @@ import 'package:simple_tags/simple_tags.dart';
 
 import '../pages/utils/title_text.dart';
 
+import '../globals/globals.dart' as globals;
 import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
 * name : PageTwo
 * description : punch issue two page
@@ -27,56 +29,60 @@ class OntapTwo extends StatefulWidget {
 }
 
 class _OntapTwoState extends State<OntapTwo> {
-  List actionon = issue.areaList;
-  List discipline = issue.disciplineList;
-  List raisedon = issue.deptList;
+  List actionon = issue.deptNameList;
+  List discipline = issue.disciplineNameList;
+  List raisedon = issue.qcList;
+
+  bool isSwitch1 =
+      login.draftList[Get.arguments]['designChgReq'] == 1 ? true : false;
+  bool isSwitch2 =
+      login.draftList[Get.arguments]['materialReq'] == 1 ? true : false;
 
   int idx = Get.arguments;
 
   List datas = login.draftList;
 
+  List<String> contentList = [];
+
   @override
   void initState() {
-    draft.punch_issue_Action_On = [actionon[0]];
-    draft.punch_issue_Discipline = [discipline[0]];
-    draft.punch_issue_Raised_On = [raisedon[0]];
-    draft.punch_issue_Date = [];
-    draft.punch_issue_Keyword = [];
-    draft.punch_issue_Design = [];
-    draft.punch_issue_Material = [];
-    contentList.add(datas[idx]['keyword1']);
-    contentList.add(datas[idx]['keyword2']);
-    contentList.add(datas[idx]['keyword3']);
-    // contentList.add(datas[idx]['keyword4']);
+    print('strat');
+    for (var i = 0; i < 4; i++) {
+      if (login.draftList[Get.arguments]['keyword${i + 1}'] != null) {
+        contentList.add(login.draftList[Get.arguments]['keyword${i + 1}']);
+      }
+    }
+    print('end!!!!!!!!!');
     super.initState();
   }
-
-  bool isSwitch1 = false;
-  bool isSwitch2 = false;
-
-  List<String> contentList = [];
 
   final _tagTextEditController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
+    // final containerSize = _getSize(_heightKey);
+    // double conHeight = containerSize.height;
     return Container(
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Row(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Color(0xffB7C5B9),
-                borderRadius:
-                    BorderRadius.only(topLeft: radius, bottomLeft: radius),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xffB7C5B9),
+                  borderRadius:
+                      BorderRadius.only(topLeft: radius, bottomLeft: radius),
+                ),
+                height: MediaQuery.of(context).size.height * 2.1 / 3,
+                width: Get.width * 1 / 50,
               ),
-              height: MediaQuery.of(context).size.height * 2.1 / 3,
-              width: Get.width * 1 / 50,
             ),
             Container(
+              // key: _heightKey,
+              // height: 500,
               height: MediaQuery.of(context).size.height * 2.1 / 3,
               width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
@@ -107,11 +113,14 @@ class _OntapTwoState extends State<OntapTwo> {
                     ),
                     Column(
                       children: [
-                        _dropdownButton('Action On', actionon),
+                        _dropdownButton('Action On', actionon, issue.deptList,
+                            "department"),
                         _size15(),
-                        _dropdownButton('Discipline', discipline),
+                        _dropdownButton('Discipline', discipline,
+                            issue.disciplineList, 'discipline'),
                         _size15(),
-                        _dropdownButton('Raised On', raisedon),
+                        _dropdownButton(
+                            'Raised On', raisedon, issue.qcList, 'raisedBy'),
                         _size15(),
                         _dataTime('Target Date'),
                         _size15(),
@@ -167,7 +176,7 @@ class _OntapTwoState extends State<OntapTwo> {
           child: DateTimePicker(
             dateMask: 'yyyy.MM.dd',
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.arrow_drop_down),
               isDense: true,
@@ -195,7 +204,7 @@ class _OntapTwoState extends State<OntapTwo> {
   }
 
   // 드롭다운버튼 Row
-  Widget _dropdownButton(String text, var data) {
+  Widget _dropdownButton(String text, var data1, var data2, String text2) {
     return Row(
       children: [
         SizedBox(
@@ -208,7 +217,7 @@ class _OntapTwoState extends State<OntapTwo> {
           // child: Newbutton(),
           child: DropdownSearch<String>(
             dropdownSearchDecoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              contentPadding: EdgeInsets.fromLTRB(5, 10, 0, 0),
               border: OutlineInputBorder(),
               isDense: true,
               // isCollapsed: true,
@@ -216,9 +225,9 @@ class _OntapTwoState extends State<OntapTwo> {
             ),
             dropDownButton: Icon(null),
             showSearchBox: true,
-            mode: Mode.MENU,
+            mode: Mode.BOTTOM_SHEET,
             showSelectedItem: true,
-            items: data,
+            items: data1,
             hint: "Menu mode",
             onChanged: (value) {
               // 1. global first, second, third 값을 모두 한방에 관리하는 방법
@@ -226,7 +235,14 @@ class _OntapTwoState extends State<OntapTwo> {
               // 3. 결론 : flutter 에 global key 활용
 
               print("confirm : " + value.toString());
-
+              print("confirm : " + value.toString());
+              for (var i = 0; i < data1.length; i++) {
+                if (value == data1[i]) {
+                  setState(() {
+                    value = data2[i];
+                  });
+                }
+              }
               if (text == "Action On") {
                 draft.punch_issue_Action_On.removeAt(0);
                 draft.punch_issue_Action_On.add(value.toString());
@@ -243,7 +259,7 @@ class _OntapTwoState extends State<OntapTwo> {
               print(draft.punch_issue_Discipline);
               print(draft.punch_issue_Raised_On);
             },
-            selectedItem: data[0],
+            selectedItem: datas[idx][text2],
           ),
         ),
       ],
@@ -343,7 +359,7 @@ class _OntapTwoState extends State<OntapTwo> {
             style: TextStyle(fontSize: 17),
             controller: controller,
             decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
+              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
               border: OutlineInputBorder(),
 
               // helperText: helperText,
@@ -366,9 +382,7 @@ class _OntapTwoState extends State<OntapTwo> {
             icon: Icon(Icons.add),
             onPressed: () {
               if (contentList.length > 3) {
-                contentList.removeAt(0);
-                contentList.add(controller.text);
-                controller.clear();
+                _showDialog();
               } else {
                 contentList.add(controller.text);
                 controller.clear();
@@ -387,6 +401,36 @@ class _OntapTwoState extends State<OntapTwo> {
     );
   }
 
+// keyword 4개이상 에러 문구
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: new Text("You can't use more than 4 keywords."),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                new ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xff71838D),
+                  ),
+                  child:
+                      new Text(AppLocalizations.of(context)!.loginDialogButton),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 // tagwidget
   Widget _tagWidget(String text, var controller) {
     return Column(
@@ -400,24 +444,28 @@ class _OntapTwoState extends State<OntapTwo> {
             SizedBox(
               width: Get.width * 1 / 3.6,
             ),
-            SimpleTags(
-              content: contentList,
-              // wrapSpacing: 4,
-              // wrapRunSpacing: 4,
-              onTagPress: (tag) {
-                setState(() {});
-                contentList.remove(tag);
-                draft.punch_issue_Keyword = [];
-                draft.punch_issue_Keyword = contentList;
-                print('pressed $tag');
-                print(draft.punch_issue_Keyword);
-              },
-              tagContainerPadding: EdgeInsets.all(6),
-              tagTextStyle: TextStyle(color: Colors.black),
-              tagIcon: Icon(Icons.clear, size: 12),
-              tagContainerDecoration: BoxDecoration(
-                color: Colors.grey[300],
-                border: Border.all(color: Colors.white),
+            Expanded(
+              child: SimpleTags(
+                // wrapDirection: Axis.vertical,
+                // tagTextOverflow: TextOverflow.fade,
+                content: contentList,
+                // wrapSpacing: 4,
+                // wrapRunSpacing: 4,
+                onTagPress: (tag) {
+                  setState(() {});
+                  contentList.remove(tag);
+                  draft.punch_issue_Keyword = [];
+                  draft.punch_issue_Keyword = contentList;
+                  print('pressed $tag');
+                  print(draft.punch_issue_Keyword);
+                },
+                tagContainerPadding: EdgeInsets.all(6),
+                tagTextStyle: TextStyle(color: Colors.black),
+                tagIcon: Icon(Icons.clear, size: 12),
+                tagContainerDecoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  border: Border.all(color: Colors.white),
+                ),
               ),
             ),
           ],

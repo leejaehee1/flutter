@@ -47,11 +47,16 @@ class _ListFileState extends State<ListFile> {
                 "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}";
             String data2 = data[index]['systemName'];
             if (data[index]['status'] == "1") {
-              return ListComponent(
-                  title: AppLocalizations.of(context)!.tile2,
-                  data1: data1,
-                  data2: data2,
-                  colors: 0xff7c4141);
+              return InkWell(
+                onTap: () {
+                  print(login.draftList[index]);
+                },
+                child: ListComponent(
+                    title: AppLocalizations.of(context)!.tile2,
+                    data1: data1,
+                    data2: data2,
+                    colors: 0xff7c4141),
+              );
             } else if (data[index]['status'] == "2" ||
                 data[index]['status'] == '5') {
               return GestureDetector(

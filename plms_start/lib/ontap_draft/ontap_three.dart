@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
@@ -86,22 +89,16 @@ class _OntapThreeState extends State<OntapThree> {
 
   // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
-  // List<XFile> _imageList = [];
-  List _imageData = [];
-  // late XFile value = Get.to(ImagePainters()) as XFile;
-  bool status = false;
-  // double len = [].length as double;
+  List _imageData = globals.punch_issue_Photo;
+  bool status = globals.punch_issue_Switch;
   Widget _imagePicker() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       height: 250,
-      // width: 1000,
-      // height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
           _swichWidget('Upload Images now'),
-          // SwitchButton(name: 'Upload Images now'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -112,7 +109,10 @@ class _OntapThreeState extends State<OntapThree> {
                       _showDialog2();
                     });
                   },
-                  icon: Icon(Icons.add_a_photo)),
+                  icon: Icon(
+                    Icons.add_a_photo,
+                    size: Get.height * 1 / 18,
+                  )),
             ],
           ),
           // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
@@ -292,6 +292,8 @@ class _OntapThreeState extends State<OntapThree> {
                   child: new Text("Yes"),
                   onPressed: () {
                     _imageData.removeAt(index);
+                    globals.punch_issue_Photo_Name.removeAt(index);
+                    globals.punch_issue_Photo_Path.removeAt(index);
                     globals.punch_issue_Photo = _imageData;
                     print(globals.punch_issue_Photo);
                     setState(() {});
@@ -337,8 +339,6 @@ class _OntapThreeState extends State<OntapThree> {
         await _picker.pickImage(source: ImageSource.camera);
     try {
       if (takenImage!.path.isNotEmpty) {
-        // Get.to(ImagePainters(), arguments: takenImage.path);
-        // _imageList.add(takenImage);
         final imageData =
             await Get.to(() => ImagePainters(), arguments: takenImage.path);
         if (imageData != null) {
@@ -353,6 +353,10 @@ class _OntapThreeState extends State<OntapThree> {
       setState(() {});
     } catch (e) {}
   }
+
+  final _pdfController = PdfController(
+    document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
+  );
 
   Widget _draftView() {
     return Expanded(
@@ -373,6 +377,7 @@ class _OntapThreeState extends State<OntapThree> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
                     onPressed: () {
+                      Get.toNamed("/draft");
                       // FileImage();
                     },
                     child: Text(
@@ -388,17 +393,22 @@ class _OntapThreeState extends State<OntapThree> {
               height: 10,
             ),
             InkWell(
-              onDoubleTap: () {
+              onLongPress: () {
                 setState(() {
                   Get.toNamed("/draft");
                 });
+              },
+              onDoubleTap: () {
+                setState(() {});
               },
               child: Container(
                 height: MediaQuery.of(context).size.width - 90,
                 decoration: BoxDecoration(
                   border: Border.all(),
                 ),
-                child: Image.asset("assets/images/punch_draft_sample.jpg"),
+                child: PdfView(
+                  controller: _pdfController,
+                ),
               ),
             )
           ],

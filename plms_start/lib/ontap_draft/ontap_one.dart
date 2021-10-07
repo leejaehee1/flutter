@@ -5,7 +5,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:group_radio_button/group_radio_button.dart';
 
 import 'package:plms_start/pages/utils/title_text.dart';
-// import '../globals/globals.dart' as globals;
+import '../globals/globals.dart' as globals;
 import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
@@ -25,36 +25,58 @@ class OntapOne extends StatefulWidget {
 }
 
 class _OntapOneState extends State<OntapOne> {
+  List<String> category = issue.categoryDataList;
+  List<String> system = issue.systemsDataList;
+  List<String> subsystem = issue.subsystemDataList;
+
   int idx = Get.arguments;
 
   List datas = login.draftList;
 
-  List<String> category = issue.categoryList;
-  List<String> system = issue.systemsList;
-  List<String> subsystem = issue.subsystemList;
-
   String _horizonGroupValue = "Tag Number";
   List<String> _status = ['Tag Number', "Bulk Item"];
-  bool _isTag = true;
-  bool _isBulk = false;
 
-  final _unitTextEditController =
-      TextEditingController(text: login.draftList[Get.arguments]['unit']);
-  final _areaTextEditController =
-      TextEditingController(text: login.draftList[Get.arguments]['area']);
-  final _punchIDTextEditController =
-      TextEditingController(text: login.draftList[Get.arguments]['punchID']);
-  @override
-  void initState() {
-    draft.punch_issue_Category = [datas[idx]['category']];
-    draft.punch_issue_System = [datas[idx]['systemID']];
-    draft.punch_issue_Sub_System = [datas[idx]['subsystem']];
-    draft.punch_issue_Unit = [datas[idx]['unit']];
-    draft.punch_issue_Area = [datas[idx]['area']];
-    draft.punch_issue_Punch_ID = [datas[idx]['punchID']];
-    // draft.punch_issue_Description = [datas[idx]['']];
-    super.initState();
-  }
+  var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
+
+  final _tagTextEditController = draft.punch_issue_Tag_Number.length == 1
+      ? TextEditingController(text: draft.punch_issue_Tag_Number[0])
+      : login.draftList[Get.arguments]['tagNumber'] == null
+          ? TextEditingController()
+          : TextEditingController(
+              text: login.draftList[Get.arguments]['tagNumber']);
+  final _bulkTextEditController = draft.punch_issue_Bulk_Item.length == 1
+      ? TextEditingController(text: draft.punch_issue_Bulk_Item[0])
+      : login.draftList[Get.arguments]['bulkItem'] == null
+          ? TextEditingController()
+          : TextEditingController(
+              text: login.draftList[Get.arguments]['bulkItem']);
+
+  final _unitTextEditController = draft.punch_issue_Unit.length == 1
+      ? TextEditingController(text: draft.punch_issue_Unit[0])
+      : login.draftList[Get.arguments]['unit'] == null
+          ? TextEditingController()
+          : TextEditingController(text: login.draftList[Get.arguments]['unit']);
+
+  final _areaTextEditController = draft.punch_issue_Area.length == 1
+      ? TextEditingController(text: draft.punch_issue_Area[0])
+      : login.draftList[Get.arguments]['area'] == null
+          ? TextEditingController()
+          : TextEditingController(text: login.draftList[Get.arguments]['area']);
+
+  final _punchTextEditController = draft.punch_issue_Punch_ID.length == 1
+      ? TextEditingController(text: draft.punch_issue_Punch_ID[0])
+      : login.draftList[Get.arguments]['punchID'] == null
+          ? TextEditingController()
+          : TextEditingController(
+              text: login.draftList[Get.arguments]['punchID']);
+
+  final _descrpitionTextEditController =
+      draft.punch_issue_Description.length == 1
+          ? TextEditingController(text: draft.punch_issue_Description[0])
+          : login.draftList[Get.arguments]['issueDescription'] == null
+              ? TextEditingController()
+              : TextEditingController(
+                  text: login.draftList[Get.arguments]['issueDescription']);
 
   Widget _size15() {
     return SizedBox(
@@ -78,11 +100,11 @@ class _OntapOneState extends State<OntapOne> {
                 borderRadius:
                     BorderRadius.only(topLeft: radius, bottomLeft: radius),
               ),
-              height: MediaQuery.of(context).size.height,
+              height: Get.height + Get.height * 0.05,
               width: Get.width * 1 / 50,
             ),
             Container(
-              height: MediaQuery.of(context).size.height,
+              height: Get.height + Get.height * 0.05,
               width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -124,38 +146,48 @@ class _OntapOneState extends State<OntapOne> {
                                       left: 10, right: 10, bottom: 10),
                                   child: Column(
                                     children: [
-                                      _textField2('Tag Number', 'Create or Add',
-                                          draft.punch_issue_Tag_Number),
+                                      _textField2(
+                                          'Tag Number',
+                                          'Create or Add',
+                                          globals.punch_issue_Tag_Number,
+                                          _tagTextEditController),
                                       _size15(),
-                                      _textField3('Bulk Item', '',
-                                          draft.punch_issue_Bulk_Item),
+                                      _textField3(
+                                          'Bulk Item',
+                                          '',
+                                          globals.punch_issue_Bulk_Item,
+                                          _bulkTextEditController),
                                     ],
                                   ),
                                 ),
                               ],
                             )),
                         _size15(),
-                        _dropdownButton('Category', category, 'category'),
+                        _dropdownButton('Category', category,
+                            issue.categoryList, draft.punch_issue_Category),
                         _size15(),
-                        _dropdownButton('System', system, 'systemID'),
+                        _dropdownButton('System', system, issue.systemsList,
+                            draft.punch_issue_System),
                         _size15(),
-                        _dropdownButton('Sub-System', subsystem, 'subsystem'),
+                        _dropdownButton('Sub-System', subsystem,
+                            issue.subsystemList, draft.punch_issue_Sub_System),
                         _size15(),
                         // _size15(),
-                        _textField('Unit', 'Create or Add',
+                        _unittextField('Unit', 'Create or Add',
                             draft.punch_issue_Unit, _unitTextEditController),
                         _size15(),
-                        _textField('Area', 'Create or Add',
+                        _areatextField('Area', 'Create or Add',
                             draft.punch_issue_Area, _areaTextEditController),
                         _size15(),
                         _textFormField(
                             'Punch ID',
                             'Add',
                             draft.punch_issue_Punch_ID,
-                            _punchIDTextEditController),
+                            _punchTextEditController),
                         _size15(),
 
-                        _description(draft.punch_issue_Description),
+                        _description(draft.punch_issue_Description,
+                            _descrpitionTextEditController),
                       ],
                     ),
                   ],
@@ -176,13 +208,22 @@ class _OntapOneState extends State<OntapOne> {
       groupValue: _horizonGroupValue,
       onChanged: (value) => setState(() {
         _horizonGroupValue = value!;
-
+        print(value);
         if (value == _status[0]) {
-          _isTag = true;
-          _isBulk = false;
-        } else {
-          _isTag = false;
-          _isBulk = true;
+          if (globals.punch_issue_Bulk_Item.length == 1) {
+            draft.punch_issue_Bulk_Item.removeAt(0);
+          }
+
+          _bulkTextEditController.clear();
+          globals.punch_issue_isTag = true;
+          globals.punch_issue_isBulk = false;
+        } else if (value == _status[1]) {
+          if (draft.punch_issue_Tag_Number.length == 1) {
+            draft.punch_issue_Tag_Number.removeAt(0);
+          }
+          _tagTextEditController.clear();
+          globals.punch_issue_isTag = false;
+          globals.punch_issue_isBulk = true;
         }
       }),
       items: _status,
@@ -194,7 +235,7 @@ class _OntapOneState extends State<OntapOne> {
   }
 
 // description
-  Widget _description(var globaldata) {
+  Widget _description(var globaldata, var controller) {
     return Column(
       children: [
         Row(
@@ -205,6 +246,7 @@ class _OntapOneState extends State<OntapOne> {
         Container(
           // height: 100,
           child: TextField(
+              controller: controller,
               onChanged: (String str) {
                 setState(() {
                   if (globaldata.length == 0) {
@@ -231,7 +273,7 @@ class _OntapOneState extends State<OntapOne> {
   }
 
 // dropdown button
-  Widget _dropdownButton(String text, var data, String name) {
+  Widget _dropdownButton(String text, var data1, var data2, var data3) {
     return Row(
       children: [
         SizedBox(
@@ -244,19 +286,18 @@ class _OntapOneState extends State<OntapOne> {
           // child: Newbutton(),
           child: DropdownSearch<String>(
             dropdownSearchDecoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+              contentPadding: edge,
+
               border: OutlineInputBorder(),
-              // prefixText: 'hi',
-              // isDense: true,
+              isDense: true,
               // isCollapsed: true,
               suffixIcon: Icon(Icons.arrow_drop_down),
             ),
             dropDownButton: Icon(null),
             showSearchBox: true,
             mode: Mode.BOTTOM_SHEET,
-            maxHeight: Get.height * 1 / 3,
             showSelectedItem: true,
-            items: data,
+            items: data1,
             hint: "Menu mode",
             onChanged: (value) {
               // 1. global first, second, third 값을 모두 한방에 관리하는 방법
@@ -264,6 +305,13 @@ class _OntapOneState extends State<OntapOne> {
               // 3. 결론 : flutter 에 global key 활용
 
               print("confirm : " + value.toString());
+              for (var i = 0; i < data1.length; i++) {
+                if (value == data1[i]) {
+                  setState(() {
+                    value = data2[i];
+                  });
+                }
+              }
 
               if (text == "Category") {
                 draft.punch_issue_Category.removeAt(0);
@@ -281,21 +329,22 @@ class _OntapOneState extends State<OntapOne> {
               print(draft.punch_issue_System);
               print(draft.punch_issue_Sub_System);
             },
-            selectedItem: datas[idx][name],
+            selectedItem: data3.length == 0 ? data2[0] : data3[0],
           ),
         ),
       ],
     );
   }
 
-// textfield
-  Widget _textField(String text, String hint, var globaldata, var controller) {
+// unit textfield
+  Widget _unittextField(
+      String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
-        SizedBox(width: 100, child: Text(text)),
+        Container(width: Get.width * 1 / 3.6, child: Text(text)),
         SizedBox(
-          width: 160,
-          height: 30,
+          width: Get.width * 2.2 / 5,
+          height: Get.height * 1.1 / 25,
           child: TextField(
               controller: controller,
               maxLines: 1,
@@ -313,6 +362,7 @@ class _OntapOneState extends State<OntapOne> {
               },
               // controller: controller,
               decoration: InputDecoration(
+                contentPadding: edge,
                 isDense: true,
                 border: OutlineInputBorder(),
                 hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
@@ -334,6 +384,14 @@ class _OntapOneState extends State<OntapOne> {
                 //   horizontal: 2.5,
                 // ),
                 onPressed: () {
+                  setState(() {
+                    showModalBottomSheet(
+                      // isScrollControlled: true,
+                      context: context,
+                      builder: _bottomSheetUnit,
+                    );
+                  });
+
                   print(draft.punch_issue_Unit);
                 },
                 icon: const Icon(
@@ -344,48 +402,54 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-  Widget _textFormField(
-      String text, String hint, var globaldata, var controller) {
-    return Row(
-      children: [
-        SizedBox(width: 100, child: Text(text)),
-        SizedBox(
-          width: 195,
-          height: 30,
-          child: TextFormField(
-              controller: controller,
-              onChanged: (String str) {
+// botton sheet unit
+  Widget _bottomSheetUnit(BuildContext context) {
+    var data = issue.unitDataList;
+    return Container(
+      height: Get.height * 1.55 / 3,
+      padding: EdgeInsets.all(10),
+      child: ListView.builder(
+          // scrollDirection: Axis.vertical,
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, var index) {
+            return GestureDetector(
+              onTap: () {
                 setState(() {
-                  if (globaldata.length == 0) {
-                    globaldata.add(str);
+                  _unitTextEditController.text = issue.unitList[index];
+                  if (draft.punch_issue_Unit.length == 1) {
+                    draft.punch_issue_Unit.removeAt(0);
+                    draft.punch_issue_Unit.add(_unitTextEditController.text);
                   } else {
-                    globaldata.removeAt(0);
-                    globaldata.add(str);
+                    draft.punch_issue_Unit.add(_unitTextEditController.text);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
+
+                  Get.back();
                 });
               },
-              decoration: InputDecoration(
-                isDense: true,
-                border: OutlineInputBorder(),
-                hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
-                hintText: hint,
-              )),
-        ),
-      ],
+              child: Container(
+                width: Get.width,
+                child: Text(
+                  data[index],
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            );
+          }),
     );
   }
 
-// textfield tag number
-  Widget _textField2(String text, String hint, var globaldata) {
+// area text
+  Widget _areatextField(
+      String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
-        SizedBox(width: 100, child: Text(text)),
+        Container(width: Get.width * 1 / 3.6, child: Text(text)),
         SizedBox(
-          width: 122,
-          height: 30,
+          width: Get.width * 2.2 / 5,
+          height: Get.height * 1.1 / 25,
           child: TextField(
+              controller: controller,
+              maxLines: 1,
               onChanged: (String str) {
                 setState(() {
                   if (globaldata.length == 0) {
@@ -398,8 +462,9 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: _isTag,
+              // controller: controller,
               decoration: InputDecoration(
+                contentPadding: edge,
                 isDense: true,
                 border: OutlineInputBorder(),
                 hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
@@ -420,7 +485,17 @@ class _OntapOneState extends State<OntapOne> {
                 //   vertical: 2.5,
                 //   horizontal: 2.5,
                 // ),
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    showModalBottomSheet(
+                      // isScrollControlled: true,
+                      context: context,
+                      builder: _bottomSheetArea,
+                    );
+                  });
+
+                  print(draft.punch_issue_Area);
+                },
                 icon: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -429,15 +504,96 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// textfield bulk
-  Widget _textField3(String text, String hint, var globaldata) {
+// botton sheet area
+  Widget _bottomSheetArea(BuildContext context) {
+    var data = issue.areaDataList;
+    return Container(
+      height: Get.height * 1.55 / 3,
+      padding: EdgeInsets.all(10),
+      child: ListView.builder(
+          // scrollDirection: Axis.vertical,
+          itemCount: data.length,
+          itemBuilder: (BuildContext context, var index) {
+            return GestureDetector(
+              onTap: () {
+                setState(() {
+                  _areaTextEditController.text = issue.areaList[index];
+                  if (draft.punch_issue_Area.length == 1) {
+                    draft.punch_issue_Area.removeAt(0);
+                    draft.punch_issue_Area.add(_areaTextEditController.text);
+                  } else {
+                    draft.punch_issue_Area.add(_areaTextEditController.text);
+                  }
+
+                  Get.back();
+                });
+              },
+              child: Container(
+                // width: Get.width,
+                // color: Colors.red,
+                height: Get.height * 2 / 20,
+                child: Text(
+                  data[index],
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            );
+          }),
+    );
+  }
+
+  // punchID text field
+  Widget _textFormField(
+      String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
-        SizedBox(width: 100, child: Text(text)),
-        SizedBox(
-          width: 157,
-          height: 30,
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(child: Text(text)),
+            _size15(),
+            Container(
+              width: Get.width * 4 / 5,
+              height: Get.height * 1.1 / 25,
+              child: TextFormField(
+                  controller: controller,
+                  onChanged: (String str) {
+                    setState(() {
+                      if (globaldata.length == 0) {
+                        globaldata.add(str);
+                      } else {
+                        globaldata.removeAt(0);
+                        globaldata.add(str);
+                      }
+                      print('globaldata!!!!!!!!!!');
+                      print(globaldata);
+                    });
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: edge,
+                    isDense: true,
+                    border: OutlineInputBorder(),
+                    hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                    hintText: hint,
+                  )),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+// textfield tag number
+  Widget _textField2(String text, String hint, var globaldata, var controller) {
+    return Row(
+      children: [
+        Container(width: Get.width * 1 / 3.6, child: Text(text)),
+        Container(
+          width: Get.width * 2.2 / 5,
+          height: Get.height * 1.1 / 25,
           child: TextField(
+              controller: controller,
               onChanged: (String str) {
                 setState(() {
                   if (globaldata.length == 0) {
@@ -450,8 +606,44 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: _isBulk,
+              enabled: globals.punch_issue_isTag,
               decoration: InputDecoration(
+                contentPadding: edge,
+                isDense: true,
+                border: OutlineInputBorder(),
+                hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
+                hintText: hint,
+              )),
+        ),
+      ],
+    );
+  }
+
+// textfield bulk
+  Widget _textField3(String text, String hint, var globaldata, var controller) {
+    return Row(
+      children: [
+        Container(width: Get.width * 1 / 3.6, child: Text(text)),
+        Container(
+          width: Get.width * 2.2 / 5,
+          height: Get.height * 1.1 / 25,
+          child: TextField(
+              controller: controller,
+              onChanged: (String str) {
+                setState(() {
+                  if (globaldata.length == 0) {
+                    globaldata.add(str);
+                  } else {
+                    globaldata.removeAt(0);
+                    globaldata.add(str);
+                  }
+                  print('globaldata!!!!!!!!!!');
+                  print(globaldata);
+                });
+              },
+              enabled: globals.punch_issue_isBulk,
+              decoration: InputDecoration(
+                contentPadding: edge,
                 isDense: true,
                 border: OutlineInputBorder(),
                 hintStyle: TextStyle(fontSize: 10, color: Colors.grey),

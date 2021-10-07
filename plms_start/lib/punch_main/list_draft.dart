@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/ontap_draft/list_ontap.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../globals/login.dart' as login;
-import 'list_ontap.dart';
+
 /*
 * name : ListDraft Page
 * description : draft data page
@@ -32,7 +33,7 @@ class _ListDraftState extends State<ListDraft> {
         itemBuilder: (BuildContext context, var index) {
           return GestureDetector(
             onTap: () {
-              Get.to(OntapPage(), arguments: index);
+              Get.to(OnTapScreen(), arguments: index);
             },
             child: ListComponent(
                 title: AppLocalizations.of(context)!.tile2,

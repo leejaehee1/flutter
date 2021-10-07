@@ -28,8 +28,8 @@ class PunchComplete extends StatefulWidget {
 }
 
 class _PunchCompleteState extends State<PunchComplete> {
-  // var api = dotenv.env['PHONE_IP'];
-  var api = dotenv.env['EMUL_IP'];
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
 
   var data = Get.arguments[0];
   var id = login.userID[0];
