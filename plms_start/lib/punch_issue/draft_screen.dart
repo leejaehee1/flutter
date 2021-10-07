@@ -17,20 +17,6 @@ import '../globals/globals.dart' as globals;
 * last update : 2021-09-30
 * */
 
-// class DraftPage extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: MyHomePage(),
-//     );
-//   }
-// }
-
 class DraftPage extends StatefulWidget {
   @override
   _DraftPageState createState() => _DraftPageState();
@@ -64,6 +50,7 @@ class _DraftPageState extends State<DraftPage> {
     document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
   );
 
+  // 도면 좌표 찍기 화면
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
