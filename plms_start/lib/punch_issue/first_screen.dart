@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:group_radio_button/group_radio_button.dart';
+import 'package:plms_start/pages/utils/row_text.dart';
 
 import 'package:plms_start/pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
@@ -97,11 +98,12 @@ class _PageOneState extends State<PageOne> {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TitleText(
                           title: 'General Infomation',
                         ),
+                        RowText(title: 'Marks are required fields')
                       ],
                     ),
                     SizedBox(
@@ -151,10 +153,10 @@ class _PageOneState extends State<PageOne> {
                             globals.punch_issue_Sub_System),
                         _size15(),
                         // _size15(),
-                        _unittextField('Unit', 'Create or Add',
+                        _unittextField('  Unit', 'Create or Add',
                             globals.punch_issue_Unit, _unitTextEditController),
                         _size15(),
-                        _areatextField('Area', 'Create or Add',
+                        _areatextField('  Area', 'Create or Add',
                             globals.punch_issue_Area, _areaTextEditController),
                         _size15(),
                         _textFormField(
@@ -215,13 +217,18 @@ class _PageOneState extends State<PageOne> {
 // description
   Widget _description(var globaldata, var controller) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           children: [
-            Text("Description"),
+            Text("  Description"),
           ],
         ),
+        _size15(),
         Container(
+          padding: EdgeInsets.only(left: 7),
+          width: Get.width * 2.45 / 3,
+
           // height: 100,
           child: TextField(
               controller: controller,
@@ -239,7 +246,7 @@ class _PageOneState extends State<PageOne> {
               },
               keyboardType: TextInputType.multiline,
               maxLines: 7,
-              maxLength: 100,
+              maxLength: 500,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "hint",
@@ -256,7 +263,15 @@ class _PageOneState extends State<PageOne> {
       children: [
         SizedBox(
           width: Get.width * 1 / 3.6,
-          child: Text(text),
+          child: Row(
+            children: [
+              Text(
+                '*',
+                style: TextStyle(color: Colors.red),
+              ),
+              Text(text),
+            ],
+          ),
         ),
         SizedBox(
           width: Get.width * 2.7 / 5,
@@ -529,10 +544,19 @@ class _PageOneState extends State<PageOne> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(child: Text(text)),
+            Row(
+              children: [
+                Text(
+                  '*',
+                  style: TextStyle(color: Colors.red),
+                ),
+                Container(child: Text(text)),
+              ],
+            ),
             _size15(),
             Container(
-              width: Get.width * 4 / 5,
+              padding: EdgeInsets.only(left: 7),
+              width: Get.width * 2.45 / 3,
               height: Get.height * 1.1 / 25,
               child: TextFormField(
                   controller: controller,
