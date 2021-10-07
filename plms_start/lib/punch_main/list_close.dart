@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:plms_start/ontap_other/list_ontap_other.dart';
 // import 'package:get/get.dart';
 // import 'package:get/get.dart';
 import 'package:plms_start/pages/components/list_components.dart';
@@ -31,12 +33,17 @@ class _ListCloseState extends State<ListClose> {
       child: ListView.builder(
         itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
-          return ListComponent(
-              title: AppLocalizations.of(context)!.tile5,
-              data1:
-                  "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
-              data2: data[index]['systemName'],
-              colors: 0xff637a8f);
+          return InkWell(
+            onTap: () {
+              Get.to(OnTapPage(), arguments: [index, login.closeList]);
+            },
+            child: ListComponent(
+                title: AppLocalizations.of(context)!.tile5,
+                data1:
+                    "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}",
+                data2: data[index]['systemName'],
+                colors: 0xff637a8f),
+          );
         },
       ),
     );

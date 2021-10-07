@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/onTap_draft/list_ontap.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../globals/login.dart' as login;
@@ -49,7 +50,7 @@ class _ListFileState extends State<ListFile> {
             if (data[index]['status'] == "1") {
               return InkWell(
                 onTap: () {
-                  print(login.draftList[index]);
+                  Get.to(OnTapScreen(), arguments: index);
                 },
                 child: ListComponent(
                     title: AppLocalizations.of(context)!.tile2,
@@ -67,40 +68,46 @@ class _ListFileState extends State<ListFile> {
                         : login.visible = false;
                   });
                 },
-                child: Stack(children: [
-                  ListComponent(
-                      title: AppLocalizations.of(context)!.tile3,
-                      data1: data1,
-                      data2: data2,
-                      colors: 0xffb88d6a),
-                  Positioned(
-                    top: Get.height * 1 / 80,
-                    right: Get.width * 1 / 25,
-                    child: SizedBox(
-                      width: Get.width * 1.2 / 7,
-                      height: Get.height * 1 / 45,
-                      child: Visibility(
-                        visible: login.visible,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.only(left: 0, right: 0),
-                            primary: Color(0xff55b093), // background
-                            // onPrimary: Colors.white, // foreground
-                          ),
-                          onPressed: () {
-                            print(data[index].runtimeType);
-                            print(data[index]);
-                            Get.toNamed('/complete', arguments: [data[index]]);
-                          },
-                          child: Text(
-                            AppLocalizations.of(context)!.completeButton,
-                            style: TextStyle(fontSize: 10),
+                child: InkWell(
+                  onTap: () {
+                    print(data[index]);
+                  },
+                  child: Stack(children: [
+                    ListComponent(
+                        title: AppLocalizations.of(context)!.tile3,
+                        data1: data1,
+                        data2: data2,
+                        colors: 0xffb88d6a),
+                    Positioned(
+                      top: Get.height * 1 / 80,
+                      right: Get.width * 1 / 25,
+                      child: SizedBox(
+                        width: Get.width * 1.2 / 7,
+                        height: Get.height * 1 / 45,
+                        child: Visibility(
+                          visible: login.visible,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.only(left: 0, right: 0),
+                              primary: Color(0xff55b093), // background
+                              // onPrimary: Colors.white, // foreground
+                            ),
+                            onPressed: () {
+                              print(data[index].runtimeType);
+                              print(data[index]);
+                              Get.toNamed('/complete',
+                                  arguments: [data[index]]);
+                            },
+                            child: Text(
+                              AppLocalizations.of(context)!.completeButton,
+                              style: TextStyle(fontSize: 10),
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ]),
+                  ]),
+                ),
               );
             } else if (data[index]['status'] == "3" ||
                 data[index]['status'] == '4') {

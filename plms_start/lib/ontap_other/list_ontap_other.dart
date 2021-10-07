@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
 import 'package:plms_start/punch_issue/tabbar_screen.dart';
-import 'ontap_one.dart';
-import 'ontap_three.dart';
-import 'ontap_two.dart';
+import 'ontap_one_other.dart';
+import 'ontap_three_other.dart';
+import 'ontap_two_other.dart';
 
 // import 'package:http/http.dart' as http;
 import '../globals/login.dart' as login;
@@ -23,15 +23,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 * last update : 2021-09-30
 * */
 
-class OnTapScreen extends StatefulWidget {
-  const OnTapScreen({Key? key}) : super(key: key);
+class OnTapPage extends StatefulWidget {
+  const OnTapPage({Key? key}) : super(key: key);
 
   @override
-  _OnTapScreennState createState() => _OnTapScreennState();
+  _OnTapPageState createState() => _OnTapPageState();
 }
 
-class _OnTapScreennState extends State<OnTapScreen>
-    with TickerProviderStateMixin {
+class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
 
@@ -46,7 +45,8 @@ class _OnTapScreennState extends State<OnTapScreen>
   double page3Height = 0;
   bool isTapToScroll = false;
 
-  List datas = login.draftList;
+  List datas = Get.arguments[1];
+  var idx = Get.arguments[0];
 
   @override
   void initState() {
@@ -57,27 +57,27 @@ class _OnTapScreennState extends State<OnTapScreen>
     });
     // draft.punch_issue_isTag = true;
     // draft.punch_issue_isBulk = false;
-    draft.punch_issue_Tag_Number = [];
-    draft.punch_issue_Bulk_Item = [];
-    draft.punch_issue_Category = [datas[Get.arguments]['category']];
-    draft.punch_issue_System = [datas[Get.arguments]['systemID']];
-    draft.punch_issue_Sub_System = [datas[Get.arguments]['subsystem']];
-    draft.punch_issue_Unit = [];
-    draft.punch_issue_Area = [];
-    draft.punch_issue_Punch_ID = [];
-    draft.punch_issue_Description = [];
+    // draft.punch_issue_Tag_Number = [];
+    // draft.punch_issue_Bulk_Item = [];
+    // draft.punch_issue_Category = [login.draftList[idx]['category']];
+    // draft.punch_issue_System = [login.draftList[idx]['systemID']];
+    // draft.punch_issue_Sub_System = [login.draftList[idx]['subsystem']];
+    // draft.punch_issue_Unit = [];
+    // draft.punch_issue_Area = [];
+    // draft.punch_issue_Punch_ID = [];
+    // draft.punch_issue_Description = [];
 
-    draft.punch_issue_Action_On = [datas[Get.arguments]['department']];
-    draft.punch_issue_Discipline = [datas[Get.arguments]['discipline']];
-    draft.punch_issue_Raised_On = [datas[Get.arguments]['raisedBy']];
-    draft.punch_issue_Date = [];
-    draft.punch_issue_Keyword = [];
-    draft.punch_issue_Design = [];
-    draft.punch_issue_Material = [];
+    // draft.punch_issue_Action_On = [login.draftList[idx]['department']];
+    // draft.punch_issue_Discipline = [login.draftList[idx]['discipline']];
+    // draft.punch_issue_Raised_On = [login.draftList[idx]['raisedBy']];
+    // draft.punch_issue_Date = [];
+    // draft.punch_issue_Keyword = [];
+    // draft.punch_issue_Design = [];
+    // draft.punch_issue_Material = [];
 
-    draft.punch_issue_Photo = [];
-    draft.punch_issue_Photo_Path = [];
-    draft.punch_issue_Photo_Name = [];
+    // draft.punch_issue_Photo = [];
+    // draft.punch_issue_Photo_Path = [];
+    // draft.punch_issue_Photo_Name = [];
     super.initState();
   }
 
@@ -121,16 +121,16 @@ class _OnTapScreennState extends State<OnTapScreen>
             SliverList(
               delegate: SliverChildListDelegate.fixed(
                 [
-                  OntapOne(
+                  OntapFirst(
                     key: page1Key,
                   ),
-                  OntapTwo(
+                  OntapSecond(
                     key: page2Key,
                   ),
-                  OntapThree(
+                  OntapThird(
                     key: page3Key,
                   ),
-                  _bottonButton(),
+                  // _bottonButton(),
                   //todo 버튼 만들고, 이벤트 연결(put)
                   // Create post insert
                   // Read get select

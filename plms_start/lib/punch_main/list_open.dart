@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/ontap_other/list_ontap_other.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../globals/login.dart' as login;
@@ -39,6 +40,9 @@ class _ListOpenState extends State<ListOpen> {
           if (data.isEmpty) {}
 
           return GestureDetector(
+            onTap: () {
+              Get.to(() => OnTapPage(), arguments: [index, login.openList]);
+            },
             onLongPress: () {
               setState(() {
                 login.visible == false
