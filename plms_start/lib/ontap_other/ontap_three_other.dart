@@ -105,9 +105,9 @@ class _OntapThirdState extends State<OntapThird> {
               Text('Photo'),
               IconButton(
                   onPressed: () {
-                    setState(() {
-                      _showDialog2();
-                    });
+                    // setState(() {
+                    //   _showDialog2();
+                    // });
                   },
                   icon: Icon(
                     Icons.add_a_photo,
@@ -143,14 +143,14 @@ class _OntapThirdState extends State<OntapThird> {
                     children: [
                       InkWell(
                         onTap: () async {
-                          print('hi');
-                          // _imagePainter(index);
-                          // final imageData = await Get.to(() => ImagePainters(),
-                          //     arguments: _imageList[index].path);
-                          // setState(() {
-                          //   _imageData.add(imageData);
-                          // });
-                          print('hihi');
+                          // print('hi');
+                          // // _imagePainter(index);
+                          // // final imageData = await Get.to(() => ImagePainters(),
+                          // //     arguments: _imageList[index].path);
+                          // // setState(() {
+                          // //   _imageData.add(imageData);
+                          // // });
+                          // print('hihi');
                         },
                         child: Image.file(
                           // File(_imageList[index].path),
@@ -199,9 +199,9 @@ class _OntapThirdState extends State<OntapThird> {
           // padding: 3.0,
           showOnOff: true,
           onToggle: (val) {
-            setState(() {
-              status = val;
-            });
+            // setState(() {
+            //   status = val;
+            // });
           },
         ),
       ],

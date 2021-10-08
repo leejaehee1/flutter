@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:plms_start/ontap_draft/confirm_page_ontap.dart';
 
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
@@ -57,27 +58,65 @@ class _OnTapScreennState extends State<OnTapScreen>
     });
     // draft.punch_issue_isTag = true;
     // draft.punch_issue_isBulk = false;
-    draft.punch_issue_Tag_Number = [];
-    draft.punch_issue_Bulk_Item = [];
+    datas[Get.arguments]['tagNumber'] != null
+        ? draft.punch_issue_Tag_Number = [datas[Get.arguments]['tagNumber']]
+        : draft.punch_issue_Tag_Number = [];
+
+    datas[Get.arguments]['bulkItem'] != null
+        ? draft.punch_issue_Bulk_Item = [datas[Get.arguments]['bulkItem']]
+        : draft.punch_issue_Bulk_Item = [];
+
     draft.punch_issue_Category = [datas[Get.arguments]['category']];
     draft.punch_issue_System = [datas[Get.arguments]['systemID']];
     draft.punch_issue_Sub_System = [datas[Get.arguments]['subsystem']];
-    draft.punch_issue_Unit = [];
-    draft.punch_issue_Area = [];
-    draft.punch_issue_Punch_ID = [];
-    draft.punch_issue_Description = [];
 
-    draft.punch_issue_Action_On = [datas[Get.arguments]['department']];
-    draft.punch_issue_Discipline = [datas[Get.arguments]['discipline']];
-    draft.punch_issue_Raised_On = [datas[Get.arguments]['raisedBy']];
-    draft.punch_issue_Date = [];
-    draft.punch_issue_Keyword = [];
-    draft.punch_issue_Design = [];
-    draft.punch_issue_Material = [];
+    datas[Get.arguments]['unit'] != null
+        ? draft.punch_issue_Unit = [datas[Get.arguments]['unit']]
+        : draft.punch_issue_Unit = [];
 
-    draft.punch_issue_Photo = [];
-    draft.punch_issue_Photo_Path = [];
-    draft.punch_issue_Photo_Name = [];
+    datas[Get.arguments]['department'] != null
+        ? draft.punch_issue_Area = [datas[Get.arguments]['department']]
+        : draft.punch_issue_Area = [];
+
+    draft.punch_issue_Punch_ID = [datas[Get.arguments]['punchID']];
+
+    datas[Get.arguments]['department'] != null
+        ? draft.punch_issue_Description = [
+            datas[Get.arguments]['issueDescription']
+          ]
+        : draft.punch_issue_Description = [];
+    ;
+
+    datas[Get.arguments]['department'] != null
+        ? draft.punch_issue_Action_On = [datas[Get.arguments]['department']]
+        : draft.punch_issue_Action_On = [];
+
+    datas[Get.arguments]['discipline'] != null
+        ? draft.punch_issue_Discipline = [datas[Get.arguments]['discipline']]
+        : draft.punch_issue_Discipline = [];
+
+    datas[Get.arguments]['raisedBy'] != null
+        ? draft.punch_issue_Raised_On = [datas[Get.arguments]['raisedBy']]
+        : draft.punch_issue_Raised_On = [];
+
+    datas[Get.arguments]['targetDate'] != null
+        ? draft.punch_issue_Date = [datas[Get.arguments]['targetDate']]
+        : draft.punch_issue_Date = [];
+
+    // datas[Get.arguments]['department'] != null?
+    // draft.punch_issue_Keyword = [];
+
+    datas[Get.arguments]['designChgReq'] == '1'
+        ? draft.punch_issue_Design = ['1']
+        : draft.punch_issue_Design = ['0'];
+
+    datas[Get.arguments]['materialReq'] == '1'
+        ? draft.punch_issue_Material = ['1']
+        : draft.punch_issue_Material = ['0'];
+
+    // draft.punch_issue_Photo = [];
+    // draft.punch_issue_Photo_Path = [];
+    // draft.punch_issue_Photo_Name = [];
     super.initState();
   }
 
@@ -258,7 +297,8 @@ class _OnTapScreennState extends State<OnTapScreen>
 
                 print('global!!!!!!!!!!!');
                 print(draft.punch_issue_Status);
-                Get.toNamed('/confirm');
+                Get.to(OnTapConfirmPage());
+                // Get.toNamed('/confirm');
               },
               child: Text("Save Draft"),
             ),

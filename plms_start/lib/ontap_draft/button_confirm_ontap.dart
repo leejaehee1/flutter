@@ -6,10 +6,11 @@ import 'package:http/http.dart' as http;
 import '/globals/login.dart' as login;
 import '/globals/issue.dart' as issue;
 import '/globals/globals.dart' as globals;
+import '/globals/punch_draft.dart' as draft;
 // import '../punch_screen.dart';
 
-class ConfirmButton extends StatefulWidget {
-  ConfirmButton(
+class OnTapConfirmButton extends StatefulWidget {
+  OnTapConfirmButton(
       {Key? key,
       // required this.name,
       required this.buttonname1,
@@ -22,10 +23,10 @@ class ConfirmButton extends StatefulWidget {
   final String buttonname3;
 
   @override
-  _ConfirmButtonState createState() => _ConfirmButtonState();
+  _OnTapConfirmButtonState createState() => _OnTapConfirmButtonState();
 }
 
-class _ConfirmButtonState extends State<ConfirmButton> {
+class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
   var api = dotenv.env['PHONE_IP'];
   // var api = dotenv.env['EMUL_IP'];
   var buttonWidth = Get.width * 1 / 3.5;
@@ -53,25 +54,25 @@ class _ConfirmButtonState extends State<ConfirmButton> {
 
   List _listData = [
     issue.projectList,
-    globals.punch_issue_Punch_ID,
-    globals.punch_issue_Category,
-    globals.punch_issue_System,
-    globals.punch_issue_Sub_System,
-    globals.punch_issue_Discipline,
-    globals.punch_issue_Status,
-    globals.punch_issue_Unit,
-    globals.punch_issue_Area,
-    globals.punch_issue_Tag_Number,
-    globals.punch_issue_Bulk_Item,
-    globals.punch_issue_Action_On,
-    globals.punch_issue_Date,
+    draft.punch_issue_Punch_ID,
+    draft.punch_issue_Category,
+    draft.punch_issue_System,
+    draft.punch_issue_Sub_System,
+    draft.punch_issue_Discipline,
+    draft.punch_issue_Status,
+    draft.punch_issue_Unit,
+    draft.punch_issue_Area,
+    draft.punch_issue_Tag_Number,
+    draft.punch_issue_Bulk_Item,
+    draft.punch_issue_Action_On,
+    draft.punch_issue_Date,
     login.userID,
-    globals.punch_issue_Raised_On,
-    globals.punch_issue_Design,
-    globals.punch_issue_Material,
-    globals.punch_issue_Description,
+    draft.punch_issue_Raised_On,
+    draft.punch_issue_Design,
+    draft.punch_issue_Material,
+    draft.punch_issue_Description,
   ];
-  List _keyword = globals.punch_issue_Keyword;
+  List _keyword = draft.punch_issue_Keyword;
   Map<String, String> _mapData = {};
 
   @override
@@ -141,30 +142,30 @@ class _ConfirmButtonState extends State<ConfirmButton> {
               ),
               onPressed: () async {
                 print('hi');
-                var url = Uri.parse('$api/summury/confirm');
+                var url = Uri.parse('$api/summury/draftupdate');
 
                 await http.post(url, body: _mapData);
                 print('보낸다!!!!!!!!');
 
                 var url2 = Uri.parse('$api/summury/photos');
-                if (globals.punch_issue_Photo.length == 1) {
+                if (draft.punch_issue_Photo.length == 1) {
                   await http.post(url2, body: {
-                    'punchID': globals.punch_issue_Punch_ID[0],
+                    'punchID': draft.punch_issue_Punch_ID[0],
                     'punchStep': '1',
                     'seq': '1',
-                    'localPath': globals.punch_issue_Photo_Path[0].toString(),
-                    'imagePath': globals.punch_issue_Photo_Name[0].toString(),
+                    'localPath': draft.punch_issue_Photo_Path[0].toString(),
+                    'imagePath': draft.punch_issue_Photo_Name[0].toString(),
                     'uploaded': globals.punch_issue_Switch == true ? '1' : '0',
                     'uploadDate': DateTime.now().toString(),
                   });
-                } else if (globals.punch_issue_Photo.length > 1) {
-                  for (var i = 0; i < globals.punch_issue_Photo.length; i++) {
+                } else if (draft.punch_issue_Photo.length > 1) {
+                  for (var i = 0; i < draft.punch_issue_Photo.length; i++) {
                     await http.post(url2, body: {
-                      'punchID': globals.punch_issue_Punch_ID[0],
+                      'punchID': draft.punch_issue_Punch_ID[0],
                       'punchStep': '1',
                       'seq': '${i + 1}',
-                      'localPath': globals.punch_issue_Photo_Path[i].toString(),
-                      'imagePath': globals.punch_issue_Photo_Name[i].toString(),
+                      'localPath': draft.punch_issue_Photo_Path[i].toString(),
+                      'imagePath': draft.punch_issue_Photo_Name[i].toString(),
                       'uploaded':
                           globals.punch_issue_Switch == true ? '1' : '0',
                       'uploadDate': DateTime.now().toString(),

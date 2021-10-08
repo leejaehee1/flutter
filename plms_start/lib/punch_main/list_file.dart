@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/onTap_draft/list_ontap.dart';
+import 'package:plms_start/ontap_other/list_ontap_other.dart';
 import 'package:plms_start/pages/components/list_components.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../globals/login.dart' as login;
@@ -70,7 +71,8 @@ class _ListFileState extends State<ListFile> {
                 },
                 child: InkWell(
                   onTap: () {
-                    print(data[index]);
+                    Get.to(() => OnTapPage(),
+                        arguments: [index, login.openList]);
                   },
                   child: Stack(children: [
                     ListComponent(
@@ -111,17 +113,27 @@ class _ListFileState extends State<ListFile> {
               );
             } else if (data[index]['status'] == "3" ||
                 data[index]['status'] == '4') {
-              return ListComponent(
-                  title: AppLocalizations.of(context)!.tile4,
-                  data1: data1,
-                  data2: data2,
-                  colors: 0xff987ca1);
+              return InkWell(
+                onTap: () {
+                  Get.to(OnTapPage(), arguments: [index, login.reqList]);
+                },
+                child: ListComponent(
+                    title: AppLocalizations.of(context)!.tile4,
+                    data1: data1,
+                    data2: data2,
+                    colors: 0xff987ca1),
+              );
             } else {
-              return ListComponent(
-                  title: AppLocalizations.of(context)!.tile5,
-                  data1: data1,
-                  data2: data2,
-                  colors: 0xff637a8f);
+              return InkWell(
+                onTap: () {
+                  Get.to(OnTapPage(), arguments: [index, login.closeList]);
+                },
+                child: ListComponent(
+                    title: AppLocalizations.of(context)!.tile5,
+                    data1: data1,
+                    data2: data2,
+                    colors: 0xff637a8f),
+              );
             }
           }),
     );

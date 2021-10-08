@@ -93,14 +93,14 @@ class _OntapTwoState extends State<OntapTwo> {
                   borderRadius:
                       BorderRadius.only(topLeft: radius, bottomLeft: radius),
                 ),
-                height: MediaQuery.of(context).size.height * 2.1 / 3,
+                height: MediaQuery.of(context).size.height * 2.3 / 3,
                 width: Get.width * 1 / 50,
               ),
             ),
             Container(
               // key: _heightKey,
               // height: 500,
-              height: MediaQuery.of(context).size.height * 2.1 / 3,
+              height: MediaQuery.of(context).size.height * 2.3 / 3,
               width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
                 color: Colors.white,

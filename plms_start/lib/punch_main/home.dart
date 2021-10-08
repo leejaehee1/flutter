@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../globals/login.dart' as login;
 import '../globals/issue.dart' as issue;
+import '../globals/photos.dart' as photos;
 
 import 'package:plms_start/punch_main/punch_main.dart';
 
@@ -57,6 +58,11 @@ class _HomeState extends State<Home> {
     issue.unitDataList = [];
     issue.areaDataList = [];
     issue.deptDataList = [];
+
+    photos.photos_Punch_ID = [];
+    photos.photos_Punch_Step = [];
+    photos.photos_Local_Path = [];
+    photos.photos_Image_Path = [];
 
     test();
     super.initState();
@@ -226,9 +232,29 @@ class _HomeState extends State<Home> {
           //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
         }
       });
+
+    var photoResponse = await http.get(Uri.parse("$api/summury/loadphotos/"));
+
+    var photo = jsonDecode(photoResponse.body);
+    print('photo!!!!!!!!!!!!!$photo');
+    int len10 = photo.length;
+    // dispose();
+    if (mounted)
+      this.setState(() {
+        for (int i = 0; i < len10; i++) {
+          photos.photos_Punch_ID += [photo[i]['punchID']];
+          photos.photos_Punch_Step += [photo[i]['punchStep']];
+          photos.photos_Local_Path += [photo[i]['localPath']];
+          photos.photos_Image_Path += [photo[i]['imagePath']];
+
+          // issue.systemsDataList.add(
+          //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
+        }
+      });
+
     print('되냐!!!!!!!!!!!!!!!!!!');
-    print(issue.projectList);
-    print(issue.categoryList);
+    print(photos.photos_Punch_ID);
+    print(photos.photos_Local_Path);
     print('중간!!!!!!!!!!!!!!');
     if (authority == "3") {
       var uriResponse = await http.get(

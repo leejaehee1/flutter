@@ -34,9 +34,9 @@ class _OntapSecondState extends State<OntapSecond> {
   List raisedon = issue.qcList;
 
   bool isSwitch1 =
-      login.draftList[Get.arguments[0]]['designChgReq'] == 1 ? true : false;
+      Get.arguments[1][Get.arguments[0]]['designChgReq'] == 1 ? true : false;
   bool isSwitch2 =
-      login.draftList[Get.arguments[0]]['materialReq'] == 1 ? true : false;
+      Get.arguments[1][Get.arguments[0]]['materialReq'] == 1 ? true : false;
 
   int idx = Get.arguments[0];
 
