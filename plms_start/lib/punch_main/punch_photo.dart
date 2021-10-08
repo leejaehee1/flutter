@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import '../pages/components/list_components.dart';
+import 'package:get/get.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../globals/login.dart' as login;
+import '../globals/issue.dart' as issue;
+import '../globals/photos.dart' as photos;
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // import 'screen_punch.dart';
@@ -24,61 +31,179 @@ class PhotoList extends StatefulWidget {
 }
 
 class _PhotoListState extends State<PhotoList> {
-  final List<String> data1 = ['data1', 'data2', 'data3', 'asdf', 'asdfasdf'];
-  final List<String> data2 = ['data1', 'data2', 'data3', 'asdf', 'asdfasdf'];
+  var api = dotenv.env['PHONE_IP'];
+
+  List data = photos.photos_data;
+
+  // @override
+  // void initState() {
+  //   _photoListData();
+  //   super.initState();
+  // }
+
+  // void _photoListData() async {
+  //   var url = Uri.parse('$api/summury/loadpunch/');
+  //   for (var i = 0; i < photos.photos_Punch_ID.length; i++) {
+  //     var response = await http.post(url, body: {
+  //       'punchID': photos.photos_Punch_ID[i],
+  //       'userID': login.userID[0],
+  //     });
+  //     var loadPunch = jsonDecode(response.body);
+  //     if (loadPunch.length != 0) {
+  //       data += loadPunch;
+  //     }
+
+  //     // if (mounted)
+  //     //   this.setState(() {
+  //     //     for (int i = 0; i < loadPunch.length; i++) {
+  //     //       photos.photos_category += [loadPunch[i]['category']];
+  //     //       photos.photos_discipline += [loadPunch[i]['discipline']];
+  //     //       photos.photos_unit += [loadPunch[i]['unit']];
+  //     //       photos.photos_area += [loadPunch[i]['area']];
+  //     //       photos.photos_systemName += [loadPunch[i]['systemID']];
+  //     //       // issue.systemsDataList.add(
+  //     //       //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
+  //     //     }
+  //     //   });
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff2B3745),
         automaticallyImplyLeading: false,
-        title: Header(title: "title"),
+        title: Header(title: "Upload Photos"),
       ),
-      body: DefaultTabController(
-        // initialIndex: 0,
-        length: 5,
-        child: Column(
+      body: Column(
+        children: [
+          Container(
+            color: Color(0xFFE6E6E6),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              // width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(10),
+              child: Container(
+                  color: Color(0xff2B3745),
+                  height: Get.height * 1 / 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '  - Please connect to WIFI and Upload',
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      ),
+                      Text(
+                        'Total photos : ${data.length}',
+                        style: TextStyle(color: Colors.green, fontSize: 8),
+                      ),
+                    ],
+                  )),
+            ),
+          ),
+          Expanded(
+            child: _photoPage(),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        height: Get.height * 1 / 9,
+        color: Color(0xFFE6E6E6),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              color: Color(0xFFE6E6E6),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                // width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.all(10),
-                child: Container(
-                    color: Color(0xff2B3745),
-                    height: 30,
-                    child: Text(
-                      'Please connect to WIFI and Upload',
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: data1.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListComponent(
-                      title: AppLocalizations.of(context)!.tile2,
-                      data1: data1[index],
-                      data2: data2[index],
-                      colors: 0xff7B3F40);
+              width: Get.width * 1 / 2.4,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xff2F4C5A), // background
+                  // onPrimary: Colors.white, // foreground
+                ),
+                onPressed: () async {
+                  var url = Uri.parse('$api/summury/uploadphotos');
+
+                  for (var i = 0; i < data.length; i++) {
+                    await http.post(url, body: {
+                      'punchID': photos.photos_Punch_ID[i],
+
+                      // "department":
+                    });
+                  }
+
+                  // Get.offAllNamed('/home');
+                  print(photos.photos_Punch_ID);
+                  Get.back();
                 },
+                child: Text("Upload"),
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: Color(0xff2F4C5A), // background
-          // onPrimary: Colors.white, // foreground
-        ),
-        onPressed: () {
-          Get.offAllNamed('/home');
+    );
+  }
+
+  Widget _photoPage() {
+    return Container(
+      padding: EdgeInsets.all(10),
+      color: Colors.white,
+      // Color(0xFFE6E6E6),
+      // width: Get.width,
+      // height: Get.height,
+      child: ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    "${data[index]['punchID']},${data[index]['category']},${data[index]['discipline']},${data[index]['unit']},${data[index]['area']}"),
+                _boxsize(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      data[index]['systemID'],
+                      style: TextStyle(color: Colors.grey, fontSize: 11),
+                      // softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Container(
+                      width: Get.width * 1 / 5,
+                      height: Get.height * 1 / 30,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.all(0),
+                              primary: photos.photos_Punch_Step[index] == 1
+                                  ? Color(0xff55b093)
+                                  : Color(0xffb88d6a)),
+                          onPressed: () {},
+                          child: photos.photos_Punch_Step[index] == 1
+                              ? Text("complete")
+                              : Text("open")),
+                    )
+                  ],
+                ),
+                _boxsize(),
+                Divider(
+                  thickness: 2,
+                ),
+                _boxsize(),
+              ],
+            ),
+          );
         },
-        child: Text("Upload"),
       ),
+    );
+  }
+
+  Widget _boxsize() {
+    return SizedBox(
+      height: 10,
     );
   }
 }
