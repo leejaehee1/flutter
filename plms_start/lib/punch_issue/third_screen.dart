@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -113,6 +115,14 @@ class _PageThreeState extends State<PageThree> {
                     Icons.add_a_photo,
                     size: Get.height * 1 / 18,
                   )),
+              IconButton(
+                  onPressed: () {
+                    setState(() {});
+                  },
+                  icon: Icon(
+                    Icons.add_a_photo_outlined,
+                    size: Get.height * 1 / 18,
+                  )),
             ],
           ),
           // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
@@ -181,6 +191,15 @@ class _PageThreeState extends State<PageThree> {
       ),
     );
   }
+
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
+
+//   Future<void> _sendImage() async {
+//     var url = Uri.parse('$api/summury/uploadfile');
+// await http.MultipartFile('POST', url );
+
+//   }
 
   // 스위치 버튼
   Widget _swichWidget(String name) {
