@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 // import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
@@ -15,8 +16,16 @@ class Header extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(15),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.green,
+                )),
             Text(
               title,
               style: TextStyle(fontSize: 20, color: Colors.white),
