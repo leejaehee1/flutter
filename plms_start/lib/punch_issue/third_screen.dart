@@ -192,12 +192,20 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
+  // var api = dotenv.env['PHONE_IP'];
+  // // var api = dotenv.env['EMUL_IP'];
+  // List<File> imageFileList = _imageData;
+  // Future<void> _sendImage() async {
+  //   var url = Uri.parse('$api/summury/uploadfile');
+  //   var request = http.MultipartRequest('POST', url);
+  //   for (var imageFile in imageFileList) {
+  //     request.files.add(
+  //         await http.MultipartFile.fromPath('imageFileList', imageFile.path));
+  //   }
 
-//   Future<void> _sendImage() async {
-//     var url = Uri.parse('$api/summury/uploadfile');
-// await http.MultipartFile('POST', url );
+  //   var response = await request.send();
+  //   if (response.statusCode == 200) print('Uploaded!');
+  // }
 
 //   }
 
