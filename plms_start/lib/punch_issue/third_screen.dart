@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:http_parser/http_parser.dart';
 
 import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
@@ -117,7 +118,10 @@ class _PageThreeState extends State<PageThree> {
                   )),
               IconButton(
                   onPressed: () {
-                    setState(() {});
+                    setState(() {
+                      print('hi');
+                      _sendImage();
+                    });
                   },
                   icon: Icon(
                     Icons.add_a_photo_outlined,
@@ -140,10 +144,13 @@ class _PageThreeState extends State<PageThree> {
           // ii) 나중에 업로드
 
           // 이미지 저장 및 보기
-          Expanded(
+          Container(
+            height: Get.height * 1 / 6.6,
+            width: Get.width,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
+              // scrollDirection: Axis.horizontal,
               itemCount: _imageData.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
@@ -192,20 +199,26 @@ class _PageThreeState extends State<PageThree> {
     );
   }
 
-  // var api = dotenv.env['PHONE_IP'];
-  // // var api = dotenv.env['EMUL_IP'];
-  // List<File> imageFileList = _imageData;
-  // Future<void> _sendImage() async {
-  //   var url = Uri.parse('$api/summury/uploadfile');
-  //   var request = http.MultipartRequest('POST', url);
-  //   for (var imageFile in imageFileList) {
-  //     request.files.add(
-  //         await http.MultipartFile.fromPath('imageFileList', imageFile.path));
-  //   }
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
+  List imageFileList = globals.punch_issue_Photo;
+  Future<void> _sendImage() async {
+    var url = Uri.parse('$api/summury/uploadfile');
+    var request = http.MultipartRequest('POST', url);
+    // for (var imageFile in imageFileList) {
+    for (int i = 0; i < imageFileList.length; i++) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'imgFile',
+        imageFileList[i].path,
+        filename:
+            '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Path[i]}',
+        contentType: new MediaType('image', 'png'),
+      ));
+    }
 
-  //   var response = await request.send();
-  //   if (response.statusCode == 200) print('Uploaded!');
-  // }
+    var response = await request.send();
+    if (response.statusCode == 200) print('Uploaded!');
+  }
 
 //   }
 
