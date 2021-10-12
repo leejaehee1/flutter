@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:http/http.dart' as http;
+import 'package:plms_start/punch_issue/draft_test.dart';
 
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -435,7 +436,8 @@ class _PageThreeState extends State<PageThree> {
             InkWell(
               onLongPress: () {
                 setState(() {
-                  Get.toNamed("/draft");
+                  // Get.toNamed("/draft");
+                  Get.to(() => DraftPage2());
                 });
               },
               onDoubleTap: () {
