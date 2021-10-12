@@ -62,9 +62,15 @@ class _OnTapScreennState extends State<OnTapScreen>
         ? draft.punch_issue_Tag_Number = [datas[Get.arguments]['tagNumber']]
         : draft.punch_issue_Tag_Number = [];
 
+    datas[Get.arguments]['bulkItem'] != null
+        ? draft.punch_issue_Bulk_Item = [datas[Get.arguments]['bulkItem']]
+        : datas[Get.arguments]['bulkName'] != null
+            ? draft.punch_issue_Bulk_Item = ['1']
+            : draft.punch_issue_Bulk_Item = ['0'];
+
     datas[Get.arguments]['bulkName'] != null
-        ? draft.punch_issue_Bulk_Item = [datas[Get.arguments]['bulkName']]
-        : draft.punch_issue_Bulk_Item = [];
+        ? draft.punch_issue_Bulk_Name = [datas[Get.arguments]['bulkName']]
+        : draft.punch_issue_Bulk_Name = [];
 
     draft.punch_issue_Category = [datas[Get.arguments]['category']];
     draft.punch_issue_System = [datas[Get.arguments]['systemID']];

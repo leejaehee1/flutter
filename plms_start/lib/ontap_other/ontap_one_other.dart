@@ -49,10 +49,10 @@ class _OntapFirstState extends State<OntapFirst> {
           : TextEditingController(
               text: Get.arguments[1][Get.arguments[0]]['tagNumber']);
   final _bulkTextEditController =
-      Get.arguments[1][Get.arguments[0]]['bulkItem'] == null
+      Get.arguments[1][Get.arguments[0]]['bulkName'] == null
           ? TextEditingController()
           : TextEditingController(
-              text: Get.arguments[1][Get.arguments[0]]['bulkItem']);
+              text: Get.arguments[1][Get.arguments[0]]['bulkName']);
 
   final _unitTextEditController = Get.arguments[1][Get.arguments[0]]['unit'] ==
           null
@@ -151,9 +151,9 @@ class _OntapFirstState extends State<OntapFirst> {
                                           _tagTextEditController),
                                       _size15(),
                                       _textField3(
-                                          'Bulk Item',
+                                          'Bulk Name',
                                           '',
-                                          globals.punch_issue_Bulk_Item,
+                                          globals.punch_issue_Bulk_Name,
                                           _bulkTextEditController),
                                     ],
                                   ),

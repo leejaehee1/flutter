@@ -448,12 +448,13 @@ class _PunchCompleteState extends State<PunchComplete> {
         SizedBox(
           width: 20,
         ),
-        _dataWidget('Area', data['area']),
+        _dataWidget('Area', data['area'] != null ? data['area'] : ''),
         SizedBox(
           width: 20,
         ),
-        _dataWidget('Unit', data['unit']),
-        _dataWidget('Tag Number', data['tagNumber']),
+        _dataWidget('Unit', data['unit'] != null ? data['unit'] : ''),
+        _dataWidget(
+            'Tag Number', data['tagNumber'] != null ? data['tagNumber'] : ''),
         _dataWidget('System', data['systemName']),
         _dataWidget('Sub-system', data['subsystemName']),
         SizedBox(
