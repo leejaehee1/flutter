@@ -153,13 +153,13 @@ class _OntapOneState extends State<OntapOne> {
                                       _textField2(
                                           'Tag Number',
                                           'Create or Add',
-                                          globals.punch_issue_Tag_Number,
+                                          draft.punch_issue_Tag_Number,
                                           _tagTextEditController),
                                       _size15(),
                                       _textField3(
                                           'Bulk Name',
                                           '',
-                                          globals.punch_issue_Bulk_Name,
+                                          draft.punch_issue_Bulk_Name,
                                           _bulkTextEditController),
                                     ],
                                   ),
@@ -216,23 +216,32 @@ class _OntapOneState extends State<OntapOne> {
         if (value == _status[0]) {
           if (draft.punch_issue_Bulk_Item.length == 1) {
             draft.punch_issue_Bulk_Item.removeAt(0);
+            print('bulk!!!!!!!!!!!!!!');
+            print(draft.punch_issue_Bulk_Item);
           }
-
+          if (draft.punch_issue_Bulk_Name.length == 1) {
+            draft.punch_issue_Bulk_Name.removeAt(0);
+            print(draft.punch_issue_Bulk_Name);
+          }
           _bulkTextEditController.clear();
+
           _isTag = true;
           _isBulk = false;
           if (_isBulk == false) {
-            globals.punch_issue_Bulk_Item = ['0'];
+            draft.punch_issue_Bulk_Item = ['0'];
           }
         } else if (value == _status[1]) {
           if (draft.punch_issue_Tag_Number.length == 1) {
             draft.punch_issue_Tag_Number.removeAt(0);
+            print('tag!!!!!!!!!!!!!!');
+            print(draft.punch_issue_Tag_Number);
           }
           _tagTextEditController.clear();
+
           _isTag = false;
           _isBulk = true;
           if (_isBulk == true) {
-            globals.punch_issue_Bulk_Item = ['1'];
+            draft.punch_issue_Bulk_Name = ['1'];
           }
         }
       }),

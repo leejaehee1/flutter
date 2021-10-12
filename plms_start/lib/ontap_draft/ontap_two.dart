@@ -46,13 +46,10 @@ class _OntapTwoState extends State<OntapTwo> {
 
   List<String> departmentDraft = [];
   List<String> disciplineDraft = [];
+  List<String> raisedDraft = [];
 
   @override
   void initState() {
-    print('!!!!!!!!!!!!!!!!!!!!!!!');
-    print(login.draftList[Get.arguments]['designChgReq']);
-    print(login.draftList[Get.arguments]['materialReq']);
-    print('strat');
     for (var i = 0; i < 4; i++) {
       if (datas[Get.arguments]['keyword${i + 1}'] != null) {
         contentList.add(datas[Get.arguments]['keyword${i + 1}']);
@@ -71,6 +68,13 @@ class _OntapTwoState extends State<OntapTwo> {
         disciplineDraft.add(issue.disciplineNameList[i]);
       }
       print(disciplineDraft);
+
+      for (var i = 0; i < issue.qcList.length; i++) {
+        if (datas[Get.arguments]['raisedBy'] != null &&
+            datas[Get.arguments]['raisedBy'] == issue.qcList[i].toString()) {
+          raisedDraft.add(issue.qcList[i]);
+        }
+      }
     }
     print('end!!!!!!!!!');
     super.initState();
@@ -278,6 +282,8 @@ class _OntapTwoState extends State<OntapTwo> {
                 print(draft.punch_issue_Action_On);
                 print(draft.punch_issue_Discipline);
                 print(draft.punch_issue_Raised_On);
+                print(datas[Get.arguments]['department']);
+                print(departmentDraft[0]);
               },
               selectedItem: text == "Action On" &&
                       datas[Get.arguments]['department'] != null
@@ -285,7 +291,10 @@ class _OntapTwoState extends State<OntapTwo> {
                   : text == "Discipline" &&
                           datas[Get.arguments]['discipline'] != null
                       ? disciplineDraft[0]
-                      : 'Raised On'
+                      : text == 'Raised On' &&
+                              datas[Get.arguments]['raisedBy'] != null
+                          ? datas[Get.arguments]['raisedBy']
+                          : ''
               // datas[idx][text2],
               ),
         ),

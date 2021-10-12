@@ -179,7 +179,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
 
                 print('간다!!!!!!!!!!!!!!!!!!!');
 
-                Get.offAllNamed("/success");
+                Get.offAllNamed("/home");
               },
               child: Text(widget.buttonname3),
             ),

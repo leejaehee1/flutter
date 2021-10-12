@@ -5,6 +5,7 @@ import 'package:plms_start/pages/utils/button_confirm.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
 import '../globals/globals.dart' as globals;
+import '../globals/issue.dart' as issue;
 import '../globals/punch_draft.dart' as draft;
 import 'button_confirm_ontap.dart';
 // import '../globals/issue.dart' as issue;
@@ -29,8 +30,9 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
   // String tagnumber = 'tagnumber';
   // String category = 'category';
   String punchID = draft.punch_issue_Punch_ID[0];
-  String date =
-      draft.punch_issue_Date.length == 0 ? 'date' : draft.punch_issue_Date[0];
+  String date = draft.punch_issue_Date.length == 0
+      ? 'date'
+      : draft.punch_issue_Date[0].toString();
   String issuedBy = draft.punch_issue_Raised_On.length == 0
       ? 'issuedBy'
       : draft.punch_issue_Raised_On[0];
@@ -38,13 +40,29 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
       draft.punch_issue_Unit.length == 0 ? 'unit' : draft.punch_issue_Unit[0];
   String area =
       draft.punch_issue_Area.length == 0 ? 'area' : draft.punch_issue_Area[0];
-  String system = draft.punch_issue_System[0];
+  String system = '';
 
-  String subsystem = draft.punch_issue_Sub_System[0];
+  String subsystem = '';
 
   String tagnumber = draft.punch_issue_Tag_Number.length == 0
       ? 'tagnumber'
       : draft.punch_issue_Tag_Number[0];
+
+  @override
+  void initState() {
+    for (var i = 0; i < issue.systemsList.length; i++) {
+      if (issue.systemsList[i] == draft.punch_issue_System[0]) {
+        system = issue.systemsNameList[i];
+      }
+    }
+    for (var i = 0; i < issue.subsystemList.length; i++) {
+      if (issue.subsystemList[i] == draft.punch_issue_Sub_System[0]) {
+        subsystem = issue.subsystemNameList[i];
+      }
+    }
+
+    super.initState();
+  }
 
   String category = draft.punch_issue_Category[0];
   @override
@@ -75,13 +93,13 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                   topLeft: radius, bottomLeft: radius),
                             ),
                             height:
-                                MediaQuery.of(context).size.height * 6.9 / 9,
+                                MediaQuery.of(context).size.height * 6.6 / 9,
                             width: Get.width * 1 / 50,
                           ),
                           Container(
                             padding: EdgeInsets.all(10),
                             height:
-                                MediaQuery.of(context).size.height * 6.9 / 9,
+                                MediaQuery.of(context).size.height * 6.6 / 9,
                             width: Get.width - Get.width * 0.83 / 8,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -105,7 +123,7 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                   ),
                                   _sizedBox(),
                                   Text(
-                                    "Plsease confirm created Punch Issue",
+                                    "Plsease confirm Punch Issue",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
                                   ),
@@ -114,6 +132,22 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                   ),
                                   _rowData("Punch ID", punchID),
                                   _sizedBox(),
+
+                                  // Row(
+                                  //   children: [
+                                  //     SizedBox(
+                                  //         width: Get.width * 2 / 7,
+                                  //         child: Text(
+                                  //           "Issued Date",
+                                  //           style: TextStyle(
+                                  //               color: Colors.black54),
+                                  //         )),
+                                  //     Text(
+                                  //       date,
+                                  //       overflow: TextOverflow.fade,
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   _rowData("Issued Date", date),
                                   _sizedBox(),
                                   _rowData("Issued By", issuedBy),
@@ -126,6 +160,8 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                     decoration: BoxDecoration(
                                         border: Border.all(color: Colors.grey)),
                                     child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         _rowData2('Unit', unit),
                                         SizedBox(
@@ -135,14 +171,14 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        _rowData2(
+                                        _colData(
                                           'System',
                                           system,
                                         ),
                                         SizedBox(
                                           height: 20,
                                         ),
-                                        _rowData2('Sub-system', subsystem),
+                                        _colData('Sub-system', subsystem),
                                         SizedBox(
                                           height: 20,
                                         ),
@@ -190,13 +226,32 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
     return Row(
       children: [
         SizedBox(
-            width: Get.width * 2 / 7,
+            width: Get.width * 1 / 4,
             child: Text(
               title,
               style: TextStyle(color: Colors.black54),
             )),
         Text(
           data,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
+    );
+  }
+
+  Widget _colData(var title, var data) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+            width: Get.width * 2 / 7,
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.grey),
+            )),
+        Text(
+          data,
+          overflow: TextOverflow.visible,
         ),
       ],
     );
@@ -205,20 +260,14 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
   Widget _rowData2(var title1, var data1) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-                width: Get.width * 2 / 7,
-                child: Text(
-                  title1,
-                  style: TextStyle(color: Colors.grey),
-                )),
-            Text(
-              data1,
+        SizedBox(
+            width: Get.width * 2 / 7,
+            child: Text(
+              title1,
               style: TextStyle(color: Colors.grey),
-            ),
-          ],
+            )),
+        Text(
+          data1,
         ),
       ],
     );

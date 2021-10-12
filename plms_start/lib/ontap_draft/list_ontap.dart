@@ -56,6 +56,8 @@ class _OnTapScreennState extends State<OnTapScreen>
     _scrollController.addListener(() {
       _onScroll();
     });
+    print('hi!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    print(datas[Get.arguments]['bulkName']);
     // draft.punch_issue_isTag = true;
     // draft.punch_issue_isBulk = false;
     datas[Get.arguments]['tagNumber'] != null
@@ -124,7 +126,7 @@ class _OnTapScreennState extends State<OnTapScreen>
     // draft.punch_issue_Photo_Path = [];
     // draft.punch_issue_Photo_Name = [];
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(datas[Get.arguments]['raisedBy']);
+    print(draft.punch_issue_Bulk_Item);
     super.initState();
   }
 

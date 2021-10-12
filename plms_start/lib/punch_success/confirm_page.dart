@@ -6,7 +6,7 @@ import 'package:plms_start/pages/utils/button_confirm.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
 import '../globals/globals.dart' as globals;
-// import '../globals/issue.dart' as issue;
+import '../globals/issue.dart' as issue;
 
 // import 'components/screenList.dart';
 
@@ -40,15 +40,31 @@ class _ConfirmPageState extends State<ConfirmPage> {
   String area = globals.punch_issue_Area.length == 0
       ? 'area'
       : globals.punch_issue_Area[0];
-  String system = globals.punch_issue_System[0];
+  String system = '';
 
-  String subsystem = globals.punch_issue_Sub_System[0];
+  String subsystem = '';
 
   String tagnumber = globals.punch_issue_Tag_Number.length == 0
       ? 'tagnumber'
       : globals.punch_issue_Tag_Number[0];
 
   String category = globals.punch_issue_Category[0];
+
+  void initState() {
+    for (var i = 0; i < issue.systemsList.length; i++) {
+      if (issue.systemsList[i] == globals.punch_issue_System[0]) {
+        system = issue.systemsNameList[i];
+      }
+    }
+    for (var i = 0; i < issue.subsystemList.length; i++) {
+      if (issue.subsystemList[i] == globals.punch_issue_Sub_System[0]) {
+        subsystem = issue.subsystemNameList[i];
+      }
+    }
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
@@ -134,14 +150,14 @@ class _ConfirmPageState extends State<ConfirmPage> {
                                 SizedBox(
                                   height: 20,
                                 ),
-                                _rowData2(
+                                _colData(
                                   'System',
                                   system,
                                 ),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                _rowData2('Sub-system', subsystem),
+                                _colData('Sub-system', subsystem),
                                 SizedBox(
                                   height: 20,
                                 ),
@@ -185,7 +201,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
     return Row(
       children: [
         SizedBox(
-            width: Get.width * 2 / 7,
+            width: Get.width * 1 / 4,
             child: Text(
               title,
               style: TextStyle(color: Colors.black54),
@@ -193,6 +209,25 @@ class _ConfirmPageState extends State<ConfirmPage> {
             )),
         Text(
           data,
+        ),
+      ],
+    );
+  }
+
+  Widget _colData(var title, var data) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+            width: Get.width * 2 / 7,
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.grey),
+            )),
+        Text(
+          data,
+          style: TextStyle(color: Colors.grey),
+          overflow: TextOverflow.visible,
         ),
       ],
     );

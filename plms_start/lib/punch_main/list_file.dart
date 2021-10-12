@@ -69,10 +69,11 @@ class _ListFileState extends State<ListFile> {
                         : login.visible = false;
                   });
                 },
-                child: InkWell(
+                child: GestureDetector(
                   onTap: () {
+                    // print(login.openList[index]);
                     Get.to(() => OnTapPage(),
-                        arguments: [index, login.openList]);
+                        arguments: [index - draftList.length, login.openList]);
                   },
                   child: Stack(children: [
                     ListComponent(
@@ -115,7 +116,10 @@ class _ListFileState extends State<ListFile> {
                 data[index]['status'] == '4') {
               return InkWell(
                 onTap: () {
-                  Get.to(OnTapPage(), arguments: [index, login.reqList]);
+                  Get.to(OnTapPage(), arguments: [
+                    index - draftList.length - openList.length,
+                    login.reqList
+                  ]);
                 },
                 child: ListComponent(
                     title: AppLocalizations.of(context)!.tile4,
@@ -126,7 +130,10 @@ class _ListFileState extends State<ListFile> {
             } else {
               return InkWell(
                 onTap: () {
-                  Get.to(OnTapPage(), arguments: [index, login.closeList]);
+                  Get.to(OnTapPage(), arguments: [
+                    index - draftList.length - openList.length - reqList.length,
+                    login.closeList
+                  ]);
                 },
                 child: ListComponent(
                     title: AppLocalizations.of(context)!.tile5,

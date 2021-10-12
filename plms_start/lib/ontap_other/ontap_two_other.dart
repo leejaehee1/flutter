@@ -46,7 +46,7 @@ class _OntapSecondState extends State<OntapSecond> {
 
   List<String> departmentDraft = [];
   List<String> disciplineDraft = [];
-
+  // List<String> raisedDraft = [];
   @override
   void initState() {
     print('strat');
@@ -67,6 +67,12 @@ class _OntapSecondState extends State<OntapSecond> {
         disciplineDraft.add(issue.disciplineNameList[i]);
       }
       print(disciplineDraft);
+      // for (var i = 0; i < issue.qcList.length; i++) {
+      //   if (datas[Get.arguments]['raisedBy'] != null &&
+      //       datas[Get.arguments]['raisedBy'] == issue.qcList[i].toString()) {
+      //     raisedDraft.add(issue.qcList[i]);
+      //   }
+      // }
     }
     print('end!!!!!!!!!');
     super.initState();
