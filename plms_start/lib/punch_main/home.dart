@@ -336,7 +336,7 @@ class _HomeState extends State<Home> {
       var sqlqc = jsonDecode(response.body);
       // print('json3$json3');
       //  += json3;
-      print("sqlassi[0]: ${sqlqc[0]}");
+      // print("sqlassi[0]: ${sqlqc[0]}");
       if (mounted)
         this.setState(() {
           for (int i = 0; i < sqlqc.length; i++) {

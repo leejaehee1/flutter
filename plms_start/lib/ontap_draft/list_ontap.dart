@@ -62,8 +62,8 @@ class _OnTapScreennState extends State<OnTapScreen>
         ? draft.punch_issue_Tag_Number = [datas[Get.arguments]['tagNumber']]
         : draft.punch_issue_Tag_Number = [];
 
-    datas[Get.arguments]['bulkItem'] != null
-        ? draft.punch_issue_Bulk_Item = [datas[Get.arguments]['bulkItem']]
+    datas[Get.arguments]['bulkName'] != null
+        ? draft.punch_issue_Bulk_Item = [datas[Get.arguments]['bulkName']]
         : draft.punch_issue_Bulk_Item = [];
 
     draft.punch_issue_Category = [datas[Get.arguments]['category']];
@@ -74,13 +74,13 @@ class _OnTapScreennState extends State<OnTapScreen>
         ? draft.punch_issue_Unit = [datas[Get.arguments]['unit']]
         : draft.punch_issue_Unit = [];
 
-    datas[Get.arguments]['department'] != null
-        ? draft.punch_issue_Area = [datas[Get.arguments]['department']]
+    datas[Get.arguments]['area'] != null
+        ? draft.punch_issue_Area = [datas[Get.arguments]['area']]
         : draft.punch_issue_Area = [];
 
     draft.punch_issue_Punch_ID = [datas[Get.arguments]['punchID']];
 
-    datas[Get.arguments]['department'] != null
+    datas[Get.arguments]['issueDescription'] != null
         ? draft.punch_issue_Description = [
             datas[Get.arguments]['issueDescription']
           ]
@@ -117,6 +117,8 @@ class _OnTapScreennState extends State<OnTapScreen>
     // draft.punch_issue_Photo = [];
     // draft.punch_issue_Photo_Path = [];
     // draft.punch_issue_Photo_Name = [];
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    print(datas[Get.arguments]['raisedBy']);
     super.initState();
   }
 
@@ -319,7 +321,8 @@ class _OnTapScreennState extends State<OnTapScreen>
                   draft.punch_issue_Status.removeAt(0);
                   draft.punch_issue_Status.add('2');
                 }
-                Get.toNamed('/confirm');
+                // Get.toNamed('/confirm');
+                Get.to(() => OnTapConfirmPage());
               },
               child: Text("Create Issue"),
             ),

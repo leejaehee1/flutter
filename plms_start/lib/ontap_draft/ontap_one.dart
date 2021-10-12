@@ -29,12 +29,16 @@ class _OntapOneState extends State<OntapOne> {
   List<String> system = issue.systemsDataList;
   List<String> subsystem = issue.subsystemDataList;
 
+  bool _isTag = draft.punch_issue_Bulk_Item[0] == '0' ? true : false;
+  bool _isBulk = draft.punch_issue_Bulk_Item[0] == '0' ? false : true;
+
   int idx = Get.arguments;
 
   List datas = login.draftList;
 
-  String _horizonGroupValue = "Tag Number";
-  List<String> _status = ['Tag Number', "Bulk Item"];
+  String _horizonGroupValue =
+      draft.punch_issue_Bulk_Item[0] == '0' ? "Tag Number" : "Bulk Name";
+  List<String> _status = ['Tag Number', "Bulk Name"];
 
   var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
 
@@ -44,12 +48,12 @@ class _OntapOneState extends State<OntapOne> {
           ? TextEditingController()
           : TextEditingController(
               text: login.draftList[Get.arguments]['tagNumber']);
-  final _bulkTextEditController = draft.punch_issue_Bulk_Item.length == 1
-      ? TextEditingController(text: draft.punch_issue_Bulk_Item[0])
-      : login.draftList[Get.arguments]['bulkItem'] == null
+  final _bulkTextEditController = draft.punch_issue_Bulk_Name.length == 1
+      ? TextEditingController(text: draft.punch_issue_Bulk_Name[0])
+      : login.draftList[Get.arguments]['bulkName'] == null
           ? TextEditingController()
           : TextEditingController(
-              text: login.draftList[Get.arguments]['bulkItem']);
+              text: login.draftList[Get.arguments]['bulkName']);
 
   final _unitTextEditController = draft.punch_issue_Unit.length == 1
       ? TextEditingController(text: draft.punch_issue_Unit[0])
@@ -153,9 +157,9 @@ class _OntapOneState extends State<OntapOne> {
                                           _tagTextEditController),
                                       _size15(),
                                       _textField3(
-                                          'Bulk Item',
+                                          'Bulk Name',
                                           '',
-                                          globals.punch_issue_Bulk_Item,
+                                          globals.punch_issue_Bulk_Name,
                                           _bulkTextEditController),
                                     ],
                                   ),
@@ -215,15 +219,21 @@ class _OntapOneState extends State<OntapOne> {
           }
 
           _bulkTextEditController.clear();
-          globals.punch_issue_isTag = true;
-          globals.punch_issue_isBulk = false;
+          _isTag = true;
+          _isBulk = false;
+          if (_isBulk == false) {
+            globals.punch_issue_Bulk_Item = ['0'];
+          }
         } else if (value == _status[1]) {
           if (draft.punch_issue_Tag_Number.length == 1) {
             draft.punch_issue_Tag_Number.removeAt(0);
           }
           _tagTextEditController.clear();
-          globals.punch_issue_isTag = false;
-          globals.punch_issue_isBulk = true;
+          _isTag = false;
+          _isBulk = true;
+          if (_isBulk == true) {
+            globals.punch_issue_Bulk_Item = ['1'];
+          }
         }
       }),
       items: _status,
@@ -410,7 +420,7 @@ class _OntapOneState extends State<OntapOne> {
       padding: EdgeInsets.all(10),
       child: ListView.builder(
           // scrollDirection: Axis.vertical,
-          itemCount: data.length,
+          itemCount: data.length == 0 ? 0 : data.length,
           itemBuilder: (BuildContext context, var index) {
             return GestureDetector(
               onTap: () {
@@ -512,7 +522,7 @@ class _OntapOneState extends State<OntapOne> {
       padding: EdgeInsets.all(10),
       child: ListView.builder(
           // scrollDirection: Axis.vertical,
-          itemCount: data.length,
+          itemCount: data.length == 0 ? 0 : data.length,
           itemBuilder: (BuildContext context, var index) {
             return GestureDetector(
               onTap: () {
@@ -557,6 +567,7 @@ class _OntapOneState extends State<OntapOne> {
               width: Get.width * 4 / 5,
               height: Get.height * 1.1 / 25,
               child: TextFormField(
+                  enabled: false,
                   controller: controller,
                   onChanged: (String str) {
                     setState(() {
@@ -606,7 +617,7 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: globals.punch_issue_isTag,
+              enabled: _isTag,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
@@ -641,7 +652,7 @@ class _OntapOneState extends State<OntapOne> {
                   print(globaldata);
                 });
               },
-              enabled: globals.punch_issue_isBulk,
+              enabled: _isBulk,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,

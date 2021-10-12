@@ -34,9 +34,9 @@ class _OntapTwoState extends State<OntapTwo> {
   List raisedon = issue.qcList;
 
   bool isSwitch1 =
-      login.draftList[Get.arguments]['designChgReq'] == 1 ? true : false;
+      login.draftList[Get.arguments]['designChgReq'] == '1' ? true : false;
   bool isSwitch2 =
-      login.draftList[Get.arguments]['materialReq'] == 1 ? true : false;
+      login.draftList[Get.arguments]['materialReq'] == '1' ? true : false;
 
   int idx = Get.arguments;
 
@@ -49,6 +49,9 @@ class _OntapTwoState extends State<OntapTwo> {
 
   @override
   void initState() {
+    print('!!!!!!!!!!!!!!!!!!!!!!!');
+    print(login.draftList[Get.arguments]['designChgReq']);
+    print(login.draftList[Get.arguments]['materialReq']);
     print('strat');
     for (var i = 0; i < 4; i++) {
       if (datas[Get.arguments]['keyword${i + 1}'] != null) {
@@ -282,7 +285,7 @@ class _OntapTwoState extends State<OntapTwo> {
                   : text == "Discipline" &&
                           datas[Get.arguments]['discipline'] != null
                       ? disciplineDraft[0]
-                      : ''
+                      : 'Raised On'
               // datas[idx][text2],
               ),
         ),

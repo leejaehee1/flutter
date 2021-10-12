@@ -43,6 +43,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     'area',
     'tagNumber',
     'bulkItem',
+    'bulkName',
     'department',
     'targetDate',
     'issuedBy',
@@ -64,6 +65,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     draft.punch_issue_Area,
     draft.punch_issue_Tag_Number,
     draft.punch_issue_Bulk_Item,
+    draft.punch_issue_Bulk_Name,
     draft.punch_issue_Action_On,
     draft.punch_issue_Date,
     login.userID,
@@ -77,6 +79,8 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
 
   @override
   void initState() {
+    print('!!!!!!!!!!!!!!!!1');
+    print(draft.punch_issue_Punch_ID);
     for (int i = 0; i < _listData.length; i++) {
       if (_listData[i].length != 0) {
         _mapData[_nameData[i]] = _listData[i][0];

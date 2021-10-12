@@ -11,6 +11,7 @@ library plms.draft;
 // first page
 List punch_issue_Tag_Number = [];
 List punch_issue_Bulk_Item = [];
+List punch_issue_Bulk_Name = [];
 List punch_issue_Category = [];
 List punch_issue_System = [];
 List punch_issue_Sub_System = [];

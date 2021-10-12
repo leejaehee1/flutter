@@ -29,9 +29,12 @@ class _PageOneState extends State<PageOne> {
   List<String> subsystem = issue.subsystemDataList;
 
   String _horizonGroupValue = "Tag Number";
-  List<String> _status = ['Tag Number', "Bulk Item"];
+  List<String> _status = ['Tag Number', "Bulk Name"];
 
   var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
+
+  bool _isTag = true;
+  bool _isBulk = false;
 
   final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
       ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
@@ -130,9 +133,9 @@ class _PageOneState extends State<PageOne> {
                                           _tagTextEditController),
                                       _size15(),
                                       _textField3(
-                                          'Bulk Item',
+                                          'Bulk Name',
                                           '',
-                                          globals.punch_issue_Bulk_Item,
+                                          globals.punch_issue_Bulk_Name,
                                           _bulkTextEditController),
                                     ],
                                   ),
@@ -190,20 +193,26 @@ class _PageOneState extends State<PageOne> {
         _horizonGroupValue = value!;
         print(value);
         if (value == _status[0]) {
-          if (globals.punch_issue_Bulk_Item.length == 1) {
-            globals.punch_issue_Bulk_Item.removeAt(0);
+          if (globals.punch_issue_Bulk_Name.length == 1) {
+            globals.punch_issue_Bulk_Name.removeAt(0);
           }
 
           _bulkTextEditController.clear();
-          globals.punch_issue_isTag = true;
-          globals.punch_issue_isBulk = false;
+          _isTag = true;
+          _isBulk = false;
+          if (_isBulk == false) {
+            globals.punch_issue_Bulk_Item = ['0'];
+          }
         } else if (value == _status[1]) {
           if (globals.punch_issue_Tag_Number.length == 1) {
             globals.punch_issue_Tag_Number.removeAt(0);
           }
           _tagTextEditController.clear();
-          globals.punch_issue_isTag = false;
-          globals.punch_issue_isBulk = true;
+          _isTag = false;
+          _isBulk = true;
+          if (_isBulk == true) {
+            globals.punch_issue_Bulk_Item = ['1'];
+          }
         }
       }),
       items: _status,
@@ -282,7 +291,7 @@ class _PageOneState extends State<PageOne> {
               contentPadding: edge,
 
               border: OutlineInputBorder(),
-              isDense: true,
+              // isDense: true,
               // isCollapsed: true,
               suffixIcon: Icon(Icons.arrow_drop_down),
             ),
@@ -322,7 +331,7 @@ class _PageOneState extends State<PageOne> {
               print(globals.punch_issue_System);
               print(globals.punch_issue_Sub_System);
             },
-            selectedItem: data3.length == 0 ? data2[0] : data3[0],
+            // selectedItem: data3.length == 0 ? data2[0] : data3[0],
           ),
         ),
       ],
@@ -608,7 +617,7 @@ class _PageOneState extends State<PageOne> {
                   print(globaldata);
                 });
               },
-              enabled: globals.punch_issue_isTag,
+              enabled: _isTag,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
@@ -643,7 +652,7 @@ class _PageOneState extends State<PageOne> {
                   print(globaldata);
                 });
               },
-              enabled: globals.punch_issue_isBulk,
+              enabled: _isBulk,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
