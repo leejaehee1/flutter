@@ -203,6 +203,7 @@ class _PageThreeState extends State<PageThree> {
   var api = dotenv.env['PHONE_IP'];
   // var api = dotenv.env['EMUL_IP'];
   List imageFileList = globals.punch_issue_Photo;
+  List imageName = globals.punch_issue_Photo_Name;
   Future<void> _sendImage() async {
     var url = Uri.parse('$api/summury/uploadfile');
     var request = http.MultipartRequest('POST', url);
@@ -211,8 +212,7 @@ class _PageThreeState extends State<PageThree> {
       request.files.add(await http.MultipartFile.fromPath(
         'imgFile',
         imageFileList[i].path,
-        filename:
-            '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Path[i]}',
+        filename: imageName[i].toString(),
         contentType: new MediaType('image', 'png'),
       ));
     }
