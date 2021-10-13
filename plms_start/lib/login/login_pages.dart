@@ -119,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
             child: TextFormField(
               controller: _idTextEditController,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.loginID,
-              ),
+                  hintText: AppLocalizations.of(context)!.loginID,
+                  hintStyle: TextStyle(color: Colors.grey)),
               onChanged: (text) {
                 setState(() {});
               },
@@ -136,9 +136,10 @@ class _LoginPageState extends State<LoginPage> {
               controller: _pwTextEditController,
               obscureText: true,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.loginPW,
-                // labelText: AppLocalizations.of(context)!.loginPW,
-              ),
+                  hintText: AppLocalizations.of(context)!.loginPW,
+                  hintStyle: TextStyle(color: Colors.grey)
+                  // labelText: AppLocalizations.of(context)!.loginPW,
+                  ),
               onChanged: (text) {
                 setState(() {});
               },
@@ -174,9 +175,9 @@ class _LoginPageState extends State<LoginPage> {
           print(jsonData['password']);
           print(jsonData['personalID']);
           print(jsonData['department']);
-          if (jsonData['result'] == false) {
-            _showDialog();
-          }
+          // if (jsonData['result'] == false) {
+          //   _showDialog();
+          // }
 
           if (jsonData['userID'] == _idTextEditController.text) {
             login.authority.add(jsonData['authority']);
@@ -253,6 +254,8 @@ class _LoginPageState extends State<LoginPage> {
                   child:
                       new Text(AppLocalizations.of(context)!.loginDialogButton),
                   onPressed: () {
+                    _idTextEditController.clear();
+                    _pwTextEditController.clear();
                     Get.back();
                   },
                 ),

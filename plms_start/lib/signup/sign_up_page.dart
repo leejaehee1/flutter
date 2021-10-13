@@ -193,41 +193,78 @@ class _SignUpPageState extends State<SignUpPage> {
                     // print(formKey.currentState!.validate());
                     // var url = Uri.parse('http://10.0.2.2:5000/api/register');
                     var url = Uri.parse('$api/api/register');
+                    // if (jsonData['result'] == false) {
+                    //   // _showDialog();
+                    //   // }
+                    // }
 
-                    isManager == true
-                        ? await http.post(url, body: {
-                            'userID': _idTextEditController.text,
-                            'password': _pwTextEditController.text,
-                            'userName': _nameTextEditController.text,
-                            'email': _emailTextEditController.text,
-                            'company': _comTextEditController.text,
-                            'authority':
-                                authorityList[authorityList.length - 1],
-                            'personalID': _personalTextEditController.text,
-                            'department': depList[depList.length - 1],
-                            'active': '1',
-                          })
-                        : await http.post(url, body: {
-                            'userID': _idTextEditController.text,
-                            'password': _pwTextEditController.text,
-                            'userName': _nameTextEditController.text,
-                            'email': _emailTextEditController.text,
-                            'company': _comTextEditController.text,
-                            'authority':
-                                authorityList[authorityList.length - 1],
-                            // 'personalID': _personalTextEditController.text,
-                            // 'department': depList[depList.length - 1],
-                            'active': '1',
-                          });
-
-                    Get.back();
+                    if (isManager == true) {
+                      var response = await http.post(url, body: {
+                        'userID': _idTextEditController.text,
+                        'password': _pwTextEditController.text,
+                        'userName': _nameTextEditController.text,
+                        'email': _emailTextEditController.text,
+                        'company': _comTextEditController.text,
+                        'authority': authorityList[authorityList.length - 1],
+                        'personalID': _personalTextEditController.text,
+                        'department': depList[depList.length - 1],
+                        'active': '1',
+                      });
+                      Map<String, dynamic> jsonData = jsonDecode(response.body);
+                      if (jsonData['result'] == false) {
+                        Get.defaultDialog(
+                          textCancel: "cancel",
+                          cancelTextColor: Colors.black,
+                          title: 'Error',
+                          titleStyle: TextStyle(color: Colors.red),
+                          middleText: 'Check your User ID',
+                          buttonColor: Colors.white,
+                        );
+                      } else {
+                        Get.back();
+                      }
+                    } else if (isManager == false) {
+                      var response = await http.post(url, body: {
+                        'userID': _idTextEditController.text,
+                        'password': _pwTextEditController.text,
+                        'userName': _nameTextEditController.text,
+                        'email': _emailTextEditController.text,
+                        'company': _comTextEditController.text,
+                        'authority': authorityList[authorityList.length - 1],
+                        // 'personalID': _personalTextEditController.text,
+                        // 'department': depList[depList.length - 1],
+                        'active': '1',
+                      });
+                      Map<String, dynamic> jsonData = jsonDecode(response.body);
+                      if (jsonData['result'] == false) {
+                        Get.defaultDialog(
+                          textCancel: "cancel",
+                          cancelTextColor: Colors.black,
+                          title: 'Error',
+                          titleStyle: TextStyle(color: Colors.red),
+                          middleText: 'Check your User ID',
+                          buttonColor: Colors.white,
+                        );
+                      } else {
+                        Get.back();
+                      }
+                    } else {
+                      Get.defaultDialog(
+                        textCancel: "cancel",
+                        cancelTextColor: Colors.black,
+                        title: 'Error',
+                        titleStyle: TextStyle(color: Colors.red),
+                        middleText: 'Check your Email or Password',
+                        buttonColor: Colors.white,
+                      );
+                    }
                   } else {
                     Get.defaultDialog(
                       textCancel: "cancel",
                       cancelTextColor: Colors.black,
                       title: 'Error',
                       titleStyle: TextStyle(color: Colors.red),
-                      middleText: 'Check your Email or Password',
+                      middleText: 'Check your User ID',
                       buttonColor: Colors.white,
                     );
                   }
