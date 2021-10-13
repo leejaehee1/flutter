@@ -241,7 +241,7 @@ class _OntapOneState extends State<OntapOne> {
           _isTag = false;
           _isBulk = true;
           if (_isBulk == true) {
-            draft.punch_issue_Bulk_Name = ['1'];
+            draft.punch_issue_Bulk_Item = ['1'];
           }
         }
       }),
@@ -280,7 +280,7 @@ class _OntapOneState extends State<OntapOne> {
               },
               keyboardType: TextInputType.multiline,
               maxLines: 7,
-              maxLength: 100,
+              maxLength: 500,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "hint",

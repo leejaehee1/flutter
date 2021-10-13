@@ -113,7 +113,7 @@ class _ScreenListState extends State<ScreenList>
                           '${login.draftList.length}', 1),
                       _tabBars(0xffb88d6a, AppLocalizations.of(context)!.tile3,
                           '${login.openList.length}', 2),
-                      _tabBars(0xff987ca1, AppLocalizations.of(context)!.tile4,
+                      _tabBars(0xff987ca1, AppLocalizations.of(context)!.tile41,
                           '${login.reqList.length}', 3),
                       _tabBars(0xff637a8f, AppLocalizations.of(context)!.tile5,
                           '${login.closeList.length}', 4),

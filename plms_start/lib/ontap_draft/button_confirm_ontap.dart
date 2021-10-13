@@ -47,6 +47,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     'department',
     'targetDate',
     'issuedBy',
+    'issuedDate',
     'raisedBy',
     'designChgReq',
     'materialReq',
@@ -69,6 +70,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     draft.punch_issue_Action_On,
     draft.punch_issue_Date,
     login.userID,
+    DateTime.now().toString(),
     draft.punch_issue_Raised_On,
     draft.punch_issue_Design,
     draft.punch_issue_Material,
@@ -80,7 +82,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
   @override
   void initState() {
     print('!!!!!!!!!!!!!!!!1');
-    print(draft.punch_issue_Punch_ID);
+    print(DateTime.now().toString());
     for (int i = 0; i < _listData.length; i++) {
       if (_listData[i].length != 0) {
         _mapData[_nameData[i]] = _listData[i][0];
