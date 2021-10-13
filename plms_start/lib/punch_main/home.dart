@@ -289,7 +289,7 @@ class _HomeState extends State<Home> {
             print('된다! 된다!');
           }
         });
-
+      print('sqlall!!!!!!!!!!!!!!!!!!!!!!!!!');
       Get.offAll(() => ScreenList());
     } else if (authority == "1") {
       var url = Uri.parse('$api/summury/sqlassi/');
@@ -326,7 +326,7 @@ class _HomeState extends State<Home> {
             print('된다! 된다!');
           }
         });
-
+      print('sqlassi!!!!!!!!!!!!!!!!!!!!!!!!!');
       Get.offAll(() => ScreenList());
     } else {
       var url = Uri.parse('$api/summury/sqlqc/');
@@ -359,7 +359,7 @@ class _HomeState extends State<Home> {
             print('된다! 된다!');
           }
         });
-
+      print('qc!!!!!!!!!!!!!!!!!!!!!!!!!');
       Get.offAll(() => ScreenList());
     }
     print('끝!!!!!!!!!!!!!!!!!!');

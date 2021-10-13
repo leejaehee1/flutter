@@ -94,7 +94,7 @@ class _PageThreeState extends State<PageThree> {
   // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
   List _imageData = globals.punch_issue_Photo;
-  bool status = globals.punch_issue_Switch;
+  bool status = true;
   Widget _imagePicker() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
@@ -243,6 +243,15 @@ class _PageThreeState extends State<PageThree> {
             setState(() {
               status = val;
             });
+            if (status == true) {
+              globals.punch_issue_Switch.removeAt(0);
+              globals.punch_issue_Switch.add('1');
+              print(globals.punch_issue_Switch);
+            } else {
+              globals.punch_issue_Switch.removeAt(0);
+              globals.punch_issue_Switch.add('0');
+              print(globals.punch_issue_Switch);
+            }
           },
         ),
       ],

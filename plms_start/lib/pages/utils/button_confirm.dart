@@ -46,6 +46,7 @@ class _ConfirmButtonState extends State<ConfirmButton> {
     'department',
     'targetDate',
     'issuedBy',
+    'issuedDate',
     'raisedBy',
     'designChgReq',
     'materialReq',
@@ -68,6 +69,7 @@ class _ConfirmButtonState extends State<ConfirmButton> {
     globals.punch_issue_Action_On,
     globals.punch_issue_Date,
     login.userID,
+    globals.punch_issue_Issued_Date,
     globals.punch_issue_Raised_On,
     globals.punch_issue_Design,
     globals.punch_issue_Material,
@@ -131,8 +133,8 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                 primary: Color(0xff71838D),
               ),
               onPressed: () {
-                print(_mapData);
-                // _showDialog('/home');
+                // print(_mapData);
+                _showDialog('/home');
               },
               child: Text(widget.buttonname2),
             ),
@@ -151,31 +153,32 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                 await http.post(url, body: _mapData);
                 print('보낸다!!!!!!!!');
 
-                // var url2 = Uri.parse('$api/summury/photos');
-                // if (globals.punch_issue_Photo.length == 1) {
-                //   await http.post(url2, body: {
-                //     'punchID': globals.punch_issue_Punch_ID[0],
-                //     'punchStep': '1',
-                //     'seq': '1',
-                //     'localPath': globals.punch_issue_Photo_Path[0].toString(),
-                //     'imagePath': globals.punch_issue_Photo_Name[0].toString(),
-                //     'uploaded': globals.punch_issue_Switch == true ? '1' : '0',
-                //     'uploadDate': DateTime.now().toString(),
-                //   });
-                // } else if (globals.punch_issue_Photo.length > 1) {
-                //   for (var i = 0; i < globals.punch_issue_Photo.length; i++) {
-                //     await http.post(url2, body: {
-                //       'punchID': globals.punch_issue_Punch_ID[0],
-                //       'punchStep': '1',
-                //       'seq': '${i + 1}',
-                //       'localPath': globals.punch_issue_Photo_Path[i].toString(),
-                //       'imagePath': globals.punch_issue_Photo_Name[i].toString(),
-                //       'uploaded':
-                //           globals.punch_issue_Switch == true ? '1' : '0',
-                //       'uploadDate': DateTime.now().toString(),
-                //     });
-                //   }
-                // }
+                var url2 = Uri.parse('$api/summury/photos');
+                if (globals.punch_issue_Photo.length == 1) {
+                  await http.post(url2, body: {
+                    'punchID': globals.punch_issue_Punch_ID[0],
+                    'punchStep': '1',
+                    'seq': '1',
+                    'localPath': globals.punch_issue_Photo_Path[0].toString(),
+                    'imagePath': globals.punch_issue_Photo_Name[0].toString(),
+                    'uploaded': globals.punch_issue_Switch[0],
+                    'uploadDate': DateTime.now().toString(),
+                  });
+                } else if (globals.punch_issue_Photo.length > 1) {
+                  for (var i = 0; i < globals.punch_issue_Photo.length; i++) {
+                    await http.post(url2, body: {
+                      'punchID': globals.punch_issue_Punch_ID[0],
+                      'punchStep': '1',
+                      'seq': '${i + 1}',
+                      'localPath':
+                          '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Name[i]}',
+                      'imagePath':
+                          '/uploads/${globals.punch_issue_Photo_Name[i]}',
+                      'uploaded': globals.punch_issue_Switch[0],
+                      'uploadDate': DateTime.now().toString(),
+                    });
+                  }
+                }
 
                 print('간다!!!!!!!!!!!!!!!!!!!');
 

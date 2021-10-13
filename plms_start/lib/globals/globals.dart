@@ -38,7 +38,8 @@ List punch_issue_Photo_Path = [];
 List punch_issue_Photo_Name = [];
 List punch_issue_Pixel_X = [];
 List punch_issue_Pixel_Y = [];
-bool punch_issue_Switch = true;
+List punch_issue_Switch = [];
 
 // status
 List punch_issue_Status = [];
+List punch_issue_Issued_Date = [];

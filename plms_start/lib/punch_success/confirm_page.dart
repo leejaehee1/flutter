@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:intl/intl.dart';
 // import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/button_confirm.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 
 import '../globals/globals.dart' as globals;
+import '../globals/login.dart' as login;
 import '../globals/issue.dart' as issue;
 
 // import 'components/screenList.dart';
@@ -28,12 +30,8 @@ class _ConfirmPageState extends State<ConfirmPage> {
   // String tagnumber = 'tagnumber';
   // String category = 'category';
   String punchID = globals.punch_issue_Punch_ID[0];
-  String date = globals.punch_issue_Date.length == 0
-      ? 'date'
-      : globals.punch_issue_Date[0].toString();
-  String issuedBy = globals.punch_issue_Raised_On.length == 0
-      ? 'issuedBy'
-      : globals.punch_issue_Raised_On[0];
+  var date = globals.punch_issue_Issued_Date[0];
+  String issuedBy = login.userID[0];
   String unit = globals.punch_issue_Unit.length == 0
       ? 'unit'
       : globals.punch_issue_Unit[0];
@@ -141,6 +139,7 @@ class _ConfirmPageState extends State<ConfirmPage> {
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey)),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 _rowData2('Unit', unit),
                                 SizedBox(
@@ -205,10 +204,10 @@ class _ConfirmPageState extends State<ConfirmPage> {
             child: Text(
               title,
               style: TextStyle(color: Colors.black54),
-              overflow: TextOverflow.ellipsis,
             )),
         Text(
           data,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
@@ -226,7 +225,6 @@ class _ConfirmPageState extends State<ConfirmPage> {
             )),
         Text(
           data,
-          style: TextStyle(color: Colors.grey),
           overflow: TextOverflow.visible,
         ),
       ],
@@ -236,20 +234,14 @@ class _ConfirmPageState extends State<ConfirmPage> {
   Widget _rowData2(var title1, var data1) {
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-                width: Get.width * 2 / 7,
-                child: Text(
-                  title1,
-                  style: TextStyle(color: Colors.grey),
-                )),
-            Text(
-              data1,
+        SizedBox(
+            width: Get.width * 2 / 7,
+            child: Text(
+              title1,
               style: TextStyle(color: Colors.grey),
-            ),
-          ],
+            )),
+        Text(
+          data1,
         ),
       ],
     );
