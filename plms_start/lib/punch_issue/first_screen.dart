@@ -128,7 +128,6 @@ class _PageOneState extends State<PageOne> {
                                     children: [
                                       _textField2(
                                           'Tag Number',
-                                          'Create or Add',
                                           globals.punch_issue_Tag_Number,
                                           _tagTextEditController),
                                       _size15(),
@@ -300,7 +299,7 @@ class _PageOneState extends State<PageOne> {
             mode: Mode.BOTTOM_SHEET,
             showSelectedItem: true,
             items: data1,
-            hint: "Menu mode",
+
             onChanged: (value) {
               // 1. global first, second, third 값을 모두 한방에 관리하는 방법
               // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
@@ -596,7 +595,7 @@ class _PageOneState extends State<PageOne> {
   }
 
 // textfield tag number
-  Widget _textField2(String text, String hint, var globaldata, var controller) {
+  Widget _textField2(String text, var globaldata, var controller) {
     return Row(
       children: [
         Container(width: Get.width * 1 / 3.6, child: Text(text)),
@@ -623,7 +622,7 @@ class _PageOneState extends State<PageOne> {
                 isDense: true,
                 border: OutlineInputBorder(),
                 hintStyle: TextStyle(fontSize: 10, color: Colors.grey),
-                hintText: hint,
+                // hintText: hint,
               )),
         ),
       ],
