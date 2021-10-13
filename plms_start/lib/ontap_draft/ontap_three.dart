@@ -1,17 +1,19 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../pages/utils/title_text.dart';
-import '../globals/globals.dart' as globals;
-
+// import '../globals/globals.dart' as globals;
+import '../globals/punch_draft.dart' as draft;
+import 'package:http_parser/http_parser.dart';
 /*
 * name : PageThree
 * description : punch issue three page
@@ -89,8 +91,8 @@ class _OntapThreeState extends State<OntapThree> {
 
   // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
-  List _imageData = globals.punch_issue_Photo;
-  bool status = globals.punch_issue_Switch;
+  List _imageData = draft.punch_issue_Photo;
+  bool status = true;
   Widget _imagePicker() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
@@ -113,6 +115,17 @@ class _OntapThreeState extends State<OntapThree> {
                     Icons.add_a_photo,
                     size: Get.height * 1 / 18,
                   )),
+              IconButton(
+                  onPressed: () {
+                    setState(() {
+                      print('hi');
+                      _sendImage();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.add_a_photo_outlined,
+                    size: Get.height * 1 / 18,
+                  )),
             ],
           ),
           // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
@@ -130,10 +143,13 @@ class _OntapThreeState extends State<OntapThree> {
           // ii) 나중에 업로드
 
           // 이미지 저장 및 보기
-          Expanded(
+          Container(
+            height: Get.height * 1 / 6.6,
+            width: Get.width,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
+              // scrollDirection: Axis.horizontal,
               itemCount: _imageData.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
@@ -182,6 +198,29 @@ class _OntapThreeState extends State<OntapThree> {
     );
   }
 
+  var api = dotenv.env['PHONE_IP'];
+  // var api = dotenv.env['EMUL_IP'];
+  List imageFileList = draft.punch_issue_Photo;
+  List imageName = draft.punch_issue_Photo_Name;
+  Future<void> _sendImage() async {
+    var url = Uri.parse('$api/summury/uploadfile');
+    var request = http.MultipartRequest('POST', url);
+    // for (var imageFile in imageFileList) {
+    for (int i = 0; i < imageFileList.length; i++) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'imgFile',
+        imageFileList[i].path,
+        filename: imageName[i].toString(),
+        contentType: new MediaType('image', 'png'),
+      ));
+    }
+
+    var response = await request.send();
+    if (response.statusCode == 200) print('Uploaded!');
+  }
+
+//   }
+
   // 스위치 버튼
   Widget _swichWidget(String name) {
     return Row(
@@ -202,6 +241,15 @@ class _OntapThreeState extends State<OntapThree> {
             setState(() {
               status = val;
             });
+            if (status == true) {
+              draft.punch_issue_Switch.removeAt(0);
+              draft.punch_issue_Switch.add('1');
+              print(draft.punch_issue_Switch);
+            } else {
+              draft.punch_issue_Switch.removeAt(0);
+              draft.punch_issue_Switch.add('0');
+              print(draft.punch_issue_Switch);
+            }
           },
         ),
       ],
@@ -292,10 +340,10 @@ class _OntapThreeState extends State<OntapThree> {
                   child: new Text("Yes"),
                   onPressed: () {
                     _imageData.removeAt(index);
-                    globals.punch_issue_Photo_Name.removeAt(index);
-                    globals.punch_issue_Photo_Path.removeAt(index);
-                    globals.punch_issue_Photo = _imageData;
-                    print(globals.punch_issue_Photo);
+                    draft.punch_issue_Photo_Name.removeAt(index);
+                    draft.punch_issue_Photo_Path.removeAt(index);
+                    draft.punch_issue_Photo = _imageData;
+                    print(draft.punch_issue_Photo);
                     setState(() {});
                     Get.back();
                   },
@@ -319,8 +367,8 @@ class _OntapThreeState extends State<OntapThree> {
         if (imageData != null) {
           setState(() {
             _imageData.add(imageData);
-            globals.punch_issue_Photo = _imageData;
-            print(globals.punch_issue_Photo);
+            draft.punch_issue_Photo = _imageData;
+            print(draft.punch_issue_Photo);
           });
         }
 
@@ -344,8 +392,8 @@ class _OntapThreeState extends State<OntapThree> {
         if (imageData != null) {
           setState(() {
             _imageData.add(imageData);
-            globals.punch_issue_Photo = _imageData;
-            print(globals.punch_issue_Photo);
+            draft.punch_issue_Photo = _imageData;
+            print(draft.punch_issue_Photo);
           });
         }
       }

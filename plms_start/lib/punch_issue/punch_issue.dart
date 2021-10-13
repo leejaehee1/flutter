@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
@@ -72,7 +73,7 @@ class _PunchScreenState extends State<PunchScreen>
     globals.punch_issue_Design = ['0'];
     globals.punch_issue_Material = ['0'];
 
-    globals.punch_issue_Switch = true;
+    globals.punch_issue_Switch = ['1'];
     globals.punch_issue_Photo = [];
     globals.punch_issue_Photo_Path = [];
     globals.punch_issue_Photo_Name = [];
@@ -253,7 +254,9 @@ class _PunchScreenState extends State<PunchScreen>
                   globals.punch_issue_Status.removeAt(0);
                   globals.punch_issue_Status.add('1');
                 }
-
+                globals.punch_issue_Issued_Date = [];
+                globals.punch_issue_Issued_Date.add(
+                    DateFormat('yyyy-MM-dd').format(DateTime.now()).toString());
                 print('global!!!!!!!!!!!');
                 print(globals.punch_issue_Status);
                 Get.toNamed('/confirm');
@@ -277,6 +280,9 @@ class _PunchScreenState extends State<PunchScreen>
                   globals.punch_issue_Status.removeAt(0);
                   globals.punch_issue_Status.add('2');
                 }
+                globals.punch_issue_Issued_Date = [];
+                globals.punch_issue_Issued_Date
+                    .add(DateTime.now().toString().toString());
                 Get.toNamed('/confirm');
               },
               child: Text("Create Issue"),

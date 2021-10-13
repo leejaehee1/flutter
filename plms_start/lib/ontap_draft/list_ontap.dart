@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:plms_start/ontap_draft/confirm_page_ontap.dart';
+import 'package:http/http.dart' as http;
 
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
@@ -56,10 +60,7 @@ class _OnTapScreennState extends State<OnTapScreen>
     _scrollController.addListener(() {
       _onScroll();
     });
-    print('hi!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    print(datas[Get.arguments]['bulkName']);
-    // draft.punch_issue_isTag = true;
-    // draft.punch_issue_isBulk = false;
+
     datas[Get.arguments]['tagNumber'] != null
         ? draft.punch_issue_Tag_Number = [datas[Get.arguments]['tagNumber']]
         : draft.punch_issue_Tag_Number = [];
@@ -93,7 +94,6 @@ class _OnTapScreennState extends State<OnTapScreen>
             datas[Get.arguments]['issueDescription']
           ]
         : draft.punch_issue_Description = [];
-    ;
 
     datas[Get.arguments]['department'] != null
         ? draft.punch_issue_Action_On = [datas[Get.arguments]['department']]
@@ -122,12 +122,31 @@ class _OnTapScreennState extends State<OnTapScreen>
         ? draft.punch_issue_Material = ['1']
         : draft.punch_issue_Material = ['0'];
 
-    // draft.punch_issue_Photo = [];
-    // draft.punch_issue_Photo_Path = [];
-    // draft.punch_issue_Photo_Name = [];
+    draft.punch_issue_Photo = [];
+    draft.punch_issue_Photo_Path = [];
+    draft.punch_issue_Photo_Name = [];
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(draft.punch_issue_Bulk_Item);
+    print(datas[Get.arguments]['punchID']);
+
+    _photoPath();
     super.initState();
+  }
+
+  Future<void> _photoPath() async {
+    var url = Uri.parse('$api/summury/draftphotos');
+    var response = await http.post(url, body: {
+      'punchID': datas[Get.arguments]['punchID'],
+    });
+    var photoPath = jsonDecode(response.body);
+    // Map<String, dynamic> jsonData = jsonDecode(response.body);
+    print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
+    print(photoPath[0]['localPath']);
+    for (var i = 0; i < photoPath.length; i++) {
+      var image = File('${photoPath[i]['localPath']}');
+      draft.punch_issue_Photo.add(image);
+    }
+    print(draft.punch_issue_Photo);
+    // for (var imageFile in imageFileList) {
   }
 
   @override

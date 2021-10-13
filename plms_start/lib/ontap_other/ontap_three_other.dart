@@ -90,7 +90,7 @@ class _OntapThirdState extends State<OntapThird> {
   // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
   List _imageData = globals.punch_issue_Photo;
-  bool status = globals.punch_issue_Switch;
+  bool status = true;
   Widget _imagePicker() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
