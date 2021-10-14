@@ -38,12 +38,14 @@ class _ImagePaintersState extends State<ImagePainters> {
   void saveImage() async {
     final image = await _imageKey.currentState!.exportImage();
     final directory = (await getExternalStorageDirectory())!.path;
+    print(image);
     await Directory('$directory/sample/').create(recursive: true);
     final path = '$directory/sample/';
     final fileName =
         '${projectID}_${punchID}_${userID}_${DateTime.now().millisecondsSinceEpoch}.png';
     final fullPath = path + fileName;
     final imgFile = File('$fullPath');
+    print(imgFile.runtimeType);
     imgFile.writeAsBytesSync(image!);
     print(fullPath.runtimeType);
     print(imgFile);

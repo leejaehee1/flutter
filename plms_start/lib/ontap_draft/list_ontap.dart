@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:plms_start/ontap_draft/confirm_page_ontap.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,8 +19,10 @@ import 'ontap_two.dart';
 // import 'package:http/http.dart' as http;
 import '../globals/login.dart' as login;
 import '../globals/issue.dart' as issue;
+import '../globals/photos.dart' as photos;
 import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_downloader/image_downloader.dart';
 
 /*
 * name : PunchScreen
@@ -53,6 +57,11 @@ class _OnTapScreennState extends State<OnTapScreen>
 
   List datas = login.draftList;
 
+  String projectID = issue.projectList[0];
+  String punchID = draft.punch_issue_Punch_ID.length == 0
+      ? 'PunchID'
+      : draft.punch_issue_Punch_ID[0];
+  String userID = login.userID[0];
   @override
   void initState() {
     _tabController = new TabController(length: 3, vsync: this);
@@ -123,17 +132,21 @@ class _OnTapScreennState extends State<OnTapScreen>
         : draft.punch_issue_Material = ['0'];
 
     draft.punch_issue_Photo = [];
-    draft.punch_issue_Photo_Path = [];
-    draft.punch_issue_Photo_Name = [];
+    // draft.punch_issue_Photo_Path = [];
+    // draft.punch_issue_Photo_Name = [];
+    photos.photos_Image_Path = [];
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     print(datas[Get.arguments]['punchID']);
 
     _photoPath();
+
+    print('???????????성공????????????????');
+
     super.initState();
   }
 
   Future<void> _photoPath() async {
-    var url = Uri.parse('$api/summury/draftphotos');
+    var url = Uri.parse('$api/summury/photospath');
     var response = await http.post(url, body: {
       'punchID': datas[Get.arguments]['punchID'],
     });
@@ -142,10 +155,28 @@ class _OnTapScreennState extends State<OnTapScreen>
     print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
     print(photoPath[0]['localPath']);
     for (var i = 0; i < photoPath.length; i++) {
-      var image = File('${photoPath[i]['localPath']}');
+      var imagePath2 = '${photoPath[i]['imagePath']}';
+      photos.photos_Image_Path.add(imagePath2);
+    }
+    var url2 = Uri.parse('$api/summury/photosload');
+    final directory = (await getExternalStorageDirectory())!.path;
+    for (var i = 0; i < photos.photos_Image_Path.length; i++) {
+      var response = await http
+          .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
+
+      Uint8List jsonData = response.bodyBytes;
+      print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(jsonData.runtimeType);
+      final image = File(
+          '$directory${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
+      print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(image.runtimeType);
+      image.writeAsBytesSync(jsonData);
+
       draft.punch_issue_Photo.add(image);
     }
-    print(draft.punch_issue_Photo);
+
+    print(photos.photos_Image_Path);
     // for (var imageFile in imageFileList) {
   }
 

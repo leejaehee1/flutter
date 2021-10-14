@@ -159,8 +159,10 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                     'punchID': globals.punch_issue_Punch_ID[0],
                     'punchStep': '1',
                     'seq': '1',
-                    'localPath': globals.punch_issue_Photo_Path[0].toString(),
-                    'imagePath': globals.punch_issue_Photo_Name[0].toString(),
+                    'localPath':
+                        '${globals.punch_issue_Photo_Path[0]}${globals.punch_issue_Photo_Name[0]}',
+                    'imagePath':
+                        'upload/photos/${globals.punch_issue_Photo_Name[0]}',
                     'uploaded': globals.punch_issue_Switch[0],
                     'uploadDate': DateTime.now().toString(),
                   });
@@ -173,7 +175,7 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                       'localPath':
                           '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Name[i]}',
                       'imagePath':
-                          '/uploads/${globals.punch_issue_Photo_Name[i]}',
+                          'upload/photos/${globals.punch_issue_Photo_Name[i]}',
                       'uploaded': globals.punch_issue_Switch[0],
                       'uploadDate': DateTime.now().toString(),
                     });
