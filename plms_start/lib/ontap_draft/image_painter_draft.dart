@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
 import 'package:image_painter/image_painter.dart';
@@ -7,6 +8,7 @@ import 'package:image_painter/image_painter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import '../globals/globals.dart' as globals;
+import '../globals/punch_draft.dart' as draft;
 import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;
 /*
@@ -17,22 +19,26 @@ import '../globals/login.dart' as login;
 * last update : 2021-09-30
 * */
 
-class ImagePainters extends StatefulWidget {
+class ImagePainters2 extends StatefulWidget {
   @override
-  _ImagePaintersState createState() => _ImagePaintersState();
+  _ImagePainters2State createState() => _ImagePainters2State();
 }
 
-class _ImagePaintersState extends State<ImagePainters> {
+class _ImagePainters2State extends State<ImagePainters2> {
   final _imageKey = GlobalKey<ImagePainterState>();
   final _key = GlobalKey<ScaffoldState>();
 
   String imageData = Get.arguments;
   List _imageList = [];
   String projectID = issue.projectList[0];
-  String punchID = globals.punch_issue_Punch_ID.length == 0
+  String punchID = draft.punch_issue_Punch_ID.length == 0
       ? 'PunchID'
-      : globals.punch_issue_Punch_ID[0];
+      : draft.punch_issue_Punch_ID[0];
   String userID = login.userID[0];
+
+  int idx = draft.punch_issue_Photo.length + 1;
+
+  var api = dotenv.env['PHONE_IP'];
 
   // 이미지 저장 함수
   void saveImage() async {
@@ -49,13 +55,14 @@ class _ImagePaintersState extends State<ImagePainters> {
     imgFile.writeAsBytesSync(image!);
     print(fullPath.runtimeType);
     _imageList.add(imgFile);
-    globals.punch_issue_Photo_Path.add(path);
-    globals.punch_issue_Photo_Name.add(fileName);
+    draft.punch_issue_Photo_Path.add(path);
+    draft.punch_issue_Photo_Name.add(fileName);
     print('globals!!!!!!!!!!!!!!!!');
-    print(globals.punch_issue_Photo_Name);
+    print(draft.punch_issue_Photo_Name);
+
     Get.back();
 
-    print('간다!');
+    // print('간다!');
 // 저장 알림 스낵바
     // ScaffoldMessenger.of(context).showSnackBar(
     //   SnackBar(

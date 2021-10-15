@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:http/http.dart' as http;
+import 'package:plms_start/ontap_draft/image_painter_draft.dart';
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
@@ -13,7 +14,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../pages/utils/title_text.dart';
 // import '../globals/globals.dart' as globals;
 import '../globals/punch_draft.dart' as draft;
-import 'package:http_parser/http_parser.dart';
+
 /*
 * name : PageThree
 * description : punch issue three page
@@ -115,17 +116,6 @@ class _OntapThreeState extends State<OntapThree> {
                     Icons.add_a_photo,
                     size: Get.height * 1 / 18,
                   )),
-              IconButton(
-                  onPressed: () {
-                    setState(() {
-                      print('hi');
-                      _sendImage();
-                    });
-                  },
-                  icon: Icon(
-                    Icons.add_a_photo_outlined,
-                    size: Get.height * 1 / 18,
-                  )),
             ],
           ),
           // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
@@ -157,22 +147,10 @@ class _OntapThreeState extends State<OntapThree> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      InkWell(
-                        onTap: () async {
-                          print('hi');
-                          // _imagePainter(index);
-                          // final imageData = await Get.to(() => ImagePainters(),
-                          //     arguments: _imageList[index].path);
-                          // setState(() {
-                          //   _imageData.add(imageData);
-                          // });
-                          print('hihi');
-                        },
-                        child: Image.file(
-                          // File(_imageList[index].path),
-                          File(_imageData[index].path),
-                          fit: BoxFit.cover,
-                        ),
+                      Image.file(
+                        // File(_imageList[index].path),
+                        File(_imageData[index].path),
+                        fit: BoxFit.cover,
                       ),
                       Positioned(
                         top: 0,
@@ -196,27 +174,6 @@ class _OntapThreeState extends State<OntapThree> {
         ],
       ),
     );
-  }
-
-  var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
-  List imageFileList = draft.punch_issue_Photo;
-  List imageName = draft.punch_issue_Photo_Name;
-  Future<void> _sendImage() async {
-    var url = Uri.parse('$api/summury/uploadfile');
-    var request = http.MultipartRequest('POST', url);
-    // for (var imageFile in imageFileList) {
-    for (int i = 0; i < imageFileList.length; i++) {
-      request.files.add(await http.MultipartFile.fromPath(
-        'imgFile',
-        imageFileList[i].path,
-        filename: imageName[i].toString(),
-        contentType: new MediaType('image', 'png'),
-      ));
-    }
-
-    var response = await request.send();
-    if (response.statusCode == 200) print('Uploaded!');
   }
 
 //   }
@@ -344,6 +301,7 @@ class _OntapThreeState extends State<OntapThree> {
                     draft.punch_issue_Photo_Path.removeAt(index);
                     draft.punch_issue_Photo = _imageData;
                     print(draft.punch_issue_Photo);
+
                     setState(() {});
                     Get.back();
                   },
@@ -356,20 +314,28 @@ class _OntapThreeState extends State<OntapThree> {
     );
   }
 
+  var api = dotenv.env['PHONE_IP'];
   // 갤러리 이미지 선택
   void imageSelect() async {
     final XFile? selectedImage =
         await _picker.pickImage(source: ImageSource.gallery);
     try {
       if (selectedImage!.path.isNotEmpty) {
+        print('hi!!!!!!!!!!!!!!!!!');
         final imageData =
-            await Get.to(() => ImagePainters(), arguments: selectedImage.path);
+            await Get.to(() => ImagePainters2(), arguments: selectedImage.path);
+        print('hi!!!!!!!!!!!!!!!!!');
+        print(imageData);
         if (imageData != null) {
-          setState(() {
-            _imageData.add(imageData);
-            draft.punch_issue_Photo = _imageData;
-            print(draft.punch_issue_Photo);
-          });
+          print('1111111111111');
+          print(_imageData);
+          _imageData.add(imageData);
+          print('222222222222222222');
+          print(_imageData);
+          draft.punch_issue_Photo = _imageData;
+          print(_imageData);
+          print(draft.punch_issue_Photo);
+          setState(() {});
         }
 
         // Get.to(ImagePainters());
@@ -388,7 +354,7 @@ class _OntapThreeState extends State<OntapThree> {
     try {
       if (takenImage!.path.isNotEmpty) {
         final imageData =
-            await Get.to(() => ImagePainters(), arguments: takenImage.path);
+            await Get.to(() => ImagePainters2(), arguments: takenImage.path);
         if (imageData != null) {
           setState(() {
             _imageData.add(imageData);

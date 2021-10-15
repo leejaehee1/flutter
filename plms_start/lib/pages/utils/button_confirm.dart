@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import '/globals/login.dart' as login;
 import '/globals/issue.dart' as issue;
@@ -183,7 +184,11 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                 }
 
                 print('간다!!!!!!!!!!!!!!!!!!!');
+                if (globals.punch_issue_Switch[0] == '1') {
+                  _sendImage();
+                }
 
+                print('사진저장!!!!!!!!!!!!!!!!!!!');
                 Get.offAllNamed("/success");
               },
               child: Text(widget.buttonname3),
@@ -192,6 +197,25 @@ class _ConfirmButtonState extends State<ConfirmButton> {
         ],
       ),
     );
+  }
+
+  List imageFileList = globals.punch_issue_Photo;
+  List imageName = globals.punch_issue_Photo_Name;
+  Future<void> _sendImage() async {
+    var url = Uri.parse('$api/summury/uploadfile');
+    var request = http.MultipartRequest('POST', url);
+    // for (var imageFile in imageFileList) {
+    for (int i = 0; i < imageFileList.length; i++) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'imgFile',
+        imageFileList[i].path,
+        filename: imageName[i].toString(),
+        contentType: new MediaType('image', 'png'),
+      ));
+    }
+
+    var response = await request.send();
+    if (response.statusCode == 200) print('Uploaded!');
   }
 
   void _showDialog(String page) {

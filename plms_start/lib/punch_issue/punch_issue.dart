@@ -255,8 +255,8 @@ class _PunchScreenState extends State<PunchScreen>
                   globals.punch_issue_Status.add('1');
                 }
                 globals.punch_issue_Issued_Date = [];
-                globals.punch_issue_Issued_Date.add(
-                    DateFormat('yyyy-MM-dd').format(DateTime.now()).toString());
+                globals.punch_issue_Issued_Date
+                    .add(DateTime.now().toString().toString());
                 print('global!!!!!!!!!!!');
                 print(globals.punch_issue_Status);
                 Get.toNamed('/confirm');

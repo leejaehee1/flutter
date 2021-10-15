@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:http/http.dart' as http;
 import '/globals/login.dart' as login;
@@ -153,7 +154,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
                 await http.post(url, body: _mapData);
                 print('보낸다!!!!!!!!');
 
-                var url2 = Uri.parse('$api/summury/photos');
+                var url2 = Uri.parse('$api/summury/photosupdate');
                 if (draft.punch_issue_Photo.length == 1) {
                   await http.post(url2, body: {
                     'punchID': draft.punch_issue_Punch_ID[0],
@@ -161,7 +162,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
                     'seq': '1',
                     'localPath': draft.punch_issue_Photo_Path[0].toString(),
                     'imagePath': draft.punch_issue_Photo_Name[0].toString(),
-                    'uploaded': globals.punch_issue_Switch == true ? '1' : '0',
+                    'uploaded': draft.punch_issue_Switch[0],
                     'uploadDate': DateTime.now().toString(),
                   });
                 } else if (draft.punch_issue_Photo.length > 1) {
@@ -172,13 +173,12 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
                       'seq': '${i + 1}',
                       'localPath': draft.punch_issue_Photo_Path[i].toString(),
                       'imagePath': draft.punch_issue_Photo_Name[i].toString(),
-                      'uploaded':
-                          globals.punch_issue_Switch == true ? '1' : '0',
+                      'uploaded': draft.punch_issue_Switch[0],
                       'uploadDate': DateTime.now().toString(),
                     });
                   }
                 }
-
+                _sendImage();
                 print('간다!!!!!!!!!!!!!!!!!!!');
 
                 Get.offAllNamed("/home");
@@ -189,6 +189,25 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
         ],
       ),
     );
+  }
+
+  List imageFileList = draft.punch_issue_Photo;
+  List imageName = draft.punch_issue_Photo_Name;
+  Future<void> _sendImage() async {
+    var url = Uri.parse('$api/summury/uploadfile');
+    var request = http.MultipartRequest('POST', url);
+    // for (var imageFile in imageFileList) {
+    for (int i = 0; i < imageFileList.length; i++) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'imgFile',
+        imageFileList[i].path,
+        filename: imageName[i].toString(),
+        contentType: new MediaType('image', 'png'),
+      ));
+    }
+
+    var response = await request.send();
+    if (response.statusCode == 200) print('Uploaded!');
   }
 
   void _showDialog(String page) {

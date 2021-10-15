@@ -10,7 +10,7 @@ import 'package:http/http.dart' as http;
 import '../globals/login.dart' as login;
 import '../globals/issue.dart' as issue;
 import '../globals/photos.dart' as photos;
-
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // import 'screen_punch.dart';
@@ -33,40 +33,43 @@ class PhotoList extends StatefulWidget {
 class _PhotoListState extends State<PhotoList> {
   var api = dotenv.env['PHONE_IP'];
 
-  List data = photos.photos_data;
+  List data = [];
 
-  // @override
-  // void initState() {
-  //   _photoListData();
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    print('start!!!!!!!!!!!!');
+    _photoListData();
+    super.initState();
+  }
 
-  // void _photoListData() async {
-  //   var url = Uri.parse('$api/summury/loadpunch/');
-  //   for (var i = 0; i < photos.photos_Punch_ID.length; i++) {
-  //     var response = await http.post(url, body: {
-  //       'punchID': photos.photos_Punch_ID[i],
-  //       'userID': login.userID[0],
-  //     });
-  //     var loadPunch = jsonDecode(response.body);
-  //     if (loadPunch.length != 0) {
-  //       data += loadPunch;
-  //     }
-
-  //     // if (mounted)
-  //     //   this.setState(() {
-  //     //     for (int i = 0; i < loadPunch.length; i++) {
-  //     //       photos.photos_category += [loadPunch[i]['category']];
-  //     //       photos.photos_discipline += [loadPunch[i]['discipline']];
-  //     //       photos.photos_unit += [loadPunch[i]['unit']];
-  //     //       photos.photos_area += [loadPunch[i]['area']];
-  //     //       photos.photos_systemName += [loadPunch[i]['systemID']];
-  //     //       // issue.systemsDataList.add(
-  //     //       //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
-  //     //     }
-  //     //   });
-  //   }
-  // }
+  void _photoListData() async {
+    print('시작!!!!!!!!!!!!');
+    var url = Uri.parse('$api/summury/loadpunch/');
+    for (var i = 0; i < photos.photos_Punch_ID.length; i++) {
+      var response = await http.post(url, body: {
+        'punchID': photos.photos_Punch_ID[i],
+        'userID': login.userID[0],
+      });
+      var loadPunch = jsonDecode(response.body);
+      if (loadPunch.length != 0) {
+        data += loadPunch;
+      }
+      setState(() {});
+      print('끝!!!!!!!!!!!!');
+      // if (mounted)
+      //   this.setState(() {
+      //     for (int i = 0; i < loadPunch.length; i++) {
+      //       photos.photos_category += [loadPunch[i]['category']];
+      //       photos.photos_discipline += [loadPunch[i]['discipline']];
+      //       photos.photos_unit += [loadPunch[i]['unit']];
+      //       photos.photos_area += [loadPunch[i]['area']];
+      //       photos.photos_systemName += [loadPunch[i]['systemID']];
+      //       // issue.systemsDataList.add(
+      //       //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
+      //     }
+      //   });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,12 +130,11 @@ class _PhotoListState extends State<PhotoList> {
                   for (var i = 0; i < data.length; i++) {
                     await http.post(url, body: {
                       'punchID': photos.photos_Punch_ID[i],
-
-                      // "department":
                     });
                   }
 
                   // Get.offAllNamed('/home');
+                  _sendImage();
                   print(photos.photos_Punch_ID);
                   Get.back();
                 },
@@ -205,5 +207,24 @@ class _PhotoListState extends State<PhotoList> {
     return SizedBox(
       height: 10,
     );
+  }
+
+  List imageFileList = photos.photos_Local_Path;
+  // List imageName = photos.;
+  Future<void> _sendImage() async {
+    var url = Uri.parse('$api/summury/uploadfile');
+    var request = http.MultipartRequest('POST', url);
+    // for (var imageFile in imageFileList) {
+    for (int i = 0; i < imageFileList.length; i++) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'imgFile',
+        imageFileList[i],
+        filename: photos.photos_Image_Path[i].substring(14).toString(),
+        contentType: new MediaType('image', 'png'),
+      ));
+    }
+
+    var response = await request.send();
+    if (response.statusCode == 200) print('Uploaded!');
   }
 }

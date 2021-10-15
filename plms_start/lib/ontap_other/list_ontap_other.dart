@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 // import 'package:plms_start/pages/utils/button_issue.dart';
 import 'package:plms_start/punch_issue/appbar_screen.dart';
@@ -12,6 +17,7 @@ import 'ontap_two_other.dart';
 // import 'package:http/http.dart' as http;
 import '../globals/login.dart' as login;
 import '../globals/issue.dart' as issue;
+import '../globals/photos.dart' as photos;
 import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -46,7 +52,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
   bool isTapToScroll = false;
 
   List datas = Get.arguments[1];
-  var idx = Get.arguments[0];
+  int idx = Get.arguments[0];
 
   @override
   void initState() {
@@ -75,10 +81,54 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     // draft.punch_issue_Design = [];
     // draft.punch_issue_Material = [];
 
-    // draft.punch_issue_Photo = [];
+    draft.punch_issue_Photo = [];
+    photos.photos_Image_Path = [];
     // draft.punch_issue_Photo_Path = [];
     // draft.punch_issue_Photo_Name = [];
+    _photoPath();
     super.initState();
+  }
+
+  String projectID = issue.projectList[0];
+  String punchID = draft.punch_issue_Punch_ID.length == 0
+      ? 'PunchID'
+      : draft.punch_issue_Punch_ID[0];
+  String userID = login.userID[0];
+
+  Future<void> _photoPath() async {
+    var url = Uri.parse('$api/summury/photospath');
+    var response = await http.post(url, body: {
+      'punchID': datas[idx]['punchID'],
+    });
+    var photoPath = jsonDecode(response.body);
+    // Map<String, dynamic> jsonData = jsonDecode(response.body);
+    print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
+    print(photoPath[0]['localPath']);
+    for (var i = 0; i < photoPath.length; i++) {
+      var imagePath2 = '${photoPath[i]['imagePath']}';
+      photos.photos_Image_Path.add(imagePath2);
+    }
+    print(photos.photos_Image_Path);
+    var url2 = Uri.parse('$api/summury/photosload');
+    final directory = (await getApplicationDocumentsDirectory()).path;
+    for (var i = 0; i < photos.photos_Image_Path.length; i++) {
+      var response = await http
+          .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
+
+      Uint8List jsonData = response.bodyBytes;
+      print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(jsonData.runtimeType);
+      final image = File(
+          '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
+      print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(image.runtimeType);
+      image.writeAsBytesSync(jsonData);
+
+      draft.punch_issue_Photo.add(image);
+    }
+
+    print(photos.photos_Image_Path);
+    // for (var imageFile in imageFileList) {
   }
 
   @override

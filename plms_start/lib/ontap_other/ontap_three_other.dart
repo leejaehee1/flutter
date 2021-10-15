@@ -11,7 +11,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
-
+import '../globals/punch_draft.dart' as draft;
 /*
 * name : PageThree
 * description : punch issue three page
@@ -89,7 +89,7 @@ class _OntapThirdState extends State<OntapThird> {
 
   // 이미지 선택 저장
   final ImagePicker _picker = ImagePicker();
-  List _imageData = globals.punch_issue_Photo;
+  List _imageData = draft.punch_issue_Photo;
   bool status = true;
   Widget _imagePicker() {
     return Container(

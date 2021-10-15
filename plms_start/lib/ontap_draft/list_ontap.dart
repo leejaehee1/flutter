@@ -22,7 +22,6 @@ import '../globals/issue.dart' as issue;
 import '../globals/photos.dart' as photos;
 import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:image_downloader/image_downloader.dart';
 
 /*
 * name : PunchScreen
@@ -130,11 +129,12 @@ class _OnTapScreennState extends State<OnTapScreen>
     datas[Get.arguments]['materialReq'] == '1'
         ? draft.punch_issue_Material = ['1']
         : draft.punch_issue_Material = ['0'];
-
+    photos.photos_Image_Path = [];
     draft.punch_issue_Photo = [];
     // draft.punch_issue_Photo_Path = [];
     // draft.punch_issue_Photo_Name = [];
-    photos.photos_Image_Path = [];
+    draft.punch_issue_Photo_Name = [];
+    draft.punch_issue_Photo_Path = [];
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     print(datas[Get.arguments]['punchID']);
 
@@ -151,12 +151,19 @@ class _OnTapScreennState extends State<OnTapScreen>
       'punchID': datas[Get.arguments]['punchID'],
     });
     var photoPath = jsonDecode(response.body);
+    draft.punch_issue_Count = 0;
     // Map<String, dynamic> jsonData = jsonDecode(response.body);
     print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(photoPath[0]['localPath']);
+    print(photoPath.length);
+    draft.punch_issue_Count = photoPath.length;
+    print(draft.punch_issue_Count);
     for (var i = 0; i < photoPath.length; i++) {
       var imagePath2 = '${photoPath[i]['imagePath']}';
+      draft.punch_issue_Photo_Name.add(imagePath2);
       photos.photos_Image_Path.add(imagePath2);
+      var imagePath3 = '${photoPath[i]['localPath']}';
+      draft.punch_issue_Photo_Path.add(imagePath3);
+      photos.photos_Local_Path.add(imagePath3);
     }
     var url2 = Uri.parse('$api/summury/photosload');
     final directory = (await getExternalStorageDirectory())!.path;
@@ -166,9 +173,9 @@ class _OnTapScreennState extends State<OnTapScreen>
 
       Uint8List jsonData = response.bodyBytes;
       print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(jsonData.runtimeType);
+      print(directory);
       final image = File(
-          '$directory${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
+          '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
       print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
       print(image.runtimeType);
       image.writeAsBytesSync(jsonData);
