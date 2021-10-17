@@ -356,10 +356,18 @@ class _OntapThreeState extends State<OntapThree> {
         final imageData =
             await Get.to(() => ImagePainters2(), arguments: takenImage.path);
         if (imageData != null) {
+          print('1111111111111');
+          print(_imageData);
+          _imageData.add(imageData);
+          print('222222222222222222');
+          print(_imageData);
+          draft.punch_issue_Photo = _imageData;
+          print(_imageData);
+          print(draft.punch_issue_Photo);
           setState(() {
-            _imageData.add(imageData);
-            draft.punch_issue_Photo = _imageData;
-            print(draft.punch_issue_Photo);
+            // _imageData.add(imageData);
+            // draft.punch_issue_Photo = _imageData;
+            // print(draft.punch_issue_Photo);
           });
         }
       }

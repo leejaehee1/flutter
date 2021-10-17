@@ -7,6 +7,7 @@ import 'package:plms_start/pages/utils/row_text.dart';
 
 import 'package:plms_start/pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
+import '../globals/punch_continue.dart' as continues;
 import '../globals/issue.dart' as issue;
 /*
 * name : PageOne
@@ -36,6 +37,44 @@ class _PageOneState extends State<PageOne> {
   bool _isTag = true;
   bool _isBulk = false;
 
+// final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
+//       // ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
+//       // : login.draftList[Get.arguments]['tagNumber'] == null
+//           ? TextEditingController()
+//           : TextEditingController(
+//               text: login.draftList[Get.arguments]['tagNumber']);
+//   final _bulkTextEditController = globals.punch_issue_Bulk_Name.length == 1
+//       ? TextEditingController(text: globals.punch_issue_Bulk_Name[0])
+//       : login.globalsList[Get.arguments]['bulkName'] == null
+//           ? TextEditingController()
+//           : TextEditingController(
+//               text: login.draftList[Get.arguments]['bulkName']);
+
+  final _unitTextEditController = continues.punch_issue_Unit.length == 0
+      // ? TextEditingController(text: globals.punch_issue_Unit[0])
+      // : login.draftList[Get.arguments]['unit'] == null
+      ? TextEditingController()
+      : TextEditingController(text: continues.punch_issue_Unit[0]);
+
+  final _areaTextEditController = continues.punch_issue_Area.length == 0
+      // ? TextEditingController(text: globals.punch_issue_Area[0])
+      // : login.draftList[Get.arguments]['area'] == null
+      ? TextEditingController()
+      : TextEditingController(text: continues.punch_issue_Area[0]);
+
+  final _punchTextEditController = continues.punch_issue_Punch_ID.length == 0
+      // ? TextEditingController(text: globals.punch_issue_Punch_ID[0])
+      // : login.draftList[Get.arguments]['punchID'] == null
+      ? TextEditingController()
+      : TextEditingController(text: continues.punch_issue_Punch_ID[0]);
+
+  final _descrpitionTextEditController =
+      continues.punch_issue_Description.length == 0
+          // ? TextEditingController(text: globals.punch_issue_Description[0])
+          // : login.draftList[Get.arguments]['issueDescription'] == null
+          ? TextEditingController()
+          : TextEditingController(text: continues.punch_issue_Description[0]);
+
   final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
       ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
       : TextEditingController();
@@ -43,19 +82,19 @@ class _PageOneState extends State<PageOne> {
       ? TextEditingController(text: globals.punch_issue_Bulk_Item[0])
       : TextEditingController();
 
-  final _unitTextEditController = globals.punch_issue_Unit.length == 1
-      ? TextEditingController(text: globals.punch_issue_Unit[0])
-      : TextEditingController();
-  final _areaTextEditController = globals.punch_issue_Area.length == 1
-      ? TextEditingController(text: globals.punch_issue_Area[0])
-      : TextEditingController();
-  final _punchTextEditController = globals.punch_issue_Punch_ID.length == 1
-      ? TextEditingController(text: globals.punch_issue_Punch_ID[0])
-      : TextEditingController();
-  final _descrpitionTextEditController =
-      globals.punch_issue_Description.length == 1
-          ? TextEditingController(text: globals.punch_issue_Description[0])
-          : TextEditingController();
+  // final _unitTextEditController = globals.punch_issue_Unit.length == 1
+  //     ? TextEditingController(text: globals.punch_issue_Unit[0])
+  //     : TextEditingController();
+  // final _areaTextEditController = globals.punch_issue_Area.length == 1
+  //     ? TextEditingController(text: globals.punch_issue_Area[0])
+  //     : TextEditingController();
+  // final _punchTextEditController = globals.punch_issue_Punch_ID.length == 1
+  //     ? TextEditingController(text: globals.punch_issue_Punch_ID[0])
+  //     : TextEditingController();
+  // final _descrpitionTextEditController =
+  //     globals.punch_issue_Description.length == 1
+  //         ? TextEditingController(text: globals.punch_issue_Description[0])
+  //         : TextEditingController();
 
   Widget _size15() {
     return SizedBox(

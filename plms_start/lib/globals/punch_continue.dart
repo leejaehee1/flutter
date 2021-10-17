@@ -1,14 +1,5 @@
-/*
-* name : globals
-* description : punch issue globals page.
-* writer : walter
-* create date : 2021-09-30
-* last update : 2021-09-30
-* */
+library plms.continues;
 
-library plms.globals;
-
-// first page
 bool punch_issue_isTag = true;
 bool punch_issue_isBulk = false;
 

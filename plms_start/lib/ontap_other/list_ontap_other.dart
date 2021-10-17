@@ -103,7 +103,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     var photoPath = jsonDecode(response.body);
     // Map<String, dynamic> jsonData = jsonDecode(response.body);
     print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(photoPath[0]['localPath']);
+    // print(photoPath[0]['localPath']);
     for (var i = 0; i < photoPath.length; i++) {
       var imagePath2 = '${photoPath[i]['imagePath']}';
       photos.photos_Image_Path.add(imagePath2);

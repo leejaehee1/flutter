@@ -12,6 +12,7 @@ import 'package:plms_start/punch_issue/third_screen.dart';
 
 // import 'package:http/http.dart' as http;
 import '../globals/globals.dart' as globals;
+import '../globals/punch_continue.dart' as continues;
 import '../globals/issue.dart' as issue;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -53,6 +54,7 @@ class _PunchScreenState extends State<PunchScreen>
     _scrollController.addListener(() {
       _onScroll();
     });
+
     globals.punch_issue_isTag = true;
     globals.punch_issue_isBulk = false;
     globals.punch_issue_Tag_Number = [];
@@ -64,7 +66,6 @@ class _PunchScreenState extends State<PunchScreen>
     globals.punch_issue_Area = [];
     globals.punch_issue_Punch_ID = [];
     globals.punch_issue_Description = [];
-
     globals.punch_issue_Action_On = [];
     globals.punch_issue_Discipline = [];
     globals.punch_issue_Raised_On = [];
@@ -77,6 +78,64 @@ class _PunchScreenState extends State<PunchScreen>
     globals.punch_issue_Photo = [];
     globals.punch_issue_Photo_Path = [];
     globals.punch_issue_Photo_Name = [];
+
+    continues.punch_issue_Category.length == 1
+        ? globals.punch_issue_Category.add(continues.punch_issue_Category[0])
+        : globals.punch_issue_Category = [issue.categoryList[0]];
+    continues.punch_issue_System.length == 1
+        ? globals.punch_issue_System.add(continues.punch_issue_System[0])
+        : globals.punch_issue_System = [issue.systemsList[0]];
+    continues.punch_issue_Sub_System.length == 1
+        ? globals.punch_issue_Sub_System
+            .add(continues.punch_issue_Sub_System[0])
+        : globals.punch_issue_Sub_System = [issue.subsystemList[0]];
+    continues.punch_issue_Discipline.length == 1
+        ? globals.punch_issue_Discipline
+            .add(continues.punch_issue_Discipline[0])
+        : globals.punch_issue_Discipline = [];
+    continues.punch_issue_Status.length == 1
+        ? globals.punch_issue_Status.add(continues.punch_issue_Status[0])
+        : globals.punch_issue_Status = [];
+    continues.punch_issue_Unit.length == 1
+        ? globals.punch_issue_Unit.add(continues.punch_issue_Unit[0])
+        : globals.punch_issue_Unit = [];
+    continues.punch_issue_Area.length == 1
+        ? globals.punch_issue_Area.add(continues.punch_issue_Area[0])
+        : globals.punch_issue_Area = [];
+    continues.punch_issue_Tag_Number.length == 1
+        ? globals.punch_issue_Tag_Number
+            .add(continues.punch_issue_Tag_Number[0])
+        : globals.punch_issue_Tag_Number = [];
+    continues.punch_issue_Bulk_Item.length == 1
+        ? globals.punch_issue_Bulk_Item.add(continues.punch_issue_Bulk_Item[0])
+        : globals.punch_issue_Bulk_Item = [];
+    continues.punch_issue_Bulk_Name.length == 1
+        ? globals.punch_issue_Bulk_Name.add(continues.punch_issue_Bulk_Name[0])
+        : globals.punch_issue_Bulk_Name = [];
+    continues.punch_issue_Action_On.length == 1
+        ? globals.punch_issue_Action_On.add(continues.punch_issue_Action_On[0])
+        : globals.punch_issue_Action_On = [];
+    continues.punch_issue_Date.length == 1
+        ? globals.punch_issue_Date.add(continues.punch_issue_Date[0])
+        : globals.punch_issue_Date = [];
+    continues.punch_issue_Issued_Date.length == 1
+        ? globals.punch_issue_Issued_Date
+            .add(continues.punch_issue_Issued_Date[0])
+        : globals.punch_issue_Issued_Date = [];
+    continues.punch_issue_Raised_On.length == 1
+        ? globals.punch_issue_Raised_On.add(continues.punch_issue_Raised_On[0])
+        : globals.punch_issue_Raised_On = [];
+    continues.punch_issue_Design.length == 1
+        ? globals.punch_issue_Design.add(continues.punch_issue_Design[0])
+        : globals.punch_issue_Design = ['0'];
+    continues.punch_issue_Material.length == 1
+        ? globals.punch_issue_Material.add(continues.punch_issue_Material[0])
+        : globals.punch_issue_Material = ['0'];
+    continues.punch_issue_Description.length == 1
+        ? globals.punch_issue_Description
+            .add(continues.punch_issue_Description[0])
+        : globals.punch_issue_Description = [];
+
     super.initState();
   }
 

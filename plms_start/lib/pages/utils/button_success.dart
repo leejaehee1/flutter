@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '/globals/globals.dart' as globals;
+import '/globals/punch_continue.dart' as continues;
 // import '../punch_screen.dart';
 
 class SuccessButton extends StatefulWidget {
@@ -47,7 +48,76 @@ class _SuccessButtonState extends State<SuccessButton> {
                 // onPrimary: Colors.white, // foreground
               ),
               onPressed: () {
-                // Get.offAllNamed('/punchList');
+                globals.punch_issue_Category.length == 1
+                    ? continues.punch_issue_Category
+                        .add(globals.punch_issue_Category[0])
+                    : continues.punch_issue_Category.add(null);
+                globals.punch_issue_System.length == 1
+                    ? continues.punch_issue_System
+                        .add(globals.punch_issue_System[0])
+                    : continues.punch_issue_System.add(null);
+                globals.punch_issue_Sub_System.length == 1
+                    ? continues.punch_issue_Sub_System
+                        .add(globals.punch_issue_Sub_System[0])
+                    : continues.punch_issue_Sub_System.add(null);
+                globals.punch_issue_Discipline.length == 1
+                    ? continues.punch_issue_Discipline
+                        .add(globals.punch_issue_Discipline[0])
+                    : continues.punch_issue_Discipline.add(null);
+                globals.punch_issue_Status.length == 1
+                    ? continues.punch_issue_Status
+                        .add(globals.punch_issue_Status[0])
+                    : continues.punch_issue_Status.add(null);
+                globals.punch_issue_Unit.length == 1
+                    ? continues.punch_issue_Unit
+                        .add(globals.punch_issue_Unit[0])
+                    : continues.punch_issue_Unit.add(null);
+                globals.punch_issue_Area.length == 1
+                    ? continues.punch_issue_Area
+                        .add(globals.punch_issue_Area[0])
+                    : continues.punch_issue_Area.add(null);
+                globals.punch_issue_Tag_Number.length == 1
+                    ? continues.punch_issue_Tag_Number
+                        .add(globals.punch_issue_Tag_Number[0])
+                    : continues.punch_issue_Tag_Number.add(null);
+                globals.punch_issue_Bulk_Item.length == 1
+                    ? continues.punch_issue_Bulk_Item
+                        .add(globals.punch_issue_Bulk_Item[0])
+                    : continues.punch_issue_Bulk_Item.add(null);
+                globals.punch_issue_Bulk_Name.length == 1
+                    ? continues.punch_issue_Bulk_Name
+                        .add(globals.punch_issue_Bulk_Name[0])
+                    : continues.punch_issue_Bulk_Name.add(null);
+                globals.punch_issue_Action_On.length == 1
+                    ? continues.punch_issue_Action_On
+                        .add(globals.punch_issue_Action_On[0])
+                    : continues.punch_issue_Action_On.add(null);
+                globals.punch_issue_Date.length == 1
+                    ? continues.punch_issue_Date
+                        .add(globals.punch_issue_Date[0])
+                    : continues.punch_issue_Date.add(null);
+                globals.punch_issue_Issued_Date.length == 1
+                    ? continues.punch_issue_Issued_Date
+                        .add(globals.punch_issue_Issued_Date[0])
+                    : continues.punch_issue_Issued_Date.add(null);
+                globals.punch_issue_Raised_On.length == 1
+                    ? continues.punch_issue_Raised_On
+                        .add(globals.punch_issue_Raised_On[0])
+                    : continues.punch_issue_Raised_On.add(null);
+                globals.punch_issue_Design.length == 1
+                    ? continues.punch_issue_Design
+                        .add(globals.punch_issue_Design[0])
+                    : continues.punch_issue_Design.add(null);
+                globals.punch_issue_Material.length == 1
+                    ? continues.punch_issue_Material
+                        .add(globals.punch_issue_Material[0])
+                    : continues.punch_issue_Material.add(null);
+                globals.punch_issue_Description.length == 1
+                    ? continues.punch_issue_Description
+                        .add(globals.punch_issue_Description[0])
+                    : continues.punch_issue_Description.add(null);
+                print(continues.punch_issue_Unit);
+                Get.offAllNamed('/punchList');
               },
               child: Text(widget.buttonname2),
             ),
