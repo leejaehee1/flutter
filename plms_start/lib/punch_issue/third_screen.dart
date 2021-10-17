@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:native_pdf_view/native_pdf_view.dart';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 import 'package:plms_start/punch_issue/draft_test.dart';
 
 import 'package:plms_start/punch_issue/image_painter.dart';
@@ -14,7 +16,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
-
+import '../globals/issue.dart' as issue;
 /*
 * name : PageThree
 * description : punch issue three page
@@ -374,10 +376,6 @@ class _PageThreeState extends State<PageThree> {
     } catch (e) {}
   }
 
-  final _pdfController = PdfController(
-    document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
-  );
-
   Widget _draftView() {
     return Expanded(
       child: Container(
@@ -390,7 +388,52 @@ class _PageThreeState extends State<PageThree> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('View drawing'),
+                Container(
+                  width: Get.width * 1 / 3.5,
+                  height: Get.height * 1 / 30,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
+                    onPressed: () async {
+                      globals.punch_issue_Drawings_File = [];
+                      var url = Uri.parse('$api/summury/drawingspath/');
+                      var response = await http.post(url, body: {
+                        'projectID': issue.projectList[0],
+                        'systemID': globals.punch_issue_System[0],
+                        'subsystem': globals.punch_issue_Sub_System[0],
+                      });
+                      print(response.body);
+                      // if(globals.punch_issue_Drawings.length==0){
+                      //   globals.punch_issue_Drawings.add(response.body[0]['imagePath'])
+                      // }
+                      var url2 = Uri.parse('$api/summury/drawingsload');
+                      var response2 = await http.get(url2, headers: {
+                        // "imagePath": globals.punch_issue_Drawings[0]
+                        "imagePath": 'upload/drawings/pdfs/8776892-01.png'
+                      });
+                      final directory =
+                          (await getApplicationSupportDirectory()).path;
+                      Uint8List jsonData = response2.bodyBytes;
+                      print(
+                          '!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
+                      print(directory);
+                      final image = File(
+                          // '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}'
+                          '$directory/8776892-01.png}');
+                      print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
+                      print(image.runtimeType);
+                      image.writeAsBytesSync(jsonData);
+
+                      globals.punch_issue_Drawings_File.add(image);
+                      print(globals.punch_issue_Drawings_File);
+                      setState(() {});
+                    },
+                    child: Text(
+                      "View drawing",
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  ),
+                ),
+
                 Container(
                   width: Get.width * 1 / 4.1,
                   height: Get.height * 1 / 30,
@@ -398,6 +441,7 @@ class _PageThreeState extends State<PageThree> {
                     style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
                     onPressed: () {
                       Get.toNamed("/draft");
+                      // Get.to(() => DraftPage2());
                       // FileImage();
                     },
                     child: Text(
@@ -423,14 +467,16 @@ class _PageThreeState extends State<PageThree> {
                 setState(() {});
               },
               child: Container(
-                height: MediaQuery.of(context).size.width - 90,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: PdfView(
-                  controller: _pdfController,
-                ),
-              ),
+                  height: MediaQuery.of(context).size.width - 90,
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                  ),
+                  child: globals.punch_issue_Drawings_File.length == 1
+                      ? Image.file(
+                          globals.punch_issue_Drawings_File[0],
+                          fit: BoxFit.cover,
+                        )
+                      : null),
             )
           ],
         ),

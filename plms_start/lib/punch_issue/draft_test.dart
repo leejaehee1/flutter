@@ -131,23 +131,27 @@ class _DraftPage2State extends State<DraftPage2> {
                 Container(
                   height: MediaQuery.of(context).size.height * 4 / 7,
                   color: Color(0xFFE6E6E6),
-                  child: Container(
-                      child: Listener(
-                          onPointerDown: (PointerDownEvent event) {
-                            setState(() {
-                              Icon(Icons.add);
-                            });
+                  child: Listener(
+                      onPointerDown: (PointerDownEvent event) {
+                        setState(() {
+                          Icon(Icons.add);
+                        });
 
-                            print('click');
-                            print(event.position);
-                          },
-                          // onPointerMove: (PointerMoveEvent event) {
-                          //   Icon(Icons.add);
-                          //   print('click');
-                          //   print(event);
-                          // },
-                          child: Image.asset(
-                              'assets/images/punch_draft_sample.jpg'))),
+                        print('click');
+                        print(event.transform);
+                        print(event.position);
+                      },
+                      // onPointerMove: (PointerMoveEvent event) {
+                      //   Icon(Icons.add);
+                      //   print('click');
+                      //   print(event);
+                      // },
+                      child: globals.punch_issue_Drawings_File.length == 1
+                          ? Image.file(
+                              globals.punch_issue_Drawings_File[0],
+                              fit: BoxFit.fill,
+                            )
+                          : null),
                 ),
               ],
             ),

@@ -32,8 +32,8 @@ class _DraftPageState extends State<DraftPage> {
   set cdx(double newCdx) => this._cdx = newCdx;
   set cdy(double newCdy) => this._cdy = newCdy;
 
-  double boxWidth = 100.0;
-  double boxHeight = 100.0;
+  // double boxWidth = 100.0;
+  // double boxHeight = 100.0;
 
   var pixelList = [];
 
@@ -45,10 +45,6 @@ class _DraftPageState extends State<DraftPage> {
     }).then((_) => setState(() {}));
     super.initState();
   }
-
-  final _pdfController = PdfController(
-    document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
-  );
 
   // 도면 좌표 찍기 화면
   @override
@@ -139,18 +135,25 @@ class _DraftPageState extends State<DraftPage> {
                     onTapDown: (TapDownDetails td) {
                       setState(() {
                         this.cdx =
-                            td.globalPosition.dx - (this.boxWidth * 0.26);
+                            // td.globalPosition.dx - (this.boxWidth * 0.26);
+                            td.globalPosition.dx - 30;
                         this.cdy =
-                            td.globalPosition.dy - (this.boxHeight * 2.63);
+                            // td.globalPosition.dy - (this.boxHeight * 2.63);
+                            td.globalPosition.dy - 230;
                         // this.cdx = td.globalPosition.dx;
                         // this.cdy = td.globalPosition.dy;
-                        print(td.globalPosition.dx);
+                        print(Get.width);
+                        // print([td.globalPosition.dx, td.globalPosition.dy]);
                         print([
-                          double.parse(((this.cdx) / td.globalPosition.dx)
-                              .toStringAsFixed(2)),
-                          ((this.cdy) / td.globalPosition.dy)
-                              .toStringAsFixed(2),
+                          td.globalPosition.dx / Get.width,
+                          td.globalPosition.dy / Get.height
                         ]);
+                        // print([
+                        //   double.parse(((this.cdx) / td.globalPosition.dx)
+                        //       .toStringAsFixed(2)),
+                        //   ((this.cdy) / td.globalPosition.dy)
+                        //       .toStringAsFixed(2),
+                        // ]);
                         // print();
                       });
                     },
@@ -160,12 +163,17 @@ class _DraftPageState extends State<DraftPage> {
                       child: Stack(
                         children: <Widget>[
                           Container(
-                            width: MediaQuery.of(context).size.width * 90 / 99,
-                            height: MediaQuery.of(context).size.height,
-                            child: PdfView(
-                              controller: _pdfController,
-                            ),
-                          ),
+                              width:
+                                  MediaQuery.of(context).size.width * 90 / 99,
+                              height: MediaQuery.of(context).size.height,
+                              child:
+                                  globals.punch_issue_Drawings_File.length == 1
+                                      ? Image.file(
+                                          globals.punch_issue_Drawings_File[0],
+                                          fit: BoxFit.fill,
+                                        )
+                                      : null),
+
                           // Image.asset(
                           //   'assets/images/punch_draft_sample.jpg',
                           //   width: MediaQuery.of(context).size.width * 90 / 99,
