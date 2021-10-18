@@ -64,7 +64,8 @@ class _PageTwoState extends State<PageTwo> {
       }
     }
     print(contentList);
-    if (continues.punch_issue_Action_On.length != 0) {
+    if (continues.punch_issue_Action_On.length != 0 &&
+        continues.punch_issue_Action_On[0] != null) {
       for (var i = 0; i < actionon.length; i++) {
         if (continues.punch_issue_Action_On[0] == issue.deptList[i]) {
           setState(() {
@@ -75,7 +76,8 @@ class _PageTwoState extends State<PageTwo> {
     } else {
       actiononStart.add('');
     }
-    if (continues.punch_issue_Discipline.length != 0) {
+    if (continues.punch_issue_Discipline.length != 0 &&
+        continues.punch_issue_Discipline[0] != null) {
       for (var i = 0; i < discipline.length; i++) {
         if (continues.punch_issue_Discipline[0] == issue.disciplineList[i]) {
           setState(() {
@@ -86,7 +88,8 @@ class _PageTwoState extends State<PageTwo> {
     } else {
       disciplineStart.add('');
     }
-    if (continues.punch_issue_Raised_On.length != 0) {
+    if (continues.punch_issue_Raised_On.length != 0 &&
+        continues.punch_issue_Raised_On[0] != null) {
       for (var i = 0; i < raisedon.length; i++) {
         if (continues.punch_issue_Raised_On[0] == issue.qcList[i]) {
           setState(() {

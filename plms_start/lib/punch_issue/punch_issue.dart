@@ -75,6 +75,7 @@ class _PunchScreenState extends State<PunchScreen>
     globals.punch_issue_Keyword = [];
     globals.punch_issue_Design = [];
     globals.punch_issue_Material = [];
+    globals.punch_issue_Status = [];
 
     globals.punch_issue_Switch = ['1'];
     globals.punch_issue_Photo = [];
@@ -88,9 +89,10 @@ class _PunchScreenState extends State<PunchScreen>
         ? globals.punch_issue_Tag_Number
             .add(continues.punch_issue_Tag_Number[0])
         : globals.punch_issue_Tag_Number = [];
+
     continues.punch_issue_Bulk_Item.length == 1
         ? globals.punch_issue_Bulk_Item.add(continues.punch_issue_Bulk_Item[0])
-        : globals.punch_issue_Bulk_Item = [];
+        : globals.punch_issue_Bulk_Item = ['0'];
     continues.punch_issue_Bulk_Name.length == 1
         ? globals.punch_issue_Bulk_Name.add(continues.punch_issue_Bulk_Name[0])
         : globals.punch_issue_Bulk_Name = [];
@@ -114,7 +116,8 @@ class _PunchScreenState extends State<PunchScreen>
         ? globals.punch_issue_Description
             .add(continues.punch_issue_Description[0])
         : globals.punch_issue_Description = [];
-
+    print('여기!!!!!!!!!!');
+    print(continues.punch_issue_Raised_On.length);
     continues.punch_issue_Discipline.length == 1
         ? globals.punch_issue_Discipline
             .add(continues.punch_issue_Discipline[0])
@@ -145,7 +148,7 @@ class _PunchScreenState extends State<PunchScreen>
     continues.punch_issue_Material.length == 1
         ? globals.punch_issue_Material.add(continues.punch_issue_Material[0])
         : globals.punch_issue_Material = ['0'];
-
+    print('끝!!!!!!!!!!!!');
     super.initState();
   }
 

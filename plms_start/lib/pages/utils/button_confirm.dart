@@ -82,11 +82,11 @@ class _ConfirmButtonState extends State<ConfirmButton> {
   @override
   void initState() {
     print('start');
-    print(globals.punch_issue_Status);
+    print(globals.punch_issue_Date.length);
     for (int i = 0; i < _listData.length; i++) {
-      if (_listData[i].length != 0 || _listData[i][0] != null) {
+      if (_listData[i].length != 0 && _listData[i][0] != null) {
         _mapData[_nameData[i]] = _listData[i][0];
-        print(i);
+        print('${_nameData[i]}${_listData[i].length}');
       }
     }
     if (_keyword.length == 1) {

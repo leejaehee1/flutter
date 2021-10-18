@@ -29,21 +29,14 @@ class _PageOneState extends State<PageOne> {
   List<String> system = issue.systemsDataList;
   List<String> subsystem = issue.subsystemDataList;
 
-  String _horizonGroupValue = "Tag Number";
+  String _horizonGroupValue =
+      globals.punch_issue_Bulk_Item[0] == '0' ? "Tag Number" : 'Bulk Item';
   List<String> _status = ['Tag Number', "Bulk Item"];
 
   var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
 
-  bool _isTag = globals.punch_issue_Tag_Number.length != 0
-      ? true
-      : continues.punch_issue_Tag_Number.length != 0
-          ? true
-          : false;
-  bool _isBulk = globals.punch_issue_Bulk_Name.length != 0
-      ? true
-      : continues.punch_issue_Bulk_Name.length != 0
-          ? true
-          : false;
+  bool _isTag = globals.punch_issue_Bulk_Item[0] == '0' ? true : false;
+  bool _isBulk = globals.punch_issue_Bulk_Item[0] == '0' ? false : true;
 
 // final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
 //       // ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
@@ -118,7 +111,9 @@ class _PageOneState extends State<PageOne> {
 
   @override
   void initState() {
-    print(continues.punch_issue_Category);
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!');
+    print(continues.punch_issue_Bulk_Item);
+    print(continues.punch_issue_Unit.length);
     super.initState();
   }
 
@@ -267,7 +262,7 @@ class _PageOneState extends State<PageOne> {
         _horizonGroupValue = value!;
         print(value);
         if (value == _status[0]) {
-          if (globals.punch_issue_Bulk_Name.length == 1) {
+          if (globals.punch_issue_Bulk_Name.length > 1) {
             globals.punch_issue_Bulk_Name = [];
           }
 

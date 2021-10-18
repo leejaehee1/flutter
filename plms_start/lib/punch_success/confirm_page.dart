@@ -34,17 +34,13 @@ class _ConfirmPageState extends State<ConfirmPage> {
       ? globals.punch_issue_Issued_Date[0]
       : '';
   String issuedBy = login.userID[0];
-  String unit =
-      globals.punch_issue_Unit.length == 0 ? '' : globals.punch_issue_Unit[0];
-  String area =
-      globals.punch_issue_Area.length == 0 ? '' : globals.punch_issue_Area[0];
+  String unit = '';
+  String area = '';
   String system = '';
 
   String subsystem = '';
 
-  String tagnumber = globals.punch_issue_Tag_Number.length == 0
-      ? ''
-      : globals.punch_issue_Tag_Number[0];
+  String tagnumber = '';
 
   String category = globals.punch_issue_Category[0];
 
@@ -58,6 +54,19 @@ class _ConfirmPageState extends State<ConfirmPage> {
       if (issue.subsystemList[i] == globals.punch_issue_Sub_System[0]) {
         subsystem = issue.subsystemNameList[i];
       }
+    }
+
+    if (globals.punch_issue_Unit.length != 0 &&
+        globals.punch_issue_Unit[0] != null) {
+      unit = globals.punch_issue_Unit[0];
+    }
+    if (globals.punch_issue_Area.length != 0 &&
+        globals.punch_issue_Area[0] != null) {
+      area = globals.punch_issue_Area[0];
+    }
+    if (globals.punch_issue_Tag_Number.length != 0 &&
+        globals.punch_issue_Tag_Number[0] != null) {
+      tagnumber = globals.punch_issue_Tag_Number[0];
     }
 
     super.initState();
