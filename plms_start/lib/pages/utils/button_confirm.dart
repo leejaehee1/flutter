@@ -81,9 +81,12 @@ class _ConfirmButtonState extends State<ConfirmButton> {
 
   @override
   void initState() {
+    print('start');
+    print(globals.punch_issue_Status);
     for (int i = 0; i < _listData.length; i++) {
-      if (_listData[i].length != 0) {
+      if (_listData[i].length != 0 || _listData[i][0] != null) {
         _mapData[_nameData[i]] = _listData[i][0];
+        print(i);
       }
     }
     if (_keyword.length == 1) {
@@ -101,9 +104,8 @@ class _ConfirmButtonState extends State<ConfirmButton> {
       _mapData['keyword3'] = _keyword[2];
       _mapData['keyword4'] = _keyword[3];
     }
-    print(_mapData);
-    print(globals.punch_issue_Bulk_Item);
-    print(globals.punch_issue_Bulk_Name);
+    print(globals.punch_issue_Pixel_X);
+
     super.initState();
   }
 
@@ -186,6 +188,19 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                 print('간다!!!!!!!!!!!!!!!!!!!');
                 if (globals.punch_issue_Switch[0] == '1') {
                   _sendImage();
+                }
+                if (globals.punch_issue_Pixel_X.length == 1) {
+                  var url = Uri.parse('$api/summury/drawingspixel');
+
+                  await http.post(url, body: {
+                    'drawingNo':
+                        // '8776892-01',
+                        globals.punch_issue_Drawings[0],
+                    'punchID': globals.punch_issue_Punch_ID[0],
+                    'xPixel': globals.punch_issue_Pixel_X[0].toString(),
+                    'yPixel': globals.punch_issue_Pixel_Y[0].toString(),
+                  });
+                  print('draft!!!!!!!!!!!!!');
                 }
 
                 print('사진저장!!!!!!!!!!!!!!!!!!!');

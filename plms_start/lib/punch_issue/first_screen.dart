@@ -30,12 +30,20 @@ class _PageOneState extends State<PageOne> {
   List<String> subsystem = issue.subsystemDataList;
 
   String _horizonGroupValue = "Tag Number";
-  List<String> _status = ['Tag Number', "Bulk Name"];
+  List<String> _status = ['Tag Number', "Bulk Item"];
 
   var edge = EdgeInsets.fromLTRB(5, 10, 0, 0);
 
-  bool _isTag = true;
-  bool _isBulk = false;
+  bool _isTag = globals.punch_issue_Tag_Number.length != 0
+      ? true
+      : continues.punch_issue_Tag_Number.length != 0
+          ? true
+          : false;
+  bool _isBulk = globals.punch_issue_Bulk_Name.length != 0
+      ? true
+      : continues.punch_issue_Bulk_Name.length != 0
+          ? true
+          : false;
 
 // final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
 //       // ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
@@ -50,37 +58,49 @@ class _PageOneState extends State<PageOne> {
 //           : TextEditingController(
 //               text: login.draftList[Get.arguments]['bulkName']);
 
-  final _unitTextEditController = continues.punch_issue_Unit.length == 0
+  final _unitTextEditController = globals.punch_issue_Unit.length != 0
       // ? TextEditingController(text: globals.punch_issue_Unit[0])
       // : login.draftList[Get.arguments]['unit'] == null
-      ? TextEditingController()
-      : TextEditingController(text: continues.punch_issue_Unit[0]);
+      ? TextEditingController(text: globals.punch_issue_Unit[0])
+      : continues.punch_issue_Unit.length == 0
+          ? TextEditingController()
+          : TextEditingController(text: continues.punch_issue_Unit[0]);
 
-  final _areaTextEditController = continues.punch_issue_Area.length == 0
+  final _areaTextEditController = globals.punch_issue_Area.length != 0
       // ? TextEditingController(text: globals.punch_issue_Area[0])
       // : login.draftList[Get.arguments]['area'] == null
-      ? TextEditingController()
-      : TextEditingController(text: continues.punch_issue_Area[0]);
+      ? TextEditingController(text: globals.punch_issue_Area[0])
+      : continues.punch_issue_Area.length == 0
+          ? TextEditingController()
+          : TextEditingController(text: continues.punch_issue_Area[0]);
 
-  final _punchTextEditController = continues.punch_issue_Punch_ID.length == 0
+  final _punchTextEditController = globals.punch_issue_Punch_ID.length != 0
       // ? TextEditingController(text: globals.punch_issue_Punch_ID[0])
       // : login.draftList[Get.arguments]['punchID'] == null
-      ? TextEditingController()
-      : TextEditingController(text: continues.punch_issue_Punch_ID[0]);
+      ? TextEditingController(text: globals.punch_issue_Punch_ID[0])
+      : continues.punch_issue_Punch_ID.length == 0
+          ? TextEditingController()
+          : TextEditingController(text: continues.punch_issue_Punch_ID[0]);
 
-  final _descrpitionTextEditController =
-      continues.punch_issue_Description.length == 0
-          // ? TextEditingController(text: globals.punch_issue_Description[0])
-          // : login.draftList[Get.arguments]['issueDescription'] == null
+  final _descrpitionTextEditController = globals
+              .punch_issue_Description.length !=
+          0
+      ? TextEditingController(text: globals.punch_issue_Description[0])
+      : continues.punch_issue_Description.length == 0
           ? TextEditingController()
           : TextEditingController(text: continues.punch_issue_Description[0]);
 
-  final _tagTextEditController = globals.punch_issue_Tag_Number.length == 1
+  final _tagTextEditController = globals.punch_issue_Tag_Number.length != 0
       ? TextEditingController(text: globals.punch_issue_Tag_Number[0])
-      : TextEditingController();
-  final _bulkTextEditController = globals.punch_issue_Bulk_Item.length == 1
-      ? TextEditingController(text: globals.punch_issue_Bulk_Item[0])
-      : TextEditingController();
+      : continues.punch_issue_Tag_Number.length == 0
+          ? TextEditingController()
+          : TextEditingController(text: continues.punch_issue_Tag_Number[0]);
+
+  final _bulkTextEditController = globals.punch_issue_Bulk_Name.length != 0
+      ? TextEditingController(text: globals.punch_issue_Bulk_Name[0])
+      : continues.punch_issue_Bulk_Item.length == 0
+          ? TextEditingController()
+          : TextEditingController(text: continues.punch_issue_Bulk_Name[0]);
 
   // final _unitTextEditController = globals.punch_issue_Unit.length == 1
   //     ? TextEditingController(text: globals.punch_issue_Unit[0])
@@ -95,6 +115,12 @@ class _PageOneState extends State<PageOne> {
   //     globals.punch_issue_Description.length == 1
   //         ? TextEditingController(text: globals.punch_issue_Description[0])
   //         : TextEditingController();
+
+  @override
+  void initState() {
+    print(continues.punch_issue_Category);
+    super.initState();
+  }
 
   Widget _size15() {
     return SizedBox(
@@ -181,17 +207,27 @@ class _PageOneState extends State<PageOne> {
                               ],
                             )),
                         _size15(),
-                        _dropdownButton('Category', category,
-                            issue.categoryList, globals.punch_issue_Category),
-                        _size15(),
-                        _dropdownButton('System', system, issue.systemsList,
-                            globals.punch_issue_System),
+                        _dropdownButton(
+                            'Category',
+                            category,
+                            issue.categoryList,
+                            globals.punch_issue_Category,
+                            continues.punch_issue_Category),
                         _size15(),
                         _dropdownButton(
-                            'Sub-System',
-                            subsystem,
-                            issue.subsystemList,
-                            globals.punch_issue_Sub_System),
+                            'System',
+                            system,
+                            issue.systemsList,
+                            globals.punch_issue_System,
+                            continues.punch_issue_System),
+                        _size15(),
+                        _dropdownButton(
+                          'Sub-System',
+                          subsystem,
+                          issue.subsystemList,
+                          globals.punch_issue_Sub_System,
+                          continues.punch_issue_Sub_System,
+                        ),
                         _size15(),
                         // _size15(),
                         _unittextField('  Unit', 'Create or Add',
@@ -232,7 +268,7 @@ class _PageOneState extends State<PageOne> {
         print(value);
         if (value == _status[0]) {
           if (globals.punch_issue_Bulk_Name.length == 1) {
-            globals.punch_issue_Bulk_Name.removeAt(0);
+            globals.punch_issue_Bulk_Name = [];
           }
 
           _bulkTextEditController.clear();
@@ -305,7 +341,8 @@ class _PageOneState extends State<PageOne> {
   }
 
 // dropdown button
-  Widget _dropdownButton(String text, var data1, var data2, var data3) {
+  Widget _dropdownButton(
+      String text, var data1, var data2, var data3, var data4) {
     return Row(
       children: [
         SizedBox(
@@ -338,12 +375,11 @@ class _PageOneState extends State<PageOne> {
             mode: Mode.BOTTOM_SHEET,
             showSelectedItem: true,
             items: data1,
-
             onChanged: (value) {
               // 1. global first, second, third 값을 모두 한방에 관리하는 방법
               // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
               // 3. 결론 : flutter 에 global key 활용
-
+              data4 = [];
               print("confirm : " + value.toString());
               for (var i = 0; i < data1.length; i++) {
                 if (value == data1[i]) {
@@ -369,7 +405,11 @@ class _PageOneState extends State<PageOne> {
               print(globals.punch_issue_System);
               print(globals.punch_issue_Sub_System);
             },
-            // selectedItem: data3.length == 0 ? data2[0] : data3[0],
+            selectedItem: data4.length == 1
+                ? data3[0]
+                : data3.length == 0
+                    ? data2[0]
+                    : data3[0],
           ),
         ),
       ],

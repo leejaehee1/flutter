@@ -35,6 +35,33 @@ class _SuccessButtonState extends State<SuccessButton> {
                 primary: Color(0xff71838D),
               ),
               onPressed: () {
+                continues.punch_issue_Tag_Number = [];
+                continues.punch_issue_Bulk_Item = [];
+                continues.punch_issue_Bulk_Name = [];
+                continues.punch_issue_Category = [];
+                continues.punch_issue_System = [];
+                continues.punch_issue_Sub_System = [];
+                continues.punch_issue_Unit = [];
+                continues.punch_issue_Area = [];
+                continues.punch_issue_Punch_ID = [];
+                continues.punch_issue_Description = [];
+                continues.punch_issue_Action_On = [];
+                continues.punch_issue_Discipline = [];
+                continues.punch_issue_Raised_On = [];
+                continues.punch_issue_Date = [];
+                continues.punch_issue_Keyword = [];
+                continues.punch_issue_Design = [];
+                continues.punch_issue_Material = [];
+                continues.punch_issue_Photo = [];
+                continues.punch_issue_Photo_Path = [];
+                continues.punch_issue_Photo_Name = [];
+                continues.punch_issue_Drawings = [];
+                continues.punch_issue_Drawings_File = [];
+                continues.punch_issue_Pixel_X = [];
+                continues.punch_issue_Pixel_Y = [];
+                continues.punch_issue_Switch = [];
+                continues.punch_issue_Status = [];
+                continues.punch_issue_Issued_Date = [];
                 Get.offAllNamed('/home');
               },
               child: Text(widget.buttonname1),
@@ -48,6 +75,34 @@ class _SuccessButtonState extends State<SuccessButton> {
                 // onPrimary: Colors.white, // foreground
               ),
               onPressed: () {
+                continues.punch_issue_Tag_Number = [];
+                continues.punch_issue_Bulk_Item = [];
+                continues.punch_issue_Bulk_Name = [];
+                continues.punch_issue_Category = [];
+                continues.punch_issue_System = [];
+                continues.punch_issue_Sub_System = [];
+                continues.punch_issue_Unit = [];
+                continues.punch_issue_Area = [];
+                continues.punch_issue_Punch_ID = [];
+                continues.punch_issue_Description = [];
+                continues.punch_issue_Action_On = [];
+                continues.punch_issue_Discipline = [];
+                continues.punch_issue_Raised_On = [];
+                continues.punch_issue_Date = [];
+                continues.punch_issue_Keyword = [];
+                continues.punch_issue_Design = [];
+                continues.punch_issue_Material = [];
+                continues.punch_issue_Photo = [];
+                continues.punch_issue_Photo_Path = [];
+                continues.punch_issue_Photo_Name = [];
+                continues.punch_issue_Drawings = [];
+                continues.punch_issue_Drawings_File = [];
+                continues.punch_issue_Pixel_X = [];
+                continues.punch_issue_Pixel_Y = [];
+                continues.punch_issue_Switch = [];
+                continues.punch_issue_Status = [];
+                continues.punch_issue_Issued_Date = [];
+
                 globals.punch_issue_Category.length == 1
                     ? continues.punch_issue_Category
                         .add(globals.punch_issue_Category[0])
@@ -108,6 +163,10 @@ class _SuccessButtonState extends State<SuccessButton> {
                     ? continues.punch_issue_Design
                         .add(globals.punch_issue_Design[0])
                     : continues.punch_issue_Design.add(null);
+                globals.punch_issue_Keyword.length > 0
+                    ? continues.punch_issue_Keyword =
+                        globals.punch_issue_Keyword
+                    : continues.punch_issue_Keyword = [];
                 globals.punch_issue_Material.length == 1
                     ? continues.punch_issue_Material
                         .add(globals.punch_issue_Material[0])
@@ -117,7 +176,7 @@ class _SuccessButtonState extends State<SuccessButton> {
                         .add(globals.punch_issue_Description[0])
                     : continues.punch_issue_Description.add(null);
                 print(continues.punch_issue_Unit);
-                Get.offAllNamed('/punchList');
+                Get.toNamed('/punchList');
               },
               child: Text(widget.buttonname2),
             ),

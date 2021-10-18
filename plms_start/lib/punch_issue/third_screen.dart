@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
@@ -389,7 +390,7 @@ class _PageThreeState extends State<PageThree> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: Get.width * 1 / 3.5,
+                  width: Get.width * 1 / 3,
                   height: Get.height * 1 / 30,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
@@ -401,31 +402,48 @@ class _PageThreeState extends State<PageThree> {
                         'systemID': globals.punch_issue_System[0],
                         'subsystem': globals.punch_issue_Sub_System[0],
                       });
-                      print(response.body);
-                      // if(globals.punch_issue_Drawings.length==0){
-                      //   globals.punch_issue_Drawings.add(response.body[0]['imagePath'])
-                      // }
-                      var url2 = Uri.parse('$api/summury/drawingsload');
-                      var response2 = await http.get(url2, headers: {
-                        // "imagePath": globals.punch_issue_Drawings[0]
-                        "imagePath": 'upload/drawings/pdfs/8776892-01.png'
-                      });
-                      final directory =
-                          (await getApplicationSupportDirectory()).path;
-                      Uint8List jsonData = response2.bodyBytes;
-                      print(
-                          '!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-                      print(directory);
-                      final image = File(
-                          // '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}'
-                          '$directory/8776892-01.png}');
-                      print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
-                      print(image.runtimeType);
-                      image.writeAsBytesSync(jsonData);
+                      var jsonDatas = jsonDecode(response.body);
+                      print("response.body!!!!!!!!!!!!!!!");
+                      print(jsonDatas);
+                      if (jsonDatas.length == 0) {
+                        return null;
+                      } else {
+                        if (globals.punch_issue_Drawings.length == 0) {
+                          globals.punch_issue_Drawings
+                              .add(jsonDatas[0]['drawingNo']);
+                          globals.punch_issue_Drawings_Path
+                              .add(jsonDatas[0]['imagePath']);
+                          print(globals.punch_issue_Drawings);
+                        } else {
+                          globals.punch_issue_Drawings.removeAt(0);
+                          globals.punch_issue_Drawings_Path.removeAt(0);
+                          globals.punch_issue_Drawings
+                              .add(jsonDatas[0]['drawingNo']);
+                          globals.punch_issue_Drawings_Path
+                              .add(jsonDatas[0]['imagePath']);
+                        }
+                        var url2 = Uri.parse('$api/summury/drawingsload');
+                        var response2 = await http.get(url2, headers: {
+                          "imagePath": globals.punch_issue_Drawings_Path[0]
+                          // "imagePath": 'upload/drawings/pdfs/8776892-01.png'
+                        });
+                        final directory =
+                            (await getApplicationSupportDirectory()).path;
+                        Uint8List jsonData = response2.bodyBytes;
+                        print(
+                            '!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
+                        print(directory);
+                        final image = File(
+                            // '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}'
+                            '$directory/${globals.punch_issue_Drawings[0]}}');
+                        print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
+                        print(image.runtimeType);
+                        image.writeAsBytesSync(jsonData);
 
-                      globals.punch_issue_Drawings_File.add(image);
-                      print(globals.punch_issue_Drawings_File);
-                      setState(() {});
+                        globals.punch_issue_Drawings_File.add(image);
+                        print(globals.punch_issue_Drawings_File);
+                        setState(() {});
+                      }
                     },
                     child: Text(
                       "View drawing",

@@ -35,7 +35,8 @@ class _DraftPageState extends State<DraftPage> {
   // double boxWidth = 100.0;
   // double boxHeight = 100.0;
 
-  var pixelList = [];
+  var pixelX = [];
+  var pixelY = [];
 
   @override
   void initState() {
@@ -46,6 +47,23 @@ class _DraftPageState extends State<DraftPage> {
     super.initState();
   }
 
+  GlobalKey _key = GlobalKey();
+  double _x = 0;
+  double _y = 0;
+  void _getOffset(GlobalKey key) {
+    RenderBox? box = key.currentContext!.findRenderObject() as RenderBox?;
+    Offset position = box!.localToGlobal(Offset.zero);
+    setState(() {
+      _x = position.dx;
+      _y = position.dy;
+    });
+    print([
+      double.parse((_x).toStringAsFixed(2)),
+      double.parse((_y).toStringAsFixed(2))
+    ]);
+  }
+
+  //       .toStringAsFixed(2)),
   // 도면 좌표 찍기 화면
   @override
   Widget build(BuildContext context) {
@@ -129,33 +147,44 @@ class _DraftPageState extends State<DraftPage> {
                   ),
                 ),
                 Container(
+                  key: _key,
                   height: MediaQuery.of(context).size.height * 4 / 7,
                   color: Color(0xFFE6E6E6),
                   child: GestureDetector(
                     onTapDown: (TapDownDetails td) {
                       setState(() {
+                        _getOffset(_key);
                         this.cdx =
                             // td.globalPosition.dx - (this.boxWidth * 0.26);
                             td.globalPosition.dx - 30;
                         this.cdy =
                             // td.globalPosition.dy - (this.boxHeight * 2.63);
                             td.globalPosition.dy - 230;
-                        // this.cdx = td.globalPosition.dx;
-                        // this.cdy = td.globalPosition.dy;
-                        print(Get.width);
-                        // print([td.globalPosition.dx, td.globalPosition.dy]);
+                        print(td.globalPosition.dx);
                         print([
-                          td.globalPosition.dx / Get.width,
-                          td.globalPosition.dy / Get.height
+                          (td.globalPosition.dx - _x) / (Get.width - _x * 2),
+                          (td.globalPosition.dy - _y) / (Get.width - _x * 2)
                         ]);
-                        // print([
-                        //   double.parse(((this.cdx) / td.globalPosition.dx)
-                        //       .toStringAsFixed(2)),
-                        //   ((this.cdy) / td.globalPosition.dy)
-                        //       .toStringAsFixed(2),
-                        // ]);
-                        // print();
+                        double _px =
+                            (td.globalPosition.dx - _x) / (Get.width - _x * 2);
+                        double _py =
+                            (td.globalPosition.dy - _y) / (Get.width - _x * 2);
+                        print([
+                          double.parse(_px.toStringAsFixed(2)),
+                          double.parse(_py.toStringAsFixed(2))
+                        ]);
+
+                        if (pixelX.length == 1) {
+                          pixelX.removeAt(0);
+                          pixelY.removeAt(0);
+                          pixelX.add(double.parse(_px.toStringAsFixed(2)));
+                          pixelY.add(double.parse(_py.toStringAsFixed(2)));
+                        } else {
+                          pixelX.add(double.parse(_px.toStringAsFixed(2)));
+                          pixelY.add(double.parse(_py.toStringAsFixed(2)));
+                        }
                       });
+                      print([pixelX, pixelY]);
                     },
                     child: Container(
                       color: Color(0xFFE6E6E6),
@@ -165,7 +194,8 @@ class _DraftPageState extends State<DraftPage> {
                           Container(
                               width:
                                   MediaQuery.of(context).size.width * 90 / 99,
-                              height: MediaQuery.of(context).size.height,
+                              height:
+                                  MediaQuery.of(context).size.width * 90 / 99,
                               child:
                                   globals.punch_issue_Drawings_File.length == 1
                                       ? Image.file(
@@ -240,24 +270,15 @@ class _DraftPageState extends State<DraftPage> {
                     // onPrimary: Colors.white, // foreground
                   ),
                   onPressed: () {
-                    if (pixelList.length == 0) {
-                      pixelList.add([this.cdx, this.cdy]);
-                    } else {
-                      pixelList.removeAt(0);
-                      pixelList.add([this.cdx, this.cdy]);
-                    }
-                    print("pixelList: $pixelList");
-
-                    print("pixelList: ${pixelList[0][1]}");
                     globals.punch_issue_Pixel_X = [];
                     globals.punch_issue_Pixel_Y = [];
-                    globals.punch_issue_Pixel_X.add(pixelList[0][0]);
-                    globals.punch_issue_Pixel_Y.add(pixelList[0][1]);
+                    globals.punch_issue_Pixel_X.add(pixelX[0]);
+                    globals.punch_issue_Pixel_Y.add(pixelY[0]);
                     print(
                         "globals.punch_issue_Pixel: ${globals.punch_issue_Pixel_X}");
                     print(
                         "globals.punch_issue_Pixel: ${globals.punch_issue_Pixel_Y}");
-                    // print(pixelList);
+                    Get.back();
                   },
                   child: Text("Save Location"),
                 ),

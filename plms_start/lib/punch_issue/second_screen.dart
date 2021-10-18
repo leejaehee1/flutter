@@ -9,6 +9,7 @@ import 'package:simple_tags/simple_tags.dart';
 import '../pages/utils/title_text.dart';
 
 import '../globals/globals.dart' as globals;
+import '../globals/punch_continue.dart' as continues;
 import '../globals/issue.dart' as issue;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
@@ -31,12 +32,76 @@ class _PageTwoState extends State<PageTwo> {
   List discipline = issue.disciplineNameList;
   List raisedon = issue.qcList;
 
-  bool isSwitch1 = false;
-  bool isSwitch2 = false;
+  List actiononStart = [];
+  List disciplineStart = [];
+  List raisedonStart = [];
+
+  bool isSwitch2 = continues.punch_issue_Material.length == 0
+      ? false
+      : continues.punch_issue_Material[0] == '0'
+          ? false
+          : true;
+  bool isSwitch1 = continues.punch_issue_Design.length == 0
+      ? false
+      : continues.punch_issue_Design[0] == '0'
+          ? false
+          : true;
 
   List<String> contentList = [];
 
   final _tagTextEditController = TextEditingController();
+
+  @override
+  void initState() {
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+    print(continues.punch_issue_Keyword);
+    print(continues.punch_issue_Action_On);
+    print(continues.punch_issue_Discipline);
+    print(continues.punch_issue_Raised_On);
+    if (continues.punch_issue_Keyword.length != 0) {
+      for (var i = 0; i < continues.punch_issue_Keyword.length; i++) {
+        contentList.add(continues.punch_issue_Keyword[i]);
+      }
+    }
+    print(contentList);
+    if (continues.punch_issue_Action_On.length != 0) {
+      for (var i = 0; i < actionon.length; i++) {
+        if (continues.punch_issue_Action_On[0] == issue.deptList[i]) {
+          setState(() {
+            actiononStart.add(actionon[i]);
+          });
+        }
+      }
+    } else {
+      actiononStart.add('');
+    }
+    if (continues.punch_issue_Discipline.length != 0) {
+      for (var i = 0; i < discipline.length; i++) {
+        if (continues.punch_issue_Discipline[0] == issue.disciplineList[i]) {
+          setState(() {
+            disciplineStart.add(discipline[i]);
+          });
+        }
+      }
+    } else {
+      disciplineStart.add('');
+    }
+    if (continues.punch_issue_Raised_On.length != 0) {
+      for (var i = 0; i < raisedon.length; i++) {
+        if (continues.punch_issue_Raised_On[0] == issue.qcList[i]) {
+          setState(() {
+            raisedonStart.add(raisedon[i]);
+          });
+        }
+      }
+    } else {
+      raisedonStart.add('');
+    }
+
+    setState(() {});
+    print(globals.punch_issue_Action_On);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,12 +158,18 @@ class _PageTwoState extends State<PageTwo> {
                     ),
                     Column(
                       children: [
-                        _dropdownButton('Action On', actionon, issue.deptList),
+                        _dropdownButton('Action On', actionon, issue.deptList,
+                            actiononStart, continues.punch_issue_Action_On),
                         _size15(),
                         _dropdownButton(
-                            'Discipline', discipline, issue.disciplineList),
+                            'Discipline',
+                            discipline,
+                            issue.disciplineList,
+                            disciplineStart,
+                            continues.punch_issue_Discipline),
                         _size15(),
-                        _dropdownButton('Raised On', raisedon, issue.qcList),
+                        _dropdownButton('Raised On', raisedon, issue.qcList,
+                            raisedonStart, continues.punch_issue_Raised_On),
                         _size15(),
                         _dataTime('Target Date'),
                         _size15(),
@@ -168,7 +239,7 @@ class _PageTwoState extends State<PageTwo> {
                 if (globals.punch_issue_Date.length == 0) {
                   globals.punch_issue_Date.add(val);
                 } else {
-                  globals.punch_issue_Date.removeAt(0);
+                  globals.punch_issue_Date = [];
                   globals.punch_issue_Date.add(val);
                 }
                 print('globaldata!!!!!!!!!!');
@@ -182,7 +253,8 @@ class _PageTwoState extends State<PageTwo> {
   }
 
   // 드롭다운버튼 Row
-  Widget _dropdownButton(String text, var data1, var data2) {
+  Widget _dropdownButton(
+      String text, var data1, var data2, var data3, var data4) {
     return Row(
       children: [
         SizedBox(
@@ -221,35 +293,42 @@ class _PageTwoState extends State<PageTwo> {
                   });
                 }
               }
-              if (text == "Action On") {
-                if (globals.punch_issue_Action_On.length == 1) {
-                  globals.punch_issue_Action_On.removeAt(0);
-                  globals.punch_issue_Action_On.add(value.toString());
-                } else {
-                  globals.punch_issue_Action_On.add(value.toString());
+              setState(() {
+                if (text == "Action On") {
+                  if (globals.punch_issue_Action_On.length >= 1) {
+                    globals.punch_issue_Action_On = [];
+                    globals.punch_issue_Action_On.add(value.toString());
+                  } else {
+                    globals.punch_issue_Action_On.add(value.toString());
+                  }
+                } else if (text == "Discipline") {
+                  if (globals.punch_issue_Discipline.length >= 1) {
+                    globals.punch_issue_Discipline = [];
+                    globals.punch_issue_Discipline.add(value.toString());
+                  } else {
+                    globals.punch_issue_Discipline.add(value.toString());
+                  }
+                } else if (text == 'Raised On') {
+                  if (globals.punch_issue_Raised_On.length >= 1) {
+                    globals.punch_issue_Raised_On = [];
+                    globals.punch_issue_Raised_On.add(value.toString());
+                  } else {
+                    globals.punch_issue_Raised_On.add(value.toString());
+                  }
                 }
-              } else if (text == "Discipline") {
-                if (globals.punch_issue_Discipline.length == 1) {
-                  globals.punch_issue_Discipline.removeAt(0);
-                  globals.punch_issue_Discipline.add(value.toString());
-                } else {
-                  globals.punch_issue_Discipline.add(value.toString());
-                }
-              } else if (text == 'Raised On') {
-                if (globals.punch_issue_Raised_On.length == 1) {
-                  globals.punch_issue_Raised_On.removeAt(0);
-                  globals.punch_issue_Raised_On.add(value.toString());
-                } else {
-                  globals.punch_issue_Raised_On.add(value.toString());
-                }
-              }
+              });
+
               print("global 테스트");
               // print(value.);
               print(globals.punch_issue_Action_On);
               print(globals.punch_issue_Discipline);
               print(globals.punch_issue_Raised_On);
             },
-            selectedItem: '',
+            selectedItem: data4.length == 1
+                ? data3[0]
+                : data3.length == 0
+                    ? ''
+                    : data3[0],
           ),
         ),
       ],
@@ -278,7 +357,7 @@ class _PageTwoState extends State<PageTwo> {
                   globals.punch_issue_Design.add('0');
                 }
               } else {
-                globals.punch_issue_Design.removeAt(0);
+                globals.punch_issue_Design = [];
                 if (isSwitch1 == true) {
                   globals.punch_issue_Design.add('1');
                 } else {
@@ -317,7 +396,7 @@ class _PageTwoState extends State<PageTwo> {
                   globals.punch_issue_Material.add('0');
                 }
               } else {
-                globals.punch_issue_Material.removeAt(0);
+                globals.punch_issue_Material = [];
                 if (isSwitch2 == true) {
                   globals.punch_issue_Material.add('1');
                 } else {

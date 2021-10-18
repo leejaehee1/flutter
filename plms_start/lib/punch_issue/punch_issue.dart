@@ -54,14 +54,16 @@ class _PunchScreenState extends State<PunchScreen>
     _scrollController.addListener(() {
       _onScroll();
     });
+    print('bulk!!!!!!!!!!!!!!!!!!!');
+    print(continues.punch_issue_Bulk_Item);
 
-    globals.punch_issue_isTag = true;
-    globals.punch_issue_isBulk = false;
+    // globals.punch_issue_isTag = true;
+    // globals.punch_issue_isBulk = false;
     globals.punch_issue_Tag_Number = [];
     globals.punch_issue_Bulk_Item = [];
-    globals.punch_issue_Category = [issue.categoryList[0]];
-    globals.punch_issue_System = [issue.systemsList[0]];
-    globals.punch_issue_Sub_System = [issue.subsystemList[0]];
+    globals.punch_issue_Category = [];
+    globals.punch_issue_System = [];
+    globals.punch_issue_Sub_System = [];
     globals.punch_issue_Unit = [];
     globals.punch_issue_Area = [];
     globals.punch_issue_Punch_ID = [];
@@ -71,37 +73,17 @@ class _PunchScreenState extends State<PunchScreen>
     globals.punch_issue_Raised_On = [];
     globals.punch_issue_Date = [];
     globals.punch_issue_Keyword = [];
-    globals.punch_issue_Design = ['0'];
-    globals.punch_issue_Material = ['0'];
+    globals.punch_issue_Design = [];
+    globals.punch_issue_Material = [];
 
     globals.punch_issue_Switch = ['1'];
     globals.punch_issue_Photo = [];
     globals.punch_issue_Photo_Path = [];
     globals.punch_issue_Photo_Name = [];
-
-    continues.punch_issue_Category.length == 1
-        ? globals.punch_issue_Category.add(continues.punch_issue_Category[0])
-        : globals.punch_issue_Category = [issue.categoryList[0]];
-    continues.punch_issue_System.length == 1
-        ? globals.punch_issue_System.add(continues.punch_issue_System[0])
-        : globals.punch_issue_System = [issue.systemsList[0]];
-    continues.punch_issue_Sub_System.length == 1
-        ? globals.punch_issue_Sub_System
-            .add(continues.punch_issue_Sub_System[0])
-        : globals.punch_issue_Sub_System = [issue.subsystemList[0]];
-    continues.punch_issue_Discipline.length == 1
-        ? globals.punch_issue_Discipline
-            .add(continues.punch_issue_Discipline[0])
-        : globals.punch_issue_Discipline = [];
-    continues.punch_issue_Status.length == 1
-        ? globals.punch_issue_Status.add(continues.punch_issue_Status[0])
-        : globals.punch_issue_Status = [];
-    continues.punch_issue_Unit.length == 1
-        ? globals.punch_issue_Unit.add(continues.punch_issue_Unit[0])
-        : globals.punch_issue_Unit = [];
-    continues.punch_issue_Area.length == 1
-        ? globals.punch_issue_Area.add(continues.punch_issue_Area[0])
-        : globals.punch_issue_Area = [];
+    globals.punch_issue_Drawings = [];
+    globals.punch_issue_Drawings_File = [];
+    globals.punch_issue_Pixel_X = [];
+    globals.punch_issue_Pixel_Y = [];
     continues.punch_issue_Tag_Number.length == 1
         ? globals.punch_issue_Tag_Number
             .add(continues.punch_issue_Tag_Number[0])
@@ -112,12 +94,44 @@ class _PunchScreenState extends State<PunchScreen>
     continues.punch_issue_Bulk_Name.length == 1
         ? globals.punch_issue_Bulk_Name.add(continues.punch_issue_Bulk_Name[0])
         : globals.punch_issue_Bulk_Name = [];
+    continues.punch_issue_Category.length == 1
+        ? globals.punch_issue_Category.add(continues.punch_issue_Category[0])
+        : globals.punch_issue_Category = [issue.categoryList[0]];
+    continues.punch_issue_System.length == 1
+        ? globals.punch_issue_System.add(continues.punch_issue_System[0])
+        : globals.punch_issue_System = [issue.systemsList[0]];
+    continues.punch_issue_Sub_System.length == 1
+        ? globals.punch_issue_Sub_System
+            .add(continues.punch_issue_Sub_System[0])
+        : globals.punch_issue_Sub_System = [issue.subsystemList[0]];
+    continues.punch_issue_Unit.length == 1
+        ? globals.punch_issue_Unit.add(continues.punch_issue_Unit[0])
+        : globals.punch_issue_Unit = [];
+    continues.punch_issue_Area.length == 1
+        ? globals.punch_issue_Area.add(continues.punch_issue_Area[0])
+        : globals.punch_issue_Area = [];
+    continues.punch_issue_Description.length == 1
+        ? globals.punch_issue_Description
+            .add(continues.punch_issue_Description[0])
+        : globals.punch_issue_Description = [];
+
+    continues.punch_issue_Discipline.length == 1
+        ? globals.punch_issue_Discipline
+            .add(continues.punch_issue_Discipline[0])
+        : globals.punch_issue_Discipline = [];
+    continues.punch_issue_Status.length == 1
+        ? globals.punch_issue_Status.add(continues.punch_issue_Status[0])
+        : globals.punch_issue_Status = [];
     continues.punch_issue_Action_On.length == 1
         ? globals.punch_issue_Action_On.add(continues.punch_issue_Action_On[0])
         : globals.punch_issue_Action_On = [];
     continues.punch_issue_Date.length == 1
         ? globals.punch_issue_Date.add(continues.punch_issue_Date[0])
         : globals.punch_issue_Date = [];
+    continues.punch_issue_Keyword.length >= 1
+        ? globals.punch_issue_Keyword = continues.punch_issue_Keyword
+        : globals.punch_issue_Keyword = [];
+
     continues.punch_issue_Issued_Date.length == 1
         ? globals.punch_issue_Issued_Date
             .add(continues.punch_issue_Issued_Date[0])
@@ -131,10 +145,6 @@ class _PunchScreenState extends State<PunchScreen>
     continues.punch_issue_Material.length == 1
         ? globals.punch_issue_Material.add(continues.punch_issue_Material[0])
         : globals.punch_issue_Material = ['0'];
-    continues.punch_issue_Description.length == 1
-        ? globals.punch_issue_Description
-            .add(continues.punch_issue_Description[0])
-        : globals.punch_issue_Description = [];
 
     super.initState();
   }
@@ -307,18 +317,32 @@ class _PunchScreenState extends State<PunchScreen>
                 // onPrimary: Colors.white, // foreground
               ),
               onPressed: () {
-                if (globals.punch_issue_Status.length == 0) {
-                  globals.punch_issue_Status.add('1');
+                if (globals.punch_issue_Category.length == 0 ||
+                    globals.punch_issue_System.length == 0 ||
+                    globals.punch_issue_Sub_System.length == 0 ||
+                    globals.punch_issue_Punch_ID.length == 0) {
+                  Get.defaultDialog(
+                    textCancel: "cancel",
+                    cancelTextColor: Colors.black,
+                    title: 'Error',
+                    titleStyle: TextStyle(color: Colors.red),
+                    middleText: 'Check Reqiured fields',
+                    buttonColor: Colors.white,
+                  );
                 } else {
-                  globals.punch_issue_Status.removeAt(0);
-                  globals.punch_issue_Status.add('1');
+                  if (globals.punch_issue_Status.length == 0) {
+                    globals.punch_issue_Status.add('1');
+                  } else {
+                    globals.punch_issue_Status.removeAt(0);
+                    globals.punch_issue_Status.add('1');
+                  }
+                  globals.punch_issue_Issued_Date = [];
+                  globals.punch_issue_Issued_Date
+                      .add(DateTime.now().toString().toString());
+                  print('global!!!!!!!!!!!');
+                  print(globals.punch_issue_Status);
+                  Get.toNamed('/confirm');
                 }
-                globals.punch_issue_Issued_Date = [];
-                globals.punch_issue_Issued_Date
-                    .add(DateTime.now().toString().toString());
-                print('global!!!!!!!!!!!');
-                print(globals.punch_issue_Status);
-                Get.toNamed('/confirm');
               },
               child: Text("Save Draft"),
             ),
@@ -332,17 +356,31 @@ class _PunchScreenState extends State<PunchScreen>
                 // onPrimary: Colors.white, // foreground
               ),
               onPressed: () {
-                print('global!!!!!!!!!!!');
-                if (globals.punch_issue_Status.length == 0) {
-                  globals.punch_issue_Status.add('2');
+                if (globals.punch_issue_Category.length == 0 ||
+                    globals.punch_issue_System.length == 0 ||
+                    globals.punch_issue_Sub_System.length == 0 ||
+                    globals.punch_issue_Punch_ID.length == 0) {
+                  Get.defaultDialog(
+                    textCancel: "cancel",
+                    cancelTextColor: Colors.black,
+                    title: 'Error',
+                    titleStyle: TextStyle(color: Colors.red),
+                    middleText: 'Check Reqiured fields',
+                    buttonColor: Colors.white,
+                  );
                 } else {
-                  globals.punch_issue_Status.removeAt(0);
-                  globals.punch_issue_Status.add('2');
+                  print('global!!!!!!!!!!!');
+                  if (globals.punch_issue_Status.length == 0) {
+                    globals.punch_issue_Status.add('2');
+                  } else {
+                    globals.punch_issue_Status.removeAt(0);
+                    globals.punch_issue_Status.add('2');
+                  }
+                  globals.punch_issue_Issued_Date = [];
+                  globals.punch_issue_Issued_Date
+                      .add(DateTime.now().toString().toString());
+                  Get.toNamed('/confirm');
                 }
-                globals.punch_issue_Issued_Date = [];
-                globals.punch_issue_Issued_Date
-                    .add(DateTime.now().toString().toString());
-                Get.toNamed('/confirm');
               },
               child: Text("Create Issue"),
             ),
