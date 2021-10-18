@@ -340,8 +340,15 @@ class _OnTapScreennState extends State<OnTapScreen>
                 primary: Color(0xff71838D), // background
                 // onPrimary: Colors.white, // foreground
               ),
-              onPressed: () {
-                Get.back();
+              onPressed: () async {
+                var url = Uri.parse('$api/summury/delete');
+                var response = await http.post(url, body: {
+                  'projectID': issue.projectList[0],
+                  'punchID': datas[Get.arguments]['punchID'],
+                });
+                print(response.body);
+
+                Get.toNamed('/home');
               },
               child: Text("Delete Draft"),
             ),

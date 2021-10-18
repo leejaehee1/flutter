@@ -96,8 +96,8 @@ class _ListFileState extends State<ListFile> {
                               // onPrimary: Colors.white, // foreground
                             ),
                             onPressed: () {
-                              print(data[index].runtimeType);
-                              print(data[index]);
+                              print(data[index - draftList.length].runtimeType);
+                              print(data[index - draftList.length]);
                               Get.toNamed('/complete',
                                   arguments: [data[index]]);
                             },

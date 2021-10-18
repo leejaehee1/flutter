@@ -74,16 +74,17 @@ class _ListOpenState extends State<ListOpen> {
                       ),
                       onPressed: () {
                         print(data[index]);
-                        print(login.userID[0]);
-                        print(login.password[0]);
-                        print(login.userName[0]);
-                        print(login.email[0]);
-                        print(login.company[0]);
-                        print(login.authority[0]);
-                        print(login.personalID[0]);
-                        print(login.department[0]);
-                        // Get.toNamed('/complete', arguments: [
-                        //   data[index],
+                        // print(login.userID[0]);
+                        // print(login.password[0]);
+                        // print(login.userName[0]);
+                        // print(login.email[0]);
+                        // print(login.company[0]);
+                        // print(login.authority[0]);
+                        // print(login.personalID[0]);
+                        // print(login.department[0]);
+                        Get.toNamed('/complete', arguments: [
+                          data[index],
+                        ]);
                         //   //   id,
                         //   //   password,
                         //   //   userName,
