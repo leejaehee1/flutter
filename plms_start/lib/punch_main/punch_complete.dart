@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:http_parser/http_parser.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -11,7 +12,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/pages/utils/title_text.dart';
+import 'package:plms_start/punch_main/image_painter_completes.dart';
 import '../globals/login.dart' as login;
+import '../globals/completes.dart' as completes;
+
 /*
 * name : PunchComplete Page
 * description : complete page
@@ -32,14 +36,29 @@ class _PunchCompleteState extends State<PunchComplete> {
   // var api = dotenv.env['EMUL_IP'];
 
   var data = Get.arguments[0];
-  var id = login.userID[0];
-  var password = login.password[0];
-  var userName = login.userName[0];
-  var email = login.email[0];
-  var company = login.company[0];
-  var authority = login.authority[0];
-  var personalID = login.personalID[0];
-  var department = login.department[0];
+  var id = login.userID.length == 0 ? '' : login.userID[0];
+  var password = login.password.length == 0 ? '' : login.password[0];
+  var userName = login.userName.length == 0 ? '' : login.userName[0];
+  var email = login.email.length == 0 ? '' : login.email[0];
+  var company = login.company.length == 0 ? '' : login.company[0];
+  var authority = login.authority.length == 0 ? '' : login.authority[0];
+  var personalID = login.personalID.length == 0 ? '' : login.personalID[0];
+  var department = login.department.length == 0 ? '' : login.department[0];
+  @override
+  void initState() {
+    completes.punch_issue_Punch_ID = [data['punchID']];
+    completes.punch_issue_Photo = [];
+    completes.punch_issue_Photo_Path = [];
+    completes.punch_issue_Photo_Name = [];
+    completes.punch_issue_Drawings = [];
+    completes.punch_issue_Drawings_File = [];
+    completes.punch_issue_Pixel_X = [];
+    completes.punch_issue_Pixel_Y = [];
+    completes.punch_issue_Switch = ['1'];
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,19 +162,53 @@ class _PunchCompleteState extends State<PunchComplete> {
                   // onPrimary: Colors.white, // foreground
                 ),
                 onPressed: () async {
-                  // print(id);
-                  // print(data['projectID']);
-                  // print(data['punchID']);
-                  // print(DateTime.now());
+                  print(id);
+                  print(data['projectID']);
+                  print(data['punchID']);
+                  print(DateTime.now());
 
                   var url = Uri.parse('$api/summury/complete');
                   await http.post(url, body: {
                     'userID': id,
                     'projectID': data['projectID'],
                     'punchID': data['punchID'],
+                    'completeComment': desData[0],
                     'completedDate': DateTime.now().toString(),
                   });
                   print('성공이욤');
+                  var url2 = Uri.parse('$api/summury/photos');
+                  if (completes.punch_issue_Photo.length == 1) {
+                    await http.post(url2, body: {
+                      'punchID': completes.punch_issue_Punch_ID[0],
+                      'punchStep': '2',
+                      'seq': '1',
+                      'localPath':
+                          '${completes.punch_issue_Photo_Path[0]}${completes.punch_issue_Photo_Name[0]}',
+                      'imagePath':
+                          'upload/photos/${completes.punch_issue_Photo_Name[0]}',
+                      'uploaded': completes.punch_issue_Switch[0],
+                      'uploadDate': DateTime.now().toString(),
+                    });
+                  } else if (completes.punch_issue_Photo.length > 1) {
+                    for (var i = 0;
+                        i < completes.punch_issue_Photo.length;
+                        i++) {
+                      await http.post(url2, body: {
+                        'punchID': completes.punch_issue_Punch_ID[0],
+                        'punchStep': '2',
+                        'seq': '${i + 1}',
+                        'localPath':
+                            '${completes.punch_issue_Photo_Path[i]}${completes.punch_issue_Photo_Name[i]}',
+                        'imagePath':
+                            'upload/photos/${completes.punch_issue_Photo_Name[i]}',
+                        'uploaded': completes.punch_issue_Switch[0],
+                        'uploadDate': DateTime.now().toString(),
+                      });
+                    }
+                  }
+                  if (completes.punch_issue_Switch[0] == '1') {
+                    _sendImage();
+                  }
 
                   Get.offAllNamed(
                     '/home',
@@ -170,6 +223,7 @@ class _PunchCompleteState extends State<PunchComplete> {
                     //   department
                     // ]
                   );
+                  completes.punch_issue_Photo = [];
                 },
                 child: Text(AppLocalizations.of(context)!.completePageButton2),
               ),
@@ -180,23 +234,41 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
+  Future<void> _sendImage() async {
+    List imageFileList = completes.punch_issue_Photo;
+    List imageName = completes.punch_issue_Photo_Name;
+    print('!!!!!!!!!!!!!!name!!!!!!!!!!!!');
+    print(imageName);
+    print(_imageData);
+    print(completes.punch_issue_Photo);
+    var url = Uri.parse('$api/summury/uploadfile');
+    var request = http.MultipartRequest('POST', url);
+    // for (var imageFile in imageFileList) {
+    for (int i = 0; i < imageFileList.length; i++) {
+      request.files.add(await http.MultipartFile.fromPath(
+        'imgFile',
+        imageFileList[i].path,
+        filename: imageName[i].toString(),
+        contentType: new MediaType('image', 'png'),
+      ));
+    }
+
+    var response = await request.send();
+    if (response.statusCode == 200) print('Uploaded!');
+  }
+
   // 사진 카메라에서 이미지 선택
   final ImagePicker _picker = ImagePicker();
-  List<XFile> _imageList = [];
-  late XFile value = Get.to(ImagePainters()) as XFile;
-  bool status = false;
-  // double len = [].length as double;
+  List _imageData = completes.punch_issue_Photo;
+  bool status = true;
   Widget _imagePicker() {
     return Container(
       decoration: BoxDecoration(color: Colors.white),
       height: 250,
-      // width: 1000,
-      // height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
           _swichWidget('Upload Images now'),
-          // SwitchButton(name: 'Upload Images now'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -207,24 +279,35 @@ class _PunchCompleteState extends State<PunchComplete> {
                       _showDialog2();
                     });
                   },
-                  icon: Icon(Icons.add_a_photo)),
-              // IconButton(
-              //     onPressed: () {
-              //       setState(() {
-              //         print("value다!!!!!!!: $value");
-              //         _imageList.add(value);
-              //         print("된다");
-              //       });
-              //     },
-              //     icon: Icon(Icons.check)),
+                  icon: Icon(
+                    Icons.add_a_photo,
+                    size: Get.height * 1 / 18,
+                  )),
             ],
           ),
+          // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
+          // ii) filename 지정해주고, 경로를 지정
+          // upload file table : file id, original filename, server filename, server path, time, device path
+          // iii) 실제 구현 측면에서 타이밍
+          // 1) 바로 업로드
+          // 2) 나중 업로드
 
-          Expanded(
+          // 저장 타이밍 2가지
+          // 테이블 영구적인 저장
+          // 기기내의 저장소 -> sqlite -> (x)
+
+          // i) 바로 업로드
+          // ii) 나중에 업로드
+
+          // 이미지 저장 및 보기
+          Container(
+            height: Get.height * 1 / 6.6,
+            width: Get.width,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3),
-              itemCount: _imageList.length,
+              // scrollDirection: Axis.horizontal,
+              itemCount: _imageData.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: const EdgeInsets.all(3.0),
@@ -232,16 +315,19 @@ class _PunchCompleteState extends State<PunchComplete> {
                     fit: StackFit.expand,
                     children: [
                       InkWell(
-                        onTap: () {
+                        onTap: () async {
                           print('hi');
                           // _imagePainter(index);
-                          Get.to(() => ImagePainters(),
-                              arguments: _imageList[index].path);
-
+                          // final imageData = await Get.to(() => ImagePainters(),
+                          //     arguments: _imageList[index].path);
+                          // setState(() {
+                          //   _imageData.add(imageData);
+                          // });
                           print('hihi');
                         },
                         child: Image.file(
-                          File(_imageList[index].path),
+                          // File(_imageList[index].path),
+                          File(_imageData[index].path),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -269,7 +355,12 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
-  //스위치 버튼
+  // var api = dotenv.env['PHONE_IP'];
+  // // var api = dotenv.env['EMUL_IP'];
+
+//   }
+
+  // 스위치 버튼
   Widget _swichWidget(String name) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -289,13 +380,22 @@ class _PunchCompleteState extends State<PunchComplete> {
             setState(() {
               status = val;
             });
+            if (status == true) {
+              completes.punch_issue_Switch.removeAt(0);
+              completes.punch_issue_Switch.add('1');
+              print(completes.punch_issue_Switch);
+            } else {
+              completes.punch_issue_Switch.removeAt(0);
+              completes.punch_issue_Switch.add('0');
+              print(completes.punch_issue_Switch);
+            }
           },
         ),
       ],
     );
   }
 
-  // 갤러리 카메라 선택 다이얼로그
+  // 카메라 갤러리 선택
   void _showDialog2() {
     double _imageSize = Get.width * 1 / 11;
     showDialog(
@@ -357,7 +457,7 @@ class _PunchCompleteState extends State<PunchComplete> {
     );
   }
 
-  // 삭제 다이얼로그
+  // 이미지 삭제
   void _showDialog(int index) {
     showDialog(
       context: context,
@@ -378,7 +478,11 @@ class _PunchCompleteState extends State<PunchComplete> {
                 new ElevatedButton(
                   child: new Text("Yes"),
                   onPressed: () {
-                    _imageList.removeAt(index);
+                    _imageData.removeAt(index);
+                    completes.punch_issue_Photo_Name.removeAt(index);
+                    completes.punch_issue_Photo_Path.removeAt(index);
+                    completes.punch_issue_Photo = _imageData;
+                    print(completes.punch_issue_Photo);
                     setState(() {});
                     Get.back();
                   },
@@ -397,8 +501,20 @@ class _PunchCompleteState extends State<PunchComplete> {
         await _picker.pickImage(source: ImageSource.gallery);
     try {
       if (selectedImage!.path.isNotEmpty) {
-        _imageList.add(selectedImage);
-        print(selectedImage.runtimeType);
+        final imageData =
+            await Get.to(() => ImagePainters3(), arguments: selectedImage.path);
+        if (imageData != null) {
+          setState(() {
+            _imageData.add(imageData);
+            completes.punch_issue_Photo = _imageData;
+            print(completes.punch_issue_Photo);
+          });
+        }
+
+        // Get.to(ImagePainters());
+        // _imageList.add(selectedImage);
+        // print(selectedImage.runtimeType);
+        // print(selectedImage);
       }
       setState(() {});
     } catch (e) {}
@@ -410,13 +526,23 @@ class _PunchCompleteState extends State<PunchComplete> {
         await _picker.pickImage(source: ImageSource.camera);
     try {
       if (takenImage!.path.isNotEmpty) {
-        _imageList.add(takenImage);
+        final imageData =
+            await Get.to(() => ImagePainters3(), arguments: takenImage.path);
+        if (imageData != null) {
+          setState(() {
+            _imageData.add(imageData);
+            completes.punch_issue_Photo = _imageData;
+            print(completes.punch_issue_Photo);
+          });
+        }
       }
+
       setState(() {});
     } catch (e) {}
   }
 
   // description
+  List desData = [];
   Widget _description() {
     return Column(
       children: [
@@ -426,6 +552,18 @@ class _PunchCompleteState extends State<PunchComplete> {
           ],
         ),
         TextField(
+            onChanged: (String str) {
+              setState(() {
+                if (desData.length == 0) {
+                  desData.add(str);
+                } else {
+                  desData.removeAt(0);
+                  desData.add(str);
+                }
+                print('globaldata!!!!!!!!!!');
+                print(desData);
+              });
+            },
             maxLines: 7,
             keyboardType: TextInputType.multiline,
             maxLength: null,
@@ -471,7 +609,9 @@ class _PunchCompleteState extends State<PunchComplete> {
           children: [
             Flexible(
               child: Text(
-                data['notAcceptComment'],
+                data['notAcceptComment'] == null
+                    ? ''
+                    : data['notAcceptComment'],
                 style: TextStyle(color: Color(0xff5D8791)),
                 overflow: TextOverflow.fade,
               ),

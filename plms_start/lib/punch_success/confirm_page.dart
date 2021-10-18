@@ -30,20 +30,20 @@ class _ConfirmPageState extends State<ConfirmPage> {
   // String tagnumber = 'tagnumber';
   // String category = 'category';
   String punchID = globals.punch_issue_Punch_ID[0];
-  var date = globals.punch_issue_Issued_Date[0];
+  var date = globals.punch_issue_Issued_Date.length == 1
+      ? globals.punch_issue_Issued_Date[0]
+      : '';
   String issuedBy = login.userID[0];
-  String unit = globals.punch_issue_Unit.length == 0
-      ? 'unit'
-      : globals.punch_issue_Unit[0];
-  String area = globals.punch_issue_Area.length == 0
-      ? 'area'
-      : globals.punch_issue_Area[0];
+  String unit =
+      globals.punch_issue_Unit.length == 0 ? '' : globals.punch_issue_Unit[0];
+  String area =
+      globals.punch_issue_Area.length == 0 ? '' : globals.punch_issue_Area[0];
   String system = '';
 
   String subsystem = '';
 
   String tagnumber = globals.punch_issue_Tag_Number.length == 0
-      ? 'tagnumber'
+      ? ''
       : globals.punch_issue_Tag_Number[0];
 
   String category = globals.punch_issue_Category[0];
@@ -127,7 +127,11 @@ class _ConfirmPageState extends State<ConfirmPage> {
                           ),
                           _rowData("Punch ID", punchID),
                           _sizedBox(),
-                          _rowData("Issued Date", date),
+                          _rowData(
+                              "Issued Date",
+                              DateFormat('yyyy-MM-dd')
+                                  .format(DateTime.parse(date))
+                                  .toString()),
                           _sizedBox(),
                           _rowData("Issued By", issuedBy),
                           SizedBox(
