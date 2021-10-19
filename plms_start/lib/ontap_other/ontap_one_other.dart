@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:group_radio_button/group_radio_button.dart';
+// import 'package:group_radio_button/group_radio_button.dart';
 
 import 'package:plms_start/pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
 import '../globals/issue.dart' as issue;
-import '../globals/login.dart' as login;
+// import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
 /*
 * name : PageOne
@@ -33,8 +33,8 @@ class _OntapFirstState extends State<OntapFirst> {
 
   List datas = Get.arguments[1];
 
-  String _horizonGroupValue = "Tag Number";
-  List<String> _status = ['Tag Number', "Bulk Item"];
+  // String _horizonGroupValue = "Tag Number";
+  // List<String> _status = ['Tag Number', "Bulk Item"];
 
   @override
   void initState() {
@@ -199,38 +199,38 @@ class _OntapFirstState extends State<OntapFirst> {
   }
 
 // 라디오 버튼
-  Widget _radioButton() {
-    return RadioGroup<String>.builder(
-      activeColor: Colors.green,
-      direction: Axis.horizontal,
-      groupValue: _horizonGroupValue,
-      onChanged: (value) => setState(() {
-        _horizonGroupValue = value!;
-        print(value);
-        if (value == _status[0]) {
-          if (draft.punch_issue_Bulk_Item.length == 1) {
-            draft.punch_issue_Bulk_Item.removeAt(0);
-          }
+  // Widget _radioButton() {
+  //   return RadioGroup<String>.builder(
+  //     activeColor: Colors.green,
+  //     direction: Axis.horizontal,
+  //     groupValue: _horizonGroupValue,
+  //     onChanged: (value) => setState(() {
+  //       _horizonGroupValue = value!;
+  //       print(value);
+  //       if (value == _status[0]) {
+  //         if (draft.punch_issue_Bulk_Item.length == 1) {
+  //           draft.punch_issue_Bulk_Item.removeAt(0);
+  //         }
 
-          _bulkTextEditController.clear();
-          globals.punch_issue_isTag = true;
-          globals.punch_issue_isBulk = false;
-        } else if (value == _status[1]) {
-          if (draft.punch_issue_Tag_Number.length == 1) {
-            draft.punch_issue_Tag_Number.removeAt(0);
-          }
-          _tagTextEditController.clear();
-          globals.punch_issue_isTag = false;
-          globals.punch_issue_isBulk = true;
-        }
-      }),
-      items: _status,
-      itemBuilder: (item) => RadioButtonBuilder(
-        item,
-        textPosition: RadioButtonTextPosition.left,
-      ),
-    );
-  }
+  //         _bulkTextEditController.clear();
+  //         globals.punch_issue_isTag = true;
+  //         globals.punch_issue_isBulk = false;
+  //       } else if (value == _status[1]) {
+  //         if (draft.punch_issue_Tag_Number.length == 1) {
+  //           draft.punch_issue_Tag_Number.removeAt(0);
+  //         }
+  //         _tagTextEditController.clear();
+  //         globals.punch_issue_isTag = false;
+  //         globals.punch_issue_isBulk = true;
+  //       }
+  //     }),
+  //     items: _status,
+  //     itemBuilder: (item) => RadioButtonBuilder(
+  //       item,
+  //       textPosition: RadioButtonTextPosition.left,
+  //     ),
+  //   );
+  // }
 
 // description
   Widget _description(var globaldata, var controller) {
@@ -404,40 +404,40 @@ class _OntapFirstState extends State<OntapFirst> {
   }
 
 // botton sheet unit
-  Widget _bottomSheetUnit(BuildContext context) {
-    var data = issue.unitDataList;
-    return Container(
-      height: Get.height * 1.55 / 3,
-      padding: EdgeInsets.all(10),
-      child: ListView.builder(
-          // scrollDirection: Axis.vertical,
-          itemCount: data.length,
-          itemBuilder: (BuildContext context, var index) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  _unitTextEditController.text = issue.unitList[index];
-                  if (draft.punch_issue_Unit.length == 1) {
-                    draft.punch_issue_Unit.removeAt(0);
-                    draft.punch_issue_Unit.add(_unitTextEditController.text);
-                  } else {
-                    draft.punch_issue_Unit.add(_unitTextEditController.text);
-                  }
+  // Widget _bottomSheetUnit(BuildContext context) {
+  //   var data = issue.unitDataList;
+  //   return Container(
+  //     height: Get.height * 1.55 / 3,
+  //     padding: EdgeInsets.all(10),
+  //     child: ListView.builder(
+  //         // scrollDirection: Axis.vertical,
+  //         itemCount: data.length,
+  //         itemBuilder: (BuildContext context, var index) {
+  //           return GestureDetector(
+  //             onTap: () {
+  //               setState(() {
+  //                 _unitTextEditController.text = issue.unitList[index];
+  //                 if (draft.punch_issue_Unit.length == 1) {
+  //                   draft.punch_issue_Unit.removeAt(0);
+  //                   draft.punch_issue_Unit.add(_unitTextEditController.text);
+  //                 } else {
+  //                   draft.punch_issue_Unit.add(_unitTextEditController.text);
+  //                 }
 
-                  Get.back();
-                });
-              },
-              child: Container(
-                width: Get.width,
-                child: Text(
-                  data[index],
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            );
-          }),
-    );
-  }
+  //                 Get.back();
+  //               });
+  //             },
+  //             child: Container(
+  //               width: Get.width,
+  //               child: Text(
+  //                 data[index],
+  //                 style: TextStyle(fontSize: 20),
+  //               ),
+  //             ),
+  //           );
+  //         }),
+  //   );
+  // }
 
 // area text
   Widget _areatextField(
@@ -507,42 +507,42 @@ class _OntapFirstState extends State<OntapFirst> {
   }
 
 // botton sheet area
-  Widget _bottomSheetArea(BuildContext context) {
-    var data = issue.areaDataList;
-    return Container(
-      height: Get.height * 1.55 / 3,
-      padding: EdgeInsets.all(10),
-      child: ListView.builder(
-          // scrollDirection: Axis.vertical,
-          itemCount: data.length,
-          itemBuilder: (BuildContext context, var index) {
-            return GestureDetector(
-              onTap: () {
-                setState(() {
-                  _areaTextEditController.text = issue.areaList[index];
-                  if (draft.punch_issue_Area.length == 1) {
-                    draft.punch_issue_Area.removeAt(0);
-                    draft.punch_issue_Area.add(_areaTextEditController.text);
-                  } else {
-                    draft.punch_issue_Area.add(_areaTextEditController.text);
-                  }
+  // Widget _bottomSheetArea(BuildContext context) {
+  //   var data = issue.areaDataList;
+  //   return Container(
+  //     height: Get.height * 1.55 / 3,
+  //     padding: EdgeInsets.all(10),
+  //     child: ListView.builder(
+  //         // scrollDirection: Axis.vertical,
+  //         itemCount: data.length,
+  //         itemBuilder: (BuildContext context, var index) {
+  //           return GestureDetector(
+  //             onTap: () {
+  //               setState(() {
+  //                 _areaTextEditController.text = issue.areaList[index];
+  //                 if (draft.punch_issue_Area.length == 1) {
+  //                   draft.punch_issue_Area.removeAt(0);
+  //                   draft.punch_issue_Area.add(_areaTextEditController.text);
+  //                 } else {
+  //                   draft.punch_issue_Area.add(_areaTextEditController.text);
+  //                 }
 
-                  Get.back();
-                });
-              },
-              child: Container(
-                // width: Get.width,
-                // color: Colors.red,
-                height: Get.height * 2 / 20,
-                child: Text(
-                  data[index],
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-            );
-          }),
-    );
-  }
+  //                 Get.back();
+  //               });
+  //             },
+  //             child: Container(
+  //               // width: Get.width,
+  //               // color: Colors.red,
+  //               height: Get.height * 2 / 20,
+  //               child: Text(
+  //                 data[index],
+  //                 style: TextStyle(fontSize: 18),
+  //               ),
+  //             ),
+  //           );
+  //         }),
+  //   );
+  // }
 
   // punchID text field
   Widget _textFormField(

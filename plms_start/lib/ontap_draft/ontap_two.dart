@@ -8,7 +8,7 @@ import 'package:simple_tags/simple_tags.dart';
 
 import '../pages/utils/title_text.dart';
 
-import '../globals/globals.dart' as globals;
+// import '../globals/globals.dart' as globals;
 import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;

@@ -15,6 +15,7 @@ import 'ontap_three_other.dart';
 import 'ontap_two_other.dart';
 
 // import 'package:http/http.dart' as http;
+import '../globals/globals.dart' as globals;
 import '../globals/login.dart' as login;
 import '../globals/issue.dart' as issue;
 import '../globals/photos.dart' as photos;
@@ -80,6 +81,13 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     // draft.punch_issue_Keyword = [];
     // draft.punch_issue_Design = [];
     // draft.punch_issue_Material = [];
+    globals.punch_issue_Drawings = [];
+    globals.punch_issue_Drawings_Path = [];
+    globals.punch_issue_Drawings_File = [];
+    globals.punch_issue_Pixel_X = [];
+    globals.punch_issue_Pixel_Y = [];
+    globals.punch_issue_Pixel_cdX = [];
+    globals.punch_issue_Pixel_cdY = [];
 
     draft.punch_issue_Photo = [];
     photos.photos_Image_Path = [];
@@ -101,30 +109,65 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       'punchID': datas[idx]['punchID'],
     });
     var photoPath = jsonDecode(response.body);
-    // Map<String, dynamic> jsonData = jsonDecode(response.body);
-    print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
-    // print(photoPath[0]['localPath']);
     for (var i = 0; i < photoPath.length; i++) {
       var imagePath2 = '${photoPath[i]['imagePath']}';
       photos.photos_Image_Path.add(imagePath2);
     }
-    print(photos.photos_Image_Path);
+
     var url2 = Uri.parse('$api/summury/photosload');
     final directory = (await getApplicationDocumentsDirectory()).path;
     for (var i = 0; i < photos.photos_Image_Path.length; i++) {
       var response = await http
           .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
-
       Uint8List jsonData = response.bodyBytes;
-      print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(jsonData.runtimeType);
       final image = File(
           '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
+      image.writeAsBytesSync(jsonData);
+      draft.punch_issue_Photo.add(image);
+    }
+
+    globals.punch_issue_Drawings_File = [];
+    var url3 = Uri.parse('$api/summury/drawingspath/');
+    var response3 = await http.post(url3, body: {
+      'projectID': issue.projectList[0],
+      'systemID': datas[idx]['systemID'],
+      'subsystem': datas[idx]['subsystem'],
+    });
+    var jsonDatas = jsonDecode(response3.body);
+    print("response.body!!!!!!!!!!!!!!!");
+    print(jsonDatas);
+    if (jsonDatas.length == 0) {
+      return null;
+    } else {
+      if (globals.punch_issue_Drawings.length == 0) {
+        globals.punch_issue_Drawings.add(jsonDatas[0]['drawingNo']);
+        globals.punch_issue_Drawings_Path.add(jsonDatas[0]['imagePath']);
+        print(globals.punch_issue_Drawings);
+      } else {
+        globals.punch_issue_Drawings.removeAt(0);
+        globals.punch_issue_Drawings_Path.removeAt(0);
+        globals.punch_issue_Drawings.add(jsonDatas[0]['drawingNo']);
+        globals.punch_issue_Drawings_Path.add(jsonDatas[0]['imagePath']);
+      }
+      var url2 = Uri.parse('$api/summury/drawingsload');
+      var response2 = await http.get(url2, headers: {
+        "imagePath": globals.punch_issue_Drawings_Path[0]
+        // "imagePath": 'upload/drawings/pdfs/8776892-01.png'
+      });
+      final directory = (await getApplicationSupportDirectory()).path;
+      Uint8List jsonData = response2.bodyBytes;
+      print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
+      print(directory);
+      final image = File(
+          // '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}'
+          '$directory/${globals.punch_issue_Drawings[0]}}');
       print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
       print(image.runtimeType);
       image.writeAsBytesSync(jsonData);
 
-      draft.punch_issue_Photo.add(image);
+      globals.punch_issue_Drawings_File.add(image);
+      print(globals.punch_issue_Drawings_File);
+      setState(() {});
     }
 
     print(photos.photos_Image_Path);
@@ -268,74 +311,74 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     isTapToScroll = false;
   }
 
-  _bottonButton() {
-    var buttonWidth = Get.width * 1 / 3.5;
-    return Container(
-      padding: EdgeInsets.only(bottom: 20),
-      color: Color(0xFFE6E6E6),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-            width: buttonWidth,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
-                primary: Color(0xff71838D), // background
-                // onPrimary: Colors.white, // foreground
-              ),
-              onPressed: () {
-                Get.back();
-              },
-              child: Text("Delete Draft"),
-            ),
-          ),
-          Container(
-            width: buttonWidth,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
-                primary: Color(0xff5D8595), // background
-                // onPrimary: Colors.white, // foreground
-              ),
-              onPressed: () {
-                if (draft.punch_issue_Status.length == 0) {
-                  draft.punch_issue_Status.add('1');
-                } else {
-                  draft.punch_issue_Status.removeAt(0);
-                  draft.punch_issue_Status.add('1');
-                }
+  // _bottonButton() {
+  //   var buttonWidth = Get.width * 1 / 3.5;
+  //   return Container(
+  //     padding: EdgeInsets.only(bottom: 20),
+  //     color: Color(0xFFE6E6E6),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       children: [
+  //         Container(
+  //           width: buttonWidth,
+  //           child: ElevatedButton(
+  //             style: ElevatedButton.styleFrom(
+  //               padding: EdgeInsets.all(0),
+  //               primary: Color(0xff71838D), // background
+  //               // onPrimary: Colors.white, // foreground
+  //             ),
+  //             onPressed: () {
+  //               Get.back();
+  //             },
+  //             child: Text("Delete Draft"),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: buttonWidth,
+  //           child: ElevatedButton(
+  //             style: ElevatedButton.styleFrom(
+  //               padding: EdgeInsets.all(0),
+  //               primary: Color(0xff5D8595), // background
+  //               // onPrimary: Colors.white, // foreground
+  //             ),
+  //             onPressed: () {
+  //               if (draft.punch_issue_Status.length == 0) {
+  //                 draft.punch_issue_Status.add('1');
+  //               } else {
+  //                 draft.punch_issue_Status.removeAt(0);
+  //                 draft.punch_issue_Status.add('1');
+  //               }
 
-                print('global!!!!!!!!!!!');
-                print(draft.punch_issue_Status);
-                Get.toNamed('/confirm');
-              },
-              child: Text("Save Draft"),
-            ),
-          ),
-          Container(
-            width: buttonWidth,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.all(0),
-                primary: Color(0xff2F4C5A), // background
-                // onPrimary: Colors.white, // foreground
-              ),
-              onPressed: () {
-                print('global!!!!!!!!!!!');
-                if (draft.punch_issue_Status.length == 0) {
-                  draft.punch_issue_Status.add('2');
-                } else {
-                  draft.punch_issue_Status.removeAt(0);
-                  draft.punch_issue_Status.add('2');
-                }
-                Get.toNamed('/confirm');
-              },
-              child: Text("Create Issue"),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  //               print('global!!!!!!!!!!!');
+  //               print(draft.punch_issue_Status);
+  //               Get.toNamed('/confirm');
+  //             },
+  //             child: Text("Save Draft"),
+  //           ),
+  //         ),
+  //         Container(
+  //           width: buttonWidth,
+  //           child: ElevatedButton(
+  //             style: ElevatedButton.styleFrom(
+  //               padding: EdgeInsets.all(0),
+  //               primary: Color(0xff2F4C5A), // background
+  //               // onPrimary: Colors.white, // foreground
+  //             ),
+  //             onPressed: () {
+  //               print('global!!!!!!!!!!!');
+  //               if (draft.punch_issue_Status.length == 0) {
+  //                 draft.punch_issue_Status.add('2');
+  //               } else {
+  //                 draft.punch_issue_Status.removeAt(0);
+  //                 draft.punch_issue_Status.add('2');
+  //               }
+  //               Get.toNamed('/confirm');
+  //             },
+  //             child: Text("Create Issue"),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

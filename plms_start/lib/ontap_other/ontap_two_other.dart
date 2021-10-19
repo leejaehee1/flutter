@@ -8,9 +8,9 @@ import 'package:simple_tags/simple_tags.dart';
 
 import '../pages/utils/title_text.dart';
 
-import '../globals/globals.dart' as globals;
+// import '../globals/globals.dart' as globals;
 import '../globals/issue.dart' as issue;
-import '../globals/login.dart' as login;
+// import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
@@ -437,34 +437,34 @@ class _OntapSecondState extends State<OntapSecond> {
   }
 
 // keyword 4개이상 에러 문구
-  void _showDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: new Text("You can't use more than 4 keywords."),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                new ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Color(0xff71838D),
-                  ),
-                  child:
-                      new Text(AppLocalizations.of(context)!.loginDialogButton),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _showDialog() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         content: new Text("You can't use more than 4 keywords."),
+  //         actions: <Widget>[
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //             crossAxisAlignment: CrossAxisAlignment.center,
+  //             children: [
+  //               new ElevatedButton(
+  //                 style: ElevatedButton.styleFrom(
+  //                   primary: Color(0xff71838D),
+  //                 ),
+  //                 child:
+  //                     new Text(AppLocalizations.of(context)!.loginDialogButton),
+  //                 onPressed: () {
+  //                   Get.back();
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
 // tagwidget
   Widget _tagWidget(String text, var controller) {
