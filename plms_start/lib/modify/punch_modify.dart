@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -56,7 +58,7 @@ class _ModifyPageState extends State<ModifyPage> {
   List<String> deptName = issue.deptNameList;
   List<String> department = issue.deptList;
   List<String> depList = [];
-  List<String> authorityList = ['1'];
+  List<String> authorityList = [];
   // int authoritylen = (authorityList.length - 1);
   List<String> deptList = [];
 
@@ -69,6 +71,21 @@ class _ModifyPageState extends State<ModifyPage> {
   final formKey = GlobalKey<FormState>();
 
   FocusNode _pwFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    print(login.authority[0]);
+    authorityList.add(login.authority[0]);
+    print(deptName);
+    for (int i = 0; i < deptName.length; i++) {
+      if (login.department[0] == department[i]) {
+        deptList.add(deptName[i]);
+        depList.add(department[i]);
+      }
+    }
+    print(depList);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,20 +125,103 @@ class _ModifyPageState extends State<ModifyPage> {
                 child:
                     new Text(AppLocalizations.of(context)!.signUpbottomButton2),
                 onPressed: () async {
-                  if (formKey.currentState!.validate() == true) {
-                    print('hi');
-                    var url = Uri.parse('$api/summury/update');
+                  // if (formKey.currentState!.validate() == true) {
+                  //   print('hi');
+                  //   var url = Uri.parse('$api/summury/update');
 
-                    await http.post(url, body: {
-                      'userID': login.userID[0],
-                      'password': _newpwTextEditController.text,
-                      "email": _emailTextEditController.text,
-                      "company": _comTextEditController.text,
-                      // "authority":
-                      "personalID": _personTextEditController.text,
-                      // "department":
-                    });
-                    Get.offAllNamed('/');
+                  //   await http.post(url, body: {
+                  //     'userID': login.userID[0],
+                  //     'password': _newpwTextEditController.text,
+                  //     'userName': _nameTextEditController.text,
+                  //     "email": _emailTextEditController.text,
+                  //     "company": _comTextEditController.text,
+                  //     'authority': authorityList[authorityList.length - 1],
+                  //     "personalID": _personTextEditController.text,
+                  //     'department': depList[depList.length - 1],
+                  //   });
+                  //   Get.offAllNamed('/');
+                  // }
+                  if (((formKey.currentState!.validate() == true))) {
+                    var url = Uri.parse('$api/summury/update');
+                    if (isManager == true) {
+                      var response = await http.post(url, body: {
+                        'userID': _idTextEditController.text,
+                        'password': _newpwTextEditController.text,
+                        'userName': _nameTextEditController.text,
+                        'email': _emailTextEditController.text,
+                        'company': _comTextEditController.text,
+                        'authority': authorityList[authorityList.length - 1],
+                        'personalID': _personTextEditController.text,
+                        'department': depList[depList.length - 1],
+                      });
+                      print(response.body);
+                      Get.offAllNamed('/');
+                      // Map<String, dynamic> jsonData = jsonDecode(response.body);
+                      // if (jsonData['result'] == false) {
+                      //   Get.defaultDialog(
+                      //     textCancel: "cancel",
+                      //     cancelTextColor: Colors.black,
+                      //     title: 'Error',
+                      //     titleStyle: TextStyle(color: Colors.red),
+                      //     middleText: "Can't use your User ID",
+                      //     buttonColor: Colors.white,
+                      //   );
+                      // } else if (jsonData['result'] == false) {
+                      //   Get.defaultDialog(
+                      //     textCancel: "cancel",
+                      //     cancelTextColor: Colors.black,
+                      //     title: 'Error',
+                      //     titleStyle: TextStyle(color: Colors.red),
+                      //     middleText: "Check your User Register",
+                      //     buttonColor: Colors.white,
+                      //   );
+                      // } else {
+                      //   Get.back();
+                      // }
+                    } else if (isManager == false) {
+                      var response = await http.post(url, body: {
+                        'userID': _idTextEditController.text,
+                        'password': _newpwTextEditController.text,
+                        'userName': _nameTextEditController.text,
+                        'email': _emailTextEditController.text,
+                        'company': _comTextEditController.text,
+                        'authority': authorityList[authorityList.length - 1],
+                        // 'personalID': _personalTextEditController.text,
+                        // 'department': depList[depList.length - 1],
+                      });
+                      Get.offAllNamed('/');
+                      // Map<String, dynamic> jsonData = jsonDecode(response.body);
+                      // if (jsonData['result'] == false) {
+                      //   Get.defaultDialog(
+                      //     textCancel: "cancel",
+                      //     cancelTextColor: Colors.black,
+                      //     title: 'Error',
+                      //     titleStyle: TextStyle(color: Colors.red),
+                      //     middleText: "Can't use your User ID",
+                      //     buttonColor: Colors.white,
+                      //   );
+                      // } else {
+                      //   Get.back();
+                      // }
+                    } else {
+                      Get.defaultDialog(
+                        textCancel: "cancel",
+                        cancelTextColor: Colors.black,
+                        title: 'Error',
+                        titleStyle: TextStyle(color: Colors.red),
+                        middleText: 'Check your User Register',
+                        buttonColor: Colors.white,
+                      );
+                    }
+                  } else {
+                    Get.defaultDialog(
+                      textCancel: "cancel",
+                      cancelTextColor: Colors.black,
+                      title: 'Error',
+                      titleStyle: TextStyle(color: Colors.red),
+                      middleText: 'Check your User Register',
+                      buttonColor: Colors.white,
+                    );
                   }
                 },
               ),
@@ -189,8 +289,10 @@ class _ModifyPageState extends State<ModifyPage> {
                         padding: const EdgeInsets.only(left: 8),
                         child: Column(
                           children: [
-                            _textField(AppLocalizations.of(context)!.signUpID,
-                                _idTextEditController, 'ID를'),
+                            _enabletextFieldText(
+                                AppLocalizations.of(context)!.signUpID,
+                                _idTextEditController,
+                                'ID를'),
                             _size15(),
                             _pwFormField(
                               AppLocalizations.of(context)!.signUpPW,
@@ -305,7 +407,7 @@ class _ModifyPageState extends State<ModifyPage> {
             enabled: isManager,
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
-            selectedItem: isManager == false ? '' : login.department[0],
+            selectedItem: isManager == false ? '' : deptList[0],
             mode: Mode.MENU,
             items: deptName,
             showSelectedItem: true,
@@ -318,6 +420,7 @@ class _ModifyPageState extends State<ModifyPage> {
                     depList.add(department[i]);
                   }
                 }
+                print(depList);
               });
             },
           ),
@@ -346,6 +449,7 @@ class _ModifyPageState extends State<ModifyPage> {
               }
             },
             onChanged: (text) {
+              print(_nameTextEditController.text);
               setState(() {});
             },
           ),
@@ -371,6 +475,40 @@ class _ModifyPageState extends State<ModifyPage> {
           height: Get.height * 2.1 / 25,
           child: TextFormField(
             enabled: isManager,
+            style: TextStyle(fontSize: 17),
+            controller: controller,
+            decoration: _textDecoration(),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return '$text 입력하세요';
+              }
+            },
+            onChanged: (text) {
+              setState(() {});
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _enabletextFieldText(String title, var controller, String text) {
+    return Row(
+      children: [
+        SizedBox(
+          width: Get.width * 1 / 3.9,
+          child: Text(
+            title,
+            style: TextStyle(
+              color: isManager == true ? Colors.black : Colors.grey,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: Get.width * 2.8 / 5,
+          height: Get.height * 2.1 / 25,
+          child: TextFormField(
+            enabled: false,
             style: TextStyle(fontSize: 17),
             controller: controller,
             decoration: _textDecoration(),
