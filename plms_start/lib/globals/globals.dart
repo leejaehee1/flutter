@@ -41,6 +41,8 @@ List punch_issue_Drawings_Path = [];
 List punch_issue_Drawings_File = [];
 List punch_issue_Pixel_X = [];
 List punch_issue_Pixel_Y = [];
+List punch_issue_Pixel_cdX = [];
+List punch_issue_Pixel_cdY = [];
 List punch_issue_Switch = ['1'];
 
 // status

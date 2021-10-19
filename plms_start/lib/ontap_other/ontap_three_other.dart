@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+// import 'package:native_pdf_view/native_pdf_view.dart';
 
 import 'package:plms_start/punch_issue/image_painter.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+// import 'package:flutter_switch/flutter_switch.dart';
 
 import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
@@ -98,21 +97,21 @@ class _OntapThirdState extends State<OntapThird> {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: [
-          _swichWidget('Upload Images now'),
+          // _swichWidget('Upload Images now'),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Photo'),
-              IconButton(
-                  onPressed: () {
-                    // setState(() {
-                    //   _showDialog2();
-                    // });
-                  },
-                  icon: Icon(
-                    Icons.add_a_photo,
-                    size: Get.height * 1 / 18,
-                  )),
+              // IconButton(
+              //     onPressed: () {
+              //       // setState(() {
+              //       //   _showDialog2();
+              //       // });
+              //     },
+              //     icon: Icon(
+              //       Icons.add_a_photo,
+              //       size: Get.height * 1 / 18,
+              //     )),
             ],
           ),
           // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
@@ -158,19 +157,19 @@ class _OntapThirdState extends State<OntapThird> {
                           fit: BoxFit.cover,
                         ),
                       ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: Container(
-                          color: Color.fromRGBO(255, 255, 255, 0.5),
-                          child: IconButton(
-                            onPressed: () {
-                              _showDialog(index);
-                            },
-                            icon: Icon(Icons.delete),
-                          ),
-                        ),
-                      )
+                      // Positioned(
+                      //   top: 0,
+                      //   right: 0,
+                      //   child: Container(
+                      //     color: Color.fromRGBO(255, 255, 255, 0.5),
+                      //     child: IconButton(
+                      //       onPressed: () {
+                      //         _showDialog(index);
+                      //       },
+                      //       icon: Icon(Icons.delete),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                 );
@@ -183,130 +182,130 @@ class _OntapThirdState extends State<OntapThird> {
   }
 
   // 스위치 버튼
-  Widget _swichWidget(String name) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(name),
-        FlutterSwitch(
-          activeColor: Colors.green,
-          width: 40.0,
-          height: 20.0,
-          valueFontSize: 10.0,
-          toggleSize: 10.0,
-          value: status,
-          borderRadius: 30.0,
-          // padding: 3.0,
-          showOnOff: true,
-          onToggle: (val) {
-            // setState(() {
-            //   status = val;
-            // });
-          },
-        ),
-      ],
-    );
-  }
+  // Widget _swichWidget(String name) {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //     children: [
+  //       Text(name),
+  //       FlutterSwitch(
+  //         activeColor: Colors.green,
+  //         width: 40.0,
+  //         height: 20.0,
+  //         valueFontSize: 10.0,
+  //         toggleSize: 10.0,
+  //         value: status,
+  //         borderRadius: 30.0,
+  //         // padding: 3.0,
+  //         showOnOff: true,
+  //         onToggle: (val) {
+  //           // setState(() {
+  //           //   status = val;
+  //           // });
+  //         },
+  //       ),
+  //     ],
+  //   );
+  // }
 
   // 카메라 갤러리 선택
-  void _showDialog2() {
-    double _imageSize = Get.width * 1 / 11;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          actions: <Widget>[
-            Column(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    imageSelect();
-                    Get.back();
-                  },
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/gallery_button.png',
-                        height: _imageSize,
-                        width: _imageSize,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Open Gallery",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    videoSelect();
-                    Get.back();
-                  },
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/camera_button.png',
-                        height: _imageSize,
-                        width: _imageSize,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Open Camera",
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
-        );
-      },
-    );
-  }
+  // void _showDialog2() {
+  //   double _imageSize = Get.width * 1 / 11;
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         actions: <Widget>[
+  //           Column(
+  //             children: [
+  //               TextButton(
+  //                 onPressed: () {
+  //                   imageSelect();
+  //                   Get.back();
+  //                 },
+  //                 child: Row(
+  //                   children: [
+  //                     Image.asset(
+  //                       'assets/images/gallery_button.png',
+  //                       height: _imageSize,
+  //                       width: _imageSize,
+  //                     ),
+  //                     SizedBox(
+  //                       width: 10,
+  //                     ),
+  //                     Text(
+  //                       "Open Gallery",
+  //                       style: TextStyle(color: Colors.black),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //               TextButton(
+  //                 onPressed: () {
+  //                   videoSelect();
+  //                   Get.back();
+  //                 },
+  //                 child: Row(
+  //                   children: [
+  //                     Image.asset(
+  //                       'assets/images/camera_button.png',
+  //                       height: _imageSize,
+  //                       width: _imageSize,
+  //                     ),
+  //                     SizedBox(
+  //                       width: 10,
+  //                     ),
+  //                     Text(
+  //                       "Open Camera",
+  //                       style: TextStyle(color: Colors.black),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ],
+  //           )
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   // 이미지 삭제
-  void _showDialog(int index) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: new Text("Are you sure you want to Delete?"),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                new ElevatedButton(
-                  child: new Text("No"),
-                  onPressed: () {
-                    Get.back();
-                  },
-                ),
-                new ElevatedButton(
-                  child: new Text("Yes"),
-                  onPressed: () {
-                    _imageData.removeAt(index);
-                    globals.punch_issue_Photo_Name.removeAt(index);
-                    globals.punch_issue_Photo_Path.removeAt(index);
-                    globals.punch_issue_Photo = _imageData;
-                    print(globals.punch_issue_Photo);
-                    setState(() {});
-                    Get.back();
-                  },
-                ),
-              ],
-            )
-          ],
-        );
-      },
-    );
-  }
+  // void _showDialog(int index) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         content: new Text("Are you sure you want to Delete?"),
+  //         actions: <Widget>[
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //             crossAxisAlignment: CrossAxisAlignment.center,
+  //             children: [
+  //               new ElevatedButton(
+  //                 child: new Text("No"),
+  //                 onPressed: () {
+  //                   Get.back();
+  //                 },
+  //               ),
+  //               new ElevatedButton(
+  //                 child: new Text("Yes"),
+  //                 onPressed: () {
+  //                   _imageData.removeAt(index);
+  //                   globals.punch_issue_Photo_Name.removeAt(index);
+  //                   globals.punch_issue_Photo_Path.removeAt(index);
+  //                   globals.punch_issue_Photo = _imageData;
+  //                   print(globals.punch_issue_Photo);
+  //                   setState(() {});
+  //                   Get.back();
+  //                 },
+  //               ),
+  //             ],
+  //           )
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   // 갤러리 이미지 선택
   void imageSelect() async {
@@ -354,10 +353,6 @@ class _OntapThirdState extends State<OntapThird> {
     } catch (e) {}
   }
 
-  final _pdfController = PdfController(
-    document: PdfDocument.openAsset('assets/pdf/sample_drawing.pdf'),
-  );
-
   Widget _draftView() {
     return Expanded(
       child: Container(
@@ -374,17 +369,17 @@ class _OntapThirdState extends State<OntapThird> {
                 Container(
                   width: Get.width * 1 / 4.1,
                   height: Get.height * 1 / 30,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
-                    onPressed: () {
-                      Get.toNamed("/draft");
-                      // FileImage();
-                    },
-                    child: Text(
-                      "Location",
-                      style: TextStyle(fontSize: 13),
-                    ),
-                  ),
+                  // child: ElevatedButton(
+                  //   style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
+                  //   onPressed: () {
+                  //     Get.toNamed("/draft");
+                  //     // FileImage();
+                  //   },
+                  //   child: Text(
+                  //     "Location",
+                  //     style: TextStyle(fontSize: 13),
+                  //   ),
+                  // ),
                 ),
                 // Text(pixelList),
               ],
@@ -406,9 +401,26 @@ class _OntapThirdState extends State<OntapThird> {
                 decoration: BoxDecoration(
                   border: Border.all(),
                 ),
-                child: PdfView(
-                  controller: _pdfController,
-                ),
+                child: globals.punch_issue_Drawings_File.length == 1
+                    ? Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Container(
+                            child: Image.file(
+                              globals.punch_issue_Drawings_File[0],
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          globals.punch_issue_Pixel_X.length == 1
+                              ? Transform.translate(
+                                  offset: Offset(
+                                      globals.punch_issue_Pixel_cdX[0],
+                                      globals.punch_issue_Pixel_cdY[0]),
+                                  child: Icon(Icons.add_location_sharp))
+                              : Container()
+                        ],
+                      )
+                    : null,
               ),
             )
           ],
