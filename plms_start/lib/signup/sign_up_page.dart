@@ -36,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void initState() {
     test();
     readFile();
+
     super.initState();
   }
 
@@ -58,15 +59,14 @@ class _SignUpPageState extends State<SignUpPage> {
   Future<dynamic> test() async {
     var uriResponse = await http.get(
       Uri.parse(
-        // 'http://10.0.2.2:5000/api/department/',
-
         '$api/summury/department/',
       ),
     );
 
     var json = jsonDecode(uriResponse.body);
     // print(json.runtimeType);
-    print(json[0]['deptName']);
+    print(json[0]['department']);
+    depList.add(json[0]['department']);
     // _items += json;
     int len = json.length;
     // dispose();
@@ -210,6 +210,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         'department': depList[depList.length - 1],
                         'active': '1',
                       });
+                      print(response.body);
                       Map<String, dynamic> jsonData = jsonDecode(response.body);
                       if (jsonData['result'] == false) {
                         Get.defaultDialog(
@@ -217,7 +218,16 @@ class _SignUpPageState extends State<SignUpPage> {
                           cancelTextColor: Colors.black,
                           title: 'Error',
                           titleStyle: TextStyle(color: Colors.red),
-                          middleText: 'Check your User ID',
+                          middleText: "Can't use your User ID",
+                          buttonColor: Colors.white,
+                        );
+                      } else if (jsonData['result'] == false) {
+                        Get.defaultDialog(
+                          textCancel: "cancel",
+                          cancelTextColor: Colors.black,
+                          title: 'Error',
+                          titleStyle: TextStyle(color: Colors.red),
+                          middleText: "Check your User Register",
                           buttonColor: Colors.white,
                         );
                       } else {
@@ -242,7 +252,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           cancelTextColor: Colors.black,
                           title: 'Error',
                           titleStyle: TextStyle(color: Colors.red),
-                          middleText: 'Check your User ID',
+                          middleText: "Can't use your User ID",
                           buttonColor: Colors.white,
                         );
                       } else {
@@ -254,7 +264,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         cancelTextColor: Colors.black,
                         title: 'Error',
                         titleStyle: TextStyle(color: Colors.red),
-                        middleText: 'Check your Email or Password',
+                        middleText: 'Check your User Register',
                         buttonColor: Colors.white,
                       );
                     }
@@ -264,7 +274,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       cancelTextColor: Colors.black,
                       title: 'Error',
                       titleStyle: TextStyle(color: Colors.red),
-                      middleText: 'Check your User ID',
+                      middleText: 'Check your User Register',
                       buttonColor: Colors.white,
                     );
                   }
@@ -476,6 +486,11 @@ class _SignUpPageState extends State<SignUpPage> {
           width: Get.width * 2.8 / 5,
           height: Get.height * 2.1 / 25,
           child: TextFormField(
+            validator: (value) {
+              if (value!.isEmpty) {
+                return '$text 입력하세요';
+              }
+            },
             enabled: isManager,
             style: TextStyle(fontSize: 17),
             controller: controller,
