@@ -135,6 +135,9 @@ class _OnTapScreennState extends State<OnTapScreen>
     // draft.punch_issue_Photo_Name = [];
     draft.punch_issue_Photo_Name = [];
     draft.punch_issue_Photo_Path = [];
+    draft.punch_issue_Drawings = [];
+    draft.punch_issue_Drawings_File = [];
+    draft.punch_issue_Drawings_Path = [];
     print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     print(datas[Get.arguments]['punchID']);
 
