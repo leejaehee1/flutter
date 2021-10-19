@@ -6,14 +6,13 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:plms_start/punch_issue/draft_test.dart';
 
 import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
@@ -490,9 +489,23 @@ class _PageThreeState extends State<PageThree> {
                     border: Border.all(),
                   ),
                   child: globals.punch_issue_Drawings_File.length == 1
-                      ? Image.file(
-                          globals.punch_issue_Drawings_File[0],
-                          fit: BoxFit.cover,
+                      ? Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Container(
+                              child: Image.file(
+                                globals.punch_issue_Drawings_File[0],
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            globals.punch_issue_Pixel_X.length == 1
+                                ? Transform.translate(
+                                    offset: Offset(
+                                        globals.punch_issue_Pixel_cdX[0],
+                                        globals.punch_issue_Pixel_cdY[0]),
+                                    child: Icon(Icons.add_location_sharp))
+                                : Container()
+                          ],
                         )
                       : null),
             )

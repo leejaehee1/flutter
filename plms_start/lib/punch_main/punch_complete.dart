@@ -9,7 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'package:plms_start/punch_issue/image_painter.dart';
+// import 'package:plms_start/punch_issue/image_painter.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:plms_start/pages/utils/title_text.dart';
 import 'package:plms_start/punch_main/image_painter_completes.dart';
@@ -562,6 +562,7 @@ class _PunchCompleteState extends State<PunchComplete> {
                 }
                 print('globaldata!!!!!!!!!!');
                 print(desData);
+                print(desData[0]);
               });
             },
             maxLines: 7,

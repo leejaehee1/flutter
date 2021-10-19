@@ -5,9 +5,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:image_painter/image_painter.dart';
 
-import 'package:open_file/open_file.dart';
+// import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import '../globals/globals.dart' as globals;
+// import '../globals/globals.dart' as globals;
 import '../globals/punch_draft.dart' as draft;
 import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;

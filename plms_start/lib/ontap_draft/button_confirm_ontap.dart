@@ -6,7 +6,6 @@ import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import '/globals/login.dart' as login;
 import '/globals/issue.dart' as issue;
-import '/globals/globals.dart' as globals;
 import '/globals/punch_draft.dart' as draft;
 // import '../punch_screen.dart';
 
@@ -134,8 +133,8 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
                 primary: Color(0xff71838D),
               ),
               onPressed: () {
-                print(_mapData);
-                // _showDialog('/home');
+                // print(_mapData);
+                _showDialog('/home');
               },
               child: Text(widget.buttonname2),
             ),

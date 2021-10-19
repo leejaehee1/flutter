@@ -4,11 +4,11 @@ import 'package:get/get.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../globals/login.dart' as login;
-import '../globals/issue.dart' as issue;
+// import '../globals/issue.dart' as issue;
 import '../globals/photos.dart' as photos;
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -136,7 +136,7 @@ class _PhotoListState extends State<PhotoList> {
                   // Get.offAllNamed('/home');
                   _sendImage();
                   print(photos.photos_Punch_ID);
-                  Get.back();
+                  Get.toNamed('/home');
                 },
                 child: Text("Upload"),
               ),

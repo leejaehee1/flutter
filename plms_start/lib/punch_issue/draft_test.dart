@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
 
 import 'package:plms_start/pages/utils/header_issue.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../globals/globals.dart' as globals;
 

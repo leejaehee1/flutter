@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'package:plms_start/punch_issue/punch_issue.dart';
+// import 'package:plms_start/punch_issue/punch_issue.dart';
 import '../globals/login.dart' as login;
 import '../globals/photos.dart' as photos;
 import 'punch_photo.dart';

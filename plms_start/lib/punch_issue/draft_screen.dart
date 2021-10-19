@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
+// import 'package:native_pdf_view/native_pdf_view.dart';
 
 import 'package:plms_start/pages/utils/header_issue.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 import '../globals/globals.dart' as globals;
 
@@ -272,8 +271,13 @@ class _DraftPageState extends State<DraftPage> {
                   onPressed: () {
                     globals.punch_issue_Pixel_X = [];
                     globals.punch_issue_Pixel_Y = [];
+                    globals.punch_issue_Pixel_cdX = [];
+                    globals.punch_issue_Pixel_cdY = [];
                     globals.punch_issue_Pixel_X.add(pixelX[0]);
                     globals.punch_issue_Pixel_Y.add(pixelY[0]);
+
+                    globals.punch_issue_Pixel_cdX.add(cdx - 180);
+                    globals.punch_issue_Pixel_cdY.add(cdy - 190);
                     print(
                         "globals.punch_issue_Pixel: ${globals.punch_issue_Pixel_X}");
                     print(
