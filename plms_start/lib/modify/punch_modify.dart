@@ -16,7 +16,7 @@ import '../globals/issue.dart' as issue;
 * description : modify page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class ModifyPage extends StatefulWidget {
@@ -37,10 +37,8 @@ class _ModifyPageState extends State<ModifyPage> {
       TextEditingController(text: login.userName[0]);
   final _personTextEditController =
       TextEditingController(text: login.personalID[0]);
-  // final _deptTextEditController = TextEditingController(text: Get.arguments[6]);
-  // final _personalTextEditController = TextEditingController(text: 'hi');
+
   var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
 
   bool isSwitched = false;
   bool isSwitched2 = false;
@@ -54,12 +52,11 @@ class _ModifyPageState extends State<ModifyPage> {
 
   List<String> _status = ["Assignee", "QC", "Manager"];
   String dropdownValue = '';
-  // var _items = [];
+
   List<String> deptName = issue.deptNameList;
   List<String> department = issue.deptList;
   List<String> depList = [];
   List<String> authorityList = [];
-  // int authoritylen = (authorityList.length - 1);
   List<String> deptList = [];
 
   FocusNode _emailFocus = new FocusNode();
@@ -74,16 +71,15 @@ class _ModifyPageState extends State<ModifyPage> {
 
   @override
   void initState() {
-    print(login.authority[0]);
     authorityList.add(login.authority[0]);
-    print(deptName);
+
     for (int i = 0; i < deptName.length; i++) {
       if (login.department[0] == department[i]) {
         deptList.add(deptName[i]);
         depList.add(department[i]);
       }
     }
-    print(depList);
+
     super.initState();
   }
 
@@ -125,22 +121,6 @@ class _ModifyPageState extends State<ModifyPage> {
                 child:
                     new Text(AppLocalizations.of(context)!.signUpbottomButton2),
                 onPressed: () async {
-                  // if (formKey.currentState!.validate() == true) {
-                  //   print('hi');
-                  //   var url = Uri.parse('$api/summury/update');
-
-                  //   await http.post(url, body: {
-                  //     'userID': login.userID[0],
-                  //     'password': _newpwTextEditController.text,
-                  //     'userName': _nameTextEditController.text,
-                  //     "email": _emailTextEditController.text,
-                  //     "company": _comTextEditController.text,
-                  //     'authority': authorityList[authorityList.length - 1],
-                  //     "personalID": _personTextEditController.text,
-                  //     'department': depList[depList.length - 1],
-                  //   });
-                  //   Get.offAllNamed('/');
-                  // }
                   if (((formKey.currentState!.validate() == true))) {
                     var url = Uri.parse('$api/summury/update');
                     if (isManager == true) {
@@ -156,28 +136,6 @@ class _ModifyPageState extends State<ModifyPage> {
                       });
                       print(response.body);
                       Get.offAllNamed('/');
-                      // Map<String, dynamic> jsonData = jsonDecode(response.body);
-                      // if (jsonData['result'] == false) {
-                      //   Get.defaultDialog(
-                      //     textCancel: "cancel",
-                      //     cancelTextColor: Colors.black,
-                      //     title: 'Error',
-                      //     titleStyle: TextStyle(color: Colors.red),
-                      //     middleText: "Can't use your User ID",
-                      //     buttonColor: Colors.white,
-                      //   );
-                      // } else if (jsonData['result'] == false) {
-                      //   Get.defaultDialog(
-                      //     textCancel: "cancel",
-                      //     cancelTextColor: Colors.black,
-                      //     title: 'Error',
-                      //     titleStyle: TextStyle(color: Colors.red),
-                      //     middleText: "Check your User Register",
-                      //     buttonColor: Colors.white,
-                      //   );
-                      // } else {
-                      //   Get.back();
-                      // }
                     } else if (isManager == false) {
                       var response = await http.post(url, body: {
                         'userID': _idTextEditController.text,
@@ -186,23 +144,8 @@ class _ModifyPageState extends State<ModifyPage> {
                         'email': _emailTextEditController.text,
                         'company': _comTextEditController.text,
                         'authority': authorityList[authorityList.length - 1],
-                        // 'personalID': _personalTextEditController.text,
-                        // 'department': depList[depList.length - 1],
                       });
                       Get.offAllNamed('/');
-                      // Map<String, dynamic> jsonData = jsonDecode(response.body);
-                      // if (jsonData['result'] == false) {
-                      //   Get.defaultDialog(
-                      //     textCancel: "cancel",
-                      //     cancelTextColor: Colors.black,
-                      //     title: 'Error',
-                      //     titleStyle: TextStyle(color: Colors.red),
-                      //     middleText: "Can't use your User ID",
-                      //     buttonColor: Colors.white,
-                      //   );
-                      // } else {
-                      //   Get.back();
-                      // }
                     } else {
                       Get.defaultDialog(
                         textCancel: "cancel",
@@ -341,6 +284,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 라디오 선택 버튼
   Widget _radioButton() {
     return RadioGroup<String>.builder(
       activeColor: Colors.black,
@@ -367,10 +311,7 @@ class _ModifyPageState extends State<ModifyPage> {
           authorityList.add('3');
           isManager = true;
           print("Manager: $isManager");
-          // print(isSwitched);
         }
-
-        // print(authorityList);
       }),
       items: _status,
       itemBuilder: (item) => RadioButtonBuilder(
@@ -380,6 +321,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 부서 드롭 다운 버튼
   Widget _dropdownButton() {
     return Row(
       children: [
@@ -429,6 +371,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 회사, 이름 텍스트 폼
   Widget _textField(String title, var controller, String text) {
     return Row(
       children: [
@@ -458,6 +401,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// true false 개인 ID 선택 텍스트폼
   Widget _enabletextField(String title, var controller, String text) {
     return Row(
       children: [
@@ -492,6 +436,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// user ID 텍스트 필드
   Widget _enabletextFieldText(String title, var controller, String text) {
     return Row(
       children: [
@@ -526,6 +471,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 텍스트 데코레이션
   InputDecoration _textDecoration() {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 16, 0, 0),
@@ -535,6 +481,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 비밀번호 확인 텍스트폼
   Widget _repwtextField(String title, var controller) {
     return Row(
       children: [
@@ -560,6 +507,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 기존 비말번호 텍스트 폼
   Widget _pwFormField(String title, var controller) {
     return Row(
       children: [
@@ -592,6 +540,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 새로운 비밀번호 작성 텍스트 폼
   Widget _newpwFormField(String title, var controller) {
     return Row(
       children: [
@@ -618,6 +567,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 이메일 텍스트 폼
   Widget _emailFormField(String title, var controller) {
     return Row(
       children: [
@@ -646,6 +596,7 @@ class _ModifyPageState extends State<ModifyPage> {
     );
   }
 
+// 텍스트 데코레이션
   InputDecoration _textFormDecoration() {
     return new InputDecoration(
       contentPadding: EdgeInsets.fromLTRB(10, 0, 0, 0),

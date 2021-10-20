@@ -1,5 +1,13 @@
 library plms.completes;
 
+/*
+* name : completes
+* description : complete global page
+* writer : walter
+* create date : 2021-10-19
+* last update : 2021-10-20
+* */
+
 // first page
 bool punch_issue_isTag = true;
 bool punch_issue_isBulk = false;

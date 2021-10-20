@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 /*
 * name : PopUpPage
-* description : popup page
+* description : modify popup page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-05
 * */
 
 class PopUpPage extends StatefulWidget {
@@ -17,18 +17,8 @@ class PopUpPage extends StatefulWidget {
 }
 
 class _PopUpPageState extends State<PopUpPage> {
-  // String id = Get.arguments[0];
-  // String password = Get.arguments[1];
-  // String userName = Get.arguments[2];
-  // String email = Get.arguments[3];
-  // String company = Get.arguments[4];
-  // String personalID = Get.arguments[5];
-  // String department = Get.arguments[6];
-
   Widget build(BuildContext context) {
     return Container(
-      // width: 100,
-      // height: 100,
       color: Colors.black54,
       child: SafeArea(
         child: Column(
@@ -41,16 +31,7 @@ class _PopUpPageState extends State<PopUpPage> {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(primary: Color(0xff304d5c)),
                     onPressed: () {
-                      Get.offNamed('/modify', arguments: [
-                        // id,
-                        // password,
-                        // userName,
-                        // email,
-                        // company,
-                        // personalID,
-                        // department,
-                        // Get.arguments[7]
-                      ]);
+                      Get.offNamed('/modify');
                     },
                     child: Text('Modify User Info'))),
             Container(

@@ -174,8 +174,8 @@ class _PageTwoState extends State<PageTwo> {
                         _dropdownButton('Raised On', raisedon, issue.qcList,
                             raisedonStart, continues.punch_issue_Raised_On),
                         _size15(),
-                        _dataTime('Target Date'),
-                        _size15(),
+                        // _dataTime('Target Date'),
+                        // _size15(),
                         // TaggingButton(name: 'Keyword'),
                         _tagWidget('keyword', _tagTextEditController),
                         SizedBox(

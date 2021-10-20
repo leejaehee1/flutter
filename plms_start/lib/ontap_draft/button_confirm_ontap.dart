@@ -7,7 +7,14 @@ import 'package:http/http.dart' as http;
 import '/globals/login.dart' as login;
 import '/globals/issue.dart' as issue;
 import '/globals/punch_draft.dart' as draft;
-// import '../punch_screen.dart';
+
+/*
+* name : button_confirm_ontap
+* description : draft ontap confirm button page
+* writer : walter
+* create date : 2021-09-30
+* last update : 2021-10-05
+* */
 
 class OnTapConfirmButton extends StatefulWidget {
   OnTapConfirmButton(
@@ -81,8 +88,6 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
 
   @override
   void initState() {
-    print('!!!!!!!!!!!!!!!!1');
-    print(DateTime.now().toString());
     for (int i = 0; i < _listData.length; i++) {
       if (_listData[i].length != 0) {
         _mapData[_nameData[i]] = _listData[i][0];
@@ -190,6 +195,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     );
   }
 
+// 사진 보내기
   List imageFileList = draft.punch_issue_Photo;
   List imageName = draft.punch_issue_Photo_Name;
   Future<void> _sendImage() async {
@@ -209,6 +215,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     if (response.statusCode == 200) print('Uploaded!');
   }
 
+// 취소 확인 다이얼 로그
   void _showDialog(String page) {
     showDialog(
       context: context,

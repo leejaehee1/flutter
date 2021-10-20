@@ -8,9 +8,14 @@ import 'package:plms_start/pages/utils/header_issue.dart';
 import '../globals/issue.dart' as issue;
 import '../globals/punch_draft.dart' as draft;
 import 'button_confirm_ontap.dart';
-// import '../globals/issue.dart' as issue;
 
-// import 'components/screenList.dart';
+/*
+* name : confirm_page_ontap
+* description : draft ontap confirm page
+* writer : walter
+* create date : 2021-10-05
+* last update : 2021-10-13
+* */
 
 class OnTapConfirmPage extends StatefulWidget {
   @override
@@ -18,17 +23,6 @@ class OnTapConfirmPage extends StatefulWidget {
 }
 
 class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
-  // String punchID = 'punchID';
-
-  // String date = 'date';
-
-  // String issuedBy = 'issuedBy';
-  // String unit = 'unit';
-  // String area = 'area';
-  // String system = 'system';
-  // String subsystem = 'subsystem';
-  // String tagnumber = 'tagnumber';
-  // String category = 'category';
   String punchID = draft.punch_issue_Punch_ID[0];
   String date = draft.punch_issue_Date.length == 0
       ? 'date'
@@ -48,6 +42,8 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
       ? 'tagnumber'
       : draft.punch_issue_Tag_Number[0];
 
+  String category = draft.punch_issue_Category[0];
+
   @override
   void initState() {
     for (var i = 0; i < issue.systemsList.length; i++) {
@@ -64,7 +60,6 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
     super.initState();
   }
 
-  String category = draft.punch_issue_Category[0];
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
@@ -132,22 +127,6 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                   ),
                                   _rowData("Punch ID", punchID),
                                   _sizedBox(),
-
-                                  // Row(
-                                  //   children: [
-                                  //     SizedBox(
-                                  //         width: Get.width * 2 / 7,
-                                  //         child: Text(
-                                  //           "Issued Date",
-                                  //           style: TextStyle(
-                                  //               color: Colors.black54),
-                                  //         )),
-                                  //     Text(
-                                  //       date,
-                                  //       overflow: TextOverflow.fade,
-                                  //     ),
-                                  //   ],
-                                  // ),
                                   _rowData("Issued Date", date),
                                   _sizedBox(),
                                   _rowData("Issued By", issuedBy),
@@ -208,20 +187,18 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
         ),
       ),
       bottomNavigationBar: OnTapConfirmButton(
-
-          // name: '/',
-          buttonname1: "Back",
-          buttonname2: "Cancel",
-          buttonname3: "Confirm"),
+          buttonname1: "Back", buttonname2: "Cancel", buttonname3: "Confirm"),
     );
   }
 
+// 일정 공간 위젯
   Widget _sizedBox() {
     return SizedBox(
       height: 5,
     );
   }
 
+  // punchID Issued Date Issued By 텍스트 폼
   Widget _rowData(var title, var data) {
     return Row(
       children: [
@@ -239,6 +216,7 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
     );
   }
 
+  // system subsystem 텍스트폼
   Widget _colData(var title, var data) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,6 +235,7 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
     );
   }
 
+  // unit area tagnumber 텍스트폼
   Widget _rowData2(var title1, var data1) {
     return Row(
       children: [

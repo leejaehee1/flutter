@@ -144,8 +144,8 @@ class _OntapSecondState extends State<OntapSecond> {
                         _dropdownButton(
                             'Raised On', raisedon, issue.qcList, 'raisedBy'),
                         _size15(),
-                        _dataTime('Target Date'),
-                        _size15(),
+                        // _dataTime('Target Date'),
+                        // _size15(),
                         // TaggingButton(name: 'Keyword'),
                         _tagWidget('keyword', _tagTextEditController),
                         SizedBox(

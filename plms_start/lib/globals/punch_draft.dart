@@ -1,8 +1,8 @@
 /*
-* name : globals
-* description : punch issue globals page.
+* name : punch_draft
+* description : punch issue globals draft page.
 * writer : walter
-* create date : 2021-09-30
+* create date : 2021-10-20
 * last update : 2021-09-30
 * */
 
@@ -33,6 +33,8 @@ List punch_issue_Material = [];
 List punch_issue_Photo = [];
 List punch_issue_Photo_Path = [];
 List punch_issue_Photo_Name = [];
+List punch_issue_Photo_New_Name = [];
+List punch_issue_Photo_New_Path = [];
 List punch_issue_Drawings = [];
 List punch_issue_Drawings_Path = [];
 List punch_issue_Drawings_File = [];
@@ -44,3 +46,4 @@ List punch_issue_Switch = ['1'];
 List punch_issue_Status = [];
 List punch_issue_Issued_Date = [];
 int punch_issue_Count = 0;
+int punch_issue_disCount = 0;

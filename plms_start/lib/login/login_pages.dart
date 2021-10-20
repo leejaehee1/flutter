@@ -15,7 +15,7 @@ import '../globals/login.dart' as login;
 * description : login page
 * writer : john
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -31,7 +31,6 @@ class _LoginPageState extends State<LoginPage> {
   late double headerTopZone;
 
   var api = dotenv.env['PHONE_IP'];
-  // var api = dotenv.env['EMUL_IP'];
 
   @override
   void initState() {
@@ -108,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // login form
+  // 로그인 폼
   Widget _textForm() {
     return SingleChildScrollView(
       child: Column(
@@ -150,7 +149,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // login button
+  // 로그인 버튼
   Widget _button() {
     return Container(
       width: Get.width * 3 / 7,
@@ -158,26 +157,14 @@ class _LoginPageState extends State<LoginPage> {
         style: ElevatedButton.styleFrom(
           primary: Color(0xff304D5B),
         ),
-        // onPressed: () {
-        //   Get.toNamed('/home');
-        // },
         onPressed: () async {
-          // var url = Uri.parse('http://10.0.2.2:5000/api/login');
           var url = Uri.parse('$api/summury/login');
           var response = await http.post(url, body: {
             'userID': _idTextEditController.text,
             'password': _pwTextEditController.text,
           });
-          print("response: ${response.body}");
+
           Map<String, dynamic> jsonData = jsonDecode(response.body);
-          print("jsonData: $jsonData");
-          print(jsonData['authority']);
-          print(jsonData['password']);
-          print(jsonData['personalID']);
-          print(jsonData['department']);
-          // if (jsonData['result'] == false) {
-          //   _showDialog();
-          // }
 
           if (jsonData['userID'] == _idTextEditController.text) {
             login.authority.add(jsonData['authority']);
@@ -205,7 +192,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // signup form
+  // 회원가입 폼
   Widget _signupText() {
     return Column(
       children: [
@@ -225,6 +212,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+// 회원가입 버튼
   Widget _textButton() {
     return TextButton(
         onPressed: () {
@@ -236,6 +224,7 @@ class _LoginPageState extends State<LoginPage> {
         ));
   }
 
+// 로그인 에러 다이얼로그
   void _showDialog() {
     showDialog(
       context: context,

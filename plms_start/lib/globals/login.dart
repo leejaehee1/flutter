@@ -1,6 +1,6 @@
 /*
-* name : globals
-* description : punch issue globals page.
+* name : login
+* description : punch issue globals login page.
 * writer : walter
 * create date : 2021-09-30
 * last update : 2021-09-30

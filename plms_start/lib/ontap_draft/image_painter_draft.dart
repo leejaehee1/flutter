@@ -17,7 +17,7 @@ import '../globals/login.dart' as login;
 * description : image painter page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class ImagePainters2 extends StatefulWidget {
@@ -81,25 +81,10 @@ class _ImagePainters2State extends State<ImagePainters2> {
     draft.punch_issue_Photo_Name
         .add('upload/photos/${draft.punch_issue_Photo_New_Name[0]}');
     Get.back();
-    // print('간다!');
-// 저장 알림 스낵바
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     backgroundColor: Colors.grey[700],
-    //     padding: const EdgeInsets.only(left: 10),
-    //     content: Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: [
-    //         const Text("Image Exported successfully.",
-    //             style: TextStyle(color: Colors.white)),
-    //       ],
-    //     ),
-    //   ),
-    // );
     Get.back(result: _imageList[0]);
   }
 
-  // 로딩 함수
+  // 이미지 저장중 로딩 함수
   void _onLoading() {
     showDialog(
       context: context,
@@ -118,21 +103,6 @@ class _ImagePainters2State extends State<ImagePainters2> {
     );
   }
 
-  // void _print() async {
-  //   final image = await _imageKey.currentState!.exportImage();
-  //   final directory = (await getExternalStorageDirectory())!.path;
-  //   final path = '$directory/sample/';
-  //   final fileName =
-  //       '${projectID}_${punchID}_${userID}_${DateTime.now().millisecondsSinceEpoch}.png';
-  //   final fullPath = path + fileName;
-  //   // final fullPath =
-  //   //     '$directory/sample/${projectID}_${punchID}_${userID}_${DateTime.now().millisecondsSinceEpoch}.png';
-  //   // print(directory);
-  //   print(path);
-  //   print(fileName);
-  //   print(fullPath);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -149,7 +119,7 @@ class _ImagePainters2State extends State<ImagePainters2> {
               },
               icon: const Icon(Icons.arrow_back_ios_new_sharp),
             ),
-            // const Text("Image Painter Example"),
+            const Text("Image Painter Example"),
           ],
         ),
         backgroundColor: Color(0xff2B3745),
@@ -160,16 +130,6 @@ class _ImagePainters2State extends State<ImagePainters2> {
               _onLoading();
               saveImage();
             },
-          ),
-          IconButton(
-            color: Colors.green,
-            onPressed: () {
-              print(draft.punch_issue_Punch_ID[0]);
-              print(draft.punch_issue_Photo_New_Path[0]);
-              print(draft.punch_issue_Photo_New_Name[0]);
-              print(draft.punch_issue_Count);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_sharp),
           ),
         ],
       ),

@@ -1,5 +1,14 @@
 library plms.continues;
 
+/*
+* name : punch_continue
+* description : punch issue globals continue page.
+* writer : walter
+* create date : 2021-10-18
+* last update : 2021-10-20
+* */
+
+// first page
 bool punch_issue_isTag = true;
 bool punch_issue_isBulk = false;
 
