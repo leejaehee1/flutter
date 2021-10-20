@@ -11,11 +11,11 @@ import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
 /*
-* name : PageOne
-* description : punch issue first page
+* name : ontap_one
+* description : draft first page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class OntapOne extends StatefulWidget {
@@ -218,12 +218,9 @@ class _OntapOneState extends State<OntapOne> {
         if (value == _status[0]) {
           if (draft.punch_issue_Bulk_Item.length == 1) {
             draft.punch_issue_Bulk_Item.removeAt(0);
-            print('bulk!!!!!!!!!!!!!!');
-            print(draft.punch_issue_Bulk_Item);
           }
           if (draft.punch_issue_Bulk_Name.length == 1) {
             draft.punch_issue_Bulk_Name.removeAt(0);
-            print(draft.punch_issue_Bulk_Name);
           }
           _bulkTextEditController.clear();
 
@@ -235,8 +232,6 @@ class _OntapOneState extends State<OntapOne> {
         } else if (value == _status[1]) {
           if (draft.punch_issue_Tag_Number.length == 1) {
             draft.punch_issue_Tag_Number.removeAt(0);
-            print('tag!!!!!!!!!!!!!!');
-            print(draft.punch_issue_Tag_Number);
           }
           _tagTextEditController.clear();
 
@@ -255,7 +250,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// description
+// description 텍스트 폼
   Widget _description(var globaldata, var controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -296,7 +291,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// dropdown button
+// category system subsystem 드롭다운 버튼
   Widget _dropdownButton(String text, var data1, var data2, var data3) {
     return Row(
       children: [
@@ -336,7 +331,6 @@ class _OntapOneState extends State<OntapOne> {
               // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
               // 3. 결론 : flutter 에 global key 활용
 
-              print("confirm : " + value.toString());
               for (var i = 0; i < data1.length; i++) {
                 if (value == data1[i]) {
                   setState(() {
@@ -355,11 +349,6 @@ class _OntapOneState extends State<OntapOne> {
                 draft.punch_issue_Sub_System.removeAt(0);
                 draft.punch_issue_Sub_System.add(value.toString());
               }
-              print("global 테스트");
-              // print(value.);
-              print(draft.punch_issue_Category);
-              print(draft.punch_issue_System);
-              print(draft.punch_issue_Sub_System);
             },
             selectedItem: data3.length == 0 ? data2[0] : data3[0],
           ),
@@ -368,7 +357,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// unit textfield
+// unit 텍스트 폼
   Widget _unittextField(
       String text, String hint, var globaldata, var controller) {
     return Row(
@@ -388,11 +377,8 @@ class _OntapOneState extends State<OntapOne> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
-              // controller: controller,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
@@ -410,21 +396,13 @@ class _OntapOneState extends State<OntapOne> {
             height: 30,
             child: IconButton(
                 padding: EdgeInsets.all(4),
-                // autofocus: true,
-                // visualDensity: VisualDensity(
-                //   vertical: 2.5,
-                //   horizontal: 2.5,
-                // ),
                 onPressed: () {
                   setState(() {
                     showModalBottomSheet(
-                      // isScrollControlled: true,
                       context: context,
                       builder: _bottomSheetUnit,
                     );
                   });
-
-                  print(draft.punch_issue_Unit);
                 },
                 icon: const Icon(
                   Icons.search,
@@ -434,7 +412,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// botton sheet unit
+// unit 바텀시트 데이터 선택
   Widget _bottomSheetUnit(BuildContext context) {
     var data = issue.unitDataList;
     return Container(
@@ -470,7 +448,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// area text
+// area 텍스트폼
   Widget _areatextField(
       String text, String hint, var globaldata, var controller) {
     return Row(
@@ -490,8 +468,6 @@ class _OntapOneState extends State<OntapOne> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
               // controller: controller,
@@ -512,11 +488,6 @@ class _OntapOneState extends State<OntapOne> {
             height: 30,
             child: IconButton(
                 padding: EdgeInsets.all(4),
-                // autofocus: true,
-                // visualDensity: VisualDensity(
-                //   vertical: 2.5,
-                //   horizontal: 2.5,
-                // ),
                 onPressed: () {
                   setState(() {
                     showModalBottomSheet(
@@ -525,8 +496,6 @@ class _OntapOneState extends State<OntapOne> {
                       builder: _bottomSheetArea,
                     );
                   });
-
-                  print(draft.punch_issue_Area);
                 },
                 icon: const Icon(
                   Icons.search,
@@ -536,14 +505,13 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// botton sheet area
+// area 바텀시트 데이터 선택
   Widget _bottomSheetArea(BuildContext context) {
     var data = issue.areaDataList;
     return Container(
       height: Get.height * 1.55 / 3,
       padding: EdgeInsets.all(10),
       child: ListView.builder(
-          // scrollDirection: Axis.vertical,
           itemCount: data.length == 0 ? 0 : data.length,
           itemBuilder: (BuildContext context, var index) {
             return GestureDetector(
@@ -561,8 +529,6 @@ class _OntapOneState extends State<OntapOne> {
                 });
               },
               child: Container(
-                // width: Get.width,
-                // color: Colors.red,
                 height: Get.height * 2 / 20,
                 child: Text(
                   data[index],
@@ -574,7 +540,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-  // punchID text field
+  // punchID 텍스트폼
   Widget _textFormField(
       String text, String hint, var globaldata, var controller) {
     return Row(
@@ -608,8 +574,6 @@ class _OntapOneState extends State<OntapOne> {
                         globaldata.removeAt(0);
                         globaldata.add(str);
                       }
-                      print('globaldata!!!!!!!!!!');
-                      print(globaldata);
                     });
                   },
                   decoration: InputDecoration(
@@ -626,7 +590,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// textfield tag number
+//  tag number 텍스트폼
   Widget _textField2(String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
@@ -644,8 +608,6 @@ class _OntapOneState extends State<OntapOne> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
               enabled: _isTag,
@@ -661,7 +623,7 @@ class _OntapOneState extends State<OntapOne> {
     );
   }
 
-// textfield bulk
+// bulk name 텍스트폼
   Widget _textField3(String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
@@ -679,8 +641,6 @@ class _OntapOneState extends State<OntapOne> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
               enabled: _isBulk,

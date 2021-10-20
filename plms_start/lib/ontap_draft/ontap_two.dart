@@ -14,11 +14,11 @@ import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
-* name : PageTwo
-* description : punch issue two page
+* name : ontap_two
+* description : draft second page
 * writer : walter
-* create date : 2021-09-30
-* last update : 2021-09-30
+* create date : 2021-10-02
+* last update : 2021-10-20
 * */
 
 class OntapTwo extends StatefulWidget {
@@ -85,8 +85,6 @@ class _OntapTwoState extends State<OntapTwo> {
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
-    // final containerSize = _getSize(_heightKey);
-    // double conHeight = containerSize.height;
     return Container(
       color: Color(0xFFE6E6E6),
       child: Padding(
@@ -105,8 +103,6 @@ class _OntapTwoState extends State<OntapTwo> {
               ),
             ),
             Container(
-              // key: _heightKey,
-              // height: 500,
               height: MediaQuery.of(context).size.height * 2.3 / 3,
               width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
@@ -146,9 +142,6 @@ class _OntapTwoState extends State<OntapTwo> {
                         _dropdownButton(
                             'Raised On', raisedon, issue.qcList, 'raisedBy'),
                         _size15(),
-                        // _dataTime('Target Date'),
-                        // _size15(),
-                        // TaggingButton(name: 'Keyword'),
                         _tagWidget('keyword', _tagTextEditController),
                         SizedBox(
                           height: 30,
@@ -186,48 +179,48 @@ class _OntapTwoState extends State<OntapTwo> {
   }
 
   // 달력 날짜 선택
-  Widget _dataTime(String text) {
-    return Row(
-      children: [
-        SizedBox(
-          width: Get.width * 1 / 3.6,
-          child: Text(text),
-        ),
-        SizedBox(
-          width: Get.width * 2.7 / 5,
-          height: Get.height * 1.1 / 25,
-          // child: Newbutton(),
-          child: DateTimePicker(
-            dateMask: 'yyyy.MM.dd',
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.arrow_drop_down),
-              isDense: true,
-            ),
-            initialValue: datas[idx]['targetDate'],
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2100),
-            // dateLabelText: 'Date',
-            onChanged: (val) {
-              setState(() {
-                if (draft.punch_issue_Date.length == 0) {
-                  draft.punch_issue_Date.add(val);
-                } else {
-                  draft.punch_issue_Date.removeAt(0);
-                  draft.punch_issue_Date.add(val);
-                }
-                print('globaldata!!!!!!!!!!');
-                print(draft.punch_issue_Date);
-              });
-            },
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _dataTime(String text) {
+  //   return Row(
+  //     children: [
+  //       SizedBox(
+  //         width: Get.width * 1 / 3.6,
+  //         child: Text(text),
+  //       ),
+  //       SizedBox(
+  //         width: Get.width * 2.7 / 5,
+  //         height: Get.height * 1.1 / 25,
+  //         // child: Newbutton(),
+  //         child: DateTimePicker(
+  //           dateMask: 'yyyy.MM.dd',
+  //           decoration: InputDecoration(
+  //             contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+  //             border: OutlineInputBorder(),
+  //             suffixIcon: Icon(Icons.arrow_drop_down),
+  //             isDense: true,
+  //           ),
+  //           initialValue: datas[idx]['targetDate'],
+  //           firstDate: DateTime.now(),
+  //           lastDate: DateTime(2100),
+  //           // dateLabelText: 'Date',
+  //           onChanged: (val) {
+  //             setState(() {
+  //               if (draft.punch_issue_Date.length == 0) {
+  //                 draft.punch_issue_Date.add(val);
+  //               } else {
+  //                 draft.punch_issue_Date.removeAt(0);
+  //                 draft.punch_issue_Date.add(val);
+  //               }
+  //               print('globaldata!!!!!!!!!!');
+  //               print(draft.punch_issue_Date);
+  //             });
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  // 드롭다운버튼 Row
+  // Action On, Discipline, Raised On  드롭다운버튼 Row
   Widget _dropdownButton(String text, var data1, var data2, String text2) {
     return Row(
       children: [
@@ -257,9 +250,6 @@ class _OntapTwoState extends State<OntapTwo> {
                 // 1. global first, second, third 값을 모두 한방에 관리하는 방법
                 // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
                 // 3. 결론 : flutter 에 global key 활용
-
-                print("confirm : " + value.toString());
-                print("confirm : " + value.toString());
                 for (var i = 0; i < data1.length; i++) {
                   if (value == data1[i]) {
                     setState(() {
@@ -277,13 +267,6 @@ class _OntapTwoState extends State<OntapTwo> {
                   draft.punch_issue_Raised_On.removeAt(0);
                   draft.punch_issue_Raised_On.add(value.toString());
                 }
-                print("global 테스트");
-                // print(value.);
-                print(draft.punch_issue_Action_On);
-                print(draft.punch_issue_Discipline);
-                print(draft.punch_issue_Raised_On);
-                print(datas[Get.arguments]['department']);
-                print(departmentDraft[0]);
               },
               selectedItem: text == "Action On" &&
                       datas[Get.arguments]['department'] != null
@@ -294,9 +277,7 @@ class _OntapTwoState extends State<OntapTwo> {
                       : text == 'Raised On' &&
                               datas[Get.arguments]['raisedBy'] != null
                           ? datas[Get.arguments]['raisedBy']
-                          : ''
-              // datas[idx][text2],
-              ),
+                          : ''),
         ),
       ],
     );
@@ -305,7 +286,6 @@ class _OntapTwoState extends State<OntapTwo> {
   // 체크박스 버튼 디자인
   Widget _swichsButton(String title) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SizedBox(
           width: 250,
@@ -316,7 +296,6 @@ class _OntapTwoState extends State<OntapTwo> {
           onChanged: (valued) {
             setState(() {
               isSwitch1 = valued!;
-              print(isSwitch1);
               if (draft.punch_issue_Design.length == 0) {
                 if (isSwitch1 == true) {
                   draft.punch_issue_Design.add('1');
@@ -332,9 +311,7 @@ class _OntapTwoState extends State<OntapTwo> {
                 }
               }
             });
-            print(draft.punch_issue_Design);
           },
-          // activeTrackColor: Colors.yellow,
           activeColor: Colors.green,
         ),
       ],
@@ -344,7 +321,6 @@ class _OntapTwoState extends State<OntapTwo> {
   // 체크박스 버튼 material
   Widget _swichsButton2(String title) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SizedBox(
           width: 250,
@@ -355,7 +331,6 @@ class _OntapTwoState extends State<OntapTwo> {
           onChanged: (valued) {
             setState(() {
               isSwitch2 = valued!;
-              print(isSwitch2);
               if (draft.punch_issue_Material.length == 0) {
                 if (isSwitch2 == true) {
                   draft.punch_issue_Material.add('1');
@@ -371,7 +346,6 @@ class _OntapTwoState extends State<OntapTwo> {
                 }
               }
             });
-            print(draft.punch_issue_Material);
           },
           // activeTrackColor: Colors.yellow,
           activeColor: Colors.green,
@@ -427,9 +401,7 @@ class _OntapTwoState extends State<OntapTwo> {
               draft.punch_issue_Keyword = [];
               draft.punch_issue_Keyword = contentList;
 
-              setState(() {
-                print(draft.punch_issue_Keyword);
-              });
+              setState(() {});
             },
           ),
         )
@@ -467,7 +439,7 @@ class _OntapTwoState extends State<OntapTwo> {
     );
   }
 
-// tagwidget
+// 태그 위젯
   Widget _tagWidget(String text, var controller) {
     return Column(
       children: [

@@ -19,11 +19,11 @@ import '../pages/utils/title_text.dart';
 import '../globals/punch_draft.dart' as draft;
 import '../globals/issue.dart' as issue;
 /*
-* name : PageThree
-* description : punch issue three page
+* name : ontap_three
+* description : draft third page
 * writer : walter
-* create date : 2021-09-30
-* last update : 2021-09-30
+* create date : 2021-10-02
+* last update : 2021-10-19
 * */
 
 class OntapThree extends StatefulWidget {
@@ -93,7 +93,7 @@ class _OntapThreeState extends State<OntapThree> {
     );
   }
 
-  // 이미지 선택 저장
+  // 이미지 선택 저장 image_picker
   final ImagePicker _picker = ImagePicker();
   List _imageData = draft.punch_issue_Photo;
   bool status = true;
@@ -204,11 +204,9 @@ class _OntapThreeState extends State<OntapThree> {
             if (status == true) {
               draft.punch_issue_Switch.removeAt(0);
               draft.punch_issue_Switch.add('1');
-              print(draft.punch_issue_Switch);
             } else {
               draft.punch_issue_Switch.removeAt(0);
               draft.punch_issue_Switch.add('0');
-              print(draft.punch_issue_Switch);
             }
           },
         ),
@@ -303,7 +301,6 @@ class _OntapThreeState extends State<OntapThree> {
                     draft.punch_issue_Photo_Name.removeAt(index);
                     draft.punch_issue_Photo_Path.removeAt(index);
                     draft.punch_issue_Photo = _imageData;
-                    print(draft.punch_issue_Photo);
                     if (draft.punch_issue_disCount > 0) {
                       var url = Uri.parse('$api/summury/deletephotos');
                       await http.post(url, body: {
@@ -313,8 +310,6 @@ class _OntapThreeState extends State<OntapThree> {
                     } else {
                       return null;
                     }
-                    print(draft.punch_issue_Count);
-                    print(draft.punch_issue_disCount);
                     setState(() {});
                     Get.back();
                   },
@@ -334,27 +329,16 @@ class _OntapThreeState extends State<OntapThree> {
         await _picker.pickImage(source: ImageSource.gallery);
     try {
       if (selectedImage!.path.isNotEmpty) {
-        print('hi!!!!!!!!!!!!!!!!!');
         final imageData =
             await Get.to(() => ImagePainters2(), arguments: selectedImage.path);
-        print('hi!!!!!!!!!!!!!!!!!');
-        print(imageData);
+
         if (imageData != null) {
-          print('1111111111111');
-          print(_imageData);
           _imageData.add(imageData);
-          print('222222222222222222');
-          print(_imageData);
+
           draft.punch_issue_Photo = _imageData;
-          print(_imageData);
-          print(draft.punch_issue_Photo);
+
           setState(() {});
         }
-
-        // Get.to(ImagePainters());
-        // _imageList.add(selectedImage);
-        // print(selectedImage.runtimeType);
-        // print(selectedImage);
       }
       setState(() {});
     } catch (e) {}
@@ -369,19 +353,9 @@ class _OntapThreeState extends State<OntapThree> {
         final imageData =
             await Get.to(() => ImagePainters2(), arguments: takenImage.path);
         if (imageData != null) {
-          print('1111111111111');
-          print(_imageData);
           _imageData.add(imageData);
-          print('222222222222222222');
-          print(_imageData);
           draft.punch_issue_Photo = _imageData;
-          print(_imageData);
-          print(draft.punch_issue_Photo);
-          setState(() {
-            // _imageData.add(imageData);
-            // draft.punch_issue_Photo = _imageData;
-            // print(draft.punch_issue_Photo);
-          });
+          setState(() {});
         }
       }
 
@@ -389,6 +363,7 @@ class _OntapThreeState extends State<OntapThree> {
     } catch (e) {}
   }
 
+// 도면 페이지
   Widget _draftView() {
     return Expanded(
       child: Container(
@@ -415,8 +390,6 @@ class _OntapThreeState extends State<OntapThree> {
                         'subsystem': draft.punch_issue_Sub_System[0],
                       });
                       var jsonDatas = jsonDecode(response.body);
-                      print("response.body!!!!!!!!!!!!!!!");
-                      print(jsonDatas);
                       if (jsonDatas.length == 0) {
                         return null;
                       } else {
@@ -441,18 +414,10 @@ class _OntapThreeState extends State<OntapThree> {
                         final directory =
                             (await getApplicationSupportDirectory()).path;
                         Uint8List jsonData = response2.bodyBytes;
-                        print(
-                            '!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-                        print(directory);
                         final image = File(
-                            // '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}'
                             '$directory/${draft.punch_issue_Drawings[0]}}');
-                        print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
-                        print(image.runtimeType);
                         image.writeAsBytesSync(jsonData);
-
                         draft.punch_issue_Drawings_File.add(image);
-                        print(draft.punch_issue_Drawings_File);
                         setState(() {});
                       }
                     },
@@ -485,27 +450,17 @@ class _OntapThreeState extends State<OntapThree> {
             SizedBox(
               height: 10,
             ),
-            InkWell(
-              onLongPress: () {
-                setState(() {
-                  // Get.toNamed("/draft");
-                });
-              },
-              onDoubleTap: () {
-                setState(() {});
-              },
-              child: Container(
-                  height: MediaQuery.of(context).size.width - 90,
-                  decoration: BoxDecoration(
-                    border: Border.all(),
-                  ),
-                  child: draft.punch_issue_Drawings_File.length == 1
-                      ? Image.file(
-                          draft.punch_issue_Drawings_File[0],
-                          fit: BoxFit.cover,
-                        )
-                      : null),
-            )
+            Container(
+                height: MediaQuery.of(context).size.width - 90,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                ),
+                child: draft.punch_issue_Drawings_File.length == 1
+                    ? Image.file(
+                        draft.punch_issue_Drawings_File[0],
+                        fit: BoxFit.cover,
+                      )
+                    : null),
           ],
         ),
       ),

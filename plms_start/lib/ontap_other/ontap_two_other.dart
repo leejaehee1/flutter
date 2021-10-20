@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import 'package:date_time_picker/date_time_picker.dart';
+// import 'package:date_time_picker/date_time_picker.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:simple_tags/simple_tags.dart';
 
@@ -12,13 +12,13 @@ import '../pages/utils/title_text.dart';
 import '../globals/issue.dart' as issue;
 // import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 /*
-* name : PageTwo
-* description : punch issue two page
+* name : ontap_two_other
+* description : other second page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class OntapSecond extends StatefulWidget {
@@ -49,7 +49,6 @@ class _OntapSecondState extends State<OntapSecond> {
   // List<String> raisedDraft = [];
   @override
   void initState() {
-    print('strat');
     for (var i = 0; i < 4; i++) {
       if (datas[idx]['keyword${i + 1}'] != null) {
         contentList.add(datas[idx]['keyword${i + 1}']);
@@ -66,13 +65,6 @@ class _OntapSecondState extends State<OntapSecond> {
           datas[idx]['discipline'] == issue.disciplineList[i].toString()) {
         disciplineDraft.add(issue.disciplineNameList[i]);
       }
-      print(disciplineDraft);
-      // for (var i = 0; i < issue.qcList.length; i++) {
-      //   if (datas[Get.arguments]['raisedBy'] != null &&
-      //       datas[Get.arguments]['raisedBy'] == issue.qcList[i].toString()) {
-      //     raisedDraft.add(issue.qcList[i]);
-      //   }
-      // }
     }
     print('end!!!!!!!!!');
     super.initState();
@@ -83,8 +75,7 @@ class _OntapSecondState extends State<OntapSecond> {
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
-    // final containerSize = _getSize(_heightKey);
-    // double conHeight = containerSize.height;
+
     return Container(
       color: Color(0xFFE6E6E6),
       child: Padding(
@@ -103,8 +94,6 @@ class _OntapSecondState extends State<OntapSecond> {
               ),
             ),
             Container(
-              // key: _heightKey,
-              // height: 500,
               height: MediaQuery.of(context).size.height * 2.1 / 3,
               width: Get.width - Get.width * 0.83 / 8,
               decoration: BoxDecoration(
@@ -184,47 +173,47 @@ class _OntapSecondState extends State<OntapSecond> {
   }
 
   // 달력 날짜 선택
-  Widget _dataTime(String text) {
-    return Row(
-      children: [
-        SizedBox(
-          width: Get.width * 1 / 3.6,
-          child: Text(text),
-        ),
-        SizedBox(
-          width: Get.width * 2.7 / 5,
-          height: Get.height * 1.1 / 25,
-          // child: Newbutton(),
-          child: DateTimePicker(
-            enabled: false,
-            dateMask: 'yyyy.MM.dd',
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.arrow_drop_down),
-              isDense: true,
-            ),
-            initialValue: datas[idx]['targetDate'],
-            firstDate: DateTime.now(),
-            lastDate: DateTime(2100),
-            // dateLabelText: 'Date',
-            onChanged: (val) {
-              setState(() {
-                if (draft.punch_issue_Date.length == 0) {
-                  draft.punch_issue_Date.add(val);
-                } else {
-                  draft.punch_issue_Date.removeAt(0);
-                  draft.punch_issue_Date.add(val);
-                }
-                print('globaldata!!!!!!!!!!');
-                print(draft.punch_issue_Date);
-              });
-            },
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _dataTime(String text) {
+  //   return Row(
+  //     children: [
+  //       SizedBox(
+  //         width: Get.width * 1 / 3.6,
+  //         child: Text(text),
+  //       ),
+  //       SizedBox(
+  //         width: Get.width * 2.7 / 5,
+  //         height: Get.height * 1.1 / 25,
+  //         // child: Newbutton(),
+  //         child: DateTimePicker(
+  //           enabled: false,
+  //           dateMask: 'yyyy.MM.dd',
+  //           decoration: InputDecoration(
+  //             contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+  //             border: OutlineInputBorder(),
+  //             suffixIcon: Icon(Icons.arrow_drop_down),
+  //             isDense: true,
+  //           ),
+  //           initialValue: datas[idx]['targetDate'],
+  //           firstDate: DateTime.now(),
+  //           lastDate: DateTime(2100),
+  //           // dateLabelText: 'Date',
+  //           onChanged: (val) {
+  //             setState(() {
+  //               if (draft.punch_issue_Date.length == 0) {
+  //                 draft.punch_issue_Date.add(val);
+  //               } else {
+  //                 draft.punch_issue_Date.removeAt(0);
+  //                 draft.punch_issue_Date.add(val);
+  //               }
+  //               print('globaldata!!!!!!!!!!');
+  //               print(draft.punch_issue_Date);
+  //             });
+  //           },
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   // 드롭다운버튼 Row
   Widget _dropdownButton(String text, var data1, var data2, String text2) {
@@ -258,8 +247,6 @@ class _OntapSecondState extends State<OntapSecond> {
                 // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
                 // 3. 결론 : flutter 에 global key 활용
 
-                print("confirm : " + value.toString());
-                print("confirm : " + value.toString());
                 for (var i = 0; i < data1.length; i++) {
                   if (value == data1[i]) {
                     setState(() {
@@ -310,29 +297,7 @@ class _OntapSecondState extends State<OntapSecond> {
         ),
         Checkbox(
           value: isSwitch1,
-          onChanged: (valued) {
-            // setState(() {
-            //   isSwitch1 = valued!;
-            //   print(isSwitch1);
-            //   if (draft.punch_issue_Design.length == 0) {
-            //     if (isSwitch1 == true) {
-            //       draft.punch_issue_Design.add('1');
-            //     } else {
-            //       draft.punch_issue_Design.add('0');
-            //     }
-            //   } else {
-            //     draft.punch_issue_Design.removeAt(0);
-            //     if (isSwitch1 == true) {
-            //       draft.punch_issue_Design.add('1');
-            //     } else {
-            //       draft.punch_issue_Design.add('0');
-            //     }
-            //   }
-            // }
-            // );
-            print(draft.punch_issue_Design);
-          },
-          // activeTrackColor: Colors.yellow,
+          onChanged: (valued) {},
           activeColor: Colors.green,
         ),
       ],
@@ -342,7 +307,6 @@ class _OntapSecondState extends State<OntapSecond> {
   // 체크박스 버튼 material
   Widget _swichsButton2(String title) {
     return Row(
-      // crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         SizedBox(
           width: 250,
@@ -350,28 +314,7 @@ class _OntapSecondState extends State<OntapSecond> {
         ),
         Checkbox(
           value: isSwitch2,
-          onChanged: (valued) {
-            // setState(() {
-            //   isSwitch2 = valued!;
-            //   print(isSwitch2);
-            //   if (draft.punch_issue_Material.length == 0) {
-            //     if (isSwitch2 == true) {
-            //       draft.punch_issue_Material.add('1');
-            //     } else {
-            //       draft.punch_issue_Material.add('0');
-            //     }
-            //   } else {
-            //     draft.punch_issue_Material.removeAt(0);
-            //     if (isSwitch2 == true) {
-            //       draft.punch_issue_Material.add('1');
-            //     } else {
-            //       draft.punch_issue_Material.add('0');
-            //     }
-            //   }
-            // });
-            // print(draft.punch_issue_Material);
-          },
-          // activeTrackColor: Colors.yellow,
+          onChanged: (valued) {},
           activeColor: Colors.green,
         ),
       ],
@@ -396,8 +339,6 @@ class _OntapSecondState extends State<OntapSecond> {
             decoration: InputDecoration(
               contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
               border: OutlineInputBorder(),
-
-              // helperText: helperText,
             ),
             onChanged: (text) {
               setState(() {});
@@ -415,56 +356,12 @@ class _OntapSecondState extends State<OntapSecond> {
             color: Colors.white,
             padding: EdgeInsets.all(2),
             icon: Icon(Icons.add),
-            onPressed: () {
-              // if (contentList.length > 3) {
-              //   _showDialog();
-              // } else {
-              //   contentList.add(controller.text);
-              //   controller.clear();
-              // }
-
-              // draft.punch_issue_Keyword = [];
-              // draft.punch_issue_Keyword = contentList;
-
-              // setState(() {
-              //   print(draft.punch_issue_Keyword);
-              // });
-            },
+            onPressed: () {},
           ),
         )
       ],
     );
   }
-
-// keyword 4개이상 에러 문구
-  // void _showDialog() {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         content: new Text("You can't use more than 4 keywords."),
-  //         actions: <Widget>[
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: [
-  //               new ElevatedButton(
-  //                 style: ElevatedButton.styleFrom(
-  //                   primary: Color(0xff71838D),
-  //                 ),
-  //                 child:
-  //                     new Text(AppLocalizations.of(context)!.loginDialogButton),
-  //                 onPressed: () {
-  //                   Get.back();
-  //                 },
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
 // tagwidget
   Widget _tagWidget(String text, var controller) {
@@ -481,19 +378,8 @@ class _OntapSecondState extends State<OntapSecond> {
             ),
             Expanded(
               child: SimpleTags(
-                // wrapDirection: Axis.vertical,
-                // tagTextOverflow: TextOverflow.fade,
                 content: contentList,
-                // wrapSpacing: 4,
-                // wrapRunSpacing: 4,
-                // onTagPress: (tag) {
-                //   setState(() {});
-                //   contentList.remove(tag);
-                //   draft.punch_issue_Keyword = [];
-                //   draft.punch_issue_Keyword = contentList;
-                //   print('pressed $tag');
-                //   print(draft.punch_issue_Keyword);
-                // },
+
                 tagContainerPadding: EdgeInsets.all(6),
                 tagTextStyle: TextStyle(color: Colors.black),
                 // tagIcon: Icon(Icons.clear, size: 12),

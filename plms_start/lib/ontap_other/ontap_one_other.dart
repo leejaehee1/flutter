@@ -10,11 +10,11 @@ import '../globals/issue.dart' as issue;
 // import '../globals/login.dart' as login;
 import '../globals/punch_draft.dart' as draft;
 /*
-* name : PageOne
-* description : punch issue first page
+* name : ontap_one_other
+* description : other first page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class OntapFirst extends StatefulWidget {
@@ -30,11 +30,7 @@ class _OntapFirstState extends State<OntapFirst> {
   List<String> subsystem = issue.subsystemDataList;
 
   int idx = Get.arguments[0];
-
   List datas = Get.arguments[1];
-
-  // String _horizonGroupValue = "Tag Number";
-  // List<String> _status = ['Tag Number', "Bulk Item"];
 
   @override
   void initState() {
@@ -86,7 +82,6 @@ class _OntapFirstState extends State<OntapFirst> {
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
     return Container(
-      // height: MediaQuery.of(context).size.height,
       color: Color(0xFFE6E6E6),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -198,40 +193,6 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// 라디오 버튼
-  // Widget _radioButton() {
-  //   return RadioGroup<String>.builder(
-  //     activeColor: Colors.green,
-  //     direction: Axis.horizontal,
-  //     groupValue: _horizonGroupValue,
-  //     onChanged: (value) => setState(() {
-  //       _horizonGroupValue = value!;
-  //       print(value);
-  //       if (value == _status[0]) {
-  //         if (draft.punch_issue_Bulk_Item.length == 1) {
-  //           draft.punch_issue_Bulk_Item.removeAt(0);
-  //         }
-
-  //         _bulkTextEditController.clear();
-  //         globals.punch_issue_isTag = true;
-  //         globals.punch_issue_isBulk = false;
-  //       } else if (value == _status[1]) {
-  //         if (draft.punch_issue_Tag_Number.length == 1) {
-  //           draft.punch_issue_Tag_Number.removeAt(0);
-  //         }
-  //         _tagTextEditController.clear();
-  //         globals.punch_issue_isTag = false;
-  //         globals.punch_issue_isBulk = true;
-  //       }
-  //     }),
-  //     items: _status,
-  //     itemBuilder: (item) => RadioButtonBuilder(
-  //       item,
-  //       textPosition: RadioButtonTextPosition.left,
-  //     ),
-  //   );
-  // }
-
 // description
   Widget _description(var globaldata, var controller) {
     return Column(
@@ -242,7 +203,6 @@ class _OntapFirstState extends State<OntapFirst> {
           ],
         ),
         Container(
-          // height: 100,
           child: TextField(
               enabled: false,
               controller: controller,
@@ -254,8 +214,6 @@ class _OntapFirstState extends State<OntapFirst> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
               keyboardType: TextInputType.multiline,
@@ -271,7 +229,7 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// dropdown button
+// category system subsystem 드롭다운 버튼
   Widget _dropdownButton(String text, var data1, var data2, String text2) {
     return Row(
       children: [
@@ -282,15 +240,12 @@ class _OntapFirstState extends State<OntapFirst> {
         SizedBox(
           width: Get.width * 2.7 / 5,
           height: Get.height * 1.1 / 25,
-          // child: Newbutton(),
           child: DropdownSearch<String>(
             enabled: false,
             dropdownSearchDecoration: InputDecoration(
               contentPadding: edge,
-
               border: OutlineInputBorder(),
               isDense: true,
-              // isCollapsed: true,
               suffixIcon: Icon(Icons.arrow_drop_down),
             ),
             dropDownButton: Icon(null),
@@ -303,8 +258,6 @@ class _OntapFirstState extends State<OntapFirst> {
               // 1. global first, second, third 값을 모두 한방에 관리하는 방법
               // 2. punch_issue scope 에서만 사용하는 모델 또는 저장 객체를 두는 방법 => 적합
               // 3. 결론 : flutter 에 global key 활용
-
-              print("confirm : " + value.toString());
               for (var i = 0; i < data1.length; i++) {
                 if (value == data1[i]) {
                   setState(() {
@@ -323,11 +276,6 @@ class _OntapFirstState extends State<OntapFirst> {
                 draft.punch_issue_Sub_System.removeAt(0);
                 draft.punch_issue_Sub_System.add(value.toString());
               }
-              print("global 테스트");
-              // print(value.);
-              print(draft.punch_issue_Category);
-              print(draft.punch_issue_System);
-              print(draft.punch_issue_Sub_System);
             },
             selectedItem: datas[idx][text2] != null ? datas[idx][text2] : '',
           ),
@@ -336,7 +284,7 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// unit textfield
+// unit 텍스트폼
   Widget _unittextField(
       String text, String hint, var globaldata, var controller) {
     return Row(
@@ -357,11 +305,8 @@ class _OntapFirstState extends State<OntapFirst> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
-              // controller: controller,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,
@@ -379,22 +324,7 @@ class _OntapFirstState extends State<OntapFirst> {
             height: 30,
             child: IconButton(
                 padding: EdgeInsets.all(4),
-                // autofocus: true,
-                // visualDensity: VisualDensity(
-                //   vertical: 2.5,
-                //   horizontal: 2.5,
-                // ),
-                onPressed: () {
-                  // setState(() {
-                  //   showModalBottomSheet(
-                  //     // isScrollControlled: true,
-                  //     context: context,
-                  //     builder: _bottomSheetUnit,
-                  //   );
-                  // });
-
-                  print(draft.punch_issue_Unit);
-                },
+                onPressed: () {},
                 icon: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -403,43 +333,7 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// botton sheet unit
-  // Widget _bottomSheetUnit(BuildContext context) {
-  //   var data = issue.unitDataList;
-  //   return Container(
-  //     height: Get.height * 1.55 / 3,
-  //     padding: EdgeInsets.all(10),
-  //     child: ListView.builder(
-  //         // scrollDirection: Axis.vertical,
-  //         itemCount: data.length,
-  //         itemBuilder: (BuildContext context, var index) {
-  //           return GestureDetector(
-  //             onTap: () {
-  //               setState(() {
-  //                 _unitTextEditController.text = issue.unitList[index];
-  //                 if (draft.punch_issue_Unit.length == 1) {
-  //                   draft.punch_issue_Unit.removeAt(0);
-  //                   draft.punch_issue_Unit.add(_unitTextEditController.text);
-  //                 } else {
-  //                   draft.punch_issue_Unit.add(_unitTextEditController.text);
-  //                 }
-
-  //                 Get.back();
-  //               });
-  //             },
-  //             child: Container(
-  //               width: Get.width,
-  //               child: Text(
-  //                 data[index],
-  //                 style: TextStyle(fontSize: 20),
-  //               ),
-  //             ),
-  //           );
-  //         }),
-  //   );
-  // }
-
-// area text
+// area 텍스트폼
   Widget _areatextField(
       String text, String hint, var globaldata, var controller) {
     return Row(
@@ -460,8 +354,6 @@ class _OntapFirstState extends State<OntapFirst> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
               // controller: controller,
@@ -482,22 +374,7 @@ class _OntapFirstState extends State<OntapFirst> {
             height: 30,
             child: IconButton(
                 padding: EdgeInsets.all(4),
-                // autofocus: true,
-                // visualDensity: VisualDensity(
-                //   vertical: 2.5,
-                //   horizontal: 2.5,
-                // ),
-                onPressed: () {
-                  // setState(() {
-                  //   showModalBottomSheet(
-                  //     // isScrollControlled: true,
-                  //     context: context,
-                  //     builder: _bottomSheetArea,
-                  //   );
-                  // });
-
-                  // print(draft.punch_issue_Area);
-                },
+                onPressed: () {},
                 icon: const Icon(
                   Icons.search,
                   color: Colors.white,
@@ -506,45 +383,7 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// botton sheet area
-  // Widget _bottomSheetArea(BuildContext context) {
-  //   var data = issue.areaDataList;
-  //   return Container(
-  //     height: Get.height * 1.55 / 3,
-  //     padding: EdgeInsets.all(10),
-  //     child: ListView.builder(
-  //         // scrollDirection: Axis.vertical,
-  //         itemCount: data.length,
-  //         itemBuilder: (BuildContext context, var index) {
-  //           return GestureDetector(
-  //             onTap: () {
-  //               setState(() {
-  //                 _areaTextEditController.text = issue.areaList[index];
-  //                 if (draft.punch_issue_Area.length == 1) {
-  //                   draft.punch_issue_Area.removeAt(0);
-  //                   draft.punch_issue_Area.add(_areaTextEditController.text);
-  //                 } else {
-  //                   draft.punch_issue_Area.add(_areaTextEditController.text);
-  //                 }
-
-  //                 Get.back();
-  //               });
-  //             },
-  //             child: Container(
-  //               // width: Get.width,
-  //               // color: Colors.red,
-  //               height: Get.height * 2 / 20,
-  //               child: Text(
-  //                 data[index],
-  //                 style: TextStyle(fontSize: 18),
-  //               ),
-  //             ),
-  //           );
-  //         }),
-  //   );
-  // }
-
-  // punchID text field
+  // punchID 텍스트폼
   Widget _textFormField(
       String text, String hint, var globaldata, var controller) {
     return Row(
@@ -569,8 +408,6 @@ class _OntapFirstState extends State<OntapFirst> {
                         globaldata.removeAt(0);
                         globaldata.add(str);
                       }
-                      print('globaldata!!!!!!!!!!');
-                      print(globaldata);
                     });
                   },
                   decoration: InputDecoration(
@@ -587,7 +424,7 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// textfield tag number
+// tag number 텍스트폼
   Widget _textField2(String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
@@ -623,7 +460,7 @@ class _OntapFirstState extends State<OntapFirst> {
     );
   }
 
-// textfield bulk
+// bulk name 텍스트폼
   Widget _textField3(String text, String hint, var globaldata, var controller) {
     return Row(
       children: [
@@ -641,12 +478,9 @@ class _OntapFirstState extends State<OntapFirst> {
                     globaldata.removeAt(0);
                     globaldata.add(str);
                   }
-                  print('globaldata!!!!!!!!!!');
-                  print(globaldata);
                 });
               },
               enabled: false,
-              // enabled: globals.punch_issue_isBulk,
               decoration: InputDecoration(
                 contentPadding: edge,
                 isDense: true,

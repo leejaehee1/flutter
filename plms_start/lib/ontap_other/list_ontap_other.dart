@@ -23,11 +23,11 @@ import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /*
-* name : PunchScreen
-* description : PunchScreen page
+* name : list_ontap_other
+* description : other ontap page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class OnTapPage extends StatefulWidget {
@@ -40,8 +40,6 @@ class OnTapPage extends StatefulWidget {
 class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
-
-  // int _selectedIndex = 0;
 
   final page1Key = new GlobalKey();
   final page2Key = new GlobalKey();
@@ -62,25 +60,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     _scrollController.addListener(() {
       _onScroll();
     });
-    // draft.punch_issue_isTag = true;
-    // draft.punch_issue_isBulk = false;
-    // draft.punch_issue_Tag_Number = [];
-    // draft.punch_issue_Bulk_Item = [];
-    // draft.punch_issue_Category = [login.draftList[idx]['category']];
-    // draft.punch_issue_System = [login.draftList[idx]['systemID']];
-    // draft.punch_issue_Sub_System = [login.draftList[idx]['subsystem']];
-    // draft.punch_issue_Unit = [];
-    // draft.punch_issue_Area = [];
-    // draft.punch_issue_Punch_ID = [];
-    // draft.punch_issue_Description = [];
 
-    // draft.punch_issue_Action_On = [login.draftList[idx]['department']];
-    // draft.punch_issue_Discipline = [login.draftList[idx]['discipline']];
-    // draft.punch_issue_Raised_On = [login.draftList[idx]['raisedBy']];
-    // draft.punch_issue_Date = [];
-    // draft.punch_issue_Keyword = [];
-    // draft.punch_issue_Design = [];
-    // draft.punch_issue_Material = [];
     globals.punch_issue_Drawings = [];
     globals.punch_issue_Drawings_Path = [];
     globals.punch_issue_Drawings_File = [];
@@ -91,8 +71,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
 
     draft.punch_issue_Photo = [];
     photos.photos_Image_Path = [];
-    // draft.punch_issue_Photo_Path = [];
-    // draft.punch_issue_Photo_Name = [];
+
     _photoPath();
     super.initState();
   }
@@ -133,16 +112,14 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       'systemID': datas[idx]['systemID'],
       'subsystem': datas[idx]['subsystem'],
     });
+
     var jsonDatas = jsonDecode(response3.body);
-    print("response.body!!!!!!!!!!!!!!!");
-    print(jsonDatas);
     if (jsonDatas.length == 0) {
       return null;
     } else {
       if (globals.punch_issue_Drawings.length == 0) {
         globals.punch_issue_Drawings.add(jsonDatas[0]['drawingNo']);
         globals.punch_issue_Drawings_Path.add(jsonDatas[0]['imagePath']);
-        print(globals.punch_issue_Drawings);
       } else {
         globals.punch_issue_Drawings.removeAt(0);
         globals.punch_issue_Drawings_Path.removeAt(0);
@@ -156,22 +133,13 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       });
       final directory = (await getApplicationSupportDirectory()).path;
       Uint8List jsonData2 = response2.bodyBytes;
-      print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(directory);
       final image = File(
           // '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}'
           '$directory/${globals.punch_issue_Drawings[0]}}');
-      print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(image.runtimeType);
       image.writeAsBytesSync(jsonData2);
-
       globals.punch_issue_Drawings_File.add(image);
-      print(globals.punch_issue_Drawings_File);
       setState(() {});
     }
-
-    print(photos.photos_Image_Path);
-    // for (var imageFile in imageFileList) {
   }
 
   @override
@@ -193,19 +161,11 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
             ),
             SliverAppBar(
               toolbarHeight: 90,
-              // titleSpacing: 10,
               automaticallyImplyLeading: false,
-              // expandedHeight: 50,
               elevation: 0,
               pinned: true,
-              // titleSpacing: 0,
               backgroundColor: Color(0xFFE6E6E6),
-              title:
-                  // _tabbar(
-                  //   _tabController,
-                  //   _onTapToScroll,
-                  // ),
-                  CatalogTabBar(
+              title: CatalogTabBar(
                 scrollController: _scrollController,
                 tabController: _tabController,
                 onTap: _onTapToScroll,
@@ -223,7 +183,6 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
                   OntapThird(
                     key: page3Key,
                   ),
-                  // _bottonButton(),
                   //todo 버튼 만들고, 이벤트 연결(put)
                   // Create post insert
                   // Read get select
@@ -310,75 +269,4 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     }
     isTapToScroll = false;
   }
-
-  // _bottonButton() {
-  //   var buttonWidth = Get.width * 1 / 3.5;
-  //   return Container(
-  //     padding: EdgeInsets.only(bottom: 20),
-  //     color: Color(0xFFE6E6E6),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: [
-  //         Container(
-  //           width: buttonWidth,
-  //           child: ElevatedButton(
-  //             style: ElevatedButton.styleFrom(
-  //               padding: EdgeInsets.all(0),
-  //               primary: Color(0xff71838D), // background
-  //               // onPrimary: Colors.white, // foreground
-  //             ),
-  //             onPressed: () {
-  //               Get.back();
-  //             },
-  //             child: Text("Delete Draft"),
-  //           ),
-  //         ),
-  //         Container(
-  //           width: buttonWidth,
-  //           child: ElevatedButton(
-  //             style: ElevatedButton.styleFrom(
-  //               padding: EdgeInsets.all(0),
-  //               primary: Color(0xff5D8595), // background
-  //               // onPrimary: Colors.white, // foreground
-  //             ),
-  //             onPressed: () {
-  //               if (draft.punch_issue_Status.length == 0) {
-  //                 draft.punch_issue_Status.add('1');
-  //               } else {
-  //                 draft.punch_issue_Status.removeAt(0);
-  //                 draft.punch_issue_Status.add('1');
-  //               }
-
-  //               print('global!!!!!!!!!!!');
-  //               print(draft.punch_issue_Status);
-  //               Get.toNamed('/confirm');
-  //             },
-  //             child: Text("Save Draft"),
-  //           ),
-  //         ),
-  //         Container(
-  //           width: buttonWidth,
-  //           child: ElevatedButton(
-  //             style: ElevatedButton.styleFrom(
-  //               padding: EdgeInsets.all(0),
-  //               primary: Color(0xff2F4C5A), // background
-  //               // onPrimary: Colors.white, // foreground
-  //             ),
-  //             onPressed: () {
-  //               print('global!!!!!!!!!!!');
-  //               if (draft.punch_issue_Status.length == 0) {
-  //                 draft.punch_issue_Status.add('2');
-  //               } else {
-  //                 draft.punch_issue_Status.removeAt(0);
-  //                 draft.punch_issue_Status.add('2');
-  //               }
-  //               Get.toNamed('/confirm');
-  //             },
-  //             child: Text("Create Issue"),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
 }

@@ -24,11 +24,11 @@ import '../globals/punch_draft.dart' as draft;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /*
-* name : PunchScreen
-* description : PunchScreen page
+* name : list_ontap
+* description : draft ontap page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class OnTapScreen extends StatefulWidget {
@@ -42,8 +42,6 @@ class _OnTapScreennState extends State<OnTapScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
   late ScrollController _scrollController;
-
-  // int _selectedIndex = 0;
 
   final page1Key = new GlobalKey();
   final page2Key = new GlobalKey();
@@ -140,12 +138,7 @@ class _OnTapScreennState extends State<OnTapScreen>
     draft.punch_issue_Drawings = [];
     draft.punch_issue_Drawings_File = [];
     draft.punch_issue_Drawings_Path = [];
-    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(datas[Get.arguments]['punchID']);
-
     _photoPath();
-
-    print('???????????성공????????????????');
 
     super.initState();
   }
@@ -158,13 +151,10 @@ class _OnTapScreennState extends State<OnTapScreen>
     var photoPath = jsonDecode(response.body);
     draft.punch_issue_Count = 0;
     draft.punch_issue_disCount = 0;
-    // Map<String, dynamic> jsonData = jsonDecode(response.body);
-    print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(photoPath);
+
     draft.punch_issue_Count += photoPath.length as int;
     draft.punch_issue_disCount += photoPath.length as int;
-    print(draft.punch_issue_Count);
-    print(draft.punch_issue_disCount);
+
     if (photoPath.length > 0) {
       for (var i = 0; i < photoPath.length; i++) {
         var imagePath2 = '${photoPath[i]['imagePath']}';
@@ -177,10 +167,7 @@ class _OnTapScreennState extends State<OnTapScreen>
     } else {
       return null;
     }
-    print('images!!!!!!!!');
-    print(draft.punch_issue_Photo_Path);
-    print('names!!!!!!!!');
-    print(draft.punch_issue_Photo_Name);
+
     var url2 = Uri.parse('$api/summury/photosload');
     final directory = (await getExternalStorageDirectory())!.path;
     if (photos.photos_Image_Path.length > 0) {
@@ -189,12 +176,10 @@ class _OnTapScreennState extends State<OnTapScreen>
             .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
 
         Uint8List jsonData = response.bodyBytes;
-        print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-        print(directory);
+
         final image = File(
             '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
-        print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
-        print(image.runtimeType);
+
         image.writeAsBytesSync(jsonData);
 
         draft.punch_issue_Photo.add(image);
@@ -203,7 +188,6 @@ class _OnTapScreennState extends State<OnTapScreen>
       return null;
     }
 
-    print(photos.photos_Image_Path);
     // for (var imageFile in imageFileList) {
   }
 
@@ -344,6 +328,7 @@ class _OnTapScreennState extends State<OnTapScreen>
     isTapToScroll = false;
   }
 
+  // delete save create 버튼
   _bottonButton() {
     var buttonWidth = Get.width * 1 / 3.5;
     return Container(
@@ -358,7 +343,6 @@ class _OnTapScreennState extends State<OnTapScreen>
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.all(0),
                 primary: Color(0xff71838D), // background
-                // onPrimary: Colors.white, // foreground
               ),
               onPressed: () async {
                 var url = Uri.parse('$api/summury/delete');
@@ -388,9 +372,6 @@ class _OnTapScreennState extends State<OnTapScreen>
                   draft.punch_issue_Status.removeAt(0);
                   draft.punch_issue_Status.add('1');
                 }
-
-                print('global!!!!!!!!!!!');
-                print(draft.punch_issue_Status);
                 Get.to(OnTapConfirmPage());
                 // Get.toNamed('/confirm');
               },
@@ -406,7 +387,6 @@ class _OnTapScreennState extends State<OnTapScreen>
                 // onPrimary: Colors.white, // foreground
               ),
               onPressed: () {
-                print('global!!!!!!!!!!!');
                 if (draft.punch_issue_Status.length == 0) {
                   draft.punch_issue_Status.add('2');
                 } else {

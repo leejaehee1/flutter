@@ -12,11 +12,11 @@ import '../pages/utils/title_text.dart';
 import '../globals/globals.dart' as globals;
 import '../globals/punch_draft.dart' as draft;
 /*
-* name : PageThree
-* description : punch issue three page
+* name : ontap_three_other
+* description : other third page
 * writer : walter
 * create date : 2021-09-30
-* last update : 2021-09-30
+* last update : 2021-10-20
 * */
 
 class OntapThird extends StatefulWidget {
@@ -63,7 +63,6 @@ class _OntapThirdState extends State<OntapThird> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    // DropboxText(text: 'Action On'),
                     Row(
                       children: [
                         TitleText(
@@ -102,32 +101,8 @@ class _OntapThirdState extends State<OntapThird> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Photo'),
-              // IconButton(
-              //     onPressed: () {
-              //       // setState(() {
-              //       //   _showDialog2();
-              //       // });
-              //     },
-              //     icon: Icon(
-              //       Icons.add_a_photo,
-              //       size: Get.height * 1 / 18,
-              //     )),
             ],
           ),
-          // i) image 를 서버에 업로드 -> 백엔드 웹서버에 파일을 올린다. -> /usr/local/applications/plms/uploads
-          // ii) filename 지정해주고, 경로를 지정
-          // upload file table : file id, original filename, server filename, server path, time, device path
-          // iii) 실제 구현 측면에서 타이밍
-          // 1) 바로 업로드
-          // 2) 나중 업로드
-
-          // 저장 타이밍 2가지
-          // 테이블 영구적인 저장
-          // 기기내의 저장소 -> sqlite -> (x)
-
-          // i) 바로 업로드
-          // ii) 나중에 업로드
-
           // 이미지 저장 및 보기
           Expanded(
             child: GridView.builder(
@@ -141,35 +116,13 @@ class _OntapThirdState extends State<OntapThird> {
                     fit: StackFit.expand,
                     children: [
                       InkWell(
-                        onTap: () async {
-                          // print('hi');
-                          // // _imagePainter(index);
-                          // // final imageData = await Get.to(() => ImagePainters(),
-                          // //     arguments: _imageList[index].path);
-                          // // setState(() {
-                          // //   _imageData.add(imageData);
-                          // // });
-                          // print('hihi');
-                        },
+                        onTap: () async {},
                         child: Image.file(
                           // File(_imageList[index].path),
                           File(_imageData[index].path),
                           fit: BoxFit.cover,
                         ),
                       ),
-                      // Positioned(
-                      //   top: 0,
-                      //   right: 0,
-                      //   child: Container(
-                      //     color: Color.fromRGBO(255, 255, 255, 0.5),
-                      //     child: IconButton(
-                      //       onPressed: () {
-                      //         _showDialog(index);
-                      //       },
-                      //       icon: Icon(Icons.delete),
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   ),
                 );
@@ -180,132 +133,6 @@ class _OntapThirdState extends State<OntapThird> {
       ),
     );
   }
-
-  // 스위치 버튼
-  // Widget _swichWidget(String name) {
-  //   return Row(
-  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //     children: [
-  //       Text(name),
-  //       FlutterSwitch(
-  //         activeColor: Colors.green,
-  //         width: 40.0,
-  //         height: 20.0,
-  //         valueFontSize: 10.0,
-  //         toggleSize: 10.0,
-  //         value: status,
-  //         borderRadius: 30.0,
-  //         // padding: 3.0,
-  //         showOnOff: true,
-  //         onToggle: (val) {
-  //           // setState(() {
-  //           //   status = val;
-  //           // });
-  //         },
-  //       ),
-  //     ],
-  //   );
-  // }
-
-  // 카메라 갤러리 선택
-  // void _showDialog2() {
-  //   double _imageSize = Get.width * 1 / 11;
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         actions: <Widget>[
-  //           Column(
-  //             children: [
-  //               TextButton(
-  //                 onPressed: () {
-  //                   imageSelect();
-  //                   Get.back();
-  //                 },
-  //                 child: Row(
-  //                   children: [
-  //                     Image.asset(
-  //                       'assets/images/gallery_button.png',
-  //                       height: _imageSize,
-  //                       width: _imageSize,
-  //                     ),
-  //                     SizedBox(
-  //                       width: 10,
-  //                     ),
-  //                     Text(
-  //                       "Open Gallery",
-  //                       style: TextStyle(color: Colors.black),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //               TextButton(
-  //                 onPressed: () {
-  //                   videoSelect();
-  //                   Get.back();
-  //                 },
-  //                 child: Row(
-  //                   children: [
-  //                     Image.asset(
-  //                       'assets/images/camera_button.png',
-  //                       height: _imageSize,
-  //                       width: _imageSize,
-  //                     ),
-  //                     SizedBox(
-  //                       width: 10,
-  //                     ),
-  //                     Text(
-  //                       "Open Camera",
-  //                       style: TextStyle(color: Colors.black),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             ],
-  //           )
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
-
-  // 이미지 삭제
-  // void _showDialog(int index) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         content: new Text("Are you sure you want to Delete?"),
-  //         actions: <Widget>[
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //             crossAxisAlignment: CrossAxisAlignment.center,
-  //             children: [
-  //               new ElevatedButton(
-  //                 child: new Text("No"),
-  //                 onPressed: () {
-  //                   Get.back();
-  //                 },
-  //               ),
-  //               new ElevatedButton(
-  //                 child: new Text("Yes"),
-  //                 onPressed: () {
-  //                   _imageData.removeAt(index);
-  //                   globals.punch_issue_Photo_Name.removeAt(index);
-  //                   globals.punch_issue_Photo_Path.removeAt(index);
-  //                   globals.punch_issue_Photo = _imageData;
-  //                   print(globals.punch_issue_Photo);
-  //                   setState(() {});
-  //                   Get.back();
-  //                 },
-  //               ),
-  //             ],
-  //           )
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
   // 갤러리 이미지 선택
   void imageSelect() async {
@@ -322,11 +149,6 @@ class _OntapThirdState extends State<OntapThird> {
             print(globals.punch_issue_Photo);
           });
         }
-
-        // Get.to(ImagePainters());
-        // _imageList.add(selectedImage);
-        // print(selectedImage.runtimeType);
-        // print(selectedImage);
       }
       setState(() {});
     } catch (e) {}
@@ -353,6 +175,7 @@ class _OntapThirdState extends State<OntapThird> {
     } catch (e) {}
   }
 
+// 도면 보기 위젯
   Widget _draftView() {
     return Expanded(
       child: Container(
@@ -369,19 +192,7 @@ class _OntapThirdState extends State<OntapThird> {
                 Container(
                   width: Get.width * 1 / 4.1,
                   height: Get.height * 1 / 30,
-                  // child: ElevatedButton(
-                  //   style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
-                  //   onPressed: () {
-                  //     Get.toNamed("/draft");
-                  //     // FileImage();
-                  //   },
-                  //   child: Text(
-                  //     "Location",
-                  //     style: TextStyle(fontSize: 13),
-                  //   ),
-                  // ),
                 ),
-                // Text(pixelList),
               ],
             ),
             SizedBox(
