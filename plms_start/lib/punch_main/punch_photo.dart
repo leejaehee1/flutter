@@ -39,6 +39,12 @@ class _PhotoListState extends State<PhotoList> {
   void initState() {
     print('start!!!!!!!!!!!!');
     _photoListData();
+
+    print(photos.photos_Image_Path.length);
+    print(photos.photos_Image_Path);
+    print(imageFileList.length);
+    print(imageFileList);
+    // print(photos.photos_Image_Path[1].substring(14).toString());
     super.initState();
   }
 
@@ -210,8 +216,12 @@ class _PhotoListState extends State<PhotoList> {
   }
 
   List imageFileList = photos.photos_Local_Path;
+  List imageName = photos.photos_Image_Path;
   // List imageName = photos.;
   Future<void> _sendImage() async {
+    // print(photos.photos_Image_Path[0]);
+    // print(photos.photos_Image_Path[1]);
+    print(imageFileList.length);
     var url = Uri.parse('$api/summury/uploadfile');
     var request = http.MultipartRequest('POST', url);
     // for (var imageFile in imageFileList) {
@@ -219,9 +229,10 @@ class _PhotoListState extends State<PhotoList> {
       request.files.add(await http.MultipartFile.fromPath(
         'imgFile',
         imageFileList[i],
-        filename: photos.photos_Image_Path[i].substring(14).toString(),
+        filename: imageName[i].substring(14).toString(),
         contentType: new MediaType('image', 'png'),
       ));
+      print(i);
     }
 
     var response = await request.send();

@@ -254,7 +254,8 @@ class _HomeState extends State<Home> {
 
     print('되냐!!!!!!!!!!!!!!!!!!');
     print(photos.photos_Punch_ID);
-    print(photos.photos_Local_Path);
+    print(photos.photos_Local_Path.length);
+    print(photos.photos_Image_Path.length);
     print('중간!!!!!!!!!!!!!!');
     if (authority == "3") {
       var uriResponse = await http.get(

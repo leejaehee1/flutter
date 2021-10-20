@@ -8,6 +8,7 @@ import 'package:image_painter/image_painter.dart';
 // import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 // import '../globals/globals.dart' as globals;
+import 'package:http/http.dart' as http;
 import '../globals/punch_draft.dart' as draft;
 import '../globals/issue.dart' as issue;
 import '../globals/login.dart' as login;
@@ -42,6 +43,8 @@ class _ImagePainters2State extends State<ImagePainters2> {
 
   // 이미지 저장 함수
   void saveImage() async {
+    draft.punch_issue_Photo_New_Name = [];
+    draft.punch_issue_Photo_New_Path = [];
     final image = await _imageKey.currentState!.exportImage();
     final directory = (await getExternalStorageDirectory())!.path;
     print(image);
@@ -55,13 +58,29 @@ class _ImagePainters2State extends State<ImagePainters2> {
     imgFile.writeAsBytesSync(image!);
     print(fullPath.runtimeType);
     _imageList.add(imgFile);
-    draft.punch_issue_Photo_Path.add(path);
-    draft.punch_issue_Photo_Name.add(fileName);
+    draft.punch_issue_Photo_New_Path.add(path);
+    draft.punch_issue_Photo_New_Name.add(fileName);
     print('globals!!!!!!!!!!!!!!!!');
-    print(draft.punch_issue_Photo_Name);
+    print(draft.punch_issue_Photo_New_Name);
 
+    var url2 = Uri.parse('$api/summury/photos');
+
+    await http.post(url2, body: {
+      'punchID': draft.punch_issue_Punch_ID[0],
+      'punchStep': '1',
+      'seq': '${draft.punch_issue_Count + 1}',
+      'localPath':
+          '${draft.punch_issue_Photo_New_Path[0]}${draft.punch_issue_Photo_New_Name[0]}',
+      'imagePath': 'upload/photos/${draft.punch_issue_Photo_New_Name[0]}',
+      'uploaded': '0',
+      'uploadDate': DateTime.now().toString(),
+    });
+    draft.punch_issue_Count += 1;
+    draft.punch_issue_Photo_Path.add(
+        '${draft.punch_issue_Photo_New_Path[0]}${draft.punch_issue_Photo_New_Name[0]}');
+    draft.punch_issue_Photo_Name
+        .add('upload/photos/${draft.punch_issue_Photo_New_Name[0]}');
     Get.back();
-
     // print('간다!');
 // 저장 알림 스낵바
     // ScaffoldMessenger.of(context).showSnackBar(
@@ -130,7 +149,7 @@ class _ImagePainters2State extends State<ImagePainters2> {
               },
               icon: const Icon(Icons.arrow_back_ios_new_sharp),
             ),
-            const Text("Image Painter Example"),
+            // const Text("Image Painter Example"),
           ],
         ),
         backgroundColor: Color(0xff2B3745),
@@ -142,13 +161,16 @@ class _ImagePainters2State extends State<ImagePainters2> {
               saveImage();
             },
           ),
-          // IconButton(
-          //   color: Colors.green,
-          //   onPressed: () {
-          //     _print();
-          //   },
-          //   icon: const Icon(Icons.arrow_back_ios_new_sharp),
-          // ),
+          IconButton(
+            color: Colors.green,
+            onPressed: () {
+              print(draft.punch_issue_Punch_ID[0]);
+              print(draft.punch_issue_Photo_New_Path[0]);
+              print(draft.punch_issue_Photo_New_Name[0]);
+              print(draft.punch_issue_Count);
+            },
+            icon: const Icon(Icons.arrow_back_ios_new_sharp),
+          ),
         ],
       ),
       body: ImagePainter.file(

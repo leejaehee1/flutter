@@ -135,6 +135,8 @@ class _OnTapScreennState extends State<OnTapScreen>
     // draft.punch_issue_Photo_Name = [];
     draft.punch_issue_Photo_Name = [];
     draft.punch_issue_Photo_Path = [];
+    draft.punch_issue_Photo_New_Name = [];
+    draft.punch_issue_Photo_New_Path = [];
     draft.punch_issue_Drawings = [];
     draft.punch_issue_Drawings_File = [];
     draft.punch_issue_Drawings_Path = [];
@@ -155,35 +157,50 @@ class _OnTapScreennState extends State<OnTapScreen>
     });
     var photoPath = jsonDecode(response.body);
     draft.punch_issue_Count = 0;
+    draft.punch_issue_disCount = 0;
     // Map<String, dynamic> jsonData = jsonDecode(response.body);
     print('!!!!!!!!!!!!json!!!!!!!!!!!!!!!!!!!!!!!!');
-    print(photoPath.length);
-    draft.punch_issue_Count = photoPath.length;
+    print(photoPath);
+    draft.punch_issue_Count += photoPath.length as int;
+    draft.punch_issue_disCount += photoPath.length as int;
     print(draft.punch_issue_Count);
-    for (var i = 0; i < photoPath.length; i++) {
-      var imagePath2 = '${photoPath[i]['imagePath']}';
-      draft.punch_issue_Photo_Name.add(imagePath2);
-      photos.photos_Image_Path.add(imagePath2);
-      var imagePath3 = '${photoPath[i]['localPath']}';
-      draft.punch_issue_Photo_Path.add(imagePath3);
-      photos.photos_Local_Path.add(imagePath3);
+    print(draft.punch_issue_disCount);
+    if (photoPath.length > 0) {
+      for (var i = 0; i < photoPath.length; i++) {
+        var imagePath2 = '${photoPath[i]['imagePath']}';
+        draft.punch_issue_Photo_Name.add(imagePath2);
+        photos.photos_Image_Path.add(imagePath2);
+        var imagePath3 = '${photoPath[i]['localPath']}';
+        draft.punch_issue_Photo_Path.add(imagePath3);
+        photos.photos_Local_Path.add(imagePath3);
+      }
+    } else {
+      return null;
     }
+    print('images!!!!!!!!');
+    print(draft.punch_issue_Photo_Path);
+    print('names!!!!!!!!');
+    print(draft.punch_issue_Photo_Name);
     var url2 = Uri.parse('$api/summury/photosload');
     final directory = (await getExternalStorageDirectory())!.path;
-    for (var i = 0; i < photos.photos_Image_Path.length; i++) {
-      var response = await http
-          .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
+    if (photos.photos_Image_Path.length > 0) {
+      for (var i = 0; i < photos.photos_Image_Path.length; i++) {
+        var response = await http
+            .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
 
-      Uint8List jsonData = response.bodyBytes;
-      print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(directory);
-      final image = File(
-          '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
-      print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
-      print(image.runtimeType);
-      image.writeAsBytesSync(jsonData);
+        Uint8List jsonData = response.bodyBytes;
+        print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
+        print(directory);
+        final image = File(
+            '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
+        print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
+        print(image.runtimeType);
+        image.writeAsBytesSync(jsonData);
 
-      draft.punch_issue_Photo.add(image);
+        draft.punch_issue_Photo.add(image);
+      }
+    } else {
+      return null;
     }
 
     print(photos.photos_Image_Path);

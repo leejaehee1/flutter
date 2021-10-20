@@ -298,13 +298,23 @@ class _OntapThreeState extends State<OntapThree> {
                 ),
                 new ElevatedButton(
                   child: new Text("Yes"),
-                  onPressed: () {
+                  onPressed: () async {
                     _imageData.removeAt(index);
                     draft.punch_issue_Photo_Name.removeAt(index);
                     draft.punch_issue_Photo_Path.removeAt(index);
                     draft.punch_issue_Photo = _imageData;
                     print(draft.punch_issue_Photo);
-
+                    if (draft.punch_issue_disCount > 0) {
+                      var url = Uri.parse('$api/summury/deletephotos');
+                      await http.post(url, body: {
+                        'punchID': draft.punch_issue_Punch_ID[0],
+                        'seq': '${index + 1}',
+                      });
+                    } else {
+                      return null;
+                    }
+                    print(draft.punch_issue_Count);
+                    print(draft.punch_issue_disCount);
                     setState(() {});
                     Get.back();
                   },

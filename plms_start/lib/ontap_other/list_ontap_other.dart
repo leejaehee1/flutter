@@ -155,7 +155,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
         // "imagePath": 'upload/drawings/pdfs/8776892-01.png'
       });
       final directory = (await getApplicationSupportDirectory()).path;
-      Uint8List jsonData = response2.bodyBytes;
+      Uint8List jsonData2 = response2.bodyBytes;
       print('!!!!!!!!!!!!json222222222!!!!!!!!!!!!!!!!!!!!!!!!');
       print(directory);
       final image = File(
@@ -163,7 +163,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
           '$directory/${globals.punch_issue_Drawings[0]}}');
       print('!!!!!!!!!!!!image!!!!!!!!!!!!!!!!!!!!!!!!');
       print(image.runtimeType);
-      image.writeAsBytesSync(jsonData);
+      image.writeAsBytesSync(jsonData2);
 
       globals.punch_issue_Drawings_File.add(image);
       print(globals.punch_issue_Drawings_File);
