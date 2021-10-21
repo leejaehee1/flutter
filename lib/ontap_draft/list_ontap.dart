@@ -372,6 +372,9 @@ class _OnTapScreennState extends State<OnTapScreen>
                   draft.punch_issue_Status.removeAt(0);
                   draft.punch_issue_Status.add('1');
                 }
+                draft.punch_issue_Issued_Date = [];
+                draft.punch_issue_Issued_Date
+                    .add(DateTime.now().toString().toString());
                 Get.to(OnTapConfirmPage());
                 // Get.toNamed('/confirm');
               },
@@ -393,6 +396,9 @@ class _OnTapScreennState extends State<OnTapScreen>
                   draft.punch_issue_Status.removeAt(0);
                   draft.punch_issue_Status.add('2');
                 }
+                draft.punch_issue_Issued_Date = [];
+                draft.punch_issue_Issued_Date
+                    .add(DateTime.now().toString().toString());
                 // Get.toNamed('/confirm');
                 Get.to(() => OnTapConfirmPage());
               },

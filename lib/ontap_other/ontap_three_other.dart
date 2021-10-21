@@ -198,42 +198,31 @@ class _OntapThirdState extends State<OntapThird> {
             SizedBox(
               height: 10,
             ),
-            InkWell(
-              onLongPress: () {
-                setState(() {
-                  Get.toNamed("/draft");
-                });
-              },
-              onDoubleTap: () {
-                setState(() {});
-              },
-              child: Container(
-                height: MediaQuery.of(context).size.width - 90,
-                decoration: BoxDecoration(
-                  border: Border.all(),
-                ),
-                child: globals.punch_issue_Drawings_File.length == 1
-                    ? Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          Container(
-                            child: Image.file(
-                              globals.punch_issue_Drawings_File[0],
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          globals.punch_issue_Pixel_X.length == 1
-                              ? Transform.translate(
-                                  offset: Offset(
-                                      globals.punch_issue_Pixel_cdX[0],
-                                      globals.punch_issue_Pixel_cdY[0]),
-                                  child: Icon(Icons.add_location_sharp))
-                              : Container()
-                        ],
-                      )
-                    : null,
+            Container(
+              height: MediaQuery.of(context).size.width - 90,
+              decoration: BoxDecoration(
+                border: Border.all(),
               ),
-            )
+              child: globals.punch_issue_Drawings_File.length == 1
+                  ? Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Container(
+                          child: Image.file(
+                            globals.punch_issue_Drawings_File[0],
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        globals.punch_issue_Pixel_X.length == 1
+                            ? Transform.translate(
+                                offset: Offset(globals.punch_issue_Pixel_cdX[0],
+                                    globals.punch_issue_Pixel_cdY[0]),
+                                child: Icon(Icons.add_location_sharp))
+                            : Container()
+                      ],
+                    )
+                  : null,
+            ),
           ],
         ),
       ),

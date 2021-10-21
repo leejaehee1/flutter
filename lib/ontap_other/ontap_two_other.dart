@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -133,8 +134,8 @@ class _OntapSecondState extends State<OntapSecond> {
                         _dropdownButton(
                             'Raised On', raisedon, issue.qcList, 'raisedBy'),
                         _size15(),
-                        // _dataTime('Target Date'),
-                        // _size15(),
+                        _dataTime('Target Date'),
+                        _size15(),
                         // TaggingButton(name: 'Keyword'),
                         _tagWidget('keyword', _tagTextEditController),
                         SizedBox(
@@ -173,47 +174,47 @@ class _OntapSecondState extends State<OntapSecond> {
   }
 
   // 달력 날짜 선택
-  // Widget _dataTime(String text) {
-  //   return Row(
-  //     children: [
-  //       SizedBox(
-  //         width: Get.width * 1 / 3.6,
-  //         child: Text(text),
-  //       ),
-  //       SizedBox(
-  //         width: Get.width * 2.7 / 5,
-  //         height: Get.height * 1.1 / 25,
-  //         // child: Newbutton(),
-  //         child: DateTimePicker(
-  //           enabled: false,
-  //           dateMask: 'yyyy.MM.dd',
-  //           decoration: InputDecoration(
-  //             contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
-  //             border: OutlineInputBorder(),
-  //             suffixIcon: Icon(Icons.arrow_drop_down),
-  //             isDense: true,
-  //           ),
-  //           initialValue: datas[idx]['targetDate'],
-  //           firstDate: DateTime.now(),
-  //           lastDate: DateTime(2100),
-  //           // dateLabelText: 'Date',
-  //           onChanged: (val) {
-  //             setState(() {
-  //               if (draft.punch_issue_Date.length == 0) {
-  //                 draft.punch_issue_Date.add(val);
-  //               } else {
-  //                 draft.punch_issue_Date.removeAt(0);
-  //                 draft.punch_issue_Date.add(val);
-  //               }
-  //               print('globaldata!!!!!!!!!!');
-  //               print(draft.punch_issue_Date);
-  //             });
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _dataTime(String text) {
+    return Row(
+      children: [
+        SizedBox(
+          width: Get.width * 1 / 3.6,
+          child: Text(text),
+        ),
+        SizedBox(
+          width: Get.width * 2.7 / 5,
+          height: Get.height * 1.1 / 25,
+          // child: Newbutton(),
+          child: DateTimePicker(
+            enabled: false,
+            dateMask: 'yyyy.MM.dd',
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.arrow_drop_down),
+              isDense: true,
+            ),
+            initialValue: datas[idx]['targetDate'],
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2100),
+            // dateLabelText: 'Date',
+            onChanged: (val) {
+              setState(() {
+                if (draft.punch_issue_Date.length == 0) {
+                  draft.punch_issue_Date.add(val);
+                } else {
+                  draft.punch_issue_Date.removeAt(0);
+                  draft.punch_issue_Date.add(val);
+                }
+                print('globaldata!!!!!!!!!!');
+                print(draft.punch_issue_Date);
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
   // 드롭다운버튼 Row
   Widget _dropdownButton(String text, var data1, var data2, String text2) {

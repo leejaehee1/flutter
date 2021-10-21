@@ -25,19 +25,17 @@ class _CompleteComponentState extends State<CompleteComponent> {
       children: [
         _dataWidget('PunchID', data['punchID']),
         _dataWidget('Category', data['category']),
-        SizedBox(
-          width: 20,
-        ),
         _dataWidget('Area', data['area']),
-        SizedBox(
-          width: 20,
-        ),
+        _sized15(),
         _dataWidget('Unit', data['unit']),
+        _sized15(),
         _dataWidget('Tag Number', data['tagNumber']),
+        _sized15(),
         _dataWidget('System', data['systemName']),
+        _sized15(),
         _dataWidget('Sub-system', data['subsystemName']),
         SizedBox(
-          height: 10,
+          height: 30,
         ),
         Container(
           width: 500,
@@ -58,6 +56,12 @@ class _CompleteComponentState extends State<CompleteComponent> {
           ],
         )
       ],
+    );
+  }
+
+  Widget _sized15() {
+    return SizedBox(
+      height: 30,
     );
   }
 

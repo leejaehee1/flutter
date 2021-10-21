@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 // import 'package:get/get.dart';
 // import 'package:plms_start/pages/utils/button_confirm.dart';
 import 'package:plms_start/pages/utils/header_issue.dart';
@@ -24,22 +25,22 @@ class OnTapConfirmPage extends StatefulWidget {
 
 class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
   String punchID = draft.punch_issue_Punch_ID[0];
-  String date = draft.punch_issue_Date.length == 0
-      ? 'date'
-      : draft.punch_issue_Date[0].toString();
+  String date = draft.punch_issue_Issued_Date.length == 0
+      ? ''
+      : draft.punch_issue_Issued_Date[0].toString();
   String issuedBy = draft.punch_issue_Raised_On.length == 0
-      ? 'issuedBy'
+      ? ''
       : draft.punch_issue_Raised_On[0];
   String unit =
-      draft.punch_issue_Unit.length == 0 ? 'unit' : draft.punch_issue_Unit[0];
+      draft.punch_issue_Unit.length == 0 ? '' : draft.punch_issue_Unit[0];
   String area =
-      draft.punch_issue_Area.length == 0 ? 'area' : draft.punch_issue_Area[0];
+      draft.punch_issue_Area.length == 0 ? '' : draft.punch_issue_Area[0];
   String system = '';
 
   String subsystem = '';
 
   String tagnumber = draft.punch_issue_Tag_Number.length == 0
-      ? 'tagnumber'
+      ? ''
       : draft.punch_issue_Tag_Number[0];
 
   String category = draft.punch_issue_Category[0];
@@ -127,7 +128,11 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
                                   ),
                                   _rowData("Punch ID", punchID),
                                   _sizedBox(),
-                                  _rowData("Issued Date", date),
+                                  _rowData(
+                                      "Issued Date",
+                                      DateFormat('yyyy-MM-dd')
+                                          .format(DateTime.parse(date))
+                                          .toString()),
                                   _sizedBox(),
                                   _rowData("Issued By", issuedBy),
                                   SizedBox(

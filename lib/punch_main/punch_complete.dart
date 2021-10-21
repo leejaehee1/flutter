@@ -71,18 +71,20 @@ class _PunchCompleteState extends State<PunchComplete> {
       ),
       body: Column(
         children: [
-          Container(
-            // height: MediaQuery.of(context).size.height * 1.45 / 7,
-            width: MediaQuery.of(context).size.width,
-            color: Color(0xFFE6E6E6),
+          Expanded(
             child: Container(
-              padding: EdgeInsets.all(10),
+              // height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: Color(0xFFE6E6E6),
               child: Container(
-                color: Color(0xff2B3745),
-                // height: 30,
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: _completeComponent(),
+                padding: EdgeInsets.all(10),
+                child: Container(
+                  color: Color(0xff2B3745),
+                  // height: 30,
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: _completeComponent(),
+                  ),
                 ),
               ),
             ),
@@ -583,22 +585,20 @@ class _PunchCompleteState extends State<PunchComplete> {
     return Column(
       children: [
         _dataWidget('PunchID', data['punchID']),
+        _sized15(),
         _dataWidget('Category', data['category']),
-        SizedBox(
-          width: 20,
-        ),
+        _sized15(),
         _dataWidget('Area', data['area'] != null ? data['area'] : ''),
-        SizedBox(
-          width: 20,
-        ),
+        _sized15(),
         _dataWidget('Unit', data['unit'] != null ? data['unit'] : ''),
+        _sized15(),
         _dataWidget(
             'Tag Number', data['tagNumber'] != null ? data['tagNumber'] : ''),
+        _sized15(),
         _dataWidget('System', data['systemName']),
+        _sized15(),
         _dataWidget('Sub-system', data['subsystemName']),
-        SizedBox(
-          height: 10,
-        ),
+        _sized15(),
         Container(
           width: 500,
           child: Divider(
@@ -620,6 +620,12 @@ class _PunchCompleteState extends State<PunchComplete> {
           ],
         )
       ],
+    );
+  }
+
+  Widget _sized15() {
+    return SizedBox(
+      height: 10,
     );
   }
 

@@ -85,8 +85,8 @@ class _ListFileState extends State<ListFile> {
                       top: Get.height * 1 / 80,
                       right: Get.width * 1 / 25,
                       child: SizedBox(
-                        width: Get.width * 1.2 / 7,
-                        height: Get.height * 1 / 45,
+                        width: Get.width * 1 / 4,
+                        height: Get.height * 2 / 60,
                         child: Visibility(
                           visible: login.visible,
                           child: ElevatedButton(

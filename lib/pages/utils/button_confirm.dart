@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
@@ -152,59 +154,71 @@ class _ConfirmButtonState extends State<ConfirmButton> {
               onPressed: () async {
                 print('hi');
                 var url = Uri.parse('$api/summury/confirm');
-
-                await http.post(url, body: _mapData);
+                var dataBody = await http.post(url, body: _mapData);
                 print('보낸다!!!!!!!!');
-
-                var url2 = Uri.parse('$api/summury/photos');
-                if (globals.punch_issue_Photo.length == 1) {
-                  await http.post(url2, body: {
-                    'punchID': globals.punch_issue_Punch_ID[0],
-                    'punchStep': '1',
-                    'seq': '1',
-                    'localPath':
-                        '${globals.punch_issue_Photo_Path[0]}${globals.punch_issue_Photo_Name[0]}',
-                    'imagePath':
-                        'upload/photos/${globals.punch_issue_Photo_Name[0]}',
-                    'uploaded': globals.punch_issue_Switch[0],
-                    'uploadDate': DateTime.now().toString(),
-                  });
-                } else if (globals.punch_issue_Photo.length > 1) {
-                  for (var i = 0; i < globals.punch_issue_Photo.length; i++) {
+                print(dataBody.body);
+                var jsondata = jsonDecode(dataBody.body);
+                if (jsondata['result'] == false) {
+                  Get.defaultDialog(
+                    textCancel: "cancel",
+                    cancelTextColor: Colors.black,
+                    title: 'Error',
+                    titleStyle: TextStyle(color: Colors.red),
+                    middleText:
+                        "There is the same punch ID.\nPlease change the punch ID.",
+                    buttonColor: Colors.white,
+                  );
+                } else {
+                  var url2 = Uri.parse('$api/summury/photos');
+                  if (globals.punch_issue_Photo.length == 1) {
                     await http.post(url2, body: {
                       'punchID': globals.punch_issue_Punch_ID[0],
                       'punchStep': '1',
-                      'seq': '${i + 1}',
+                      'seq': '1',
                       'localPath':
-                          '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Name[i]}',
+                          '${globals.punch_issue_Photo_Path[0]}${globals.punch_issue_Photo_Name[0]}',
                       'imagePath':
-                          'upload/photos/${globals.punch_issue_Photo_Name[i]}',
+                          'upload/photos/${globals.punch_issue_Photo_Name[0]}',
                       'uploaded': globals.punch_issue_Switch[0],
                       'uploadDate': DateTime.now().toString(),
                     });
+                  } else if (globals.punch_issue_Photo.length > 1) {
+                    for (var i = 0; i < globals.punch_issue_Photo.length; i++) {
+                      await http.post(url2, body: {
+                        'punchID': globals.punch_issue_Punch_ID[0],
+                        'punchStep': '1',
+                        'seq': '${i + 1}',
+                        'localPath':
+                            '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Name[i]}',
+                        'imagePath':
+                            'upload/photos/${globals.punch_issue_Photo_Name[i]}',
+                        'uploaded': globals.punch_issue_Switch[0],
+                        'uploadDate': DateTime.now().toString(),
+                      });
+                    }
                   }
-                }
 
-                print('간다!!!!!!!!!!!!!!!!!!!');
-                if (globals.punch_issue_Switch[0] == '1') {
-                  _sendImage();
-                }
-                if (globals.punch_issue_Pixel_X.length == 1) {
-                  var url = Uri.parse('$api/summury/drawingspixel');
+                  print('간다!!!!!!!!!!!!!!!!!!!');
+                  if (globals.punch_issue_Switch[0] == '1') {
+                    _sendImage();
+                  }
+                  if (globals.punch_issue_Pixel_X.length == 1) {
+                    var url = Uri.parse('$api/summury/drawingspixel');
 
-                  await http.post(url, body: {
-                    'drawingNo':
-                        // '8776892-01',
-                        globals.punch_issue_Drawings[0],
-                    'punchID': globals.punch_issue_Punch_ID[0],
-                    'xPixel': globals.punch_issue_Pixel_X[0].toString(),
-                    'yPixel': globals.punch_issue_Pixel_Y[0].toString(),
-                  });
-                  print('draft!!!!!!!!!!!!!');
-                }
+                    await http.post(url, body: {
+                      'drawingNo':
+                          // '8776892-01',
+                          globals.punch_issue_Drawings[0],
+                      'punchID': globals.punch_issue_Punch_ID[0],
+                      'xPixel': globals.punch_issue_Pixel_X[0].toString(),
+                      'yPixel': globals.punch_issue_Pixel_Y[0].toString(),
+                    });
+                    print('draft!!!!!!!!!!!!!');
+                  }
 
-                print('사진저장!!!!!!!!!!!!!!!!!!!');
-                Get.offAllNamed("/success");
+                  print('사진저장!!!!!!!!!!!!!!!!!!!');
+                  Get.offAllNamed("/success");
+                }
               },
               child: Text(widget.buttonname3),
             ),

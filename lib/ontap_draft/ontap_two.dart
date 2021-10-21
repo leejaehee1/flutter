@@ -142,6 +142,8 @@ class _OntapTwoState extends State<OntapTwo> {
                         _dropdownButton(
                             'Raised On', raisedon, issue.qcList, 'raisedBy'),
                         _size15(),
+                        _dataTime('Target Date'),
+                        _size15(),
                         _tagWidget('keyword', _tagTextEditController),
                         SizedBox(
                           height: 30,
@@ -179,46 +181,46 @@ class _OntapTwoState extends State<OntapTwo> {
   }
 
   // 달력 날짜 선택
-  // Widget _dataTime(String text) {
-  //   return Row(
-  //     children: [
-  //       SizedBox(
-  //         width: Get.width * 1 / 3.6,
-  //         child: Text(text),
-  //       ),
-  //       SizedBox(
-  //         width: Get.width * 2.7 / 5,
-  //         height: Get.height * 1.1 / 25,
-  //         // child: Newbutton(),
-  //         child: DateTimePicker(
-  //           dateMask: 'yyyy.MM.dd',
-  //           decoration: InputDecoration(
-  //             contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
-  //             border: OutlineInputBorder(),
-  //             suffixIcon: Icon(Icons.arrow_drop_down),
-  //             isDense: true,
-  //           ),
-  //           initialValue: datas[idx]['targetDate'],
-  //           firstDate: DateTime.now(),
-  //           lastDate: DateTime(2100),
-  //           // dateLabelText: 'Date',
-  //           onChanged: (val) {
-  //             setState(() {
-  //               if (draft.punch_issue_Date.length == 0) {
-  //                 draft.punch_issue_Date.add(val);
-  //               } else {
-  //                 draft.punch_issue_Date.removeAt(0);
-  //                 draft.punch_issue_Date.add(val);
-  //               }
-  //               print('globaldata!!!!!!!!!!');
-  //               print(draft.punch_issue_Date);
-  //             });
-  //           },
-  //         ),
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget _dataTime(String text) {
+    return Row(
+      children: [
+        SizedBox(
+          width: Get.width * 1 / 3.6,
+          child: Text(text),
+        ),
+        SizedBox(
+          width: Get.width * 2.7 / 5,
+          height: Get.height * 1.1 / 25,
+          // child: Newbutton(),
+          child: DateTimePicker(
+            dateMask: 'yyyy.MM.dd',
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.arrow_drop_down),
+              isDense: true,
+            ),
+            initialValue: datas[idx]['targetDate'],
+            firstDate: DateTime.now(),
+            lastDate: DateTime(2100),
+            // dateLabelText: 'Date',
+            onChanged: (val) {
+              setState(() {
+                if (draft.punch_issue_Date.length == 0) {
+                  draft.punch_issue_Date.add(val);
+                } else {
+                  draft.punch_issue_Date.removeAt(0);
+                  draft.punch_issue_Date.add(val);
+                }
+                print('globaldata!!!!!!!!!!');
+                print(draft.punch_issue_Date);
+              });
+            },
+          ),
+        ),
+      ],
+    );
+  }
 
   // Action On, Discipline, Raised On  드롭다운버튼 Row
   Widget _dropdownButton(String text, var data1, var data2, String text2) {
@@ -258,25 +260,36 @@ class _OntapTwoState extends State<OntapTwo> {
                   }
                 }
                 if (text == "Action On") {
-                  draft.punch_issue_Action_On.removeAt(0);
-                  draft.punch_issue_Action_On.add(value.toString());
+                  if (draft.punch_issue_Action_On.length == 0) {
+                    draft.punch_issue_Action_On.add(value.toString());
+                  } else {
+                    draft.punch_issue_Action_On.removeAt(0);
+                    draft.punch_issue_Action_On.add(value.toString());
+                  }
+                  print(draft.punch_issue_Action_On);
                 } else if (text == "Discipline") {
-                  draft.punch_issue_Discipline.removeAt(0);
-                  draft.punch_issue_Discipline.add(value.toString());
+                  if (draft.punch_issue_Discipline.length == 0) {
+                    draft.punch_issue_Discipline.add(value.toString());
+                  } else {
+                    draft.punch_issue_Discipline.removeAt(0);
+                    draft.punch_issue_Discipline.add(value.toString());
+                  }
                 } else if (text == "Raised On") {
-                  draft.punch_issue_Raised_On.removeAt(0);
-                  draft.punch_issue_Raised_On.add(value.toString());
+                  if (draft.punch_issue_Raised_On.length == 0) {
+                    draft.punch_issue_Raised_On.add(value.toString());
+                  } else {
+                    draft.punch_issue_Raised_On.removeAt(0);
+                    draft.punch_issue_Raised_On.add(value.toString());
+                  }
                 }
               },
               selectedItem: text == "Action On" &&
-                      datas[Get.arguments]['department'] != null
+                      datas[idx]['department'] != null
                   ? departmentDraft[0]
-                  : text == "Discipline" &&
-                          datas[Get.arguments]['discipline'] != null
+                  : text == "Discipline" && datas[idx]['discipline'] != null
                       ? disciplineDraft[0]
-                      : text == 'Raised On' &&
-                              datas[Get.arguments]['raisedBy'] != null
-                          ? datas[Get.arguments]['raisedBy']
+                      : text == 'Raised On' && datas[idx]['raisedBy'] != null
+                          ? datas[idx]['raisedBy']
                           : ''),
         ),
       ],

@@ -71,8 +71,9 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
 
     draft.punch_issue_Photo = [];
     photos.photos_Image_Path = [];
-
+    print('photos');
     _photoPath();
+    print('Rmx');
     super.initState();
   }
 
@@ -83,6 +84,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
   String userID = login.userID[0];
 
   Future<void> _photoPath() async {
+    print('start');
     var url = Uri.parse('$api/summury/photospath');
     var response = await http.post(url, body: {
       'punchID': datas[idx]['punchID'],
@@ -92,17 +94,22 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       var imagePath2 = '${photoPath[i]['imagePath']}';
       photos.photos_Image_Path.add(imagePath2);
     }
-
+    print(photos.photos_Image_Path);
+    print('middle');
     var url2 = Uri.parse('$api/summury/photosload');
     final directory = (await getApplicationDocumentsDirectory()).path;
+    print('middle222');
     for (var i = 0; i < photos.photos_Image_Path.length; i++) {
       var response = await http
           .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
+      print(response.body);
       Uint8List jsonData = response.bodyBytes;
+
       final image = File(
           '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
       image.writeAsBytesSync(jsonData);
       draft.punch_issue_Photo.add(image);
+      print('middle$i');
     }
 
     globals.punch_issue_Drawings_File = [];
@@ -112,8 +119,9 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       'systemID': datas[idx]['systemID'],
       'subsystem': datas[idx]['subsystem'],
     });
-
+    print('drawing');
     var jsonDatas = jsonDecode(response3.body);
+    print(jsonDatas);
     if (jsonDatas.length == 0) {
       return null;
     } else {
@@ -140,6 +148,16 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       globals.punch_issue_Drawings_File.add(image);
       setState(() {});
     }
+
+    var url4 = Uri.parse('$api/summury/drawingspath/');
+    var response4 = await http.post(url3, body: {
+      'projectID': issue.projectList[0],
+      'systemID': datas[idx]['systemID'],
+      'subsystem': datas[idx]['subsystem'],
+    });
+    print('drawing');
+    var jsonDatass = jsonDecode(response4.body);
+    print(jsonDatas);
   }
 
   @override

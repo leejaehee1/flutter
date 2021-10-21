@@ -388,10 +388,11 @@ class _PageThreeState extends State<PageThree> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: Get.width * 1 / 3,
+                  width: Get.width * 1 / 2.7,
                   height: Get.height * 1 / 30,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xff8ab898), padding: EdgeInsets.all(0)),
                     onPressed: () async {
                       globals.punch_issue_Drawings_File = [];
                       var url = Uri.parse('$api/summury/drawingspath/');
@@ -451,10 +452,11 @@ class _PageThreeState extends State<PageThree> {
                 ),
 
                 Container(
-                  width: Get.width * 1 / 4.1,
+                  width: Get.width * 1 / 3.5,
                   height: Get.height * 1 / 30,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(primary: Color(0xff8ab898)),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xff8ab898), padding: EdgeInsets.all(0)),
                     onPressed: () {
                       Get.toNamed("/draft");
                       // Get.to(() => DraftPage2());

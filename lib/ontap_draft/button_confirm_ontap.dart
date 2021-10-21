@@ -77,7 +77,7 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
     draft.punch_issue_Action_On,
     draft.punch_issue_Date,
     login.userID,
-    DateTime.now().toString(),
+    draft.punch_issue_Issued_Date,
     draft.punch_issue_Raised_On,
     draft.punch_issue_Design,
     draft.punch_issue_Material,
@@ -182,7 +182,10 @@ class _OnTapConfirmButtonState extends State<OnTapConfirmButton> {
                     });
                   }
                 }
-                _sendImage();
+                if (draft.punch_issue_Photo.length > 0) {
+                  _sendImage();
+                }
+
                 print('간다!!!!!!!!!!!!!!!!!!!');
 
                 Get.offAllNamed("/home");
