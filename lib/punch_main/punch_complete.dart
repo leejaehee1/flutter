@@ -69,6 +69,7 @@ class _PunchCompleteState extends State<PunchComplete> {
           title: AppLocalizations.of(context)!.completeTitle,
         ),
       ),
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Expanded(

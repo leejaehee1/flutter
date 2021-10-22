@@ -81,6 +81,12 @@ class _ConfirmButtonState extends State<ConfirmButton> {
   List _keyword = globals.punch_issue_Keyword;
   Map<String, String> _mapData = {};
 
+  String projectID = issue.projectList[0];
+  String punchID = globals.punch_issue_Punch_ID.length == 0
+      ? 'PunchID'
+      : globals.punch_issue_Punch_ID[0];
+  String userID = login.userID[0];
+
   @override
   void initState() {
     print('start');
@@ -176,9 +182,9 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                       'punchStep': '1',
                       'seq': '1',
                       'localPath':
-                          '${globals.punch_issue_Photo_Path[0]}${globals.punch_issue_Photo_Name[0]}',
+                          '${globals.punch_issue_Photo_Path[0]}${projectID}_${punchID}_${userID}_${globals.punch_issue_Photo_Name[0]}',
                       'imagePath':
-                          'upload/photos/${globals.punch_issue_Photo_Name[0]}',
+                          'upload/photos/${projectID}_${punchID}_${userID}_${globals.punch_issue_Photo_Name[0]}',
                       'uploaded': globals.punch_issue_Switch[0],
                       'uploadDate': DateTime.now().toString(),
                     });
@@ -189,9 +195,9 @@ class _ConfirmButtonState extends State<ConfirmButton> {
                         'punchStep': '1',
                         'seq': '${i + 1}',
                         'localPath':
-                            '${globals.punch_issue_Photo_Path[i]}${globals.punch_issue_Photo_Name[i]}',
+                            '${globals.punch_issue_Photo_Path[i]}${projectID}_${punchID}_${userID}_${globals.punch_issue_Photo_Name[i]}',
                         'imagePath':
-                            'upload/photos/${globals.punch_issue_Photo_Name[i]}',
+                            'upload/photos/${projectID}_${punchID}_${userID}_${globals.punch_issue_Photo_Name[i]}',
                         'uploaded': globals.punch_issue_Switch[0],
                         'uploadDate': DateTime.now().toString(),
                       });
@@ -238,7 +244,8 @@ class _ConfirmButtonState extends State<ConfirmButton> {
       request.files.add(await http.MultipartFile.fromPath(
         'imgFile',
         imageFileList[i].path,
-        filename: imageName[i].toString(),
+        filename:
+            '${globals.punch_issue_Photo_Path[i]}${projectID}_${punchID}_${userID}_${imageName[i]}',
         contentType: new MediaType('image', 'png'),
       ));
     }

@@ -43,6 +43,9 @@ class _ImagePaintersState extends State<ImagePainters> {
     final path = '$directory/sample/';
     final fileName =
         '${projectID}_${punchID}_${userID}_${DateTime.now().millisecondsSinceEpoch}.png';
+    final dataName = '${DateTime.now().millisecondsSinceEpoch}.png';
+    print(fileName);
+    print(dataName);
     final fullPath = path + fileName;
     final imgFile = File('$fullPath');
     print(imgFile.runtimeType);
@@ -50,7 +53,7 @@ class _ImagePaintersState extends State<ImagePainters> {
     print(fullPath.runtimeType);
     _imageList.add(imgFile);
     globals.punch_issue_Photo_Path.add(path);
-    globals.punch_issue_Photo_Name.add(fileName);
+    globals.punch_issue_Photo_Name.add(dataName);
     print('globals!!!!!!!!!!!!!!!!');
     print(globals.punch_issue_Photo_Name);
     Get.back();

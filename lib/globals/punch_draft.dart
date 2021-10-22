@@ -38,8 +38,8 @@ List punch_issue_Photo_New_Path = [];
 List punch_issue_Drawings = [];
 List punch_issue_Drawings_Path = [];
 List punch_issue_Drawings_File = [];
-List punch_issue_Pixel_X = [];
-List punch_issue_Pixel_Y = [];
+List<double> punch_issue_Pixel_X = [];
+List<double> punch_issue_Pixel_Y = [];
 List punch_issue_Switch = ['1'];
 
 // status

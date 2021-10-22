@@ -73,6 +73,17 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
     photos.photos_Image_Path = [];
     print('photos');
     _photoPath();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      _photoDatas();
+    });
+    Future.delayed(const Duration(milliseconds: 1300), () {
+      _drawingsDatas();
+    });
+
+    Future.delayed(const Duration(milliseconds: 1600), () {
+      _drawingPath();
+    });
+
     print('Rmx');
     super.initState();
   }
@@ -84,34 +95,22 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
   String userID = login.userID[0];
 
   Future<void> _photoPath() async {
-    print('start');
+    print('start!!!!!!!!!!');
     var url = Uri.parse('$api/summury/photospath');
     var response = await http.post(url, body: {
       'punchID': datas[idx]['punchID'],
     });
     var photoPath = jsonDecode(response.body);
+    print(photoPath);
     for (var i = 0; i < photoPath.length; i++) {
       var imagePath2 = '${photoPath[i]['imagePath']}';
       photos.photos_Image_Path.add(imagePath2);
     }
     print(photos.photos_Image_Path);
     print('middle');
-    var url2 = Uri.parse('$api/summury/photosload');
-    final directory = (await getApplicationDocumentsDirectory()).path;
-    print('middle222');
-    for (var i = 0; i < photos.photos_Image_Path.length; i++) {
-      var response = await http
-          .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
-      print(response.body);
-      Uint8List jsonData = response.bodyBytes;
+  }
 
-      final image = File(
-          '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
-      image.writeAsBytesSync(jsonData);
-      draft.punch_issue_Photo.add(image);
-      print('middle$i');
-    }
-
+  Future<void> _drawingsDatas() async {
     globals.punch_issue_Drawings_File = [];
     var url3 = Uri.parse('$api/summury/drawingspath/');
     var response3 = await http.post(url3, body: {
@@ -134,6 +133,7 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
         globals.punch_issue_Drawings.add(jsonDatas[0]['drawingNo']);
         globals.punch_issue_Drawings_Path.add(jsonDatas[0]['imagePath']);
       }
+      print(globals.punch_issue_Drawings);
       var url2 = Uri.parse('$api/summury/drawingsload');
       var response2 = await http.get(url2, headers: {
         "imagePath": globals.punch_issue_Drawings_Path[0]
@@ -148,16 +148,51 @@ class _OnTapPageState extends State<OnTapPage> with TickerProviderStateMixin {
       globals.punch_issue_Drawings_File.add(image);
       setState(() {});
     }
+  }
 
-    var url4 = Uri.parse('$api/summury/drawingspath/');
-    var response4 = await http.post(url3, body: {
-      'projectID': issue.projectList[0],
-      'systemID': datas[idx]['systemID'],
-      'subsystem': datas[idx]['subsystem'],
-    });
-    print('drawing');
-    var jsonDatass = jsonDecode(response4.body);
-    print(jsonDatas);
+  Future<void> _photoDatas() async {
+    print(photos.photos_Image_Path);
+    var url2 = Uri.parse('$api/summury/photosload');
+    final directory = (await getApplicationDocumentsDirectory()).path;
+    print('middle222');
+
+    for (var i = 0; i < photos.photos_Image_Path.length; i++) {
+      var response = await http
+          .get(url2, headers: {"imagePath": photos.photos_Image_Path[i]});
+      print(response.body);
+      Uint8List jsonData = response.bodyBytes;
+      print('middle333');
+      final image = File(
+          '$directory/${projectID}_${punchID}_${userID}_${photos.photos_Image_Path[i].substring(14)}');
+      image.writeAsBytesSync(jsonData);
+      draft.punch_issue_Photo.add(image);
+      // print(draft.punch_issue_Photo);
+    }
+  }
+
+  Future<void> _drawingPath() async {
+    draft.punch_issue_Pixel_X = [];
+    draft.punch_issue_Pixel_Y = [];
+    var url4 = Uri.parse('$api/summury/pixelload/');
+    if (globals.punch_issue_Drawings.length > 0) {
+      var response4 = await http.post(url4, body: {
+        'punchID': datas[idx]['punchID'],
+        'drawingNo': globals.punch_issue_Drawings[0],
+      });
+      print('drawing');
+      var jsonDatass = jsonDecode(response4.body);
+      if (jsonDatass.length != 0) {
+        for (var i = 0; i < jsonDatass.length; i++) {
+          draft.punch_issue_Pixel_X.add(double.parse(jsonDatass[i]['xPixel']));
+          draft.punch_issue_Pixel_Y.add(double.parse(jsonDatass[i]['yPixel']));
+          print(draft.punch_issue_Pixel_X);
+        }
+      }
+    }
+
+    // print(jsonDatass[0]);
+
+    setState(() {});
   }
 
   @override

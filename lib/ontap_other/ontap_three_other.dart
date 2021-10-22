@@ -27,6 +27,8 @@ class OntapThird extends StatefulWidget {
 }
 
 class _OntapThirdState extends State<OntapThird> {
+  // double _pixelX = draft.punch_issue_Pixel_X[0];
+  // double _pixelY = draft.punch_issue_Pixel_Y[0];
   @override
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
@@ -193,6 +195,23 @@ class _OntapThirdState extends State<OntapThird> {
                   width: Get.width * 1 / 4.1,
                   height: Get.height * 1 / 30,
                 ),
+                // Container(
+                //   width: Get.width * 1 / 3.5,
+                //   height: Get.height * 1 / 30,
+                //   child: ElevatedButton(
+                //     style: ElevatedButton.styleFrom(
+                //         primary: Color(0xff8ab898), padding: EdgeInsets.all(0)),
+                //     onPressed: () {
+                //       setState(() {
+                //         print(draft.punch_issue_Pixel_X.length);
+                //       });
+                //     },
+                //     child: Text(
+                //       "Location",
+                //       style: TextStyle(fontSize: 13),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             SizedBox(
@@ -213,10 +232,11 @@ class _OntapThirdState extends State<OntapThird> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        globals.punch_issue_Pixel_X.length == 1
+                        draft.punch_issue_Pixel_X.length == 1
                             ? Transform.translate(
-                                offset: Offset(globals.punch_issue_Pixel_cdX[0],
-                                    globals.punch_issue_Pixel_cdY[0]),
+                                offset: Offset(
+                                    draft.punch_issue_Pixel_X[0] * 50,
+                                    draft.punch_issue_Pixel_Y[0] * 50),
                                 child: Icon(Icons.add_location_sharp))
                             : Container()
                       ],
