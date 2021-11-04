@@ -32,8 +32,8 @@ class _PageTwoState extends State<PageTwo> {
   List discipline = issue.disciplineNameList;
   List raisedon = issue.qcList;
 
-  List actiononStart = [];
-  List disciplineStart = [];
+  List actiononStart = [issue.deptNameList[0]];
+  List disciplineStart = [issue.disciplineNameList[0]];
   List raisedonStart = [];
 
   bool isSwitch2 = continues.punch_issue_Material.length == 0
@@ -69,24 +69,30 @@ class _PageTwoState extends State<PageTwo> {
       for (var i = 0; i < actionon.length; i++) {
         if (continues.punch_issue_Action_On[0] == issue.deptList[i]) {
           setState(() {
-            actiononStart.add(actionon[i]);
+            if (actiononStart.length != 0) {
+              actiononStart = [];
+              actiononStart.add(actionon[i]);
+            } else {
+              actiononStart.add(actionon[i]);
+            }
           });
         }
       }
-    } else {
-      actiononStart.add('');
     }
     if (continues.punch_issue_Discipline.length != 0 &&
         continues.punch_issue_Discipline[0] != null) {
       for (var i = 0; i < discipline.length; i++) {
         if (continues.punch_issue_Discipline[0] == issue.disciplineList[i]) {
           setState(() {
-            disciplineStart.add(discipline[i]);
+            if (disciplineStart.length != 0) {
+              disciplineStart = [];
+              disciplineStart.add(discipline[i]);
+            } else {
+              disciplineStart.add(discipline[i]);
+            }
           });
         }
       }
-    } else {
-      disciplineStart.add('');
     }
     if (continues.punch_issue_Raised_On.length != 0 &&
         continues.punch_issue_Raised_On[0] != null) {

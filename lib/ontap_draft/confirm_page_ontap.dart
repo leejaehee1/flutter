@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -47,6 +49,12 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
 
   @override
   void initState() {
+    _imageData = [];
+    if (draft.punch_issue_Photo.length > 0) {
+      for (var i = 0; i < draft.punch_issue_Photo.length; i++) {
+        _imageData.add(draft.punch_issue_Photo[i]);
+      }
+    }
     for (var i = 0; i < issue.systemsList.length; i++) {
       if (issue.systemsList[i] == draft.punch_issue_System[0]) {
         system = issue.systemsNameList[i];
@@ -65,131 +73,132 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
   Widget build(BuildContext context) {
     var radius = Radius.circular(10);
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Header(
-              title: "Punch Issue",
-            ),
-            Expanded(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 4 / 7,
-                color: Color(0xFFE6E6E6),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Column(
+      appBar: AppBar(
+        backgroundColor: Color(0xff2B3745),
+        automaticallyImplyLeading: false,
+        title: Header(
+          title: "Punch Issue",
+        ),
+      ),
+      body: ListView(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            color: Color(0xFFE6E6E6),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Row(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Color(0xffB7C5B9),
+                          borderRadius: BorderRadius.only(
+                              topLeft: radius, bottomLeft: radius),
+                        ),
+                        height: Get.height * 7.5 / 9,
+                        width: Get.width * 1 / 50,
+                      ),
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        height: Get.height * 7.5 / 9,
+                        width: Get.width - Get.width * 0.83 / 8,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.only(
+                              topRight: radius, bottomRight: radius),
+                          boxShadow: [
+                            BoxShadow(
                               color: Color(0xffB7C5B9),
-                              borderRadius: BorderRadius.only(
-                                  topLeft: radius, bottomLeft: radius),
+                              offset: Offset(0, 0.3),
                             ),
-                            height:
-                                MediaQuery.of(context).size.height * 6.6 / 9,
-                            width: Get.width * 1 / 50,
-                          ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            height:
-                                MediaQuery.of(context).size.height * 6.6 / 9,
-                            width: Get.width - Get.width * 0.83 / 8,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topRight: radius, bottomRight: radius),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0xffB7C5B9),
-                                  offset: Offset(0, 0.3),
-                                ),
-                              ],
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Punch Issue Confirmation",
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  _sizedBox(),
-                                  Text(
-                                    "Plsease confirm Punch Issue",
-                                    style: TextStyle(
-                                        fontSize: 12, color: Colors.grey),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  _rowData("Punch ID", punchID),
-                                  _sizedBox(),
-                                  _rowData(
-                                      "Issued Date",
-                                      DateFormat('yyyy-MM-dd')
-                                          .format(DateTime.parse(date))
-                                          .toString()),
-                                  _sizedBox(),
-                                  _rowData("Issued By", issuedBy),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(10),
-                                    // height: Get.height * 2.3 / 9,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(color: Colors.grey)),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        _rowData2('Unit', unit),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        _rowData2('Area', area),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        _colData(
-                                          'System',
-                                          system,
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        _colData('Sub-system', subsystem),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        _rowData2(
-                                          'Tag Number',
-                                          tagnumber,
-                                        ),
-                                        SizedBox(
-                                          height: 20,
-                                        ),
-                                        _rowData2('Category', category),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Punch Issue Confirmation",
+                                style: TextStyle(fontSize: 20),
                               ),
-                            ),
+                              _sizedBox(),
+                              Text(
+                                "Plsease confirm Punch Issue",
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.grey),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              _rowData("Punch ID", punchID),
+                              _sizedBox(),
+                              _rowData(
+                                  "Issued Date",
+                                  DateFormat('yyyy-MM-dd')
+                                      .format(DateTime.parse(date))
+                                      .toString()),
+                              _sizedBox(),
+                              _rowData("Issued By", issuedBy),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                // height: Get.height * 2.3 / 9,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _rowData2('Unit', unit),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    _rowData2('Area', area),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    _colData(
+                                      'System',
+                                      system,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    _colData('Sub-system', subsystem),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    _rowData2(
+                                      'Tag Number',
+                                      tagnumber,
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    _rowData2('Category', category),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    _imagePicker(),
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
-                ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
       bottomNavigationBar: OnTapConfirmButton(
           buttonname1: "Back", buttonname2: "Cancel", buttonname3: "Confirm"),
@@ -256,4 +265,46 @@ class _OnTapConfirmPageState extends State<OnTapConfirmPage> {
       ],
     );
   }
+}
+
+List _imageData = [];
+bool status = true;
+Widget _imagePicker() {
+  return Container(
+    decoration: BoxDecoration(color: Colors.white),
+    height: Get.height * 1 / 6.5,
+    width: Get.width,
+    child: Column(
+      children: [
+        // _swichWidget('Upload Images now'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Photo',
+              style: TextStyle(color: Colors.grey),
+            ),
+          ],
+        ),
+        // 이미지 저장 및 보기
+        Expanded(
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3),
+            itemCount: _imageData.length,
+            itemBuilder: (BuildContext context, int index) {
+              return Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: Image.file(
+                  // File(_imageList[index].path),
+                  File(_imageData[index].path),
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    ),
+  );
 }

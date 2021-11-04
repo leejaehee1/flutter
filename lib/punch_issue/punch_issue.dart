@@ -121,13 +121,13 @@ class _PunchScreenState extends State<PunchScreen>
     continues.punch_issue_Discipline.length == 1
         ? globals.punch_issue_Discipline
             .add(continues.punch_issue_Discipline[0])
-        : globals.punch_issue_Discipline = [];
+        : globals.punch_issue_Discipline = [issue.disciplineList[0]];
     continues.punch_issue_Status.length == 1
         ? globals.punch_issue_Status.add(continues.punch_issue_Status[0])
         : globals.punch_issue_Status = [];
     continues.punch_issue_Action_On.length == 1
         ? globals.punch_issue_Action_On.add(continues.punch_issue_Action_On[0])
-        : globals.punch_issue_Action_On = [];
+        : globals.punch_issue_Action_On = [issue.deptList[0]];
     continues.punch_issue_Date.length == 1
         ? globals.punch_issue_Date.add(continues.punch_issue_Date[0])
         : globals.punch_issue_Date = [];
