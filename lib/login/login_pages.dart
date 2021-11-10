@@ -5,6 +5,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:permission_handler/permission_handler.dart';
+
 
 import '../globals/login.dart' as login;
 
@@ -42,9 +44,23 @@ class _LoginPageState extends State<LoginPage> {
     login.company = [];
     login.personalID = [];
     login.department = [];
-    print('login start!!!!!!!!!!!');
+    _getStatuses();
+    print('flutter login????????????');
     super.initState();
   }
+
+  Future<bool> _getStatuses() async {
+    Map<Permission, PermissionStatus> statuses =
+    await [Permission.storage, Permission.camera].request();
+
+    if (await Permission.camera.isGranted &&
+        await Permission.storage.isGranted) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
+
 
   @override
   void dispose() {
