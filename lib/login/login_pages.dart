@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:permission_handler/permission_handler.dart';
 
-
 import '../globals/login.dart' as login;
 
 // import 'package:google_fonts/google_fonts.dart';
@@ -51,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<bool> _getStatuses() async {
     Map<Permission, PermissionStatus> statuses =
-    await [Permission.storage, Permission.camera].request();
+        await [Permission.storage, Permission.camera].request();
 
     if (await Permission.camera.isGranted &&
         await Permission.storage.isGranted) {
@@ -60,7 +59,6 @@ class _LoginPageState extends State<LoginPage> {
       return Future.value(false);
     }
   }
-
 
   @override
   void dispose() {
@@ -73,8 +71,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     headerTopZone = Get.mediaQuery.padding.top;
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Stack(
+        // resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+      child: Stack(
         children: [
           _background(),
           Positioned(
@@ -102,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ],
       ),
-    );
+    ));
   }
 
   // 배경화면

@@ -349,7 +349,11 @@ class _ModifyPageState extends State<ModifyPage> {
             enabled: isManager,
             dropDownButton: Icon(null),
             dropdownSearchBaseStyle: TextStyle(fontSize: 17),
-            selectedItem: isManager == false ? '' : deptList[0],
+            selectedItem: isManager == false
+                ? ''
+                : deptList.length == 0
+                    ? ''
+                    : deptList[0],
             mode: Mode.MENU,
             items: deptName,
             showSelectedItem: true,

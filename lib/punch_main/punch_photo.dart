@@ -37,13 +37,8 @@ class _PhotoListState extends State<PhotoList> {
 
   @override
   void initState() {
-    print('start!!!!!!!!!!!!');
     _photoListData();
 
-    print(photos.photos_Image_Path.length);
-    print(photos.photos_Image_Path);
-    print(imageFileList.length);
-    print(imageFileList);
     // print(photos.photos_Image_Path[1].substring(14).toString());
     super.initState();
   }
@@ -61,19 +56,6 @@ class _PhotoListState extends State<PhotoList> {
         data += loadPunch;
       }
       setState(() {});
-      print('끝!!!!!!!!!!!!');
-      // if (mounted)
-      //   this.setState(() {
-      //     for (int i = 0; i < loadPunch.length; i++) {
-      //       photos.photos_category += [loadPunch[i]['category']];
-      //       photos.photos_discipline += [loadPunch[i]['discipline']];
-      //       photos.photos_unit += [loadPunch[i]['unit']];
-      //       photos.photos_area += [loadPunch[i]['area']];
-      //       photos.photos_systemName += [loadPunch[i]['systemID']];
-      //       // issue.systemsDataList.add(
-      //       //     "${qc[i]['userName'].toString()}\n${qc[i]['systemName'].toString()}");
-      //     }
-      //   });
     }
   }
 

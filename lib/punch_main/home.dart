@@ -79,8 +79,6 @@ class _HomeState extends State<Home> {
     );
 
     var category = jsonDecode(categoryResponse.body);
-    print(category.runtimeType);
-    print(category[0]['category']);
     int len = category.length;
     if (mounted)
       this.setState(() {
@@ -97,7 +95,6 @@ class _HomeState extends State<Home> {
     );
 
     var systems = jsonDecode(systemsResponse.body);
-    print(systems[0]['systems']);
     int len2 = systems.length;
     // dispose();
     if (mounted)
@@ -115,7 +112,6 @@ class _HomeState extends State<Home> {
     );
 
     var subsystem = jsonDecode(subsystemResponse.body);
-    print(subsystem[0]['subsystem']);
     int len3 = subsystem.length;
     // dispose();
     if (mounted)
@@ -133,7 +129,6 @@ class _HomeState extends State<Home> {
     );
 
     var discipline = jsonDecode(disciplineResponse.body);
-    print(discipline[0]['discipline']);
     int len4 = discipline.length;
     if (mounted)
       this.setState(() {
@@ -150,7 +145,6 @@ class _HomeState extends State<Home> {
     );
 
     var unit = jsonDecode(unitResponse.body);
-    print(unit[0]['unit']);
     int len5 = unit.length;
     if (mounted)
       this.setState(() {
@@ -167,7 +161,6 @@ class _HomeState extends State<Home> {
     );
 
     var area = jsonDecode(areaResponse.body);
-    print(unit[0]['area']);
     int len6 = area.length;
     if (mounted)
       this.setState(() {
@@ -220,7 +213,6 @@ class _HomeState extends State<Home> {
         .get(Uri.parse("$api/summury/project/"), headers: {'userID': userIDs});
 
     var pj = jsonDecode(pjResponse.body);
-    print('pj!!!!!!!!!!!!!$pj');
     int len9 = pj.length;
     // dispose();
     if (mounted)
@@ -236,7 +228,7 @@ class _HomeState extends State<Home> {
     var photoResponse = await http.get(Uri.parse("$api/summury/loadphotos/"));
 
     var photo = jsonDecode(photoResponse.body);
-    print('photo!!!!!!!!!!!!!$photo');
+
     int len10 = photo.length;
     // dispose();
     if (mounted)
@@ -252,20 +244,12 @@ class _HomeState extends State<Home> {
         }
       });
 
-    print('되냐!!!!!!!!!!!!!!!!!!');
-    print(photos.photos_Punch_ID);
-    print(photos.photos_Local_Path.length);
-    print(photos.photos_Image_Path.length);
-    print('중간!!!!!!!!!!!!!!');
     if (authority == "3") {
       var uriResponse = await http.get(
         Uri.parse("$api/summury/sqlall/"),
       );
       var sqlall = jsonDecode(uriResponse.body);
-      print(json.runtimeType);
-      print('요기요');
-      // sqlall += json;
-      print("sqlall[0]: ${sqlall[0]}");
+
       if (mounted)
         setState(() {
           for (int i = 0; i < sqlall.length; i++) {
@@ -280,17 +264,9 @@ class _HomeState extends State<Home> {
             } else if (sqlall[i]['status'] == '6') {
               login.closeList += [sqlall[i]];
             }
-
-            print('되냐?');
-            print("draftList: ${login.draftList}");
-            print("openList: ${login.openList}");
-            print("reqList: ${login.reqList}");
-            print("closeList: ${login.closeList}");
-            print("id: ${login.userID}");
-            print('된다! 된다!');
           }
         });
-      print('sqlall!!!!!!!!!!!!!!!!!!!!!!!!!');
+
       Get.offAll(() => ScreenList());
     } else if (authority == "1") {
       var url = Uri.parse('$api/summury/sqlassi/');
@@ -318,16 +294,8 @@ class _HomeState extends State<Home> {
             } else if (sqlassi[i]['status'] == '6') {
               login.closeList += [sqlassi[i]];
             }
-            print('되냐?');
-            print("draftList: ${login.draftList}");
-            print("openList: ${login.openList}");
-            print("reqList: ${login.reqList}");
-            print("closeList: ${login.closeList}");
-            print("id: ${login.userID}");
-            print('된다! 된다!');
           }
         });
-      print('sqlassi!!!!!!!!!!!!!!!!!!!!!!!!!');
       Get.offAll(() => ScreenList());
     } else {
       var url = Uri.parse('$api/summury/sqlqc/');
@@ -350,20 +318,10 @@ class _HomeState extends State<Home> {
             } else if (sqlqc[i]['status'] == '6') {
               login.closeList += [sqlqc[i]];
             }
-
-            print('되냐?');
-            print("draftList: ${login.draftList}");
-            print("openList: ${login.openList}");
-            print("reqList: ${login.reqList}");
-            print("closeList: ${login.closeList}");
-            print("id: ${login.userID}");
-            print('된다! 된다!');
           }
         });
-      print('qc!!!!!!!!!!!!!!!!!!!!!!!!!');
       Get.offAll(() => ScreenList());
     }
-    print('끝!!!!!!!!!!!!!!!!!!');
   }
 
   @override

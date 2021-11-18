@@ -83,14 +83,16 @@ class _ImagePaintersState extends State<ImagePainters> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return Dialog(
+            child: Container(
+          padding: EdgeInsets.all(7),
           child: new Row(
-            mainAxisSize: MainAxisSize.min,
             children: [
               new CircularProgressIndicator(),
+              SizedBox(width: 10),
               new Text("Loading"),
             ],
           ),
-        );
+        ));
       },
     );
   }
@@ -126,7 +128,7 @@ class _ImagePaintersState extends State<ImagePainters> {
               },
               icon: const Icon(Icons.arrow_back_ios_new_sharp),
             ),
-            const Text("Image Painter Example"),
+            const Text("Image Painter"),
           ],
         ),
         backgroundColor: Color(0xff2B3745),
